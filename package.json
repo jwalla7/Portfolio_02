@@ -12,6 +12,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.0.9",
     "lint-staged": "^13.2.2",
     "next": "13.4.3",
     "npm": "^9.6.7",

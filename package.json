@@ -37,7 +37,7 @@
     "typescript": "5.0.4"
   },
   "lint-staged": {
-    "src/**/*.{js,mjs,ts,tsx}": "eslint",
-    "src/**/*.{js,mjs,scss,ts,tsx, yml, yaml}": "prettier --write --ignore-unknown"
+    "*.{js,mjs,ts,tsx}": "eslint --cache --fix",
+    "*.{js,mjs,scss,ts,tsx, yml, yaml}": "prettier --write --ignore-unknown"
   }
 }

@@ -4,7 +4,7 @@
     "incremental": true,
     /* Language and Environment */
     "target": "es5",
-    "jsx": "react",
+    "jsx": "preserve",
     "lib": [
       "dom",
       "dom.iterable",
@@ -30,7 +30,6 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     /* Type Checking */

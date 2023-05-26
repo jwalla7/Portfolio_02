@@ -9,10 +9,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint '**/*.{js,mjs,ts,tsx}'",
+    "lint": "eslint '*.{js,mjs,ts,tsx}'",
     "prepare": "husky install",
-    "prettier": "prettier -w \"**/*.{js,mjs,ts,tsx,scss,yml,yaml}\"",
-    "prettier-check": "prettier -c \"**/*.{js,mjs,ts,tsx,scss,yml,yaml}\""
+    "prettier": "prettier -w \"*.{js,mjs,ts,tsx,scss,yml,yaml}\"",
+    "prettier-check": "prettier -c \"*.{js,mjs,ts,tsx,scss,yml,yaml}\""
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.0.9",

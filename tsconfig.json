@@ -22,11 +22,10 @@
     /* Modules */
     "paths": {
       "@/*": [
-        "./src/*"
+        "./*"
       ]
     },
     "module": "esnext",
-    "rootDir": "./src",
     "moduleResolution": "node",
     "baseUrl": ".",
     "esModuleInterop": true,

@@ -15,9 +15,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint '**/*.{js,mjs,ts,tsx}'",
-    "prepare": "husky install",
     "prettier": "prettier -w \"*.{js,mjs,ts,tsx,scss,yml,yaml}\"",
-    "prettier-check": "prettier -c \"*.{js,mjs,ts,tsx,scss,yml,yaml}\""
+    "prettier-check": "prettier -c \"*.{js,mjs,ts,tsx,scss,yml,yaml}\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.0.9",
@@ -45,11 +45,7 @@
     "typescript": "5.0.4"
   },
   "lint-staged": {
-    "*.{js,mjs,ts,tsx,yml,yaml}": [
-      "eslint --cache --fix"
-    ],
-    "*.{js,mjs,scss,ts,tsx,yml,yaml}": [
-      "prettier --write"
-    ]
+    "*.{js,mjs,ts,tsx}": "eslint",
+    "*.{js,mjs,scss,ts,tsx,yml,yaml}": "prettier --write"
   }
 }

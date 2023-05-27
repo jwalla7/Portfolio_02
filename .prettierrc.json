@@ -1,5 +1,17 @@
 {
     "extends": [
         "prettier"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "**/*.{yml,yaml}"
+            ]
+        },
+        {
+            "files": [
+                "**/*.{js,mjs,ts,tsx}"
+            ]
+        }
     ]
 }

@@ -49,7 +49,7 @@
       "eslint --cache --fix"
     ],
     "*.{js,mjs,scss,ts,tsx,yml,yaml}": [
-      "prettier --write --ignore-unknown"
+      "prettier --write"
     ]
   }
 }

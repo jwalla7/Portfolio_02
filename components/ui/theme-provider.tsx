@@ -10,5 +10,5 @@ https://github.com/primer/react/blob/main/src/ThemeProvider.tsx
 */
 
 export function ThemeProvider({ ...props }: ThemeProviderProps) {
-  return <PrimeThemeProvider {...props}></PrimeThemeProvider>;
+    return <PrimeThemeProvider {...props}></PrimeThemeProvider>;
 }

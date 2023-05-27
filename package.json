@@ -5,11 +5,16 @@
   "engines": {
     "node": "16 || 18"
   },
+  "author": {
+    "email": "jwalla7@protonmail.com",
+    "name": "jwalla7",
+    "url": "https://github.com/jwalla7"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint '*.{js,mjs,ts,tsx}'",
+    "lint": "eslint '**/*.{js,mjs,ts,tsx}'",
     "prepare": "husky install",
     "prettier": "prettier -w \"*.{js,mjs,ts,tsx,scss,yml,yaml}\"",
     "prettier-check": "prettier -c \"*.{js,mjs,ts,tsx,scss,yml,yaml}\""

@@ -11,7 +11,10 @@
         {
             "files": [
                 "**/*.{js,mjs,ts,tsx}"
-            ]
+            ],
+            "options": {
+                "tabWidth": 4
+            }
         }
     ]
 }

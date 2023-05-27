@@ -13,7 +13,6 @@ import {
   X,
   type Icon as PhosphorIcon,
 } from "@phosphor-icons/react";
-console.log("hello");
 export type Icon = PhosphorIcon;
 
 export const Icons = {

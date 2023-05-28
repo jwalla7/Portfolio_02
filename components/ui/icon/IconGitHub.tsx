@@ -10,12 +10,12 @@ export const IconGitHub = memo<React.JSX.IntrinsicElements["svg"]>(
     function IconGitHub(props: SVGProps<SVGSVGElement>) {
         return (
             <svg
+                xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fab"
-                data-icon="github"
+                data-icon="phosphorIcon-equalizer"
                 role="img"
-                xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 496 512"
                 {...props}
             >

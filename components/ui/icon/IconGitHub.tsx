@@ -14,7 +14,7 @@ export const IconGitHub = memo<React.JSX.IntrinsicElements["svg"]>(
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fab"
-                data-icon="phosphorIcon-equalizer"
+                data-icon="phosphorIcon-github"
                 role="img"
                 viewBox="0 0 496 512"
                 {...props}

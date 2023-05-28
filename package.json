@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.0.9",
-    "@primer/react": "^35.25.1",
     "clsx": "^1.2.1",
     "js-cookie": "^3.0.5",
     "lint-staged": "^13.2.2",
@@ -43,7 +42,6 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-primer-react": "^3.0.0",
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.0",
     "postcss": "8.4.23",

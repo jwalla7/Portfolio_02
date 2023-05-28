@@ -4,7 +4,6 @@
 memo bypasses re-rendering a component if its props are unchanged.
 https://react.dev/reference/react/memo
 */
-
 import { SVGProps, memo } from "react";
 
 export const IconHouse = memo<React.JSX.IntrinsicElements["svg"]>(

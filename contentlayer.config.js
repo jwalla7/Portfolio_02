@@ -1,15 +1,14 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
 
 /** @type {import("contentlayer/source-files").ComputedFields} */
-const computedField = {
-    data: {
+const computedFields = {
+    slug: {
         type: "string",
-        resolve: (documentData) => `/${documentData._raw.flattenedPath}`,
+        resolve: (doc) => `/${doc._raw.flattenedPath}`,
     },
-    dataAsParams: {
+    slugAsParams: {
         type: "string",
-        resolve: (documentData) =>
-            documentData._raw.flattenedPath.split("/").slice(1).join("/"),
+        resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
     },
 };
 
@@ -26,7 +25,7 @@ export const Page = defineDocumentType(() => ({
             type: "string",
         },
     },
-    computedField,
+    computedFields,
 }));
 
 export default makeSource({

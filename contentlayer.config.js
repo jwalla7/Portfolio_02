@@ -2,11 +2,11 @@ import { defineDocumentType, makeSource } from "contentlayer/source-files";
 
 /** @type {import("contentlayer/source-files").ComputedFields} */
 const computedField = {
-    slug: {
+    data: {
         type: "string",
         resolve: (documentData) => `/${documentData._raw.flattenedPath}`,
     },
-    slugAsParams: {
+    dataAsParams: {
         type: "string",
         resolve: (documentData) =>
             documentData._raw.flattenedPath.split("/").slice(1).join("/"),

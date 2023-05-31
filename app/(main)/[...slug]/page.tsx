@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { siteConfig } from "@/config/site";
-import {} from "contentlayer/generated";
+import { allPages } from "contentlayer/generated";
 
 interface PageProps {
     params: {
@@ -9,7 +9,7 @@ interface PageProps {
     };
 }
 
-async function getPageFromParams(params) {
+async function getPageFromParams(params: any) {
     const slug = params?.slug?.join("/");
     const page = allPages.find((page) => page.slugAsParams === slug);
 

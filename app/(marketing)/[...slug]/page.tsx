@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+// import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { siteConfig } from "@/config/site";
+// import { siteConfig } from "@/config/site";
 import { allPages } from "contentlayer/generated";
 
 interface PageProps {

@@ -5,7 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 
 import { env } from "@/env.mjs";
-import { siteConfig } from "@/config/site";
+// TODO import { siteConfig } from "@/config/site";
 // TODO import db
 
 export const authOptions: NextAuthOptions = {

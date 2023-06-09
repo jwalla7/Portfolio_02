@@ -3,7 +3,15 @@ import { z } from "zod";
 
 // create schema
 export const env = createEnv({
-    // server: {}
+    server: {
+        NEXTAUTH_URL: z.string().url().optional(),
+        NEXTAUTH_SECRET: z.string().min(1),
+        GITHUB_CLIENT_ID: z.string().min(1),
+        GITHUB_CLIENT_SECRET: z.string().min(1),
+        GITHUB_ACCESS_TOKEN: z.string().min(1),
+        GOOGLE_CLIENT_ID: z.string().min(1),
+        GOOGLE_CLIENT_SECRET: z.string().min(1),
+    },
     // client: {},
     runtimeEnv: {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -11,6 +19,8 @@ export const env = createEnv({
         GITHUB_CLIENT_ID: process.env.GITHUB_ID,
         GITHUB_CLIENT_SECRET: process.env.GITHUB_SECRET,
         GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
+        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+        GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 
         // DATABASE_URL: process.env.DATABASE_URL,
         // SMTP_FROM: process.env.SMTP_FROM,

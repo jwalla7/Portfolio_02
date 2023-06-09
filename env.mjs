@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
-// create schema
+// Create schema
 export const env = createEnv({
     server: {
         NEXTAUTH_URL: z.string().url().optional(),
@@ -23,6 +23,8 @@ export const env = createEnv({
         GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+
+        // TODO
 
         // DATABASE_URL: process.env.DATABASE_URL,
 

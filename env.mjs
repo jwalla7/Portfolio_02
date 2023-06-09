@@ -23,6 +23,7 @@ export const env = createEnv({
         GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 
         // DATABASE_URL: process.env.DATABASE_URL,
+
         // SMTP_FROM: process.env.SMTP_FROM,
         // POSTMARK_API_TOKEN: process.env.POSTMARK_API_TOKEN,
         // POSTMARK_SIGN_IN_TEMPLATE: process.env.POSTMARK_SIGN_IN_TEMPLATE,

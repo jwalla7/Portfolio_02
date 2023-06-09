@@ -8,9 +8,10 @@ export const env = createEnv({
     runtimeEnv: {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-        GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-        GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+        GITHUB_CLIENT_ID: process.env.GITHUB_ID,
+        GITHUB_CLIENT_SECRET: process.env.GITHUB_SECRET,
         GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
+
         // DATABASE_URL: process.env.DATABASE_URL,
         // SMTP_FROM: process.env.SMTP_FROM,
         // POSTMARK_API_TOKEN: process.env.POSTMARK_API_TOKEN,

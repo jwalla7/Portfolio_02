@@ -13,8 +13,8 @@ export const authOptions: NextAuthOptions = {
     // session
     providers: [
         GitHubProvider({
-            clientId: env.GITHUB_CLIENT_ID,
-            clientSecret: env.GITHUB_CLIENT_SECRET,
+            clientId: env.GITHUB_ID,
+            clientSecret: env.GITHUB_SECRET,
         }),
         GoogleProvider({
             clientId: env.GOOGLE_CLIENT_ID,

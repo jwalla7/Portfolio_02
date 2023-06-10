@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
-// Create schema
+// Create schema, all env variables need to be included to avoid errors.
 export const env = createEnv({
     server: {
         NEXTAUTH_URL: z.string().url().optional(),

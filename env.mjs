@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
-// Create schema, all env variables need to be included to avoid errors.
+// Create schema, all env variables from .env files need to be included to avoid errors.
 export const env = createEnv({
     server: {
         NEXTAUTH_URL: z.string().url().optional(),
@@ -13,7 +13,7 @@ export const env = createEnv({
         GOOGLE_CLIENT_SECRET: z.string().min(1),
     },
     client: {
-        // NEXT_PUBLIC_APP_URL: z.string().min(1),
+        // NEXT_PUBLIC_URL: z.string().min(1),
     },
     runtimeEnv: {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,

@@ -18,6 +18,7 @@
     /* JavaScript Support */
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
+    /* Emit Rules */
     "noEmit": true,
     /* Modules */
     "paths": {

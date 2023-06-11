@@ -23,5 +23,5 @@ export default async function PagePage({ params }: PageProps) {
     if (!page) {
         notFound();
     }
-    return <article>1</article>;
+    return <article>Article</article>;
 }

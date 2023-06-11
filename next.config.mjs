@@ -7,6 +7,13 @@ const nextConfig = {
     experimental: {
         appDir: true,
     },
+    /** https://github.com/vercel/next.js/issues/27650 */
+    webpack(config) {
+        config.infrastructureLogging = {
+            level: "error",
+        };
+        return config;
+    },
 };
 
 export default withContentlayer(nextConfig);

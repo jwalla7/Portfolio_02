@@ -7,4 +7,5 @@ export type SiteConfig = {
         github: string;
         linkedin: string;
     };
+    copyright: string;
 };

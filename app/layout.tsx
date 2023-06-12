@@ -1,6 +1,8 @@
 import "../design/input.css";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/ui/theme/ThemeProvider";
+import { cn } from "@/lib/utils";
+import { robotoBold } from "@/design/fontDefaults";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +18,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className={inter.className}>
+            <body className={cn(robotoBold)}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"

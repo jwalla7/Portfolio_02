@@ -1,4 +1,4 @@
-import { Inter, Roboto } from "next/font/google";
+import { Inter, Roboto, Roboto_Flex } from "next/font/google";
 import localFont from "next/font/local";
 
 /**
@@ -16,35 +16,33 @@ export const inter = Inter({
     weight: "400",
 });
 
+export const robotoFlex = Roboto_Flex({
+    subsets: ["latin"],
+    variable: "--font-roboto-flex",
+});
+
 // Roboto family
-export const roboto = localFont({
-    src: [
-        {
-            path: "../assets/fonts/Roboto-Light.ttf",
-            style: "normal",
-            weight: "300",
-        },
-        {
-            path: "../assets/fonts/Roboto-Regular.ttf",
-            style: "normal",
-            weight: "400",
-        },
-        {
-            path: "../assets/fonts/Roboto-Medium.ttf",
-            style: "normal",
-            weight: "500",
-        },
-        {
-            path: "../assets/fonts/Roboto-Bold.ttf",
-            style: "normal",
-            weight: "700",
-        },
-        {
-            path: "../assets/fonts/Roboto-Black.ttf",
-            style: "normal",
-            weight: "900",
-        },
-    ],
-    variable: "--font-roboto",
-    fallback: ["inter", "system-ui", "arial"],
+export const robotoLight = localFont({
+    src: "../assets/fonts/Roboto-Light.ttf",
+    variable: "--font-roboto-light",
+});
+
+export const robotoRegular = localFont({
+    src: "../assets/fonts/Roboto-Regular.ttf",
+    variable: "--font-roboto-regular",
+});
+
+export const robotoMedium = localFont({
+    src: "../assets/fonts/Roboto-Medium.ttf",
+    variable: "--font-roboto-medium",
+});
+
+export const robotoBold = localFont({
+    src: "../assets/fonts/Roboto-Bold.ttf",
+    variable: "--font-roboto-bold",
+});
+
+export const robotoBlack = localFont({
+    src: "../assets/fonts/Roboto-Black.ttf",
+    variable: "--font-roboto-black",
 });

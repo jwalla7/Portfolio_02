@@ -32,7 +32,15 @@ module.exports = {
                     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
             fontFamily: {
-                sans: ["var(--font-sans)", ...fontFamily.sans],
+                heading: [
+                    "var(--font-roboto-light)",
+                    "var(--font-roboto-regular)",
+                    "var(--font-roboto-medium)",
+                    "var(--font-roboto-bold)",
+                    "var(--font-roboto-black)",
+                    "var(--font-inter-regular)",
+                    ...fontFamily.sans,
+                ],
             },
         },
     },

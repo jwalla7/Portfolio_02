@@ -6,7 +6,7 @@
  * https:tailwindcss.com/docs/configuration#core-plugins
  */
 
-import { defaultTheme } from "tailwindcss/defaultTheme";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
                     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
             fontFamily: {
-                sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+                sans: ["Inter var", ...fontFamily.sans],
             },
         },
     },

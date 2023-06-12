@@ -15,7 +15,6 @@ module.exports = {
         "./components/**/*.{ts,tsx}",
         "./components/ui/**/*.{ts,tsx}",
         "./content/**/*.{md,mdx}",
-        // "./design/**/*.{js,ts,jsx,tsx,mdx}",
     ],
 
     /**

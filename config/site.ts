@@ -9,4 +9,5 @@ export const siteConfig: SiteConfig = {
         github: "https://github.com/jwalla7",
         linkedin: "https://linkedin/in/jamalwallace",
     },
+    copyright: `Copyright © ${new Date().getFullYear()} jwalla7. All Rights Reserved.`,
 };

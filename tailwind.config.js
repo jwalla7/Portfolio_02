@@ -11,10 +11,11 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        "./app/**/*.{js,ts,jsx,tsx,mdx}",
-        "./components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./components/ui/**/*.{js,ts,jsx,tsx,mdx}",
-        "./design/**/*.{js,ts,jsx,tsx,mdx}",
+        "./app/**/*.{ts,tsx}",
+        "./components/**/*.{ts,tsx}",
+        "./components/ui/**/*.{ts,tsx}",
+        "./content/**/*.{md,mdx}",
+        // "./design/**/*.{js,ts,jsx,tsx,mdx}",
     ],
 
     /**

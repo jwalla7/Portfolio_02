@@ -14,8 +14,21 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body className={cn(robotoRegular.className)}>
+        /**
+         * Removes warning of mismatched attributes/content of elements
+         * when using server-side React rendering
+         *
+         * https://legacy.reactjs.org/docs/dom-elements/html
+         */
+
+        <html lang="en" suppressHydrationWarning>
+            <head />
+            <body
+                className={cn(
+                    robotoRegular.className,
+                    "min-h-screen antialiased"
+                )}
+            >
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"

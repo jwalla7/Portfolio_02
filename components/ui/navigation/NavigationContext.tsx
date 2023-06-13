@@ -1,5 +1,12 @@
 import { Dispatch, SetStateAction, createContext } from "react";
 
+/**
+ * Context lets the parent component make data available to any component in the
+ * tree below it. React.Consumer / React.Provider
+ *
+ * https://react.dev/reference/react/createContext
+ * https://react.dev/learn/passing-data-deeply-with-context
+ */
 export interface NavigationContextProps {
     navigating: boolean;
     // `dispatch` function returned by `useState` hook, managing a boolean "state" value

@@ -1,5 +1,5 @@
 import { LinkProps } from "next/link";
-import { type Icons } from "@/types/icon";
+import { type Type_Icons } from "@/types/icon";
 
 declare type Type_Navigation = {
     parent?: Type_Navigation;
@@ -23,7 +23,7 @@ declare type NavigationItem = {
     title: string;
     disabled?: boolean;
     external?: boolean;
-    icon?: Icons;
+    icon?: Type_Icons;
 
     /**
      * Union type conditional based objects, if href is true/or items is true

@@ -1,10 +1,7 @@
 import "../design/input.css";
-import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/ui/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { robotoBold } from "@/design/fontDefaults";
-
-const inter = Inter({ subsets: ["latin"] });
+import { robotoRegular } from "@/design/fontDefaults";
 
 export const metadata = {
     title: "Create Next App",
@@ -18,7 +15,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className={cn(robotoBold)}>
+            <body className={cn(robotoRegular.className)}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"

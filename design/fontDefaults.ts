@@ -1,4 +1,4 @@
-import { Inter, Roboto, Roboto_Flex } from "next/font/google";
+import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 
 /**
@@ -14,11 +14,6 @@ export const inter = Inter({
     subsets: ["latin"],
     variable: "--font-inter-regular",
     weight: "400",
-});
-
-export const robotoFlex = Roboto_Flex({
-    subsets: ["latin"],
-    variable: "--font-roboto-flex",
 });
 
 // Roboto family

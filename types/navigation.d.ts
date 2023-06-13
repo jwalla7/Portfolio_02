@@ -1,6 +1,6 @@
-declare type NavigationType = {
-    parent?: NavigationType;
-    childrenList?: NavigationType;
+declare type Type_Navigation = {
+    parent?: Type_Navigation;
+    childrenList?: Type_Navigation;
     uid: string;
     parentUid: string;
     path: string;

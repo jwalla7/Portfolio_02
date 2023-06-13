@@ -9,7 +9,9 @@ declare type Type_Navigation = {
     label: string;
     title: string;
     description?: string;
-    levelType: "layout" | "group" | "route";
+    levelType: NavigationLevel;
     levelOrder: number;
     filterIdList: string[];
 };
+
+type NavigationLevel = "layout" | "group" | "route";

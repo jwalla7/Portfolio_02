@@ -9,7 +9,7 @@ declare type NavigationType = {
     label: string;
     title: string;
     description?: string;
-    level: "layout" | "group" | "route";
+    levelType: "layout" | "group" | "route";
     levelOrder: number;
     filterIdList: string[];
 };

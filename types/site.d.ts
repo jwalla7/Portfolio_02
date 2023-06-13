@@ -1,4 +1,4 @@
-export type SiteConfig = {
+declare type Type_SiteConfig = {
     name: string;
     description: string;
     url: string;

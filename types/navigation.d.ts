@@ -1,5 +1,5 @@
+import { PhosphorIcons } from "@/components/ui/icons";
 import { LinkProps } from "next/link";
-import { type Type_Icons } from "@/types/icon";
 
 declare type Type_Navigation = {
     parent?: Type_Navigation;
@@ -15,15 +15,9 @@ declare type Type_Navigation = {
     levelType: NavigationLevel;
     levelOrder: number;
     filterIdList: string[];
-};
-
-declare type NavigationLevel = "layout" | "group" | "route";
-
-declare type NavigationItem = {
-    title: string;
     disabled?: boolean;
     external?: boolean;
-    icon?: Type_Icons;
+    icon?: keyof typeof PhosphorIcons | "arrowRight";
 
     /**
      * Union type conditional based objects, if href is true/or items is true
@@ -39,3 +33,5 @@ declare type NavigationItem = {
           items: LinkProps[];
       }
 );
+
+declare type NavigationLevel = "layout" | "group" | "route";

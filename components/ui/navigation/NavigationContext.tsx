@@ -1,3 +1,4 @@
+import { Type_Navigation } from "@/types/navigation";
 import { Dispatch, SetStateAction, createContext } from "react";
 
 /**

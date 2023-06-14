@@ -1,5 +1,6 @@
 import { FC, ReactNode, useMemo, useState } from "react";
 import { NavigationContext } from "./NavigationContext";
+import { Type_Navigation } from "@/types/navigation";
 
 export interface NavigationProviderProps {
     children: ReactNode;

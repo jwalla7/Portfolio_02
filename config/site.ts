@@ -1,6 +1,6 @@
-import { SiteConfig } from "@/types";
+import { Type_Site } from "@/types/site";
 
-export const siteConfig: SiteConfig = {
+export const siteConfig: Type_Site = {
     name: "jwalla",
     description: "Portfolio",
     url: "http://localhost:3000",

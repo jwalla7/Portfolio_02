@@ -1,3 +1,5 @@
 import { SVGProps } from "react";
 
-export declare type Type_Icons = Icon<SVGProps<SVGSVGElement>>;
+declare type Type_Icons = {
+    Icon: Icon<SVGProps<SVGSVGElement>>;
+};

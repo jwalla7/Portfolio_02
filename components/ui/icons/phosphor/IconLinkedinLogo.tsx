@@ -4,8 +4,8 @@ https://react.dev/reference/react/memo
 */
 import { SVGProps, memo } from "react";
 
-export const LinkedinLogo = memo<React.JSX.IntrinsicElements["svg"]>(
-    function LinkedinLogo(props: SVGProps<SVGSVGElement>) {
+export const IconLinkedinLogo = memo<React.JSX.IntrinsicElements["svg"]>(
+    function IconLinkedinLogo(props: SVGProps<SVGSVGElement>) {
         return (
             <svg
                 xmlns="http://www.w3.org/2000/svg"

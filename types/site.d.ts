@@ -1,4 +1,4 @@
-declare type Type_SiteConfig = {
+export declare type Type_Site = {
     name: string;
     description: string;
     url: string;
@@ -7,5 +7,5 @@ declare type Type_SiteConfig = {
         github: string;
         linkedin: string;
     };
-    copyright: string;
+    copyright?: string;
 };

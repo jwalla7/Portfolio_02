@@ -1,4 +1,5 @@
 import { PhosphorIcons } from "@/components/ui/icons";
+import { IconArrowCircleLeft } from "@/components/ui/icons/phosphor/IconArrowCircleLeft";
 import { IconHouse } from "@/components/ui/icons/phosphor/IconHouse";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";

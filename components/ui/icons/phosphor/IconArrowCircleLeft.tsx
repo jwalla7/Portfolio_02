@@ -7,10 +7,12 @@ export const IconArrowCircleLeft = memo<
         iconDirection: IconDirection;
     }
 >(function IconArrowCircleLeft(
+    /** Set default value for iconDirection */
     { iconDirection = "0_rotation", className },
+    /** Accessibility to other SVG props */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** create  prop values */
+    /** Create  prop values for various icon directions */
     const propValues = cn(
         "transition duration-100 ease-in",
         {

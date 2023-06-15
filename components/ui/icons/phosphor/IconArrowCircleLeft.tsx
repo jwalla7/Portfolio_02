@@ -12,7 +12,7 @@ export const IconArrowCircleLeft = memo<
     /** Accessibility to other SVG props */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** Create  prop values for various icon directions */
+    /** Create className values */
     const propValues = cn(
         "transition duration-100 ease-in",
         {

@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
     return (
         /**
-         * Removes warning of mismatched attributes/content of elements
+         * `Suppress Hydration Warning` Removes warning of mismatched attributes/content of elements
          * when using server-side React rendering
          *
          * https://legacy.reactjs.org/docs/dom-elements/html

@@ -3,7 +3,7 @@ import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
 
 export const IconArrowCircleLeft = memo<
-    React.JSX.IntrinsicElements["svg"] & {
+    React.ComponentProps<"svg"> & {
         iconDirection: IconDirection;
     }
 >(function IconArrowCircleLeft(

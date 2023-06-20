@@ -4,7 +4,7 @@ https://react.dev/reference/react/memo
 */
 import { SVGProps, memo } from "react";
 
-export const IconGitHubLogo = memo<React.JSX.IntrinsicElements["svg"]>(
+export const IconGitHubLogo = memo<React.ComponentProps<"svg">>(
     function IconGitHubLogo(props: SVGProps<SVGSVGElement>) {
         return (
             <svg

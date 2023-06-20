@@ -18,8 +18,8 @@ export const IconArrowCircleLeft = memo<
         {
             "rotate-0": iconDirection === "0_rotation",
             "rotate-90": iconDirection === "90_rotation",
-            "-rotate-90": iconDirection === "-90_rotation",
             "rotate-180": iconDirection === "180_rotation",
+            "-rotate-90": iconDirection === "-90_rotation",
         },
         className
     );

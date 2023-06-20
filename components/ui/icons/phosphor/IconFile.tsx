@@ -2,16 +2,12 @@
 memo bypasses re-rendering a component if its props are unchanged.
 https://react.dev/reference/react/memo
 */
-import { cn } from "@/lib/utils";
 import React, { SVGProps, memo } from "react";
 
 export const IconFile = memo<React.ComponentProps<"svg">>(function IconFile(
     /** Accessibility to other SVG props */
-    props: SVGProps<SVGSVGElement>,
-    { className }
+    props: SVGProps<SVGSVGElement>
 ) {
-    /** Create className values */
-    const variants = cn("transition duration-100 ease-in", className);
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +16,6 @@ export const IconFile = memo<React.ComponentProps<"svg">>(function IconFile(
             data-prefix="fab"
             data-icon="phosphorIcon-file"
             viewBox="0 0 256 256"
-            className={variants}
             {...props}
         >
             <path

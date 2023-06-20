@@ -12,8 +12,8 @@ export const IconSpinnerGap = memo<
     }
 >(function IconSpinnerGap(
     /** Accessibility to other SVG props */
-    props: SVGProps<SVGSVGElement>,
-    { iconDirection = "0_rotation", className }
+    { iconDirection = "0_rotation", className },
+    props: SVGProps<SVGSVGElement>
 ) {
     const variants = cn(
         "transition duration-100 ease-in",

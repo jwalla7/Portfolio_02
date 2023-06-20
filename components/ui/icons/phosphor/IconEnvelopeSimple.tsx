@@ -4,29 +4,15 @@ https://react.dev/reference/react/memo
 */
 import { SVGProps, memo } from "react";
 import { IconDirection } from "@/types/icon";
-import { cn } from "@/lib/utils";
 
 export const IconEnvelopSimple = memo<
     React.ComponentProps<"svg"> & {
         iconDirection: IconDirection;
     }
 >(function IconEnvelopSimple(
-    /** Set default `iconDirection` value for iconEnvelopeSimple */
-    { iconDirection = "0_rotation", className },
     /** Accessibility to other SVG props */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** Create className values */
-    const variants = cn(
-        "transition duration-100 ease-in",
-        {
-            "rotate-0": iconDirection === "0_rotation",
-            "rotate-90": iconDirection === "90_rotation",
-            "rotate-180": iconDirection === "180_rotation",
-            "-rotate-90": iconDirection === "-90_rotation",
-        },
-        className
-    );
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +21,6 @@ export const IconEnvelopSimple = memo<
             data-prefix="fab"
             data-icon="phosphorIcon-envelopeSimple"
             viewBox="0 0 256 256"
-            className={variants}
             {...props}
         >
             <path

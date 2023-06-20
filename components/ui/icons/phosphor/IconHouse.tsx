@@ -5,6 +5,7 @@ https://react.dev/reference/react/memo
 import { SVGProps, memo } from "react";
 
 export const IconHouse = memo<React.ComponentProps<"svg">>(function IconHouse(
+    /** Accessibility to other SVG props */
     props: SVGProps<SVGSVGElement>
 ) {
     return (

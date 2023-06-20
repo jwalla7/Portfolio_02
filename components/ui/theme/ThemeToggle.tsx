@@ -9,6 +9,7 @@ import { IconSun } from "../icons/phosphor/IconSun";
 // TODO import buttons menu,content,items,trigger
 
 export function ThemeToggle(): React.JSX.Element {
+    /** useTheme provides current theme data  */
     const { theme, setTheme } = useTheme();
     const [_, startTransition] = React.useTransition();
 
@@ -21,12 +22,12 @@ export function ThemeToggle(): React.JSX.Element {
                 });
             }}
         >
-            Goodbye
             {!theme ? null : theme === "dark" ? (
-                <IconMoon className="relative w- h-9" />
+                <IconMoon className="rounded-smi-4 [background:linear-gradient(90deg,_rgba(255,_255,_255,_0.89),_rgba(255,_255,_255,_0.89))] [backdrop-filter:blur(12.4px)] w-[66.78px] h-[66.78px] flex flex-row p-[9px] box-border items-center justify-center" />
             ) : (
-                <IconSun className="relative w- h-9" />
+                <IconSun className="rounded-smi-4 [background:linear-gradient(90deg,_rgba(255,_255,_255,_0.89),_rgba(255,_255,_255,_0.89))] [backdrop-filter:blur(12.4px)] w-[66.78px] h-[66.78px] flex flex-row p-[9px] box-border items-center justify-center" />
             )}
+            <span> Your current theme is {theme}</span>
         </Button>
     );
 }

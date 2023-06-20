@@ -7,7 +7,7 @@ import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
 
 export const IconEqualizer = memo<
-    React.JSX.IntrinsicElements["svg"] & {
+    React.ComponentProps<"svg"> & {
         iconDirection: IconDirection;
     }
 >(function IconEqualizer(

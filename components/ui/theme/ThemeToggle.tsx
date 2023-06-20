@@ -10,7 +10,7 @@ import { IconSun } from "../icons/phosphor/IconSun";
 
 export function ThemeToggle() {
     const { theme, setTheme } = useTheme();
-    const { _, startTransition } = React.useTransition();
+    const [_, startTransition] = React.useTransition();
 
     return (
         <Button

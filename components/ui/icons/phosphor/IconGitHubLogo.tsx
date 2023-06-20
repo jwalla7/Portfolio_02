@@ -5,7 +5,10 @@ https://react.dev/reference/react/memo
 import { SVGProps, memo } from "react";
 
 export const IconGitHubLogo = memo<React.ComponentProps<"svg">>(
-    function IconGitHubLogo(props: SVGProps<SVGSVGElement>) {
+    function IconGitHubLogo(
+        /** Accessibility to other SVG props */
+        props: SVGProps<SVGSVGElement>
+    ) {
         return (
             <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -7,7 +7,7 @@ import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
 
 export const IconEnvelopSimple = memo<
-    React.JSX.IntrinsicElements["svg"] & {
+    React.ComponentProps<"svg"> & {
         iconDirection: IconDirection;
     }
 >(function IconEnvelopSimple(

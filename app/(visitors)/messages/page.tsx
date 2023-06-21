@@ -1,7 +1,7 @@
 export default function VisitorsPage() {
     return (
         <>
-            <div>hello</div>
+            <div>visitors page</div>
         </>
     );
 }

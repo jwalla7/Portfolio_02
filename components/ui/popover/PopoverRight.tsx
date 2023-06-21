@@ -19,48 +19,11 @@ const PopoverRight = () => (
                     }}
                 >
                     <p className="Text" style={{ marginBottom: 10 }}>
-                        Dimensions
+                        Theme
                     </p>
-                    <fieldset className="Fieldset">
-                        <label className="Label" htmlFor="width">
-                            Width
-                        </label>
-                        <input
-                            className="Input"
-                            id="width"
-                            defaultValue="100%"
-                        />
-                    </fieldset>
-                    <fieldset className="Fieldset">
-                        <label className="Label" htmlFor="maxWidth">
-                            Max. width
-                        </label>
-                        <input
-                            className="Input"
-                            id="maxWidth"
-                            defaultValue="300px"
-                        />
-                    </fieldset>
-                    <fieldset className="Fieldset">
-                        <label className="Label" htmlFor="height">
-                            Height
-                        </label>
-                        <input
-                            className="Input"
-                            id="height"
-                            defaultValue="25px"
-                        />
-                    </fieldset>
-                    <fieldset className="Fieldset">
-                        <label className="Label" htmlFor="maxHeight">
-                            Max. height
-                        </label>
-                        <input
-                            className="Input"
-                            id="maxHeight"
-                            defaultValue="none"
-                        />
-                    </fieldset>
+                    <div>Dark</div>
+                    <div>Light</div>
+                    <div>System</div>
                 </div>
                 <Popover.Close className="PopoverClose" aria-label="Close">
                     {/* <Cross2Icon /> */}

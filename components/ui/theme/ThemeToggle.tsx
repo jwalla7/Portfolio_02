@@ -23,11 +23,11 @@ export function ThemeToggle(): React.JSX.Element {
             }}
         >
             {!theme ? null : theme === "dark" ? (
-                <IconMoon className="rounded-smi-4 [background:linear-gradient(90deg,_rgba(255,_255,_255,_0.89),_rgba(255,_255,_255,_0.89))] [backdrop-filter:blur(12.4px)] w-[66.78px] h-[66.78px] flex flex-row p-[9px] box-border items-center justify-center" />
+                <IconMoon className="w-9 h-9" />
             ) : (
-                <IconSun className="rounded-smi-4 [background:linear-gradient(90deg,_rgba(255,_255,_255,_0.89),_rgba(255,_255,_255,_0.89))] [backdrop-filter:blur(12.4px)] w-[66.78px] h-[66.78px] flex flex-row p-[9px] box-border items-center justify-center" />
+                <IconSun className="w-9 h-9" />
             )}
-            <span> Your current theme is {theme}</span>
+            {/* <span> Your current theme is {theme}</span> */}
         </Button>
     );
 }

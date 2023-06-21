@@ -7,6 +7,7 @@
  */
 
 import { fontFamily } from "tailwindcss/defaultTheme";
+import { blackA, mauve, violet } from "@radix-ui/colors";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -35,10 +36,15 @@ module.exports = {
             //         "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             // },
             colors: {
+                ...blackA,
+                ...mauve,
+                ...violet,
                 gray: {
                     100: "#fafafa",
                     200: "#lelele",
                     300: "rgba(250, 250, 250, 0.34)",
+                    400: "#00050D",
+                    500: "#020D00",
                 },
                 blueviolet: "#9747ff",
             },
@@ -64,6 +70,34 @@ module.exports = {
             borderRadius: {
                 "8xs": "5px",
                 "smi-4": "12.4px",
+            },
+            keyframes: {
+                slideUpAndFade: {
+                    from: { opacity: 0, transform: "translateY(2px)" },
+                    to: { opacity: 1, transform: "translateY(0)" },
+                },
+                slideRightAndFade: {
+                    from: { opacity: 0, transform: "translateX(-2px)" },
+                    to: { opacity: 1, transform: "translateX(0)" },
+                },
+                slideDownAndFade: {
+                    from: { opacity: 0, transform: "translateY(-2px)" },
+                    to: { opacity: 1, transform: "translateY(0)" },
+                },
+                slideLeftAndFade: {
+                    from: { opacity: 0, transform: "translateX(2px)" },
+                    to: { opacity: 1, transform: "translateX(0)" },
+                },
+            },
+            animation: {
+                slideUpAndFade:
+                    "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                slideRightAndFade:
+                    "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                slideDownAndFade:
+                    "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                slideLeftAndFade:
+                    "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
             },
         },
     },

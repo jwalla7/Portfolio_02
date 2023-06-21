@@ -22,12 +22,13 @@ export function ThemeToggle(): React.JSX.Element {
                 });
             }}
         >
-            {!theme ? null : theme === "dark" ? (
+            {!theme ? (
+                theme === "system"
+            ) : theme === "dark" ? (
                 <IconMoon className="w-9 h-9" />
             ) : (
                 <IconSun className="w-9 h-9" />
             )}
-            {/* <span> Your current theme is {theme}</span> */}
         </Button>
     );
 }

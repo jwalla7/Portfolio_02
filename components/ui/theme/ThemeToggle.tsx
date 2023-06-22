@@ -8,7 +8,11 @@ import { IconSun } from "../icons/phosphor/IconSun";
 
 // TODO import buttons menu,content,items,trigger
 
-export function ThemeToggle(): React.JSX.Element {
+export interface ThemeToggleProps {
+    children?: React.ReactNode;
+}
+
+const ThemeToggle: React.FC<ThemeToggleProps> = () => {
     /** useTheme provides current theme data  */
     const { theme, setTheme } = useTheme();
     const [_, startTransition] = React.useTransition();
@@ -31,4 +35,6 @@ export function ThemeToggle(): React.JSX.Element {
             )}
         </Button>
     );
-}
+};
+
+export default ThemeToggle;

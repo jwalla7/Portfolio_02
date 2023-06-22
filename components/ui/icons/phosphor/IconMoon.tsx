@@ -3,11 +3,29 @@ memo bypasses re-rendering a component if its props are unchanged.
 https://react.dev/reference/react/memo
 */
 import { SVGProps, memo } from "react";
+import { IconDirection } from "@/types/icon";
+import { cn } from "@/lib/utils";
 
-export const IconMoon = memo<React.ComponentProps<"svg">>(function IconMoon(
+export const IconMoon = memo<
+    React.ComponentProps<"svg"> & {
+        iconDirection: IconDirection;
+    }
+>(function IconMoon(
+    /** Set default value for iconDirection */
+    { iconDirection = "0_rotation", className },
     /** Accessibility to other SVG props */
     props: SVGProps<SVGSVGElement>
 ) {
+    const variants = cn(
+        "transition duration-100 ease-in",
+        {
+            "rotate-0": iconDirection === "0_rotation",
+            "rotate-90": iconDirection === "90_rotation",
+            "rotate-180": iconDirection === "180_rotation",
+            "-rotate-90": iconDirection === "-90_rotation",
+        },
+        className
+    );
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -16,6 +34,7 @@ export const IconMoon = memo<React.ComponentProps<"svg">>(function IconMoon(
             data-prefix="fab"
             data-icon="phosphorIcon-moon"
             viewBox="0 0 256 256"
+            className={variants}
             {...props}
         >
             <path

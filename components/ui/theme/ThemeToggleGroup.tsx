@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTheme } from "next-themes";
 
 export interface ThemeToggleGroupProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -11,13 +12,9 @@ const ThemeToggleGroup = React.forwardRef<
     HTMLButtonElement,
     ThemeToggleGroupProps
 >(() => {
-    return (
-        <>
-            <button></button>
-            <button></button>
-            <button></button>
-        </>
-    );
+    const { setTheme } = useTheme();
+
+    return <div></div>;
 });
 ThemeToggleGroup.displayName = "ThemeToggleGroup";
 

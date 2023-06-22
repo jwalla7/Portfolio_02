@@ -28,7 +28,10 @@ const ThemeToggleGroup = React.forwardRef<
                         {theme === "system" ? (
                             <IconHouse className="h-9 w-9" />
                         ) : theme === "dark" ? (
-                            <IconMoon className="h-9 w-9" />
+                            <IconMoon
+                                iconDirection="0_rotation"
+                                className="h-9 w-9"
+                            />
                         ) : (
                             <IconSun className="h-9 w-9" />
                         )}

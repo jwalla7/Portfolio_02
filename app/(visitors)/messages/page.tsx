@@ -1,15 +1,13 @@
 import ThemeMenu from "@/components/ui/theme/ThemeMenu";
-import ThemeToggle from "@/components/ui/theme/ThemeToggle";
+import { ThemeToggleGroup } from "@/components/ui/theme/ThemeToggleGroup";
 
 export default function VisitorsPage() {
     return (
-        <>
+        <div suppressHydrationWarning>
             <div>visitors page</div>
-            {/* <PopoverRight /> */}
-            {/* <MenuBar /> */}
             <ThemeMenu>
-                <ThemeToggle />
+                <ThemeToggleGroup />
             </ThemeMenu>
-        </>
+        </div>
     );
 }

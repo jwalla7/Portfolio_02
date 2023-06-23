@@ -44,7 +44,6 @@ const ThemeToggleGroup = React.forwardRef<
                                 <label>Theme</label>
                             </menu>
                         )}
-                        <span className="sr-only">Toggle theme</span>
                         {/* rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 */}
                         {/* rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 */}
                     </Button>
@@ -59,7 +58,7 @@ const ThemeToggleGroup = React.forwardRef<
                             }}
                             className="flex"
                         >
-                            <IconSun />
+                            <IconSun className="w-9 h-9" />
                             <label>Light</label>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item
@@ -70,7 +69,10 @@ const ThemeToggleGroup = React.forwardRef<
                             }}
                             className="flex"
                         >
-                            <IconMoon iconDirection="0_rotation" />
+                            <IconMoon
+                                iconDirection="0_rotation"
+                                className="w-9 h-9"
+                            />
                             <label>Dark</label>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item
@@ -81,7 +83,7 @@ const ThemeToggleGroup = React.forwardRef<
                             }}
                             className="flex"
                         >
-                            <IconHouse />
+                            <IconHouse className="w-9 h-9" />
                             <label>Auto</label>
                         </DropdownMenu.Item>
                     </DropdownMenu.Content>

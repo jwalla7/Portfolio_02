@@ -28,7 +28,7 @@ const ThemeToggleGroup = React.forwardRef<
                         {theme === "system" ? (
                             <menu>
                                 <IconHouse className="h-9 w-9" />
-                                <label>System</label>
+                                <label>Theme</label>
                             </menu>
                         ) : theme === "dark" ? (
                             <menu>
@@ -36,12 +36,12 @@ const ThemeToggleGroup = React.forwardRef<
                                     iconDirection="0_rotation"
                                     className="h-9 w-9"
                                 />
-                                <label>Dark</label>
+                                <label>Theme</label>
                             </menu>
                         ) : (
                             <menu>
                                 <IconSun className="h-9 w-9" />
-                                <label>Light</label>
+                                <label>Theme</label>
                             </menu>
                         )}
                         <span className="sr-only">Toggle theme</span>
@@ -57,8 +57,10 @@ const ThemeToggleGroup = React.forwardRef<
                                     setTheme("light");
                                 });
                             }}
+                            className="flex"
                         >
-                            Light
+                            <IconSun />
+                            <label>Light</label>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item
                             onClick={() => {
@@ -66,8 +68,10 @@ const ThemeToggleGroup = React.forwardRef<
                                     setTheme("dark");
                                 });
                             }}
+                            className="flex"
                         >
-                            Dark
+                            <IconMoon iconDirection="0_rotation" />
+                            <label>Dark</label>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item
                             onClick={() => {
@@ -75,8 +79,10 @@ const ThemeToggleGroup = React.forwardRef<
                                     setTheme("system");
                                 });
                             }}
+                            className="flex"
                         >
-                            System
+                            <IconHouse />
+                            <label>Auto</label>
                         </DropdownMenu.Item>
                     </DropdownMenu.Content>
                 </DropdownMenu.Portal>

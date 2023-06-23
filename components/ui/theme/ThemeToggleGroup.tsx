@@ -26,14 +26,23 @@ const ThemeToggleGroup = React.forwardRef<
                 <DropdownMenu.Trigger asChild>
                     <Button variant="default">
                         {theme === "system" ? (
-                            <IconHouse className="h-9 w-9" />
+                            <menu>
+                                <IconHouse className="h-9 w-9" />
+                                <label>System</label>
+                            </menu>
                         ) : theme === "dark" ? (
-                            <IconMoon
-                                iconDirection="0_rotation"
-                                className="h-9 w-9"
-                            />
+                            <menu>
+                                <IconMoon
+                                    iconDirection="0_rotation"
+                                    className="h-9 w-9"
+                                />
+                                <label>Dark</label>
+                            </menu>
                         ) : (
-                            <IconSun className="h-9 w-9" />
+                            <menu>
+                                <IconSun className="h-9 w-9" />
+                                <label>Light</label>
+                            </menu>
                         )}
                         <span className="sr-only">Toggle theme</span>
                         {/* rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 */}

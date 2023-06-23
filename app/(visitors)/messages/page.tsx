@@ -1,3 +1,5 @@
+"use client";
+
 import ThemeMenu from "@/components/ui/theme/ThemeMenu";
 import { ThemeToggleGroup } from "@/components/ui/theme/ThemeToggleGroup";
 

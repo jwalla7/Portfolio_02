@@ -10,9 +10,23 @@ export const IconSun = memo<
     React.JSX.IntrinsicElements["svg"] & {
         setMotion: boolean;
     }
->(function IconSun({ setMotion, className }, props: SVGProps<SVGSVGElement>) {
+>(function IconSun(
+    /** 
+    Accessibility to customized attributes setMotion, and className
+     */
+    { setMotion, className },
+    /** 
+    Accessibility to other SVG props
+     */
+    props: SVGProps<SVGSVGElement>
+) {
+    /** 
+    Create custom values for className
+     */
     const variants = cn("transition duration-100 ease-in", className);
-
+    /** 
+    Establishes which variation of the `IconSun` to render
+    */
     if (setMotion) {
         return (
             <motion.svg

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { useTheme } from "next-themes";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
@@ -8,17 +6,19 @@ import { IconMoon } from "../icons/phosphor/IconMoon";
 import { Button } from "../button/Button";
 import { IconHouse } from "../icons/phosphor/IconHouse";
 
-export interface ThemeToggleGroupProps
+export interface ThemeToggleDropdownProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode;
 }
 
-const ThemeToggleGroup = React.forwardRef<
+const ThemeToggleDropdown = React.forwardRef<
     HTMLButtonElement,
-    ThemeToggleGroupProps
+    ThemeToggleDropdownProps
 >(() => {
     const { theme, setTheme } = useTheme();
     const [_, startTransition] = React.useTransition();
+
+    console.log(theme);
 
     return (
         <>
@@ -71,7 +71,7 @@ const ThemeToggleGroup = React.forwardRef<
                         >
                             <IconMoon
                                 iconDirection="0_rotation"
-                                className="w-9 h-9"
+                                className="h-9 w-9"
                             />
                             <label>Dark</label>
                         </DropdownMenu.Item>
@@ -92,6 +92,6 @@ const ThemeToggleGroup = React.forwardRef<
         </>
     );
 });
-ThemeToggleGroup.displayName = "ThemeToggleGroup";
+ThemeToggleDropdown.displayName = "ThemeToggleDropdown";
 
-export { ThemeToggleGroup };
+export { ThemeToggleDropdown };

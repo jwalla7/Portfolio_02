@@ -29,7 +29,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
             {!theme ? (
                 theme === "system"
             ) : theme === "dark" ? (
-                <IconMoon className="w-9 h-9" />
+                <IconMoon iconDirection="0_rotation" className="w-9 h-9" />
             ) : (
                 <IconSun className="w-9 h-9" />
             )}

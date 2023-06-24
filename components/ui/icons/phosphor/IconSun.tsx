@@ -25,7 +25,7 @@ export const IconSun = memo<
      */
     const variants = cn("transition duration-100 ease-in", className);
     /** 
-    Establishes which variation of the `IconSun` to render
+    Establishes which variation of `IconSun` to render
     */
     if (setMotion) {
         return (

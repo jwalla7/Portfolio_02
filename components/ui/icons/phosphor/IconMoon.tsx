@@ -13,12 +13,18 @@ export const IconMoon = memo<
         setMotion: boolean;
     }
 >(function IconMoon(
-    /** Accessibility to customized attributes iconDirection, setMotion, and className */
+    /**
+    Accessibility to customized attributes iconDirection, setMotion, and className
+    */
     { iconDirection = "0_rotation", setMotion, className },
-    /** Accessibility to other SVG props */
+    /**
+    Accessibility to other SVG props
+    */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** Create custom values for className */
+    /** 
+    Create custom values for className
+    */
     const variants = cn(
         "transition duration-100 ease-in",
         {
@@ -31,6 +37,9 @@ export const IconMoon = memo<
         },
         className
     );
+    /**
+    Establishes which variation of `IconMoon` to render
+    */
     if (setMotion) {
         return (
             <motion.svg

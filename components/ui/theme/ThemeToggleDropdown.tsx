@@ -57,7 +57,7 @@ const ThemeToggleDropdown = React.forwardRef<
                             }}
                             className="flex"
                         >
-                            <IconSun className="w-9 h-9" />
+                            <IconSun setMotion={false} className="w-9 h-9" />
                             <label>Light</label>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item

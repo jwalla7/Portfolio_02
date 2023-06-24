@@ -1,1 +1,1 @@
-declare type Type_Theme = "light" | "dark" | "auto";
+declare type Type_Theme = "light" | "dark" | "system";

@@ -6,6 +6,8 @@ declare type Type_Icons = {
 
 declare type IconDirection =
     | "0_rotation"
+    | "45_rotation"
     | "90_rotation"
     | "180_rotation"
+    | "-45_rotation"
     | "-90_rotation";

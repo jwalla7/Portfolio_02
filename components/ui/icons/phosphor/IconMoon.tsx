@@ -43,7 +43,10 @@ export const IconMoon = memo<
                 className={variants}
             >
                 <motion.path
-                    /** Initial to animate, creates a fade-in-with-rotation animation  */
+                    /** 
+                    Initial to animate, creates a fade-in-with-rotation animation
+                    https://framer.com/motion/transition/##value-specific-transitions
+                    */
                     initial={{
                         rotate: 0,
                         opacity: 0,

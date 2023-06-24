@@ -35,7 +35,7 @@ const ThemeToggleDropdown = React.forwardRef<
                                 <IconMoon
                                     setMotion={true}
                                     iconDirection="-45_rotation"
-                                    className="h-6 w-6"
+                                    className="h-9 w-9"
                                 />
                                 <label>Theme</label>
                             </menu>

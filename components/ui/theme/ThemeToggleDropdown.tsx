@@ -33,8 +33,9 @@ const ThemeToggleDropdown = React.forwardRef<
                         ) : theme === "dark" ? (
                             <menu>
                                 <IconMoon
-                                    iconDirection="0_rotation"
-                                    className="h-9 w-9"
+                                    setMotion={true}
+                                    iconDirection="-45_rotation"
+                                    className="h-6 w-6"
                                 />
                                 <label>Theme</label>
                             </menu>
@@ -70,6 +71,7 @@ const ThemeToggleDropdown = React.forwardRef<
                             className="flex"
                         >
                             <IconMoon
+                                setMotion={false}
                                 iconDirection="0_rotation"
                                 className="h-9 w-9"
                             />

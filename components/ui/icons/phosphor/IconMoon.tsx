@@ -3,9 +3,9 @@ memo bypasses re-rendering a component if its props are unchanged.
 https://react.dev/reference/react/memo
 */
 import { SVGProps, memo } from "react";
+import { motion } from "framer-motion";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 export const IconMoon = memo<
     React.ComponentProps<"svg"> & {

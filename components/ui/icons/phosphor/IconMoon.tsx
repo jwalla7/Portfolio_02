@@ -13,10 +13,12 @@ export const IconMoon = memo<
         setMotion: boolean;
     }
 >(function IconMoon(
-    /** Set default value for iconDirection */
+    /** Pass iconDirection with a default value, setMotion, and className */
     { iconDirection = "0_rotation", setMotion, className },
+    /** Accessibility to other SVG props */
     props: SVGProps<SVGSVGElement>
 ) {
+    /** Create className values */
     const variants = cn(
         "transition duration-100 ease-in",
         {

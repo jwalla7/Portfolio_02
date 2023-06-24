@@ -13,12 +13,12 @@ export const IconMoon = memo<
         setMotion: boolean;
     }
 >(function IconMoon(
-    /** Pass iconDirection with a default value, setMotion, and className */
+    /** Accessibility to customized attributes iconDirection, setMotion, and className */
     { iconDirection = "0_rotation", setMotion, className },
     /** Accessibility to other SVG props */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** Create className values */
+    /** Create custom values for className */
     const variants = cn(
         "transition duration-100 ease-in",
         {
@@ -39,7 +39,7 @@ export const IconMoon = memo<
                 data-icon=phosphorIcon-moon viewBox=0 0 256 256 className=
                 {variants}
                 <motion.path
-                    /** Animation: initial to animate, creates a fade in animation  */
+                    /** Initial to animate, creates a fade-in-with-rotation animation  */
                     initial={{
                         rotate: -45,
                         opacity: 0,

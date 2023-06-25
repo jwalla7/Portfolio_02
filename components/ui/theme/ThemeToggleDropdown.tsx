@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "next-themes";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Button } from "../button/Button";
@@ -22,10 +22,8 @@ const ThemeToggleDropdown = React.forwardRef<
 
     console.log(theme);
 
-    const showTheme = () => {
-        if (!theme) {
-            setTheme("system");
-        }
+    const ShowTheme = () => {
+        useEffect(() => setTheme("system"), []);
         if (theme === "system") {
             return (
                 <menu>
@@ -59,7 +57,7 @@ const ThemeToggleDropdown = React.forwardRef<
     return (
         <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
-                <Button variant="default" ref={showTheme}>
+                <Button variant="default">
                     {/* {theme === "system" ? (
                         <menu>
                             <IconHouse setMotion={true} className="h-9 w-9" />
@@ -80,7 +78,7 @@ const ThemeToggleDropdown = React.forwardRef<
                             <label>Theme</label>
                         </menu>
                     )} */}
-                    {showTheme()}
+                    {ShowTheme()}
                 </Button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>

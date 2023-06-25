@@ -6,7 +6,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Button } from "../button/Button";
 import { IconSun } from "../icons/phosphor/IconSun";
 import { IconMoon } from "../icons/phosphor/IconMoon";
-import { IconHouse } from "../icons/phosphor/IconHouse";
+import { IconCircleHalf } from "../icons/phosphor/IconCircleHalf";
 
 export interface ThemeToggleDropdownProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -27,7 +27,7 @@ const ThemeToggleDropdown = React.forwardRef<
         if (theme === "system") {
             return (
                 <menu>
-                    <IconHouse setMotion={true} className="h-9 w-9" />
+                    <IconCircleHalf setMotion={true} className="h-9 w-9" />
                     <label>Theme</label>
                 </menu>
             );
@@ -60,7 +60,7 @@ const ThemeToggleDropdown = React.forwardRef<
                 <Button variant="default">
                     {/* {theme === "system" ? (
                         <menu>
-                            <IconHouse setMotion={true} className="h-9 w-9" />
+                            <IconCircleHalf setMotion={true} className="h-9 w-9" />
                             <label>Theme</label>
                         </menu>
                     ) : theme === "dark" ? (
@@ -117,7 +117,7 @@ const ThemeToggleDropdown = React.forwardRef<
                         }}
                         className="flex"
                     >
-                        <IconHouse setMotion={false} className="h-9 w-9" />
+                        <IconCircleHalf setMotion={false} className="h-9 w-9" />
                         <label>Auto</label>
                     </DropdownMenu.Item>
                 </DropdownMenu.Content>

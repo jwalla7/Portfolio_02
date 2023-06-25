@@ -33,8 +33,10 @@ export default function RootLayout({
                     attribute="class"
                     defaultTheme="system"
                     /**
-                    `enableSystem` enables system preference and developer tools `toggle theme simulation for the layout` when on system theme
-                    https://github.com/pacocoursey/next-themes
+                     * `enableSystem` enables system preference and developer tools `toggle theme simulation for the layout`
+                     * when on `system` theme.
+                     *
+                     * https://github.com/pacocoursey/next-themes
                      */
                     enableSystem
                 >

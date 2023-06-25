@@ -32,7 +32,11 @@ export default function RootLayout({
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
-                    enableSystem
+                    /**
+                    `enableSystem` enables system preference and developer tools `toggle theme simulation for the layout`
+                    https://github.com/pacocoursey/next-themes
+                     */
+                    enableSystem={true}
                 >
                     {children}
                 </ThemeProvider>

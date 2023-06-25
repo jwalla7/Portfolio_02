@@ -36,6 +36,7 @@ export const IconSun = memo<
                 data-prefix="fab"
                 data-icon="phosphorIcon-sun"
                 viewBox="0 0 256 256"
+                className={variants}
             >
                 <motion.path
                     /** 

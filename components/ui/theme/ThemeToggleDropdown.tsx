@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useTheme } from "next-themes";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
@@ -57,7 +59,7 @@ const ThemeToggleDropdown = React.forwardRef<
     return (
         <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
-                <Button variant="default">
+                <Button variant="default" ref={showTheme}>
                     {/* {theme === "system" ? (
                         <menu>
                             <IconHouse setMotion={true} className="h-9 w-9" />

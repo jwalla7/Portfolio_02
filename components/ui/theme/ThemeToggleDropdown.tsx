@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useTheme } from "next-themes";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Button } from "../button/Button";
@@ -19,13 +19,13 @@ const ThemeToggleDropdown = React.forwardRef<
 >(() => {
     const { theme, setTheme } = useTheme();
     const [mounted, setMount] = useState<boolean>(false);
-    const [_, startTransition] = React.useTransition();
+    const [_, startTransition] = useTransition();
 
     console.log(theme);
     /**
      * After initial render, checks accessibility of theme and establishes theme to `system`.
      */
-    React.useEffect(() => {
+    useEffect(() => {
         setMount(true);
         console.log("initial theme: ", theme);
         setTheme("system");

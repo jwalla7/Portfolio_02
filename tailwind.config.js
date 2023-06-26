@@ -6,11 +6,12 @@
  * https:tailwindcss.com/docs/configuration#core-plugins
  */
 
-import { fontFamily } from "tailwindcss/defaultTheme";
 import { blackA, mauve, violet } from "@radix-ui/colors";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: ["class"],
     content: [
         "./app/**/*.{ts,tsx}",
         "./components/**/*.{ts,tsx}",
@@ -26,15 +27,17 @@ module.exports = {
      */
 
     theme: {
-        extend: {
+        container: {
+            center: true,
+            padding: "2rem",
             screens: {
-                // Add new breakpoints an addition to default breakpoints
+                "2xl": "1400px",
             },
-            // backgroundImage: {
-            //     "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-            //     "gradient-conic":
-            //         "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-            // },
+        },
+        extend: {
+            fontFamily: {
+                sans: ["var(--font-sans)", ...fontFamily.sans],
+            },
             colors: {
                 ...blackA,
                 ...mauve,
@@ -47,6 +50,40 @@ module.exports = {
                     500: "#020D00",
                 },
                 blueviolet: "#9747ff",
+                border: "hsl(var(--border))",
+                input: "hsl(var(--input))",
+                ring: "hsl(var(--ring))",
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
+                primary: {
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
+                },
+                secondary: {
+                    DEFAULT: "hsl(var(--secondary))",
+                    foreground: "hsl(var(--secondary-foreground))",
+                },
+                destructive: {
+                    DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
+                    foreground:
+                        "hsl(var(--destructive-foreground) / <alpha-value>)",
+                },
+                muted: {
+                    DEFAULT: "hsl(var(--muted))",
+                    foreground: "hsl(var(--muted-foreground))",
+                },
+                accent: {
+                    DEFAULT: "hsl(var(--accent))",
+                    foreground: "hsl(var(--accent-foreground))",
+                },
+                popover: {
+                    DEFAULT: "hsl(var(--popover))",
+                    foreground: "hsl(var(--popover-foreground))",
+                },
+                card: {
+                    DEFAULT: "hsl(var(--card))",
+                    foreground: "hsl(var(--card-foreground))",
+                },
             },
             gradientColorStopPositions: {
                 100: "100%",
@@ -68,8 +105,9 @@ module.exports = {
                 0.8: "0.8%",
             },
             borderRadius: {
-                "8xs": "5px",
-                "smi-4": "12.4px",
+                lg: `var(--radius)`,
+                md: `calc(var(--radius) - 2px)`,
+                sm: "calc(var(--radius) - 4px)",
             },
             keyframes: {
                 slideUpAndFade: {
@@ -88,6 +126,14 @@ module.exports = {
                     from: { opacity: 0, transform: "translateX(2px)" },
                     to: { opacity: 1, transform: "translateX(0)" },
                 },
+                "accordion-down": {
+                    from: { height: 0 },
+                    to: { height: "var(--radix-accordion-content-height)" },
+                },
+                "accordion-up": {
+                    from: { height: "var(--radix-accordion-content-height)" },
+                    to: { height: 0 },
+                },
             },
             animation: {
                 slideUpAndFade:
@@ -98,11 +144,16 @@ module.exports = {
                     "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
                 slideLeftAndFade:
                     "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                "accordion-down": "accordion-down 0.2s ease-out",
+                "accordion-up": "accordion-up 0.2s ease-out",
             },
         },
     },
     corePlugins: {
         preflight: false,
     },
-    plugins: [],
+    plugins: [
+        require("tailwindcss-animate"),
+        require("@tailwindcss/typography"),
+    ],
 };

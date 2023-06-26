@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { Button } from "../button/Button";
-import { IconMoon } from "../icons/phosphor/IconMoon";
-import { IconSun } from "../icons/phosphor/IconSun";
+import { Button } from "../../button/Button";
+import { IconMoon } from "../../icons/phosphor/IconMoon";
+import { IconSun } from "../../icons/phosphor/IconSun";
 
 // TODO import buttons menu,content,items,trigger
 
@@ -29,9 +29,13 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
             {!theme ? (
                 theme === "system"
             ) : theme === "dark" ? (
-                <IconMoon iconDirection="0_rotation" className="w-9 h-9" />
+                <IconMoon
+                    setMotion={true}
+                    iconDirection="0_rotation"
+                    className="w-9 h-9"
+                />
             ) : (
-                <IconSun className="w-9 h-9" />
+                <IconSun setMotion={true} className="w-9 h-9" />
             )}
         </Button>
     );

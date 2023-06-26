@@ -1,15 +1,19 @@
 "use client";
 
-import ThemeMenu from "@/components/ui/theme/ThemeMenu";
-import { ThemeToggleDropdown } from "@/components/ui/theme/ThemeToggleDropdown";
+import ThemeMenuDropdown from "@/components/ui/theme/dropdown/ThemeMenuDropdown";
+import ThemeToggle from "@/components/ui/theme/toggle/ThemeToggle";
+import { ThemeToggleDropdown } from "@/components/ui/theme/dropdown/ThemeToggleDropdown";
+import ThemeToggleGroup from "@/components/ui/theme/toggle/group/ThemeToggleGroup";
 
 export default function VisitorsPage() {
     return (
         <div suppressHydrationWarning>
             <div>visitors page</div>
-            <ThemeMenu>
+            <ThemeMenuDropdown>
                 <ThemeToggleDropdown />
-            </ThemeMenu>
+            </ThemeMenuDropdown>
+            <ThemeToggleGroup />
+            {/* <ThemeToggle /> */}
         </div>
     );
 }

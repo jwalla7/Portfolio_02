@@ -3,11 +3,11 @@
 import React from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 
-export interface ThemeMenuProps {
+export interface ThemeMenuDropdownProps {
     children?: React.ReactNode;
 }
 
-const ThemeMenu: React.FC<ThemeMenuProps> = ({ children }) => {
+const ThemeMenuDropdown: React.FC<ThemeMenuDropdownProps> = ({ children }) => {
     return (
         <NavigationMenu.Root className="relative z-[1] flex w-screen justify-center">
             <NavigationMenu.List className="center shadow-blackA7 m-0 flex list-none rounded-[6px] bg-white p-1 shadow-[0_2px_10px]">
@@ -28,4 +28,4 @@ const ThemeMenu: React.FC<ThemeMenuProps> = ({ children }) => {
     );
 };
 
-export default ThemeMenu;
+export default ThemeMenuDropdown;

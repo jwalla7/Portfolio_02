@@ -3,10 +3,10 @@
 import React, { useEffect, useState, useTransition } from "react";
 import { useTheme } from "next-themes";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Button } from "../button/Button";
-import { IconSun } from "../icons/phosphor/IconSun";
-import { IconMoon } from "../icons/phosphor/IconMoon";
-import { IconCircleHalf } from "../icons/phosphor/IconCircleHalf";
+import { Button } from "../../button/Button";
+import { IconSun } from "../../icons/phosphor/IconSun";
+import { IconMoon } from "../../icons/phosphor/IconMoon";
+import { IconCircleHalf } from "../../icons/phosphor/IconCircleHalf";
 
 export interface ThemeToggleDropdownProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {

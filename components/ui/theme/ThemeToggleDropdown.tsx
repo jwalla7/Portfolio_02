@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Button } from "../button/Button";
@@ -18,9 +18,19 @@ const ThemeToggleDropdown = React.forwardRef<
     ThemeToggleDropdownProps
 >(() => {
     const { theme, setTheme } = useTheme();
+    const [mounted, setMount] = useState<boolean>(false);
     const [_, startTransition] = React.useTransition();
 
     console.log(theme);
+    /**
+     * After initial render, checks accessibility of theme and establishes theme to `system`.
+     */
+    React.useEffect(() => {
+        setMount(true);
+        console.log("initial theme: ", theme);
+        setTheme("system");
+        console.log("set theme: ", theme);
+    }, []);
 
     return (
         <DropdownMenu.Root>
@@ -31,30 +41,30 @@ const ThemeToggleDropdown = React.forwardRef<
                     className="flex flex-wrap items-center gap-1 h-8 w-21 px-0 "
                 >
                     {theme === "light" ? (
-                        <menu>
+                        <i>
                             <IconSun
                                 setMotion={true}
                                 className="mr-2 h-9 w-9"
                             />
-                            <label>Theme</label>
-                        </menu>
+                            <span>Theme</span>
+                        </i>
                     ) : theme === "dark" ? (
-                        <menu>
+                        <i>
                             <IconMoon
                                 setMotion={true}
                                 iconDirection="-45_rotation"
                                 className="mr-2 h-9 w-9"
                             />
                             <label>Theme</label>
-                        </menu>
+                        </i>
                     ) : (
-                        <>
+                        <i>
                             <IconCircleHalf
                                 setMotion={true}
                                 className="mr-2 h-9 w-9"
                             />
                             <span>Theme</span>
-                        </>
+                        </i>
                     )}
                 </Button>
             </DropdownMenu.Trigger>
@@ -68,8 +78,13 @@ const ThemeToggleDropdown = React.forwardRef<
                         }}
                         className="flex"
                     >
-                        <IconSun setMotion={false} className="mr-2 h-9 w-9" />
-                        <label>Light</label>
+                        <i>
+                            <IconSun
+                                setMotion={false}
+                                className="mr-2 h-9 w-9"
+                            />
+                            <span>Light</span>
+                        </i>
                     </DropdownMenu.Item>
                     <DropdownMenu.Item
                         onClick={() => {
@@ -79,12 +94,14 @@ const ThemeToggleDropdown = React.forwardRef<
                         }}
                         className="flex"
                     >
-                        <IconMoon
-                            setMotion={false}
-                            iconDirection="0_rotation"
-                            className="mr-2 h-9 w-9"
-                        />
-                        <label>Dark</label>
+                        <i>
+                            <IconMoon
+                                setMotion={false}
+                                iconDirection="0_rotation"
+                                className="mr-2 h-9 w-9"
+                            />
+                            <span>Dark</span>
+                        </i>
                     </DropdownMenu.Item>
                     <DropdownMenu.Item
                         onClick={() => {
@@ -94,11 +111,13 @@ const ThemeToggleDropdown = React.forwardRef<
                         }}
                         className="flex"
                     >
-                        <IconCircleHalf
-                            setMotion={false}
-                            className="mr-2 h-9 w-9"
-                        />
-                        <label>Auto</label>
+                        <i>
+                            <IconCircleHalf
+                                setMotion={false}
+                                className="mr-2 h-9 w-9"
+                            />
+                            <span>Auto</span>
+                        </i>
                     </DropdownMenu.Item>
                 </DropdownMenu.Content>
             </DropdownMenu.Portal>

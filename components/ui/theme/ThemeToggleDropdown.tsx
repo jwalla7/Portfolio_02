@@ -25,10 +25,17 @@ const ThemeToggleDropdown = React.forwardRef<
     return (
         <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
-                <Button variant="default">
+                <Button
+                    variant="default"
+                    size="sm"
+                    className="flex flex-wrap items-center gap-1 h-8 w-21 px-0 "
+                >
                     {theme === "light" ? (
                         <menu>
-                            <IconSun setMotion={true} className="h-9 w-9" />
+                            <IconSun
+                                setMotion={true}
+                                className="mr-2 h-9 w-9"
+                            />
                             <label>Theme</label>
                         </menu>
                     ) : theme === "dark" ? (
@@ -36,18 +43,18 @@ const ThemeToggleDropdown = React.forwardRef<
                             <IconMoon
                                 setMotion={true}
                                 iconDirection="-45_rotation"
-                                className="h-9 w-9"
+                                className="mr-2 h-9 w-9"
                             />
                             <label>Theme</label>
                         </menu>
                     ) : (
-                        <menu>
+                        <>
                             <IconCircleHalf
                                 setMotion={true}
-                                className="h-9 w-9"
+                                className="mr-2 h-9 w-9"
                             />
-                            <label>Theme</label>
-                        </menu>
+                            <span>Theme</span>
+                        </>
                     )}
                 </Button>
             </DropdownMenu.Trigger>
@@ -61,7 +68,7 @@ const ThemeToggleDropdown = React.forwardRef<
                         }}
                         className="flex"
                     >
-                        <IconSun setMotion={false} className="h-9 w-9" />
+                        <IconSun setMotion={false} className="mr-2 h-9 w-9" />
                         <label>Light</label>
                     </DropdownMenu.Item>
                     <DropdownMenu.Item
@@ -75,7 +82,7 @@ const ThemeToggleDropdown = React.forwardRef<
                         <IconMoon
                             setMotion={false}
                             iconDirection="0_rotation"
-                            className="h-9 w-9"
+                            className="mr-2 h-9 w-9"
                         />
                         <label>Dark</label>
                     </DropdownMenu.Item>
@@ -87,7 +94,10 @@ const ThemeToggleDropdown = React.forwardRef<
                         }}
                         className="flex"
                     >
-                        <IconCircleHalf setMotion={false} className="h-9 w-9" />
+                        <IconCircleHalf
+                            setMotion={false}
+                            className="mr-2 h-9 w-9"
+                        />
                         <label>Auto</label>
                     </DropdownMenu.Item>
                 </DropdownMenu.Content>

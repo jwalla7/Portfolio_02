@@ -22,45 +22,13 @@ const ThemeToggleDropdown = React.forwardRef<
 
     console.log(theme);
 
-    const ShowTheme = () => {
-        useEffect(() => setTheme("system"), []);
-        if (theme === "system") {
-            return (
-                <menu>
-                    <IconCircleHalf setMotion={true} className="h-9 w-9" />
-                    <label>Theme</label>
-                </menu>
-            );
-        }
-        if (theme === "dark") {
-            return (
-                <menu>
-                    <IconMoon
-                        setMotion={true}
-                        iconDirection="-45_rotation"
-                        className="h-9 w-9"
-                    />
-                    <label>Theme</label>
-                </menu>
-            );
-        }
-
-        if (theme == "light") {
-            return (
-                <menu>
-                    <IconSun setMotion={true} className="h-9 w-9" />
-                    <label>Theme</label>
-                </menu>
-            );
-        }
-    };
     return (
         <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
                 <Button variant="default">
-                    {/* {theme === "system" ? (
+                    {theme === "light" ? (
                         <menu>
-                            <IconCircleHalf setMotion={true} className="h-9 w-9" />
+                            <IconSun setMotion={true} className="h-9 w-9" />
                             <label>Theme</label>
                         </menu>
                     ) : theme === "dark" ? (
@@ -74,11 +42,13 @@ const ThemeToggleDropdown = React.forwardRef<
                         </menu>
                     ) : (
                         <menu>
-                            <IconSun setMotion={true} className="h-9 w-9" />
+                            <IconCircleHalf
+                                setMotion={true}
+                                className="h-9 w-9"
+                            />
                             <label>Theme</label>
                         </menu>
-                    )} */}
-                    {ShowTheme()}
+                    )}
                 </Button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>

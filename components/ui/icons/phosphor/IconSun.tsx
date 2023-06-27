@@ -36,6 +36,7 @@ export const IconSun = memo<
                 data-prefix="fab"
                 data-icon="phosphorIcon-sun"
                 viewBox="0 0 256 256"
+                preserveAspectRatio="xMidYMid meet"
                 className={variants}
             >
                 <motion.path
@@ -72,6 +73,7 @@ export const IconSun = memo<
                 data-prefix="fab"
                 data-icon="phosphorIcon-sun"
                 viewBox="0 0 256 256"
+                preserveAspectRatio="xMidYMid meet"
                 className={variants}
                 {...props}
             >

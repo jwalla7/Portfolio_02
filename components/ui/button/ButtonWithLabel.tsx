@@ -3,7 +3,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import React from "react";
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
+    "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none border-0",
     {
         variants: {
             variant: {
@@ -20,7 +20,7 @@ const buttonVariants = cva(
             },
             size: {
                 default: "h-10 px-4 py-2",
-                sm: "h-9 px-3 rounded-md",
+                sm: "h-[37px] w-[37px] px-3 rounded-md",
                 lg: "h-11 px-8 rounded-md",
                 icon: "h-10 w-10",
             },
@@ -32,21 +32,29 @@ const buttonVariants = cva(
     }
 );
 
-export interface ButtonProps
+export interface ButtonWithLabelProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-        VariantProps<typeof buttonVariants> {}
+        VariantProps<typeof buttonVariants> {
+    children?: React.ReactNode;
+    label?: string | "undefined";
+    asChild?: boolean;
+}
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, ...props }, ref) => {
-        return (
+const ButtonWithLabel = React.forwardRef<
+    HTMLButtonElement,
+    ButtonWithLabelProps
+>(({ className, variant, size, ...props }, ref) => {
+    return (
+        <div className="flex gap-3 items-center">
             <button
                 className={cn(buttonVariants({ variant, size, className }))}
                 ref={ref}
                 {...props}
             />
-        );
-    }
-);
-Button.displayName = "Button";
+            <span>{props.label}</span>
+        </div>
+    );
+});
+ButtonWithLabel.displayName = "ButtonWithLabel";
 
-export { Button, buttonVariants };
+export { ButtonWithLabel, buttonVariants };

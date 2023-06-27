@@ -1,30 +1,33 @@
 "use client";
 
 import React, { useEffect, useState, useTransition } from "react";
+
+import { ThemeToggleDropdownProps } from "./themeToggleDropdownProps";
+import { ButtonWithLabel } from "../../../button/ButtonWithLabel/ButtonWithLabel";
+import { IconSun } from "../../../icons/phosphor/IconSun";
+import { IconMoon } from "../../../icons/phosphor/IconMoon";
+import { IconCircleHalf } from "../../../icons/phosphor/IconCircleHalf";
+
 import { useTheme } from "next-themes";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Button } from "../../button/Button";
-import { IconSun } from "../../icons/phosphor/IconSun";
-import { IconMoon } from "../../icons/phosphor/IconMoon";
-import { IconCircleHalf } from "../../icons/phosphor/IconCircleHalf";
-import { ButtonWithLabel } from "../../button/ButtonWithLabel";
 
-export interface ThemeToggleDropdownProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    children?: React.ReactNode;
-}
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuItem,
+    DropdownMenuContent,
+    DropdownMenuPortal,
+} from "@radix-ui/react-dropdown-menu";
 
-const ThemeToggleDropdown = React.forwardRef<
+export const ThemeToggleDropdown = React.forwardRef<
     HTMLButtonElement,
     ThemeToggleDropdownProps
 >(() => {
     const { theme, setTheme } = useTheme();
     const [mounted, setMount] = useState<boolean>(false);
     const [_, startTransition] = useTransition();
-
-    console.log(theme);
     /**
-     * After initial render, checks accessibility of theme and establishes theme to `system`.
+     * Executes once after initial render,
+     * checks accessibility of theme and establishes theme to `system`.
      */
     useEffect(() => {
         setMount(true);
@@ -34,8 +37,8 @@ const ThemeToggleDropdown = React.forwardRef<
     }, []);
 
     return (
-        <DropdownMenu.Root>
-            <DropdownMenu.Trigger asChild>
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
                 <ButtonWithLabel
                     variant="ghost"
                     className="flex max-w-max px-1 py-1 shadow-blackA7"
@@ -47,7 +50,6 @@ const ThemeToggleDropdown = React.forwardRef<
                             <i className="flex max-h-max max-w-max">
                                 <IconSun setMotion={true} className="h-8 w-8" />
                             </i>
-                            {/* <span>Theme</span> */}
                         </div>
                     ) : theme === "dark" ? (
                         <i className="flex max-h-max max-w-max">
@@ -56,7 +58,6 @@ const ThemeToggleDropdown = React.forwardRef<
                                 iconDirection="-45_rotation"
                                 className="h-8 w-8"
                             />
-                            {/* <label>Theme</label> */}
                         </i>
                     ) : (
                         <i className="flex max-h-max max-w-max">
@@ -64,14 +65,13 @@ const ThemeToggleDropdown = React.forwardRef<
                                 setMotion={true}
                                 className="h-8 w-8"
                             />
-                            {/* <span>Theme</span> */}
                         </i>
                     )}
                 </ButtonWithLabel>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Portal>
-                <DropdownMenu.Content align="end">
-                    <DropdownMenu.Item
+            </DropdownMenuTrigger>
+            <DropdownMenuPortal>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuItem
                         onClick={() => {
                             startTransition(() => {
                                 setTheme("light");
@@ -83,8 +83,8 @@ const ThemeToggleDropdown = React.forwardRef<
                             <IconSun setMotion={false} className="h-8 w-8" />
                             <span>Light</span>
                         </i>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
                         onClick={() => {
                             startTransition(() => {
                                 setTheme("dark");
@@ -100,8 +100,8 @@ const ThemeToggleDropdown = React.forwardRef<
                             />
                             <span>Dark</span>
                         </i>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
                         onClick={() => {
                             startTransition(() => {
                                 setTheme("system");
@@ -116,12 +116,11 @@ const ThemeToggleDropdown = React.forwardRef<
                             />
                             <span>Auto</span>
                         </i>
-                    </DropdownMenu.Item>
-                </DropdownMenu.Content>
-            </DropdownMenu.Portal>
-        </DropdownMenu.Root>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenuPortal>
+        </DropdownMenu>
     );
 });
-ThemeToggleDropdown.displayName = "ThemeToggleDropdown";
 
-export { ThemeToggleDropdown };
+ThemeToggleDropdown.displayName = "ThemeToggleDropdown";

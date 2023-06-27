@@ -1,8 +1,6 @@
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
-import React from "react";
+import { cva } from "class-variance-authority";
 
-const buttonVariants = cva(
+export const buttonWithLabelVariants = cva(
     "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none border-0",
     {
         variants: {
@@ -31,30 +29,3 @@ const buttonVariants = cva(
         },
     }
 );
-
-export interface ButtonWithLabelProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-        VariantProps<typeof buttonVariants> {
-    children?: React.ReactNode;
-    label?: string | "undefined";
-    asChild?: boolean;
-}
-
-const ButtonWithLabel = React.forwardRef<
-    HTMLButtonElement,
-    ButtonWithLabelProps
->(({ className, variant, size, ...props }, ref) => {
-    return (
-        <div className="flex gap-3 items-center">
-            <button
-                className={cn(buttonVariants({ variant, size, className }))}
-                ref={ref}
-                {...props}
-            />
-            <span>{props.label}</span>
-        </div>
-    );
-});
-ButtonWithLabel.displayName = "ButtonWithLabel";
-
-export { ButtonWithLabel, buttonVariants };

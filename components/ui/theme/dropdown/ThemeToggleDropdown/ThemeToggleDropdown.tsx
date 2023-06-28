@@ -39,12 +39,7 @@ export const ThemeToggleDropdown = React.forwardRef<
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <ButtonWithLabel
-                    variant="ghost"
-                    className="flex max-w-max px-1 py-1 shadow-blackA7"
-                    label="Theme"
-                    size="sm"
-                >
+                <ButtonWithLabel variant="default" label="Theme" size="sm">
                     {theme === "light" ? (
                         <div className="flex gap-6 items-center justify-start">
                             <i className="flex max-h-max max-w-max">
@@ -52,20 +47,24 @@ export const ThemeToggleDropdown = React.forwardRef<
                             </i>
                         </div>
                     ) : theme === "dark" ? (
-                        <i className="flex max-h-max max-w-max">
-                            <IconMoon
-                                setMotion={true}
-                                iconDirection="-45_rotation"
-                                className="h-8 w-8"
-                            />
-                        </i>
+                        <div className="flex gap-6 items-center justify-start">
+                            <i className="flex max-h-max max-w-max">
+                                <IconMoon
+                                    setMotion={true}
+                                    iconDirection="-45_rotation"
+                                    className="h-8 w-8"
+                                />
+                            </i>
+                        </div>
                     ) : (
-                        <i className="flex max-h-max max-w-max">
-                            <IconCircleHalf
-                                setMotion={true}
-                                className="h-8 w-8"
-                            />
-                        </i>
+                        <div className="flex gap-6 items-center justify-start">
+                            <i className="flex max-h-max max-w-max">
+                                <IconCircleHalf
+                                    setMotion={true}
+                                    className="h-8 w-8"
+                                />
+                            </i>
+                        </div>
                     )}
                 </ButtonWithLabel>
             </DropdownMenuTrigger>

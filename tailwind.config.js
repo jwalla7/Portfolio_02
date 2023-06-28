@@ -38,6 +38,13 @@ module.exports = {
             fontFamily: {
                 sans: ["var(--font-sans)", ...fontFamily.sans],
             },
+            backgroundImage: {
+                none: "none",
+                "gradient-to-r":
+                    "linear-gradient(to right, var(--tw-gradient-stops))",
+                "gradient-to-br":
+                    "linear-gradient(to bottom right, var(--tw-gradient-stops))",
+            },
             colors: {
                 ...blackA,
                 ...mauve,
@@ -55,6 +62,10 @@ module.exports = {
                 ring: "hsl(var(--ring))",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
+                /**
+                 * Defining custom colors
+                 * https://tailwindcss.com/docs/customizing-colors#naming-your-colors
+                 */
                 primary: {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",

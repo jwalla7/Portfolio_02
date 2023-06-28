@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+Defining common color palette using CSS variables
+https: //tailwindcss.com/docs/customizing-colors#naming-your-colors
+ */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -53,7 +57,7 @@
     --input: 240 3.7% 15.9%;
 
     --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+    --primary-foreground: 111 100% 3%; /* #020D00 */
 
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;

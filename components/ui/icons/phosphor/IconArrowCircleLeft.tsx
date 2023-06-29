@@ -13,8 +13,8 @@ export const IconArrowCircleLeft = memo<
     props: SVGProps<SVGSVGElement>
 ) {
     /** Create className values */
-    const propValues = cn(
-        "transition duration-100 ease-in",
+    const variants = cn(
+        "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative",
         {
             "rotate-0": iconDirection === "0_rotation",
             "rotate-90": iconDirection === "90_rotation",
@@ -32,7 +32,7 @@ export const IconArrowCircleLeft = memo<
             data-prefix="fab"
             data-icon="phosphorIcon-arrowCircleLeft"
             viewBox="0 0 256 256"
-            className={propValues}
+            className={variants}
             {...props}
         >
             <path

@@ -38,86 +38,81 @@ export const ThemeToggleDropdown = React.forwardRef<
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <ButtonWithLabel variant="default" label="Theme" size="sm">
-                    {theme === "light" ? (
-                        <div className="flex gap-6 items-center justify-start">
-                            <i className="flex max-h-max max-w-max">
-                                <IconSun setMotion={true} className="h-8 w-8" />
-                            </i>
-                        </div>
-                    ) : theme === "dark" ? (
-                        <div className="flex gap-6 items-center justify-start">
-                            <i className="flex max-h-max max-w-max">
-                                <IconMoon
-                                    setMotion={true}
-                                    iconDirection="-45_rotation"
-                                    className="h-8 w-8"
-                                />
-                            </i>
-                        </div>
-                    ) : (
-                        <div className="flex gap-6 items-center justify-start">
-                            <i className="flex max-h-max max-w-max">
-                                <IconCircleHalf
-                                    setMotion={true}
-                                    className="h-8 w-8"
-                                />
-                            </i>
-                        </div>
-                    )}
-                </ButtonWithLabel>
-            </DropdownMenuTrigger>
-            <DropdownMenuPortal>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuItem
-                        onClick={() => {
-                            startTransition(() => {
-                                setTheme("light");
-                            });
-                        }}
-                        className="flex"
+            <div className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]">
+                <DropdownMenuTrigger asChild>
+                    <ButtonWithLabel
+                        variant="default"
+                        label="Theme"
+                        size="default"
                     >
-                        <i>
-                            <IconSun setMotion={false} className="h-8 w-8" />
-                            <span>Light</span>
-                        </i>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                        onClick={() => {
-                            startTransition(() => {
-                                setTheme("dark");
-                            });
-                        }}
-                        className="flex"
-                    >
-                        <i>
+                        {theme === "light" ? (
+                            <IconSun setMotion={true} />
+                        ) : theme === "dark" ? (
                             <IconMoon
-                                setMotion={false}
-                                iconDirection="0_rotation"
-                                className="mr-2 h-9 w-9"
+                                setMotion={true}
+                                iconDirection="-45_rotation"
                             />
-                            <span>Dark</span>
-                        </i>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                        onClick={() => {
-                            startTransition(() => {
-                                setTheme("system");
-                            });
-                        }}
-                        className="flex"
-                    >
-                        <i>
-                            <IconCircleHalf
-                                setMotion={false}
-                                className="mr-2 h-9 w-9"
-                            />
-                            <span>Auto</span>
-                        </i>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenuPortal>
+                        ) : (
+                            <IconCircleHalf setMotion={true} />
+                        )}
+                    </ButtonWithLabel>
+                </DropdownMenuTrigger>
+                <DropdownMenuPortal>
+                    <DropdownMenuContent className="box-border flex flex-col justify-center items-start flex-grow basis-full gap-[55px] px-[39px]">
+                        <DropdownMenuItem
+                            onClick={() => {
+                                startTransition(() => {
+                                    setTheme("light");
+                                });
+                            }}
+                            className="flex"
+                        >
+                            <ButtonWithLabel
+                                variant="ghost"
+                                label="Light"
+                                size="default"
+                            >
+                                <IconSun setMotion={false} />
+                            </ButtonWithLabel>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => {
+                                startTransition(() => {
+                                    setTheme("dark");
+                                });
+                            }}
+                            className="flex"
+                        >
+                            <ButtonWithLabel
+                                variant="ghost"
+                                label="Dark"
+                                size="default"
+                            >
+                                <IconMoon
+                                    setMotion={false}
+                                    iconDirection="0_rotation"
+                                />
+                            </ButtonWithLabel>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => {
+                                startTransition(() => {
+                                    setTheme("system");
+                                });
+                            }}
+                            className="flex"
+                        >
+                            <ButtonWithLabel
+                                variant="ghost"
+                                label="Auto"
+                                size="default"
+                            >
+                                <IconCircleHalf setMotion={false} />
+                            </ButtonWithLabel>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenuPortal>
+            </div>
         </DropdownMenu>
     );
 });

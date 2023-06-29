@@ -26,7 +26,7 @@ export const IconMoon = memo<
     Create custom values for className
     */
     const variants = cn(
-        "transition duration-100 ease-in",
+        "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative",
         {
             "rotate-0": iconDirection === "0_rotation",
             "rotate-45": iconDirection === "45_rotation",

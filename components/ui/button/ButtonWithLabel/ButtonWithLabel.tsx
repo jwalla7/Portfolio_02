@@ -10,7 +10,7 @@ export const ButtonWithLabel = React.forwardRef<
     ButtonWithLabelProps
 >(({ className, variant, size, ...props }, ref) => {
     return (
-        <div className="flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px]">
+        <div className="group box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px]">
             <button
                 className={cn(
                     buttonWithLabelVariants({ variant, size, className })
@@ -18,8 +18,10 @@ export const ButtonWithLabel = React.forwardRef<
                 ref={ref}
                 {...props}
             />
-            <div>
-                <span>{props.label}</span>
+            <div className="box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 px-2.5 pt-[3px]">
+                <span className="whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[26px] leading-[normal] text-left text-neutral-50/[0.34] group-hover:text-white">
+                    {props.label}
+                </span>
             </div>
         </div>
     );

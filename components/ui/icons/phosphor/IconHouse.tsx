@@ -23,7 +23,10 @@ export const IconHouse = memo<
     /** 
     Create custom values for className
      */
-    const variants = cn("transition duration-100 ease-in", className);
+    const variants = cn(
+        "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative",
+        className
+    );
     /** 
     Establishes which variation of `IconSun` to render
      */

@@ -58,14 +58,14 @@ export const ThemeToggleDropdown = React.forwardRef<
                     </ButtonWithLabel>
                 </DropdownMenuTrigger>
                 <DropdownMenuPortal>
-                    <DropdownMenuContent className="box-border flex flex-col justify-center items-start flex-grow basis-full gap-[55px] px-[39px]">
+                    <DropdownMenuContent className="box-border flex flex-col justify-center items-center px-[46px] py-3">
                         <DropdownMenuItem
                             onClick={() => {
                                 startTransition(() => {
                                     setTheme("light");
                                 });
                             }}
-                            className="flex"
+                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
                         >
                             <ButtonWithLabel
                                 variant="ghost"
@@ -81,7 +81,7 @@ export const ThemeToggleDropdown = React.forwardRef<
                                     setTheme("dark");
                                 });
                             }}
-                            className="flex"
+                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
                         >
                             <ButtonWithLabel
                                 variant="ghost"
@@ -100,7 +100,7 @@ export const ThemeToggleDropdown = React.forwardRef<
                                     setTheme("system");
                                 });
                             }}
-                            className="flex"
+                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
                         >
                             <ButtonWithLabel
                                 variant="ghost"

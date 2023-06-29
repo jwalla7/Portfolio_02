@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const buttonWithLabelVariants = cva(
-    "box-border flex justify-center items-center flex-grow-0 flex-shrink-0 relative",
+    "box-border flex justify-center items-center flex-grow-0 flex-shrink-0 relative cursor-pointer",
     {
         variants: {
             variant: {

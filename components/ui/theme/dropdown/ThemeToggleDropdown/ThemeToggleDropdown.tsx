@@ -17,6 +17,8 @@ import {
     DropdownMenuContent,
     DropdownMenuPortal,
 } from "@radix-ui/react-dropdown-menu";
+import { cn } from "@/lib/utils";
+import { themeToggleDropdownVariants } from "./themeToggleDropdownVariants";
 
 export const ThemeToggleDropdown = React.forwardRef<
     HTMLButtonElement,
@@ -38,8 +40,8 @@ export const ThemeToggleDropdown = React.forwardRef<
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <div className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] cursor-pointer">
+            <div className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[34px]">
+                <DropdownMenuTrigger asChild>
                     <ButtonWithLabel
                         variant="default"
                         label="Theme"
@@ -56,63 +58,74 @@ export const ThemeToggleDropdown = React.forwardRef<
                             <IconCircleHalf setMotion={true} />
                         )}
                     </ButtonWithLabel>
-                </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuPortal>
-                <DropdownMenuContent className="box-border flex flex-col justify-center items-center px-[46px] py-3 cursor-pointer">
-                    <DropdownMenuItem
-                        onClick={() => {
-                            startTransition(() => {
-                                setTheme("light");
-                            });
-                        }}
-                        className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
+                </DropdownMenuTrigger>
+                <DropdownMenuPortal>
+                    <DropdownMenuContent
+                        className={cn(
+                            themeToggleDropdownVariants.dropdownMenuContent()
+                        )}
                     >
-                        <ButtonWithLabel
-                            variant="glass"
-                            label="Light"
-                            size="default"
+                        <DropdownMenuItem
+                            onClick={() => {
+                                startTransition(() => {
+                                    setTheme("light");
+                                });
+                            }}
+                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] focus:outline-none"
                         >
-                            <IconSun setMotion={false} />
-                        </ButtonWithLabel>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                        onClick={() => {
-                            startTransition(() => {
-                                setTheme("dark");
-                            });
-                        }}
-                        className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
-                    >
-                        <ButtonWithLabel
-                            variant="glass"
-                            label="Dark"
-                            size="default"
+                            <ButtonWithLabel
+                                variant="glass"
+                                label="Light"
+                                size="default"
+                            >
+                                <IconSun
+                                    setMotion={false}
+                                    className=" hover:text-white"
+                                />
+                            </ButtonWithLabel>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => {
+                                startTransition(() => {
+                                    setTheme("dark");
+                                });
+                            }}
+                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] focus:outline-none"
                         >
-                            <IconMoon
-                                setMotion={false}
-                                iconDirection="0_rotation"
-                            />
-                        </ButtonWithLabel>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                        onClick={() => {
-                            startTransition(() => {
-                                setTheme("system");
-                            });
-                        }}
-                        className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
-                    >
-                        <ButtonWithLabel
-                            variant="glass"
-                            label="Auto"
-                            size="default"
+                            <ButtonWithLabel
+                                variant="glass"
+                                label="Dark"
+                                size="default"
+                            >
+                                <IconMoon
+                                    setMotion={false}
+                                    iconDirection="0_rotation"
+                                    className=" hover:text-white"
+                                />
+                            </ButtonWithLabel>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => {
+                                startTransition(() => {
+                                    setTheme("system");
+                                });
+                            }}
+                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] focus:outline-none"
                         >
-                            <IconCircleHalf setMotion={false} />
-                        </ButtonWithLabel>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenuPortal>
+                            <ButtonWithLabel
+                                variant="glass"
+                                label="Auto"
+                                size="default"
+                            >
+                                <IconCircleHalf
+                                    setMotion={false}
+                                    className=" hover:text-white"
+                                />
+                            </ButtonWithLabel>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenuPortal>
+            </div>
         </DropdownMenu>
     );
 });

@@ -3,7 +3,11 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { ButtonWithLabelProps } from "./buttonWithLabelProps";
-import { buttonWithLabelVariants } from "./buttonWithLabelVariants";
+import {
+    buttonWithLabelVariants,
+    buttonWithLabelVariantsDiv,
+    buttonWithLabelVariantsText,
+} from "./buttonWithLabelVariants";
 
 export const ButtonWithLabel = React.forwardRef<
     HTMLButtonElement,
@@ -18,8 +22,8 @@ export const ButtonWithLabel = React.forwardRef<
                 ref={ref}
                 {...props}
             />
-            <div className="box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 px-2.5 pt-[3px]">
-                <span className="whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[26px] leading-[normal] text-left text-neutral-50/[0.34] group-hover:text-white">
+            <div className={cn(buttonWithLabelVariantsDiv())}>
+                <span className={cn(buttonWithLabelVariantsText())}>
                     {props.label}
                 </span>
             </div>

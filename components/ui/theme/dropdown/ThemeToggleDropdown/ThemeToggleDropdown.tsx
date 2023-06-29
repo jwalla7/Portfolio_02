@@ -38,8 +38,8 @@ export const ThemeToggleDropdown = React.forwardRef<
 
     return (
         <DropdownMenu>
-            <div className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]">
-                <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger asChild>
+                <div className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] cursor-pointer">
                     <ButtonWithLabel
                         variant="default"
                         label="Theme"
@@ -56,63 +56,63 @@ export const ThemeToggleDropdown = React.forwardRef<
                             <IconCircleHalf setMotion={true} />
                         )}
                     </ButtonWithLabel>
-                </DropdownMenuTrigger>
-                <DropdownMenuPortal>
-                    <DropdownMenuContent className="box-border flex flex-col justify-center items-center px-[46px] py-3">
-                        <DropdownMenuItem
-                            onClick={() => {
-                                startTransition(() => {
-                                    setTheme("light");
-                                });
-                            }}
-                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
+                </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuPortal>
+                <DropdownMenuContent className="box-border flex flex-col justify-center items-center px-[46px] py-3 cursor-pointer">
+                    <DropdownMenuItem
+                        onClick={() => {
+                            startTransition(() => {
+                                setTheme("light");
+                            });
+                        }}
+                        className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
+                    >
+                        <ButtonWithLabel
+                            variant="glass"
+                            label="Light"
+                            size="default"
                         >
-                            <ButtonWithLabel
-                                variant="ghost"
-                                label="Light"
-                                size="default"
-                            >
-                                <IconSun setMotion={false} />
-                            </ButtonWithLabel>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            onClick={() => {
-                                startTransition(() => {
-                                    setTheme("dark");
-                                });
-                            }}
-                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
+                            <IconSun setMotion={false} />
+                        </ButtonWithLabel>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        onClick={() => {
+                            startTransition(() => {
+                                setTheme("dark");
+                            });
+                        }}
+                        className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
+                    >
+                        <ButtonWithLabel
+                            variant="glass"
+                            label="Dark"
+                            size="default"
                         >
-                            <ButtonWithLabel
-                                variant="ghost"
-                                label="Dark"
-                                size="default"
-                            >
-                                <IconMoon
-                                    setMotion={false}
-                                    iconDirection="0_rotation"
-                                />
-                            </ButtonWithLabel>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            onClick={() => {
-                                startTransition(() => {
-                                    setTheme("system");
-                                });
-                            }}
-                            className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
+                            <IconMoon
+                                setMotion={false}
+                                iconDirection="0_rotation"
+                            />
+                        </ButtonWithLabel>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        onClick={() => {
+                            startTransition(() => {
+                                setTheme("system");
+                            });
+                        }}
+                        className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px]"
+                    >
+                        <ButtonWithLabel
+                            variant="glass"
+                            label="Auto"
+                            size="default"
                         >
-                            <ButtonWithLabel
-                                variant="ghost"
-                                label="Auto"
-                                size="default"
-                            >
-                                <IconCircleHalf setMotion={false} />
-                            </ButtonWithLabel>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenuPortal>
-            </div>
+                            <IconCircleHalf setMotion={false} />
+                        </ButtonWithLabel>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenuPortal>
         </DropdownMenu>
     );
 });

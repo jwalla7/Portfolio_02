@@ -10,8 +10,7 @@ export const ButtonWithLabel = React.forwardRef<
     ButtonWithLabelProps
 >(({ className, variant, size, ...props }, ref) => {
     return (
-        <div className="group box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px] cursor-pointer relative">
-            {/* <div className="absolute top-0 -insert-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group:hover:animate-shineBottomRightAndFade" /> */}
+        <div className="group box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px] relative">
             <button
                 className={cn(
                     buttonWithLabelVariants({ variant, size, className })

@@ -6,6 +6,7 @@ export const buttonWithLabelVariants = cva(
         variants: {
             variant: {
                 default: `
+                backdrop-blur-[12.4px]
                 dark:bg-gradient-to-r from-[rgba(255,255,255,0.89)] from-1.16% to-[rgba(255,255,255,0.89)] from-100.34%
                 dark:hover:bg-primary/80
                 dark:text-primary-foreground
@@ -17,7 +18,7 @@ export const buttonWithLabelVariants = cva(
                     "border border-input hover:bg-accent hover:text-accent-foreground",
                 secondary:
                     "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-                ghost: `
+                glass: `
                 bg-transparent
                 group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.08)] from-0% to-[rgba(242,242,242,0.13)] from-76.04%
                 group-hover:text-accent-foreground`,
@@ -25,7 +26,7 @@ export const buttonWithLabelVariants = cva(
             },
             size: {
                 default:
-                    "h-[66.78] w-[66.78px] gap-[13px] p-[9px] rounded-[12.4px] backdrop-blur-[12.4px] border-0",
+                    "h-[66.78] w-[66.78px] gap-[13px] p-[9px] rounded-[12.4px] border-0",
                 sm: "h-[37px] w-[37px] px-3 rounded-md",
                 lg: "h-11 px-8 rounded-md",
                 icon: "h-10 w-10",

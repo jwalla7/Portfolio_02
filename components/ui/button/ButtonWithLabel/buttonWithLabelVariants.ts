@@ -38,11 +38,11 @@ export const buttonWithLabelVariants = cva(
                         text-secondary-foreground
                         `,
                 glass: `
+                    bg-transparent
                     dark:bg-transparent
                     dark:group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.08)] from-0% to-[rgba(242,242,242,0.13)] from-76.04%
                     dark:group-hover:text-accent-foreground
-                    bg-transparent
-                    group-hover:text-primary
+                    group-hover:text-accent-foreground
                     hover:bg-primary/90
                     `,
                 link: `
@@ -105,8 +105,8 @@ export const buttonWithLabelVariantsText = cva(
     `
     dark:group-hover:text-white
     dark:text-neutral-50/[0.34]
+    group-hover:text-[#0066FF]/[0.89]
     text-[#020D00]
-    hover:text-[#020D00]/[0.34]
     flex-grow-0
     flex-shrink-0
     robotoRegular.className

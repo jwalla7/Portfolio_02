@@ -78,10 +78,7 @@ export const ThemeToggleDropdown = React.forwardRef<
                                 label="Light"
                                 size="default"
                             >
-                                <IconSun
-                                    setMotion={false}
-                                    className=" hover:text-white"
-                                />
+                                <IconSun setMotion={false} />
                             </ButtonWithLabel>
                         </DropdownMenuItem>
                         <DropdownMenuItem
@@ -100,7 +97,6 @@ export const ThemeToggleDropdown = React.forwardRef<
                                 <IconMoon
                                     setMotion={false}
                                     iconDirection="0_rotation"
-                                    className=" hover:text-white"
                                 />
                             </ButtonWithLabel>
                         </DropdownMenuItem>
@@ -117,10 +113,7 @@ export const ThemeToggleDropdown = React.forwardRef<
                                 label="Auto"
                                 size="default"
                             >
-                                <IconCircleHalf
-                                    setMotion={false}
-                                    className=" hover:text-white"
-                                />
+                                <IconCircleHalf setMotion={false} />
                             </ButtonWithLabel>
                         </DropdownMenuItem>
                     </DropdownMenuContent>

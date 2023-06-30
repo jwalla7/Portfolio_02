@@ -8,7 +8,7 @@ export default function VisitorsPage() {
     return (
         <div suppressHydrationWarning>
             <div>visitors page</div>
-            {/* <ThemeToggleGroup /> */}
+            <ThemeToggleGroup />
             <ThemeMenuDropdown>
                 <ThemeToggleDropdown />
             </ThemeMenuDropdown>

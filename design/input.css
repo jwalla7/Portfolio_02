@@ -38,6 +38,8 @@ https: //tailwindcss.com/docs/customizing-colors#naming-your-colors
     --ring: 240 5% 64.9%;
 
     --radius: 0.5rem;
+
+    --overlay: 0 5 13 / 0.99
   }
 
   .dark {

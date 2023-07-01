@@ -44,6 +44,8 @@ module.exports = {
                     "linear-gradient(to right, var(--tw-gradient-stops))",
                 "gradient-to-br":
                     "linear-gradient(to bottom right, var(--tw-gradient-stops))",
+                "gradient-to-t":
+                    "linear-gradient(to top, var(--tw-gradient-stops))",
             },
             colors: {
                 ...blackA,

@@ -1,5 +1,5 @@
 import { VariantProps } from "class-variance-authority";
-import { themeToggleGroupVariants } from "./themeToggleGroupVariants";
+import { themeToggleGroupVariants } from "./themeToggleGroupStyles";
 
 export interface ThemeToggleGroupProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,

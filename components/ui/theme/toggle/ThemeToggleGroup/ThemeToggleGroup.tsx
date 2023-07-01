@@ -2,9 +2,14 @@
 
 import React from "react";
 import { ThemeToggleGroupProps } from "./themeToggleGroupProps";
-import { themeToggleGroupVariants } from "./themeToggleGroupVariants";
 import { cn } from "@/lib/utils";
 import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
+import {
+    themeToggleGroupStyles,
+    themeToggleGroupStylesItem,
+    themeToggleGroupStylesLabel,
+} from "./themeToggleGroupStyles";
+import { IconCircleHalf } from "@/components/ui/icons/phosphor/IconCircleHalf";
 
 export const ThemeToggleGroup = React.forwardRef<
     HTMLButtonElement,
@@ -12,39 +17,62 @@ export const ThemeToggleGroup = React.forwardRef<
 >(({ children, className, variant, size }, ref) => {
     return (
         <ToggleGroup
-            className="inline-flex bg-mauve6 rounded shadow-[0_2px_10px] shadow-blackA7 space-x-px"
+            className={cn(themeToggleGroupStyles())}
             type="single"
-            defaultValue="center"
             aria-label="Text alignment"
         >
             <ToggleGroupItem
-                className={cn(
-                    themeToggleGroupVariants({ variant, size, className })
-                )}
+                className={cn(themeToggleGroupStylesItem())}
                 value="left"
                 aria-label="Left aligned"
             >
-                {children}
+                <div>
+                    <label className={cn(themeToggleGroupStylesLabel())}>
+                        Light
+                    </label>
+                </div>
+                <i className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.7364px] p-[8.1252px] rounded-[11.2px]">
+                    <IconCircleHalf
+                        setMotion={true}
+                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative"
+                    />
+                </i>
             </ToggleGroupItem>
             <ToggleGroupItem
-                className={cn(
-                    themeToggleGroupVariants({ variant, size, className })
-                )}
+                className={cn(themeToggleGroupStylesItem())}
                 value="center"
                 aria-label="Center aligned"
                 ref={ref}
             >
-                {children}
+                <div>
+                    <label className={cn(themeToggleGroupStylesLabel())}>
+                        Auto
+                    </label>
+                </div>
+                <i className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.7364px] p-[8.1252px] rounded-[11.2px]">
+                    <IconCircleHalf
+                        setMotion={true}
+                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative"
+                    />
+                </i>
             </ToggleGroupItem>
             <ToggleGroupItem
-                className={cn(
-                    themeToggleGroupVariants({ variant, size, className })
-                )}
+                className={cn(themeToggleGroupStylesItem())}
                 value="right"
                 aria-label="Right aligned"
                 ref={ref}
             >
-                {children}
+                <div>
+                    <label className={cn(themeToggleGroupStylesLabel())}>
+                        Dark
+                    </label>
+                </div>
+                <i className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.7364px] p-[8.1252px] rounded-[11.2px]">
+                    <IconCircleHalf
+                        setMotion={true}
+                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative"
+                    />
+                </i>
             </ToggleGroupItem>
         </ToggleGroup>
     );

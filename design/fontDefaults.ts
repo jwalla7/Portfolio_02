@@ -18,26 +18,26 @@ export const inter = Inter({
 
 // Roboto family
 export const robotoLight = localFont({
-    src: "../assets/fonts/Roboto-Light.ttf",
+    src: "../public/fonts/Roboto-Light.ttf",
     variable: "--font-roboto-light",
 });
 
 export const robotoRegular = localFont({
-    src: "../assets/fonts/Roboto-Regular.ttf",
+    src: "../public/fonts/Roboto-Regular.ttf",
     variable: "--font-roboto-regular",
 });
 
 export const robotoMedium = localFont({
-    src: "../assets/fonts/Roboto-Medium.ttf",
+    src: "../public/fonts/Roboto-Medium.ttf",
     variable: "--font-roboto-medium",
 });
 
 export const robotoBold = localFont({
-    src: "../assets/fonts/Roboto-Bold.ttf",
+    src: "../public/fonts/Roboto-Bold.ttf",
     variable: "--font-roboto-bold",
 });
 
 export const robotoBlack = localFont({
-    src: "../assets/fonts/Roboto-Black.ttf",
+    src: "../public/fonts/Roboto-Black.ttf",
     variable: "--font-roboto-black",
 });

@@ -6,8 +6,8 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 
 export default function MainPage() {
-    const imageLightMode = "/SKYF-lightmode.jpg";
-    const imageDarkMode = "/SKYF-darkmode.jpg";
+    const imageLightMode = "/images/SKY-lightmode.jpg";
+    const imageDarkMode = "/images/SKY-darkmode.jpg";
     const { theme, setTheme } = useTheme();
 
     return (

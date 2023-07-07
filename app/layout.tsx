@@ -21,12 +21,12 @@ export default function RootLayout({
          * https://legacy.reactjs.org/docs/dom-elements/html
          */
 
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning className="overscroll-y-none">
             <head />
             <body
                 className={cn(
                     robotoRegular.className,
-                    "min-w-full min-h-screen m-0 antialiased"
+                    "min-w-full min-h-screen m-0 antialiased overflow-x-hidden"
                 )}
             >
                 <ThemeProvider

@@ -30,9 +30,6 @@ module.exports = {
         container: {
             center: true,
             padding: "2rem",
-            screens: {
-                "2xl": "1400px",
-            },
         },
         extend: {
             fontFamily: {
@@ -48,17 +45,6 @@ module.exports = {
                     "linear-gradient(to top, var(--tw-gradient-stops))",
             },
             colors: {
-                ...blackA,
-                ...mauve,
-                ...violet,
-                gray: {
-                    100: "#fafafa",
-                    200: "#lelele",
-                    300: "rgba(250, 250, 250, 0.34)",
-                    400: "#00050D",
-                    500: "#020D00",
-                },
-                blueviolet: "#9747ff",
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
@@ -97,25 +83,6 @@ module.exports = {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
-            },
-            gradientColorStopPositions: {
-                100: "100%",
-                99.2: "99.2%",
-                96.5: "96.5%",
-                91.8: "91.8%",
-                85: "85.5%",
-                80: "80%",
-                77: "77%",
-                66.7: "66.7%",
-                55.7: "55.7%",
-                44.3: "44.3%",
-                43: "43%",
-                33.3: "33.3%",
-                23: "23%",
-                14.5: "14.5%",
-                8.2: "8.2%",
-                3.5: "3.5%",
-                0.8: "0.8%",
             },
             borderRadius: {
                 lg: `var(--radius)`,
@@ -164,6 +131,29 @@ module.exports = {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
+        },
+        screens: {
+            // Assuming browser default is 16px
+            // sm 640px
+            sm: "40em",
+            // md 750px
+            md: "46.875em",
+            // lg 828 px
+            lg: "51.75em",
+            // xl 1080px
+            xl: "67.5em",
+            // 2xl 1200px
+            "2xl": "75em",
+            // 3xl 1440
+            "3xl": "90em",
+            // 4xl 1708
+            "4xl": "106.75em",
+            // 5xl 1920
+            "5xl": "120em",
+            // 6xl 2048
+            "6xl": "128em",
+            // 7xl 3840
+            "7xl": "240em",
         },
     },
     corePlugins: {

@@ -11,7 +11,7 @@ export default function MainPage() {
     const { theme, setTheme } = useTheme();
 
     return (
-        <div className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen overflow-x-hidden">
+        <div className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen">
             {theme === "light" ? (
                 <Image
                     alt="background image"
@@ -19,21 +19,28 @@ export default function MainPage() {
                     height={2464}
                     src={imageLightMode}
                     quality={100}
+                    style={{ position: "absolute", zIndex: -1 }}
                 />
             ) : (
+                // <Image alt="light mode planet background image" src={imageLightMode} fill={true} style={{ objectFit: "cover"}}/>
+
                 <Image
                     alt="background image"
                     width={1920}
                     height={2464}
                     src={imageDarkMode}
                     quality={100}
+                    style={{ position: "absolute", zIndex: -1 }}
                 />
+                // <Image alt="dark mode planet background image" src={imageDarkMode} fill={false} sizes="100vw" style={{overflow: "scroll", height: "auto"}} />
             )}
             {/* <Image  alt="background image" width={1440} height={1848} src={image}  quality={100} /> */}
             {/* Need a trigger context of component */}
-            {/* <OverlayRoot> */}
-            {/* <OverylayNav>children</OverylayNav> */}
-            {/* </OverlayRoot> */}
+            <OverlayRoot>
+                <OverylayNav>
+                    <p className="text-white">hello</p>
+                </OverylayNav>
+            </OverlayRoot>
         </div>
     );
 }

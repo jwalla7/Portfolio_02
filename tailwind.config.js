@@ -6,7 +6,6 @@
  * https:tailwindcss.com/docs/configuration#core-plugins
  */
 
-import { blackA, mauve, violet } from "@radix-ui/colors";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
@@ -134,10 +133,10 @@ module.exports = {
         },
         screens: {
             // Assuming browser default is 16px
-            // sm 640px
-            sm: "40em",
-            // md 750px
-            md: "46.875em",
+            // sm min 0px max 640px
+            sm: { max: "40em" },
+            // md 640px
+            md: "40em",
             // lg 828 px
             lg: "51.75em",
             // xl 1080px

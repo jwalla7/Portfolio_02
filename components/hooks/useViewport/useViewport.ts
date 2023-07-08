@@ -18,6 +18,8 @@ export const useViewport = (): ViewportProps => {
             });
         };
 
+        if (typeof window === "undefined") updateViewport();
+
         window.addEventListener("resize", updateViewport);
 
         return () => window.removeEventListener("resize", updateViewport);

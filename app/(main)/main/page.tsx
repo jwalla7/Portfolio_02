@@ -11,27 +11,38 @@ export default function MainPage() {
     const imageDarkMode = "/images/SKY-darkmode.jpg";
     const { theme, setTheme } = useTheme();
     const viewport = useViewport();
-    console.log(`viewport: `, viewport.height, viewport.width);
+    viewport;
 
     return (
-        <div className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen">
+        // If you set the parent div to your preferred screen size, Image fill will fine
+        <div className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen h-[200vw] overflow-hidden 7xl:bg-yellow-300">
             {theme === "light" ? (
                 <Image
                     alt="background image"
-                    width={1920}
-                    height={2464}
+                    fill
+                    // width={1920}
+                    // height={2464}
                     src={imageLightMode}
                     quality={100}
-                    style={{ position: "absolute", zIndex: -1 }}
+                    style={{
+                        objectFit: "cover",
+                        position: "absolute",
+                        zIndex: -1,
+                    }}
                 />
             ) : (
                 <Image
                     alt="background image"
-                    width={1920}
-                    height={2464}
+                    // width={1920}
+                    // height={2464}
+                    fill
                     src={imageDarkMode}
                     quality={100}
-                    style={{ position: "absolute", zIndex: -1 }}
+                    style={{
+                        objectFit: "cover",
+                        position: "absolute",
+                        zIndex: -1,
+                    }}
                 />
             )}
             {/* Need a trigger context of component */}

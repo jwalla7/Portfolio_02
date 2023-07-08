@@ -12,7 +12,7 @@ export interface NavBarVerticalProps {
 export const NavBarVertical: FC<NavBarVerticalProps> = () => {
     return (
         <OverlayRoot>
-            <OverylayNav></OverylayNav>
+            <OverylayNav>children</OverylayNav>
         </OverlayRoot>
     );
 };

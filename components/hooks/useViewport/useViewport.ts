@@ -25,5 +25,6 @@ export const useViewport = (): ViewportProps => {
         return () => window.removeEventListener("resize", updateViewport);
     }, [viewport]);
 
+    console.log(viewport.height, viewport.width);
     return viewport;
 };

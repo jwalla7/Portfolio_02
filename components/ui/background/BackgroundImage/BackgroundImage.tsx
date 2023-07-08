@@ -8,21 +8,18 @@ import { useTheme } from "next-themes";
 // determine Image size based on media query
 // determine Image mode based on theme
 
-const BackgroundImage = React.forwardRef<HTMLDivElement, backgroundImageProps>(
-    ({ children }) => {
-        const imageLightMode = "/images/SKY-lightmode.jpg";
-        const imageDarkMode = "/images/SKY-darkmode.jpg";
-        const { theme, setTheme } = useTheme();
-        const viewport = useViewport();
+const BackgroundImage = React.forwardRef<HTMLDivElement>(() => {
+    const imageLightMode = "/images/SKY-lightmode.jpg";
+    const imageDarkMode = "/images/SKY-darkmode.jpg";
+    const { theme, setTheme } = useTheme();
+    const viewport = useViewport();
 
-        if (viewport.width <= 640) {
-            return (
-                <div>
-                    {theme === "light" ? <div>light</div> : <div>dark</div>}
-                </div>
-            );
-        }
+    if (viewport.width <= 640) {
+        return (
+            <div>{theme === "light" ? <div>light</div> : <div>dark</div>}</div>
+        );
     }
-);
+    return <div></div>;
+});
 
 BackgroundImage.displayName = "BackgroundImage";

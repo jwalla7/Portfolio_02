@@ -9,7 +9,7 @@ export const useViewport = (): ViewportProps => {
         width: window.innerWidth,
     });
 
-    // Record any changes to viewport after initial render and update viewport
+    // Update any changes to viewport on mount after initial render
     React.useEffect(() => {
         const updateViewport = () => {
             setViewport({
@@ -22,8 +22,8 @@ export const useViewport = (): ViewportProps => {
 
         window.addEventListener("resize", updateViewport);
 
-        return () => window.removeEventListener("resize", updateViewport);
-    }, [viewport]);
+        return (): void => window.removeEventListener("resize", updateViewport);
+    }, []);
 
     console.log(viewport.height, viewport.width);
     return viewport;

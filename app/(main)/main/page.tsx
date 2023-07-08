@@ -15,7 +15,7 @@ export default function MainPage() {
 
     return (
         // If you set the parent div to your preferred screen size, Image fill will fine
-        <div className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen h-[200vw] overflow-hidden 7xl:bg-yellow-300">
+        <div className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen h-[200vw] overflow-hidden">
             {theme === "light" ? (
                 <Image
                     alt="background image"

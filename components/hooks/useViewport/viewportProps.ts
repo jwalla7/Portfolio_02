@@ -1,4 +1,4 @@
 export interface ViewportProps {
-    width: number;
-    height: number;
+    innerWidth: number;
+    innerHeight: number;
 }

@@ -1,6 +1,4 @@
 import { useRouter } from "next/router";
-import { useContext } from "react";
-import { NavigationContext } from "../../ui/navigation/NavigationContext";
 
 export const useNavigation = () => {
     /**

@@ -33,10 +33,9 @@ export const ThemeToggleDropdown = React.forwardRef<
      */
     useEffect(() => {
         setMount(true);
-        console.log("initial theme: ", theme);
-        setTheme("system");
-        console.log("set theme: ", theme);
     }, []);
+
+    if (!mounted) return null;
 
     return (
         <DropdownMenu>

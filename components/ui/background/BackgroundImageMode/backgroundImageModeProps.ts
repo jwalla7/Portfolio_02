@@ -1,6 +1,5 @@
-import { ImageProps } from "next/image";
-
-export interface BackgroundImageModeProps extends ImageProps {
+export interface BackgroundImageModeProps {
     imageLightThemeSrc?: string | any;
     imageDarkThemeSrc?: string | any;
+    className?: string;
 }

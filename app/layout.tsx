@@ -38,7 +38,7 @@ export default function RootLayout({
                      *
                      * https://github.com/pacocoursey/next-themes
                      */
-                    enableSystem
+                    enableSystem={true}
                 >
                     {children}
                 </ThemeProvider>

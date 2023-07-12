@@ -11,7 +11,7 @@ export const overlayNavStyles = cva(
     items-start
     justify-start
     self-stretch
-    w-[364.78px]c
+    w-[364.78px]
     `,
     {
         variants: {

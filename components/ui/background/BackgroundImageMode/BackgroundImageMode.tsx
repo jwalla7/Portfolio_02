@@ -7,7 +7,9 @@ import { useTheme } from "next-themes";
 
 /**
  * Determines which version of background image to display based on browser theme.
+ *
  * Different images based on the current theme may cause a hydration mismatch problem with next/image.
+ *
  * Use an empty image until the theme is resolved.
  */
 

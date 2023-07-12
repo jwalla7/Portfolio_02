@@ -1,36 +1,21 @@
 import React, { Suspense } from "react";
-import { backgroundImageProps } from "./backgroundImageProps";
-import { useViewport } from "@/components/hooks/useViewport/useViewport";
 import { BackgroundImageMode } from "../BackgroundImageMode/BackgroundImageMode";
 
-// loader before fetching viewport -> this should be in one of the parent containers, such as a layout
-// determine Image size based on media query -> filling outer container will solve this
-// determine className values for outer div, based on viewport returned values.
+/**
+ * Determines image type and size to display based on current media query and theme.
+ *
+ * Intended by default to fill it's parent's width.
+ */
 
-export const BackgroundImage = React.forwardRef<
-    HTMLDivElement,
-    backgroundImageProps
->(() => {
-    // const viewport = useViewport();
-
-    // if (viewport.innerWidth <= 1920) {
-    // return (
-    // <Suspense>
-    {
-        /* <BackgroundImageMode imageLightThemeSrc="/images/SKY-lightmode.jpg" imageDarkThemeSrc="/images/SKY-darkmode.jpg"/> */
-    }
-    {
-        /* </Suspense> */
-    }
-    // );
-    // }
-
+export const BackgroundImage: React.FC<HTMLDivElement> = () => {
     return (
-        <BackgroundImageMode
-            imageLightThemeSrc="/images/SKY-lightmode.jpg"
-            imageDarkThemeSrc="/images/SKY-darkmode.jpg"
-        />
+        <Suspense>
+            <BackgroundImageMode
+                imageLightThemeSrc="/images/SKY-lightmode.jpg"
+                imageDarkThemeSrc="/images/SKY-darkmode.jpg"
+            />
+        </Suspense>
     );
-});
+};
 
 BackgroundImage.displayName = "BackgroundImage";

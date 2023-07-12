@@ -1,12 +1,11 @@
 "use client";
 
-import { ViewportProps } from "./viewportProps";
 import React from "react";
 
-export const useViewport = (): ViewportProps => {
-    const [viewport, setViewport] = React.useState<ViewportProps>({
-        innerHeight: window.innerHeight,
-        innerWidth: window.innerWidth,
+export const useViewport = () => {
+    const [viewport, setViewport] = React.useState({
+        innerHeight: null || 0,
+        innerWidth: null || 0,
     });
 
     // Update any changes to viewport on mount after initial render
@@ -24,13 +23,12 @@ export const useViewport = (): ViewportProps => {
             });
         };
 
-        if (typeof window === "undefined") updateViewport();
+        updateViewport();
 
         window.addEventListener("resize", updateViewport);
 
-        return (): void => window.removeEventListener("resize", updateViewport);
+        return () => window.removeEventListener("resize", updateViewport);
     }, []);
 
-    console.log(viewport.innerHeight, viewport.innerWidth);
     return viewport;
 };

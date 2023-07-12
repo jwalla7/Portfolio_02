@@ -7,7 +7,7 @@ import { BackgroundImageMode } from "../BackgroundImageMode/BackgroundImageMode"
  * Intended by default to fill it's parent's width.
  */
 
-export const BackgroundImage: React.FC<HTMLDivElement> = () => {
+export const BackgroundImage: React.FC = () => {
     return (
         <Suspense>
             <BackgroundImageMode

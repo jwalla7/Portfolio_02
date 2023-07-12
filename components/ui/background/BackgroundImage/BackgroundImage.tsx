@@ -9,7 +9,7 @@ import { BackgroundImageMode } from "../BackgroundImageMode/BackgroundImageMode"
 
 export const BackgroundImage: React.FC = () => {
     return (
-        <Suspense>
+        <Suspense fallback={<p>Loading Image...</p>}>
             <BackgroundImageMode
                 imageLightThemeSrc="/images/SKY-lightmode.jpg"
                 imageDarkThemeSrc="/images/SKY-darkmode.jpg"

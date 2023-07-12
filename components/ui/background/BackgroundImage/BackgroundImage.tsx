@@ -12,8 +12,8 @@ export const BackgroundImage: React.FC = () => {
     return (
         <Suspense fallback={ProgressBar()}>
             <BackgroundImageMode
-                imageLightThemeSrc="/images/SKY-lightmode.jpg"
-                imageDarkThemeSrc="/images/SKY-darkmode.jpg"
+                imageLightThemeSrc="/images/SKY-lightmode.webp"
+                imageDarkThemeSrc="/images/SKY-darkmode.webp"
             />
         </Suspense>
     );

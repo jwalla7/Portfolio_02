@@ -1,7 +1,4 @@
-import { MouseEventHandler } from "react";
-
-export interface OverlayTriggerProps
-    extends MouseEventHandler<HTMLAnchorElement> {
+export interface OverlayTriggerProps {
     children?: React.ReactNode;
     className?: string;
 }

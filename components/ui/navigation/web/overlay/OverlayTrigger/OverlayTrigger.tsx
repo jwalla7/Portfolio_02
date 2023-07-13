@@ -1,12 +1,11 @@
 import { cn } from "@/lib/utils";
 import { OverlayTriggerProps } from "./overlayTriggerProps";
-import { OverlayRoot } from "../OverlayRoot/OverlayRoot";
-import { OverylayNav } from "../OverlayNav/OverylayNav";
 import { overlayTriggerStyles } from "./overlayTriggerStyles";
 import * as HoverCard from "@radix-ui/react-hover-card";
 
 export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
     className,
+    children,
 }) => {
     return (
         <HoverCard.Root openDelay={0} closeDelay={0}>
@@ -24,7 +23,9 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
                      * `-(number) to place at the top/over of parent.
                      */
                     sideOffset={-window.innerHeight}
-                ></HoverCard.Content>
+                >
+                    {children}
+                </HoverCard.Content>
             </HoverCard.Portal>
         </HoverCard.Root>
     );

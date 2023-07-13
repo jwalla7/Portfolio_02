@@ -1,6 +1,6 @@
-export interface NavBarVerticalProps {
-    children: React.ReactNode;
-    onHover?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    active?: boolean;
+import { HoverCardProps } from "@radix-ui/react-hover-card";
+
+export interface NavBarVerticalProps extends HoverCardProps {
+    children?: React.ReactNode;
     className?: string;
 }

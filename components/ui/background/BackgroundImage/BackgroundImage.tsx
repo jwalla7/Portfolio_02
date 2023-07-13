@@ -10,12 +10,10 @@ import { ProgressBar } from "../../loaders/Progress/ProgressBar";
 
 export const BackgroundImage: React.FC = () => {
     return (
-        <Suspense fallback={ProgressBar()}>
-            <BackgroundImageMode
-                imageLightThemeSrc="/images/SKY-lightmode.jpg"
-                imageDarkThemeSrc="/images/SKY-darkmode.jpg"
-            />
-        </Suspense>
+        <BackgroundImageMode
+            imageLightThemeSrc="/images/SKY-lightmode.jpg"
+            imageDarkThemeSrc="/images/SKY-darkmode.jpg"
+        />
     );
 };
 

@@ -1,9 +1,12 @@
 "use client";
 
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
+import { ProgressBar } from "@/components/ui/loaders/Progress/ProgressBar";
 import { OverylayNav } from "@/components/ui/navigation/web/overlay/OverlayNav/OverylayNav";
 import { OverlayRoot } from "@/components/ui/navigation/web/overlay/OverlayRoot/OverlayRoot";
 import { ThemeToggleDropdown } from "@/components/ui/theme/dropdown/ThemeToggleDropdown/ThemeToggleDropdown";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default function MainPage() {
     return (

@@ -16,6 +16,7 @@ export const BackgroundImageMode = React.forwardRef<
     BackgroundImageModeProps
 >(({ imageLightThemeSrc, imageDarkThemeSrc, className }, ref) => {
     const { theme, resolvedTheme } = useTheme();
+    console.log(`resolvedTheme: `, resolvedTheme);
     /**
      * resolvedTheme
      *

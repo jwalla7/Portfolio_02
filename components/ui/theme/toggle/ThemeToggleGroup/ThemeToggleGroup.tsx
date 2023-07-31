@@ -19,6 +19,7 @@ export const ThemeToggleGroup = React.forwardRef<
         <ToggleGroup
             className={cn(themeToggleGroupStyles())}
             type="single"
+            orientation="horizontal"
             aria-label="Text alignment"
         >
             <ToggleGroupItem

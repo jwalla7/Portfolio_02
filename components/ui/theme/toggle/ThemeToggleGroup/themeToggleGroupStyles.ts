@@ -2,13 +2,14 @@ import { cva } from "class-variance-authority";
 
 export const themeToggleGroupStyles = cva(
     `
+        bg-red-500
         box-border
-        flex
-        justify-between
-        items-start
-        w-[189px]
+        gap-[25px]
         h-fit
-        bg-red
+        w-[364.78px]
+        items-start
+        justify-start
+        px-[5px]
         `,
     {
         variants: {

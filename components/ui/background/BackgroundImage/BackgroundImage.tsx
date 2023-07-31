@@ -1,6 +1,5 @@
-import React, { Suspense } from "react";
 import { BackgroundImageMode } from "../BackgroundImageMode/BackgroundImageMode";
-import { ProgressBar } from "../../loaders/Progress/ProgressBar";
+import { BackgroundImageProps } from "./backgroundImageProps";
 
 /**
  * Determines image type and size to display based on current media query and theme.
@@ -8,11 +7,14 @@ import { ProgressBar } from "../../loaders/Progress/ProgressBar";
  * Intended by default to fill it's parent's width.
  */
 
-export const BackgroundImage: React.FC = () => {
+export const BackgroundImage: React.FC<BackgroundImageProps> = ({
+    imageLightThemeSrc,
+    imageDarkThemeSrc,
+}) => {
     return (
         <BackgroundImageMode
-            imageLightThemeSrc="/images/SKY-lightmode.jpg"
-            imageDarkThemeSrc="/images/SKY-darkmode.jpg"
+            imageLightThemeSrc={imageLightThemeSrc}
+            imageDarkThemeSrc={imageDarkThemeSrc}
         />
     );
 };

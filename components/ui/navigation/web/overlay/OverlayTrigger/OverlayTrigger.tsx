@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { OverlayTriggerProps } from "./overlayTriggerProps";
 import { overlayTriggerStyles } from "./overlayTriggerStyles";
@@ -12,9 +14,9 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
             <HoverCard.Trigger asChild>
                 <div className={cn(overlayTriggerStyles({ className }))}></div>
             </HoverCard.Trigger>
-            <HoverCard.Portal>
+            <HoverCard.Portal className="w-full">
                 <HoverCard.Content
-                    className=" w-[300px] rounded-md bg-white p-5 data-[state=open]:transition-all z-2"
+                    className="data-[state=open]:transition-all data-[state=open]:w-full h-screen"
                     /**
                      * sideOffset
                      *
@@ -22,7 +24,8 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
                      *
                      * `-(number) to place at the top/over of parent.
                      */
-                    sideOffset={-window.innerHeight}
+                    // sideOffset={(-window.innerHeight)}
+                    side="right"
                 >
                     {children}
                 </HoverCard.Content>

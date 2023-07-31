@@ -10,7 +10,7 @@ export const overlayTriggerStyles = cva(
     w-[364.78px]
     h-screen
     min-h-screen
-    bg-yellow-100
+    z-20
     `,
     {
         variants: {},

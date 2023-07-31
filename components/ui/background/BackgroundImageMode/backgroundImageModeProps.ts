@@ -1,5 +1,5 @@
 export interface BackgroundImageModeProps {
-    imageLightThemeSrc?: string | any;
-    imageDarkThemeSrc?: string | any;
+    imageLightThemeSrc: string | any;
+    imageDarkThemeSrc: string | any;
     className?: string;
 }

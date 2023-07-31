@@ -1,5 +1,7 @@
+import Image from "next/image";
+
 export interface BackgroundImageModeProps {
-    imageLightThemeSrc: string | any;
+    imageLightThemeSrc: string | staticImport;
     imageDarkThemeSrc: string | any;
     className?: string;
 }

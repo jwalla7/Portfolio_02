@@ -1,4 +1,4 @@
-export declare type Type_Site = {
+declare type Type_Site = {
     name: string;
     description: string;
     url: string;

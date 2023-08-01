@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 
 const ResumePage = () => {
+    console.log("resumepage");
     const { resolvedTheme } = useTheme();
-    if (!resolvedTheme) {
-        console.log("F");
-    } else {
+
+    if (resolvedTheme) {
         return (
             <div className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen overflow-hidden">
                 <BackgroundImage

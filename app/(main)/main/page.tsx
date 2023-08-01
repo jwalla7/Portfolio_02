@@ -16,7 +16,7 @@ export default function MainPage() {
                 imageLightThemeSrc="/images/SKY-lightmode.jpg"
                 imageDarkThemeSrc="/images/SKY-darkmode.jpg"
             />
-            {/* Need a trigger context of component */}
+            {/* Need to modify trigger */}
             <OverlayTrigger>
                 <OverlayRoot>
                     <OverylayNav>
@@ -24,11 +24,6 @@ export default function MainPage() {
                     </OverylayNav>
                 </OverlayRoot>
             </OverlayTrigger>
-            {/* <OverlayRoot> */}
-            {/* <OverylayNav> */}
-            {/* <ThemeToggleDropdown /> */}
-            {/* </OverylayNav> */}
-            {/* </OverlayRoot> */}
         </div>
     );
 }

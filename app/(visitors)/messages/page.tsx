@@ -6,10 +6,7 @@ import { ThemeToggleGroup } from "@/components/ui/theme/toggle/ThemeToggleGroup/
 
 export default function VisitorsPage() {
     return (
-        <div
-            suppressHydrationWarning
-            className="items-center justify-center w-screen"
-        >
+        <div className="items-center justify-center w-screen">
             <div>visitors page</div>
             <ThemeMenuDropdown>
                 <ThemeToggleDropdown />

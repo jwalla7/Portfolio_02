@@ -2,13 +2,14 @@
 
 import { ProgressBar } from "@/components/ui/loaders/Progress/ProgressBar";
 
-const LoadingPage = () => {
+const Loading = () => {
     return (
-        <div>
+        <>
+            {console.log("progress bar loading.tsx")}
             <p className="text-red-700"> Loading ...</p>
             <ProgressBar />
-        </div>
+        </>
     );
 };
 
-export default LoadingPage;
+export default Loading;

@@ -13,6 +13,7 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
     imageLightThemeSrc,
     imageDarkThemeSrc,
 }) => {
+    console.log("painted bkg image");
     return (
         <BackgroundImageMode
             imageLightThemeSrc={imageLightThemeSrc}

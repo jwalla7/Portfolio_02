@@ -15,13 +15,19 @@ export default function RootLayout({
 }) {
     return (
         /**
+         *
          * `Suppress Hydration Warning` Removes warning of mismatched attributes/content of elements
+         *
          * when using server-side React rendering
          *
          * https://legacy.reactjs.org/docs/dom-elements/html
          */
 
-        <html lang="en" suppressHydrationWarning className="overscroll-y-none">
+        <html
+            lang="en"
+            suppressHydrationWarning={true}
+            className="overscroll-y-none"
+        >
             <head />
             <body
                 className={cn(
@@ -33,7 +39,9 @@ export default function RootLayout({
                     attribute="class"
                     defaultTheme="system"
                     /**
+                     *
                      * `enableSystem` enables system preference and developer tools `toggle theme simulation for the layout`
+                     *
                      * when on `system` theme.
                      *
                      * https://github.com/pacocoursey/next-themes

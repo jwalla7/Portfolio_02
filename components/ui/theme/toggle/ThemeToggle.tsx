@@ -3,10 +3,10 @@
 import React, { forwardRef, useTransition } from "react";
 
 import { useTheme } from "next-themes";
-import { Button } from "../../button/Button";
 import { IconMoon } from "../../icons/phosphor/IconMoon";
 import { IconSun } from "../../icons/phosphor/IconSun";
 import { ThemeToggleProps } from "./themeToggleProps";
+import { Button } from "../../button/Button/Button";
 
 export const ThemeToggle = React.forwardRef<
     HTMLButtonElement,

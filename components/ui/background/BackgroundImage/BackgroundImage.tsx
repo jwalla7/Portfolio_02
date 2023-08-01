@@ -1,3 +1,5 @@
+"use client";
+
 import { BackgroundImageMode } from "../BackgroundImageMode/BackgroundImageMode";
 import { BackgroundImageProps } from "./backgroundImageProps";
 

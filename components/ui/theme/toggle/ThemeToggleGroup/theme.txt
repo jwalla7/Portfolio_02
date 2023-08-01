@@ -1,0 +1,84 @@
+import React from "react";
+import Sun from "./Sun";
+import Moon from "./Moon";
+import CircleHalf from "./CircleHalf";
+interface Props {}
+
+const Component = (props: Props) => {
+  return (
+    <div className="box-border flex flex-col justify-start items-start w-fit h-fit overflow-hidden gap-2.5 bg-[#191919]">
+      <div className="box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[25px] px-[5px]">
+        <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 w-[52.48px] relative gap-[8.21996021270752px] px-[5.6907525062561035px] pt-[38.3655891418457px] rounded-[7.84px]">
+          <Sun />
+        </div>
+        <div className="box-border flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[60.29px] gap-[7.307741641998291px]">
+          <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-[2.0130577087402344px]">
+            <p className="whitespace-pre-wrap flex-grow self-stretch font-['Roboto'] text-[18.269317626953125px] leading-[normal] text-center">
+              Auto
+            </p>
+          </div>
+          <div className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.73647403717041px] p-[8.125236511230469px] rounded-[11.2px]">
+            <CircleHalf />
+          </div>
+        </div>
+        <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 w-[52.48px] relative gap-[8.21996021270752px] px-[5.6907525062561035px] pt-[38.3655891418457px] rounded-[7.84px]">
+          <Moon />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Component;
+
+
+
+import React from "react";
+import CircleHalf from "./CircleHalf";
+import CircleHalf1 from "./CircleHalf1";
+import CircleHalf2 from "./CircleHalf2";
+interface Props {}
+
+const Component = (props: Props) => {
+  return (
+    <div className="box-border flex justify-between items-start w-[189px] h-fit">
+
+
+      <div className="box-border flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[52.48px] gap-[7.307741641998291px]">
+        <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-[2.0130577087402344px]">
+          <p className="whitespace-pre-wrap flex-grow self-stretch font-['Roboto'] text-[18.269317626953125px] leading-[normal] text-center text-neutral-50">
+            Light
+          </p>
+        </div>
+
+        <div className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.73647403717041px] p-[8.125236511230469px] rounded-[11.2px]">
+          <CircleHalf />
+        </div>
+      </div>
+
+
+      <div className="box-border flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[60.29px] gap-[7.307741641998291px]">
+        <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-[2.0130577087402344px]">
+          <p className="whitespace-pre-wrap flex-grow self-stretch font-['Roboto'] text-[18.269317626953125px] leading-[normal] text-center text-neutral-50">
+            Auto
+          </p>
+        </div>
+        <div className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.73647403717041px] p-[8.125236511230469px] rounded-[11.2px]">
+          <CircleHalf1 />
+        </div>
+      </div>
+      <div className="box-border flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[52.48px] gap-[7.307741641998291px]">
+        <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-[2.0130577087402344px]">
+          <p className="whitespace-pre-wrap flex-grow self-stretch font-['Roboto'] text-[18.269317626953125px] leading-[normal] text-center text-neutral-50">
+            Dark
+          </p>
+        </div>
+        <div className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.73647403717041px] p-[8.125236511230469px] rounded-[11.2px]">
+          <CircleHalf2 />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Component;

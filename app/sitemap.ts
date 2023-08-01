@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 
-/*
-Help search engine crawlers crawl your site more efficiently.
-https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
+/**
+ * Help search engine crawlers crawl your site more efficiently.
+ *
+ * https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
  */
 
 export default function sitemap(): MetadataRoute.Sitemap {

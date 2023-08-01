@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 /**
- *
  * Implementing another not-found.tsx file in the (main) route group will override this not-found.tsx file.
  *
  * I will need to look into this more.

@@ -8,7 +8,6 @@ export const useViewport = () => {
         innerWidth: null || 0,
     });
 
-    // Update any changes to viewport on mount after initial render
     /**
      * `useLayoutEffect` is a version of `useEffect` that fires before the browser repaints the screen.
      *

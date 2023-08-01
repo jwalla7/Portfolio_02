@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-/*
+/**
  * designates which URLs search engine crawlers can access on site.
  */
 

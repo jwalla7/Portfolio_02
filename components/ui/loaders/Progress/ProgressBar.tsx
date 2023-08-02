@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import * as Progress from "@radix-ui/react-progress";
 
 export const ProgressBar = () => {
-    const [_progress, setProgress] = useState(13);
+    const [_progress, setProgress] = useState(0);
+    const loadingTime = 10000;
+    const updateProgress = 10;
     console.log("progress initiated");
 
     useEffect(() => {
         console.log("progress useEffect");
-        const timer = setTimeout(() => setProgress(66), 500);
-        return () => clearTimeout(timer);
     }, []);
 
     return (

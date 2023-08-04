@@ -1,7 +1,7 @@
-/*
-memo bypasses re-rendering a component if its props are unchanged.
-https://react.dev/reference/react/memo
-*/
+/**
+ * memo bypasses re-rendering a component if its props are unchanged.
+ * https://react.dev/reference/react/memo
+ */
 import { SVGProps, memo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -12,23 +12,23 @@ export const IconCircleHalf = memo<
     }
 >(function IconCircleHalf(
     /**
-    Accessibility to customized attributes setMotion, and className
+     * Accessibility to customized attributes setMotion, and className
      */
     { className, setMotion },
-    /** 
-    Accessibility to other SVG props
+    /**
+     * Accessibility to other SVG props
      */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** 
-    Create custom values for className
+    /**
+     * Create custom values for className
      */
     const variants = cn(
         "block flex-grow-0 flex-shrink-0 w-[36px] h-[36px] relative",
         className
     );
-    /** 
-    Establishes which variation of `IconSun` to render
+    /**
+     * Establishes which variation of `IconSun` to render
      */
     if (setMotion) {
         return (
@@ -42,10 +42,10 @@ export const IconCircleHalf = memo<
                 className={variants}
             >
                 <motion.path
-                    /** 
-                    Initial to animate, creates a fade-in-with-rotation animation
-                    https://framer.com/motion/transition/##value-specific-transitions
-                    */
+                    /**
+                     * Initial to animate, creates a fade-in-with-rotation animation
+                     * https://framer.com/motion/transition/##value-specific-transitions
+                     */
                     initial={{
                         opacity: 0,
                         pathLength: 0,

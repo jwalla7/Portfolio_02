@@ -1,3 +1,7 @@
+/**
+ * memo bypasses re-rendering a component if its props are unchanged.
+ * https://react.dev/reference/react/memo
+ */
 import { SVGProps, memo } from "react";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
@@ -7,12 +11,18 @@ export const IconArrowCircleLeft = memo<
         iconDirection: IconDirection;
     }
 >(function IconArrowCircleLeft(
-    /** Set default value for iconDirection */
+    /**
+     * Set default value for iconDirection
+     */
     { iconDirection = "0_rotation", className },
-    /** Accessibility to other SVG props */
+    /**
+     * Accessibility to other SVG props
+     */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** Create className values */
+    /**
+     * Create className values
+     */
     const variants = cn(
         "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative",
         {

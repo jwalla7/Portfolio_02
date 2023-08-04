@@ -1,4 +1,5 @@
 import { IconArrowCircleLeft } from "./phosphor/IconArrowCircleLeft";
+import { IconCircleHalf } from "./phosphor/IconCircleHalf";
 import { IconEnvelopSimple } from "./phosphor/IconEnvelopeSimple";
 import { IconEqualizer } from "./phosphor/IconEqualizer";
 import { IconFile } from "./phosphor/IconFile";
@@ -13,6 +14,7 @@ import { IconX } from "./phosphor/IconX";
 
 export const PhosphorIcons = {
     arrowCircleLeft: IconArrowCircleLeft,
+    circleHalf: IconCircleHalf,
     envelopeSimple: IconEnvelopSimple,
     equalizer: IconEqualizer,
     file: IconFile,

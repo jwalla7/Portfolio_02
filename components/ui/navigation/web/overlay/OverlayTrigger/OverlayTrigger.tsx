@@ -14,7 +14,7 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
             <HoverCard.Trigger asChild>
                 <div className={cn(overlayTriggerStyles({ className }))}></div>
             </HoverCard.Trigger>
-            <HoverCard.Portal className="w-full">
+            <HoverCard.Portal className="w-screen">
                 <HoverCard.Content
                     className="data-[state=open]:transition-all data-[state=open]:w-full h-screen"
                     /**

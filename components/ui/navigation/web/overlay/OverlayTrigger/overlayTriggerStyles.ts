@@ -2,7 +2,10 @@ import { cva } from "class-variance-authority";
 
 export const overlayTriggerStyles = cva(
     `
-    fixed
+    bg-red-100
+    left-0
+    top-0
+    relative
     flex
     flex-col
     items-start
@@ -10,7 +13,7 @@ export const overlayTriggerStyles = cva(
     w-[364.78px]
     h-screen
     min-h-screen
-    z-20
+    z-1
     `,
     {
         variants: {},

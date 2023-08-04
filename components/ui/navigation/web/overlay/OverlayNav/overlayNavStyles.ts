@@ -2,6 +2,7 @@ import { cva } from "class-variance-authority";
 
 export const overlayNavStyles = cva(
     `
+    
     border-box
     flex
     flex-col

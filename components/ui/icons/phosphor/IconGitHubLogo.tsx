@@ -1,12 +1,14 @@
-/*
-memo bypasses re-rendering a component if its props are unchanged.
-https://react.dev/reference/react/memo
-*/
+/**
+ * memo bypasses re-rendering a component if its props are unchanged.
+ * https://react.dev/reference/react/memo
+ */
 import { SVGProps, memo } from "react";
 
 export const IconGitHubLogo = memo<React.ComponentProps<"svg">>(
     function IconGitHubLogo(
-        /** Accessibility to other SVG props */
+        /**
+         * Accessibility to other SVG props
+         */
         props: SVGProps<SVGSVGElement>
     ) {
         return (

@@ -1,7 +1,7 @@
-/*
-memo bypasses re-rendering a component if its props are unchanged.
-https://react.dev/reference/react/memo
-*/
+/**
+ * memo bypasses re-rendering a component if its props are unchanged.
+ * https://react.dev/reference/react/memo
+ */
 import { SVGProps, memo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -11,25 +11,25 @@ export const IconSun = memo<
         setMotion: boolean;
     }
 >(function IconSun(
-    /** 
-    Accessibility to customized attributes setMotion, and className
+    /**
+     * Accessibility to customized attributes setMotion, and className
      */
     { setMotion, className },
-    /** 
-    Accessibility to other SVG props
+    /**
+     * Accessibility to other SVG props
      */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** 
-    Create custom values for className
+    /**
+     * Create custom values for className
      */
     const variants = cn(
         "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative",
         className
     );
-    /** 
-    Establishes which variation of `IconSun` to render
-    */
+    /**
+     * Establishes which variation of `IconSun` to render
+     */
     if (setMotion) {
         return (
             <motion.svg
@@ -43,10 +43,10 @@ export const IconSun = memo<
                 className={variants}
             >
                 <motion.path
-                    /** 
-                    Initial to animate, creates a fade-in-with-rotation animation
-                    https://framer.com/motion/transition/##value-specific-transitions
-                    */
+                    /**
+                     * Initial to animate, creates a fade-in-with-rotation animation
+                     * https://framer.com/motion/transition/##value-specific-transitions
+                     */
                     initial={{
                         rotate: 0,
                         opacity: 0,

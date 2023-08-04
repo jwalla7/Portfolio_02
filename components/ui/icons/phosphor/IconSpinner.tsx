@@ -1,7 +1,7 @@
-/*
-memo bypasses re-rendering a component if its props are unchanged.
-https://react.dev/reference/react/memo
-*/
+/**
+ * memo bypasses re-rendering a component if its props are unchanged.
+ * https://react.dev/reference/react/memo
+ */
 import { SVGProps, memo } from "react";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
@@ -11,12 +11,18 @@ export const IconSpinner = memo<
         iconDirection: IconDirection;
     }
 >(function IconSpinner(
-    /** Set default `iconDirection` value for iconSpinner */
+    /**
+     * Set default `iconDirection` value for iconSpinner
+     */
     { iconDirection = "0_rotation", className },
-    /** Accessibility to other SVG props */
+    /**
+     * Accessibility to other SVG props
+     */
     props: SVGProps<SVGSVGElement>
 ) {
-    /** Create className values */
+    /**
+     * Create className values
+     */
     const variants = cn(
         "transition duration-100 ease-in",
         {

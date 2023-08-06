@@ -1,5 +1,6 @@
 /**
  * memo bypasses re-rendering a component if its props are unchanged.
+ *
  * https://react.dev/reference/react/memo
  */
 import React, { SVGProps, memo } from "react";

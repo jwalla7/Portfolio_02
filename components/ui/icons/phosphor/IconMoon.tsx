@@ -1,5 +1,6 @@
 /**
  * memo bypasses re-rendering a component if its props are unchanged.
+ *
  * https://react.dev/reference/react/memo
  */
 import { SVGProps, memo } from "react";
@@ -54,6 +55,7 @@ export const IconMoon = memo<
                 <motion.path
                     /**
                      * Initial to animate, creates a fade-in-with-rotation animation
+                     *
                      * https://framer.com/motion/transition/##value-specific-transitions
                      */
                     initial={{

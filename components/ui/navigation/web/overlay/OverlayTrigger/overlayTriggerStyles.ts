@@ -11,7 +11,7 @@ export const overlayTriggerStyles = cva(
     items-start
     justify-start
     w-[364.78px]
-    h-screen
+    h-full
     min-h-screen
     z-1
     `,

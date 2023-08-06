@@ -4,7 +4,6 @@ export const overlayStylesLayerRoot = cva(
     `
     bg-red-700
     absolute
-    left-[calc(-19vw+50%)]
     top-0
     flex
     flex-col

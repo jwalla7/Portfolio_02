@@ -10,7 +10,7 @@ export const overlayTriggerStyles = cva(
     flex-col
     items-start
     justify-start
-    w-[364.78px]
+    w-[21.370vw]
     h-full
     min-h-screen
     z-1

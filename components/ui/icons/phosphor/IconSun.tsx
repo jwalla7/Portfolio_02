@@ -46,6 +46,7 @@ export const IconSun = memo<
                 <motion.path
                     /**
                      * Initial to animate, creates a fade-in-with-rotation animation
+                     *
                      * https://framer.com/motion/transition/##value-specific-transitions
                      */
                     initial={{

@@ -18,6 +18,7 @@ export const ThemeToggle = React.forwardRef<
 
     return (
         <Button
+            className="w-25 h-25"
             variant="secondary"
             onClick={() => {
                 startTransition(() => {

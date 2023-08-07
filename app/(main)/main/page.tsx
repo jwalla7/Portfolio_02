@@ -5,7 +5,7 @@ import { BackgroundImage } from "@/components/ui/background/BackgroundImage/Back
 import { OverylayNav } from "@/components/ui/navigation/web/overlay/OverlayNav/OverylayNav";
 import { OverlayRoot } from "@/components/ui/navigation/web/overlay/OverlayRoot/OverlayRoot";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
-import { ThemeToggleDropdown } from "@/components/ui/theme/dropdown/ThemeToggleDropdown/ThemeToggleDropdown";
+import { ThemeToggle } from "@/components/ui/theme/toggle/ThemeToggle";
 
 export default function MainPage() {
     // const _viewport = useViewport();
@@ -23,7 +23,7 @@ export default function MainPage() {
             <OverlayTrigger>
                 <OverlayRoot>
                     <OverylayNav>
-                        <ThemeToggleDropdown />
+                        <ThemeToggle />
                     </OverylayNav>
                 </OverlayRoot>
             </OverlayTrigger>

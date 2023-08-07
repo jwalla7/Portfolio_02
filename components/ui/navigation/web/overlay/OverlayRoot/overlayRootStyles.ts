@@ -2,7 +2,6 @@ import { cva } from "class-variance-authority";
 
 export const overlayStylesLayerRoot = cva(
     `
-    bg-red-800
     relative
     translate-x-[-21.370vw]
     flex
@@ -15,6 +14,7 @@ export const overlayStylesLayerRoot = cva(
     w-[100vw]
     gap-2.5
     z-auto
+    group-display:inline-block
     `,
     {
         variants: {

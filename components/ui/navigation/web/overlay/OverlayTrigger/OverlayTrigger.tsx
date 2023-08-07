@@ -16,7 +16,7 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
             </HoverCard.Trigger>
             <HoverCard.Portal className="w-screen">
                 <HoverCard.Content
-                    className=""
+                    className={className}
                     /**
                      * sideOffset
                      *

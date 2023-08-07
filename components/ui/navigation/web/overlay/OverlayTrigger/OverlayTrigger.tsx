@@ -16,7 +16,7 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
             </HoverCard.Trigger>
             <HoverCard.Portal className="w-screen">
                 <HoverCard.Content
-                    className="data-[state=open]:transition-all data-[state=open]:w-full h-screen"
+                    className=""
                     /**
                      * sideOffset
                      *
@@ -24,7 +24,7 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
                      *
                      * `-(number) to place at the top/over of parent.
                      */
-                    // sideOffset={(-window.innerHeight)}
+                    // sideOffset={-window.innerHeight}
                     side="right"
                 >
                     {children}

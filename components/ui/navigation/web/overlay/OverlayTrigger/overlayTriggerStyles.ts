@@ -14,8 +14,17 @@ export const overlayTriggerStyles = cva(
     h-full
     min-h-screen
     z-1
-    `,
-    {
-        variants: {},
-    }
+    `
 );
+
+export const overlayTriggerStylesContent = cva(``, {
+    variants: {
+        display: {
+            onMouseEnter: `data-[state=open]:transition-all data-[state=open]:w-full h-screen data:[state=open]:inline-block`,
+            onMouseLeave: `data-[state=close]:transition-all data-[state=close]:w-full h-screen data:[state=close]:hidden`,
+        },
+    },
+    defaultVariants: {
+        display: `onMouseEnter`,
+    },
+});

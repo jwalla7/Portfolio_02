@@ -1,6 +1,6 @@
 "use client";
 
-import { useViewport } from "@/components/hooks/useViewport/useViewport";
+// import { useViewport } from "@/components/hooks/useViewport/useViewport";
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
 import { OverylayNav } from "@/components/ui/navigation/web/overlay/OverlayNav/OverylayNav";
 import { OverlayRoot } from "@/components/ui/navigation/web/overlay/OverlayRoot/OverlayRoot";
@@ -8,8 +8,8 @@ import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTr
 import { ThemeToggleDropdown } from "@/components/ui/theme/dropdown/ThemeToggleDropdown/ThemeToggleDropdown";
 
 export default function MainPage() {
-    const _viewport = useViewport();
-    console.log(_viewport);
+    // const _viewport = useViewport();
+    // console.log(_viewport);
     return (
         <div
             suppressHydrationWarning

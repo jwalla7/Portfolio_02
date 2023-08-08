@@ -8,8 +8,6 @@ import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTr
 import { ThemeToggle } from "@/components/ui/theme/toggle/ThemeToggle";
 
 export default function MainPage() {
-    // const _viewport = useViewport();
-    // console.log(_viewport);
     return (
         <div
             suppressHydrationWarning

@@ -1,6 +1,5 @@
 "use client";
 
-// import { useViewport } from "@/components/hooks/useViewport/useViewport";
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
 import { OverylayNav } from "@/components/ui/navigation/web/overlay/OverlayNav/OverylayNav";
 import { OverlayRoot } from "@/components/ui/navigation/web/overlay/OverlayRoot/OverlayRoot";

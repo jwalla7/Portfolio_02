@@ -1,7 +1,10 @@
 "use client";
 
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
-import { OverylayNav } from "@/components/ui/navigation/web/overlay/OverlayNav/OverylayNav";
+import {
+    OverlayNav,
+    OverylayNav,
+} from "@/components/ui/navigation/web/overlay/OverlayNav/OverlayNav";
 import { OverlayRoot } from "@/components/ui/navigation/web/overlay/OverlayRoot/OverlayRoot";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import ThemeMenuDropdown from "@/components/ui/theme/dropdown/ThemeMenuDropdown/ThemeMenuDropdown";
@@ -19,11 +22,11 @@ export default function MainPage() {
             />
             <OverlayTrigger>
                 <OverlayRoot>
-                    <OverylayNav>
+                    <OverlayNav>
                         <ThemeMenuDropdown>
                             <ThemeToggle />
                         </ThemeMenuDropdown>
-                    </OverylayNav>
+                    </OverlayNav>
                 </OverlayRoot>
             </OverlayTrigger>
         </div>

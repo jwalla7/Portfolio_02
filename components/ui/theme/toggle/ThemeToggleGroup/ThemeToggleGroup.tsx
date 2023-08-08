@@ -17,7 +17,7 @@ import { IconMoon } from "@/components/ui/icons/phosphor/IconMoon";
 export const ThemeToggleGroup = React.forwardRef<
     HTMLButtonElement,
     ThemeToggleGroupProps
->(({ children, className, variant, size }, ref) => {
+>(({ children, className }, ref) => {
     return (
         <ToggleGroup
             className={cn(themeToggleGroupStyles())}

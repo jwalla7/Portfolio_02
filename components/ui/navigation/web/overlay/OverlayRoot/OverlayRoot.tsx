@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
 import { OverlayRootProps } from "./overlayRootProps";
-import { OverylayNav } from "../OverlayNav/OverylayNav";
+import { OverlayNav } from "../OverlayNav/OverlayNav";
 import {
     overlayStylesLayerRoot,
     overlayStylesLayer_1,
@@ -18,9 +18,9 @@ export const OverlayRoot: React.FC<OverlayRootProps> = ({ children }) => {
             <div
                 className={cn(overlayStylesLayer_1({ background: "layer_1" }))}
             >
-                <OverylayNav overlayRefProps={displayStateRef}>
+                <OverlayNav overlayRefProps={displayStateRef}>
                     {children}
-                </OverylayNav>
+                </OverlayNav>
             </div>
         </div>
     );

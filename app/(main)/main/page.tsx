@@ -1,10 +1,7 @@
 "use client";
 
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
-import {
-    OverlayNav,
-    OverylayNav,
-} from "@/components/ui/navigation/web/overlay/OverlayNav/OverlayNav";
+import { OverlayNav } from "@/components/ui/navigation/web/overlay/OverlayNav/OverlayNav";
 import { OverlayRoot } from "@/components/ui/navigation/web/overlay/OverlayRoot/OverlayRoot";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import ThemeMenuDropdown from "@/components/ui/theme/dropdown/ThemeMenuDropdown/ThemeMenuDropdown";

@@ -1,0 +1,15 @@
+{/* 
+The objective is to empower the grandchild component to mutate the grandparent component.
+I could prop-drill functions or use React's contextAPI.
+However, for the sake of performance, I also want to accomplish the objective without re-rending the DOM.
+Therefore, I am considering using the React.useRef() hook to manage the state, along with the React.forwardRef() hook.
+
+Here is structure:
+            <OverlayTrigger> // Grandparent
+                <OverlayRoot> // Parent
+                    <OverylayNav> // Grandchild
+                        {children}
+                    </OverylayNav>
+                </OverlayRoot>
+            </OverlayTrigger>
+ */}

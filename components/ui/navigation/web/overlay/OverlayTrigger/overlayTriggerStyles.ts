@@ -2,7 +2,6 @@ import { cva } from "class-variance-authority";
 
 export const overlayTriggerStyles = cva(
     `
-    bg-slate-50
     opacity-5
     left-0
     top-0

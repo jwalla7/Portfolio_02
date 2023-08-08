@@ -19,7 +19,6 @@ export default function MainPage() {
                 imageLightThemeSrc="/images/SKY-lightmode.jpg"
                 imageDarkThemeSrc="/images/SKY-darkmode.jpg"
             />
-            {/* Need to modify trigger */}
             <OverlayTrigger>
                 <OverlayRoot>
                     <OverylayNav>

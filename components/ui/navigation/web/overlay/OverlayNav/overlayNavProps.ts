@@ -1,5 +1,7 @@
-import { ReactNode } from "react";
+import { MutableRefObject, ReactNode } from "react";
+import { OverlayRootProps } from "../OverlayRoot/overlayRootProps";
 
-export interface overlayNavProps {
-    children: ReactNode;
+export interface OverlayNavProps extends OverlayRootProps {
+    children?: ReactNode;
+    overlayRefProps?: MutableRefObject<HTMLDivElement | null>;
 }

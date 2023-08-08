@@ -2,17 +2,16 @@ import { cva } from "class-variance-authority";
 
 export const overlayTriggerStyles = cva(
     `
-    opacity-5
-    left-0
-    top-0
-    relative
     flex
     flex-col
+    h-full
     items-start
     justify-start
-    w-[21.370vw]
-    h-full
+    left-0
     min-h-screen
+    relative
+    top-0
+    w-[21.370vw]
     z-1
     `
 );

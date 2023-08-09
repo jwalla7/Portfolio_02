@@ -7,6 +7,7 @@ import { IconGitHubLogo } from "./phosphor/IconGitHubLogo";
 import { IconHouse } from "./phosphor/IconHouse";
 import { IconLinkedinLogo } from "./phosphor/IconLinkedinLogo";
 import { IconMoon } from "./phosphor/IconMoon";
+import { IconQuotes } from "./phosphor/IconQuotes";
 import { IconSpinner } from "./phosphor/IconSpinner";
 import { IconSpinnerGap } from "./phosphor/IconSpinnerGap";
 import { IconSun } from "./phosphor/IconSun";
@@ -22,6 +23,7 @@ export const PhosphorIcons = {
     house: IconHouse,
     linkedinLogo: IconLinkedinLogo,
     moon: IconMoon,
+    quotes: IconQuotes,
     spinner: IconSpinner,
     spinnerGap: IconSpinnerGap,
     sun: IconSun,

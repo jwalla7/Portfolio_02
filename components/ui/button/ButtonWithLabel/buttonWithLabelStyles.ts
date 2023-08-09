@@ -1,16 +1,9 @@
 import { cva } from "class-variance-authority";
 
-export const buttonWithLabelVariants = cva(
+export const buttonWithLabelStyles = cva(
     `
-        box-border
-        cursor-pointer
-        flex
-        flex-grow-0
-        flex-shrink-0
-        items-center
-        justify-center
-        relative
-        `,
+    box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[3.912vw] h-[6.978056426332288vh] relative gap-[13px] p-[9px] rounded-[12.4px] backdrop-blur-[12.4px]
+    `,
     {
         variants: {
             variant: {
@@ -84,7 +77,7 @@ export const buttonWithLabelVariants = cva(
     }
 );
 
-export const buttonWithLabelVariantsDiv = cva(
+export const buttonWithLabelStylesDiv = cva(
     `
     box-border
     flex
@@ -101,18 +94,17 @@ export const buttonWithLabelVariantsDiv = cva(
     `
 );
 
-export const buttonWithLabelVariantsText = cva(
+export const buttonWithLabelStylesText = cva(
     `
-    dark:group-hover:text-white
-    dark:text-neutral-50/[0.34]
-    group-hover:text-[#0066FF]/[0.89]
-    text-[#020D00]
     flex-grow-0
-    flex-shrink-0
-    robotoRegular.className
+    flex-shrink-0 
     leading-[normal]
-    text-[26px]
-    text-left
+    robotoRegular.className
+    max-w-1.6189292039596 
+    text-[1.523vw]
+    text-left 
+    text-neutral-50/[0.34]
+    hover:text-neutral-50
     whitespace-pre-wrap
     `
 );

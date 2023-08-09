@@ -4,10 +4,10 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { ButtonWithLabelProps } from "./buttonWithLabelProps";
 import {
-    buttonWithLabelVariants,
-    buttonWithLabelVariantsDiv,
-    buttonWithLabelVariantsText,
-} from "./buttonWithLabelVariants";
+    buttonWithLabelStyles,
+    buttonWithLabelStylesDiv,
+    buttonWithLabelStylesText,
+} from "./buttonWithLabelStyles";
 
 export const ButtonWithLabel = React.forwardRef<
     HTMLButtonElement,
@@ -17,13 +17,13 @@ export const ButtonWithLabel = React.forwardRef<
         <div className="group box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px] relative">
             <button
                 className={cn(
-                    buttonWithLabelVariants({ variant, size, className })
+                    buttonWithLabelStyles({ variant, size, className })
                 )}
                 ref={ref}
                 {...props}
             />
-            <div className={cn(buttonWithLabelVariantsDiv())}>
-                <span className={cn(buttonWithLabelVariantsText())}>
+            <div className={cn(buttonWithLabelStylesDiv())}>
+                <span className={cn(buttonWithLabelStylesText())}>
                     {props.label}
                 </span>
             </div>

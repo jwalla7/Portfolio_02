@@ -1,0 +1,10 @@
+Label - has three states:
+1. onMouseEnter: White color
+2. onMouseLeave: Transparent
+3. Focus: adds blue ring
+
+Button - has four states:
+1. onClick: White background, back icon
+2. onMouseEnter: Transparent background, white icon
+3. Inactive: No background, white icon
+4. Focus: add blue ring

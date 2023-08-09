@@ -22,14 +22,11 @@ export const BackgroundImageMode = ({
     const [_resolvedImage, setResolvedImage] = useState(false);
 
     useEffect(() => {
-        if (resolvedTheme === "light" || resolvedTheme === "dark") {
+        if (resolvedTheme === "light" || resolvedTheme === "dark")
             setResolvedImage(true);
-        }
     }, [resolvedTheme]);
 
-    if (!_resolvedImage) {
-        return <Suspense fallback={<Custom404 />} />;
-    }
+    if (!_resolvedImage) return <Suspense fallback={<Custom404 />} />;
     /**
      * resolvedTheme
      *

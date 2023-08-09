@@ -22,16 +22,18 @@ export const BackgroundImageMode = ({
         useState(false);
 
     useEffect(() => {
-        if (resolvedTheme === "light" || resolvedTheme === "dark")
+        if (resolvedTheme === "light" || resolvedTheme === "dark") {
             setResolvedBackgroundImage(true);
+        }
     }, [resolvedTheme]);
 
-    if (!_resolvedBackgroundImage)
+    if (!_resolvedBackgroundImage) {
         return (
             <Suspense>
                 <ProgressBar />
             </Suspense>
         );
+    }
     /**
      * resolvedTheme
      *

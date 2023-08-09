@@ -19,6 +19,7 @@ export const BackgroundImageMode = ({
     className,
 }: BackgroundImageModeProps) => {
     const { theme, resolvedTheme } = useTheme();
+
     const [_resolvedBackgroundImage, setResolvedBackgroundImage] =
         useState(false);
 

@@ -17,7 +17,7 @@ module.exports = {
     },
     plugins: ["react", "@typescript-eslint"],
     rules: {
-        "max-len": "off",
+        "max-len": ["error", { code: 300 }],
     },
     settings: {
         react: {

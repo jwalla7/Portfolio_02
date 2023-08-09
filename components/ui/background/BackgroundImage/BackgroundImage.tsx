@@ -4,7 +4,7 @@ import { BackgroundImageMode } from "../BackgroundImageMode/BackgroundImageMode"
 import { BackgroundImageProps } from "./backgroundImageProps";
 
 /**
- * Determines image type and size to display based on current media query and theme.
+ * Determines image type and size to display based on current parent node.
  *
  * Intended by default to fill it's parent's width.
  */

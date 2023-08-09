@@ -1,0 +1,93 @@
+const Component = (props: Props) => {
+  return (
+    <div className="box-border flex flex-col justify-start items-start w-[364.78px] h-[1116px] bg-[#740000]">
+      <div className="box-border flex flex-col justify-center items-start flex-grow basis-full gap-[55px] px-[39px] pt-[205px]">
+        
+        <div className="box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px]">
+        
+        // LAYER 0
+          <div
+            className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[66.78px] h-[66.78px] relative gap-[13px] p-[9px] rounded-[12.4px] backdrop-blur-[12.4px]"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(255,255,255,0.89) 1.16%, rgba(255,255,255,0.89) 100.34%)",
+            }}
+          >
+          // ICON
+            <House />
+          </div>
+
+          <div className="box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 w-[199px] relative overflow-hidden gap-2.5 px-2.5 pt-[3px]">
+            <p className="whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[26px] leading-[normal] text-left text-neutral-50">
+              Home
+            </p>
+          </div>
+
+        </div>
+
+        <div className="box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px]">
+          <div className="box-border flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-[66.78px] w-[66.78px] relative gap-[13px] p-[9px] rounded-[12.4px]">
+            <File />
+          </div>
+          <div className="box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 px-2.5 pt-[3px]">
+            <p className="whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[26px] leading-[normal] text-left text-neutral-50/[0.34]">
+              Resume
+            </p>
+          </div>
+        </div>
+        <div className="box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px]">
+          <div className="box-border flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-[66.78px] w-[66.78px] relative gap-[13px] p-[9px] rounded-[12.4px]">
+            <Equalizer />
+          </div>
+          <div className="box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 px-2.5 pt-[3px]">
+            <p className="whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[26px] leading-[normal] text-left text-neutral-50/[0.34]">
+              Music
+            </p>
+          </div>
+        </div>
+        <div className="box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px]">
+          <div className="box-border flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-[66.78px] w-[66.78px] relative gap-[13px] p-[9px] rounded-[12.4px]">
+            <EnvelopeSimple />
+          </div>
+          <div className="box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 px-2.5 pt-[3px]">
+            <p className="whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[26px] leading-[normal] text-left text-neutral-50/[0.34]">
+              Email
+            </p>
+          </div>
+        </div>
+        <div className="box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px]">
+          <div className="box-border flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-[66.78px] w-[66.78px] relative gap-[13px] p-[9px] rounded-[12.4px]">
+            <Quotes />
+          </div>
+          <div className="box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 px-2.5 pt-[3px]">
+            <p className="whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[26px] leading-[normal] text-left text-neutral-50/[0.34]">
+              Daily Quotes
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="box-border flex flex-col justify-center items-start self-stretch flex-grow-0 flex-shrink-0 h-[255px] gap-[55px] px-[39px]">
+        <div className="box-border flex justify-between items-start flex-grow-0 flex-shrink-0 w-[211px]">
+          <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 w-[52.48px] relative gap-[8.21996021270752px] px-[5.6907525062561035px] pt-[38.3655891418457px] rounded-[7.84px]">
+            <Sun />
+          </div>
+          <div className="box-border flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[60.29px] gap-[7.307741641998291px]">
+            <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-[2.0130577087402344px]">
+              <p className="whitespace-pre-wrap flex-grow self-stretch font-['Roboto'] text-[18.269317626953125px] leading-[normal] text-center text-neutral-50">
+                Auto
+              </p>
+            </div>
+            <div className="box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.73647403717041px] p-[8.125236511230469px] rounded-[11.2px]">
+              <CircleHalf />
+            </div>
+          </div>
+          <div className="box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 w-[52.48px] relative gap-[8.21996021270752px] px-[5.6907525062561035px] pt-[38.3655891418457px] rounded-[7.84px]">
+            <Moon />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Component;

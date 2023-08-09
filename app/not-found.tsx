@@ -12,7 +12,7 @@ export default function Custom404() {
             <h1>Not Found</h1>
             <p> Sorry, could not find requested resource</p>
             <p>
-                View <Link href="/dashboard"> the dashboard page</Link>
+                View <Link href="/main"> the main page</Link>
             </p>
         </div>
     );

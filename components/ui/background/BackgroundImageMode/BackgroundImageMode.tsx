@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
 import { BackgroundImageModeProps } from "./backgroundImageModeProps";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { Suspense, useEffect, useState } from "react";
+import { ProgressBar } from "../../loaders/Progress/ProgressBar";
 
 /**
  * Determines which version of background image to display based on browser theme.
@@ -11,12 +12,26 @@ import { useTheme } from "next-themes";
  * Different images based on the current theme may cause a hydration mismatch problem with next/image.
  */
 
-export const BackgroundImageMode = React.forwardRef<
-    HTMLImageElement,
-    BackgroundImageModeProps
->(({ imageLightThemeSrc, imageDarkThemeSrc, className }, ref) => {
+export const BackgroundImageMode = ({
+    imageLightThemeSrc,
+    imageDarkThemeSrc,
+    className,
+}: BackgroundImageModeProps) => {
     const { theme, resolvedTheme } = useTheme();
-    console.log(`resolvedTheme: `, resolvedTheme);
+    const [_resolvedBackgroundImage, setResolvedBackgroundImage] =
+        useState(false);
+
+    useEffect(() => {
+        if (resolvedTheme === "light" || resolvedTheme === "dark")
+            setResolvedBackgroundImage(true);
+    }, [resolvedTheme]);
+
+    if (!_resolvedBackgroundImage)
+        return (
+            <Suspense>
+                <ProgressBar />
+            </Suspense>
+        );
     /**
      * resolvedTheme
      *
@@ -72,7 +87,6 @@ export const BackgroundImageMode = React.forwardRef<
              * https://nextjs.org/docs/pages/building-your-application/optimizing/images#style
              */
             style={{ objectFit: "cover", position: "absolute", zIndex: -1 }}
-            ref={ref}
             className={className}
         />
     ) : (
@@ -84,10 +98,7 @@ export const BackgroundImageMode = React.forwardRef<
             fill
             sizes="100vw"
             style={{ objectFit: "cover", position: "absolute", zIndex: -1 }}
-            ref={ref}
             className={className}
         />
     );
-});
-
-BackgroundImageMode.displayName = "BackgroundImageMode";
+};

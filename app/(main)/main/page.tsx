@@ -17,6 +17,7 @@ export default function MainPage() {
             />
             <OverlayTrigger>
                 <OverlayRoot>
+                    {/* TODO - Create button styling */}
                     <NavBarVertical />
                 </OverlayRoot>
             </OverlayTrigger>

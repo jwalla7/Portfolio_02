@@ -13,7 +13,7 @@ export const navBarVerticalStyles = cva(
             },
             navDiv: {
                 default: `
-                bg-purple-500 box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px] p-12
+                bg-purple-500 box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px]
                 `,
             },
             themeDiv: {

@@ -85,7 +85,7 @@ export const BackgroundImage = ({
                      * https://nextjs.org/docs/pages/building-your-application/optimizing/images#style
                      */
                     style={{
-                        objectFit: "cover",
+                        objectFit: "fill",
                         position: "absolute",
                         zIndex: -1,
                     }}
@@ -100,7 +100,7 @@ export const BackgroundImage = ({
                     fill
                     sizes="100vw"
                     style={{
-                        objectFit: "cover",
+                        objectFit: "fill",
                         position: "absolute",
                         zIndex: -1,
                     }}

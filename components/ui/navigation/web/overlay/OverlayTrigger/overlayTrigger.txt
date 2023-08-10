@@ -3,3 +3,6 @@ To change this behavior for the far left position, I simply set the Trigger's le
 for example in tailwind: left-[-0.1px]
 For the bottom position, I set the Trigger's parent div height to screen and set the Trigger's div height to full. 
 * Note: This is a temporary solution, the behavior has not changed for the Firefox browser. (Works for Chrome and Safari)
+
+Potential Solution - Removing the Trigger div's onMouseLeave event listener, and creating a div parallel to the Trigger div with an onMouseEnter event
+that changes the behavior of the Trigger div. Forcing the Trigger div's state to remain the same until the onMouseEnter event is triggered on the new div.

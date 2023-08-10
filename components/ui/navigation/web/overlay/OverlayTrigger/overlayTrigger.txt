@@ -1,0 +1,5 @@
+Edge Case (CSS) - When mouse exits viewport at `left-0` and `bottom-0` (far left and bottom edges of browser), an onMouseLeave event is triggered.
+To change this behavior for the far left position, I simply set the Trigger's left position for the root div/container to a negative vs 0.
+for example in tailwind: left-[-0.1px]
+For the bottom position, I set the Trigger's parent div height to screen and set the Trigger's div height to full. 
+* Note: This is a temporary solution, the behavior has not changed for the Firefox browser. (Works for Chrome and Safari)

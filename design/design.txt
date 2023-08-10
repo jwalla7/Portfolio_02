@@ -1,0 +1,8 @@
+For this project in regards to units of measurement in CSS, I have decided to implement the following structure:
+
+Text - rem: Is relative to the root (html element) font size, not the parent element.
+This makes it more predictable and avoids the compounding issue associated with nested elements.
+
+Root Div/Container/Component - vw/vh: Are relative units that are based on a percentage of the viewport's width and height, respectively.
+
+Nested Div/Container/Component - vw/vh or %: Is a relative unit that's based on a percentage of the parent element's property (like width, height, or font size).

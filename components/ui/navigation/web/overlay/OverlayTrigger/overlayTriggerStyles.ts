@@ -7,7 +7,7 @@ export const overlayTriggerStyles = cva(
     h-full
     items-start
     justify-start
-    left-0
+    left-[-0.1%]
     min-h-screen
     relative
     top-0

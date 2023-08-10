@@ -16,9 +16,7 @@ module.exports = {
         sourceType: "module",
     },
     plugins: ["react", "@typescript-eslint"],
-    rules: {
-        "max-len": ["error", { code: 300 }],
-    },
+    rules: {},
     settings: {
         react: {
             version: "detect",

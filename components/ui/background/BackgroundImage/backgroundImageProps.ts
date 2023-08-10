@@ -1,5 +1,7 @@
-import { BackgroundImageModeProps } from "../BackgroundImageMode/backgroundImageModeProps";
-
-export interface BackgroundImageProps extends BackgroundImageModeProps {
-    children?: React.ReactNode;
+import { StaticImageData } from "next/image";
+export interface BackgroundImageProps
+    extends React.HTMLAttributes<HTMLImageElement> {
+    imageLightThemeSrc: string | StaticImageData;
+    imageDarkThemeSrc: string | StaticImageData;
+    className?: string;
 }

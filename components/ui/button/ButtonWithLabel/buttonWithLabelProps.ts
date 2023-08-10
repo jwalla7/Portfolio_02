@@ -1,10 +1,14 @@
-import { VariantProps } from "class-variance-authority";
-import { buttonWithLabelStyles } from "./buttonWithLabelStyles";
-
+import { Type_ButtonWithLabel } from "@/types/button-with-label";
 export interface ButtonWithLabelProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-        VariantProps<typeof buttonWithLabelStyles> {
+        Omit<Type_ButtonWithLabel, "rootDiv" | "labelDiv" | "text" | "button">,
+        Required<
+            Pick<
+                Type_ButtonWithLabel,
+                "rootDiv" | "labelDiv" | "text" | "button"
+            >
+        > {
     children?: React.ReactNode;
-    label?: string | "undefined";
+    label: string | "undefined";
     asChild?: boolean;
 }

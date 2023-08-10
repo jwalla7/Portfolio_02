@@ -1,34 +1,48 @@
 "use client";
 
-import React from "react";
+import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 import { ButtonWithLabelProps } from "./buttonWithLabelProps";
-import {
-    buttonWithLabelStyles,
-    buttonWithLabelStylesDiv,
-    buttonWithLabelStylesText,
-} from "./buttonWithLabelStyles";
+import { buttonWithLabelStyles } from "./buttonWithLabelStyles";
 
-export const ButtonWithLabel = React.forwardRef<
+export const ButtonWithLabel = forwardRef<
     HTMLButtonElement,
     ButtonWithLabelProps
->(({ className, variant, size, ...props }, ref) => {
-    return (
-        <div className="group box-border flex justify-start items-start flex-grow-0 flex-shrink-0 gap-[21px] relative">
-            <button
-                className={cn(
-                    buttonWithLabelStyles({ variant, size, className })
-                )}
-                ref={ref}
-                {...props}
-            />
-            <div className={cn(buttonWithLabelStylesDiv())}>
-                <span className={cn(buttonWithLabelStylesText())}>
-                    {props.label}
-                </span>
+>(
+    ({
+        text,
+        rootDiv,
+        labelDiv,
+        label,
+        button,
+        className,
+        children,
+        ...props
+    }) => {
+        return (
+            <div className={cn(buttonWithLabelStyles({ rootDiv, className }))}>
+                <button
+                    className={cn(buttonWithLabelStyles({ button, className }))}
+                    {...props}
+                >
+                    {children}
+                </button>
+                <div
+                    className={cn(
+                        buttonWithLabelStyles({ labelDiv, className })
+                    )}
+                >
+                    <span
+                        className={cn(
+                            buttonWithLabelStyles({ text, className })
+                        )}
+                    >
+                        {label}
+                    </span>
+                </div>
             </div>
-        </div>
-    );
-});
+        );
+    }
+);
 
 ButtonWithLabel.displayName = "ButtonWithLabel";

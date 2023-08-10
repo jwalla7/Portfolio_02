@@ -42,7 +42,7 @@ export const ThemeToggleDropdown = React.forwardRef<
             <div className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[34px]">
                 <DropdownMenuTrigger asChild>
                     <ButtonWithLabel
-                        variant="default"
+                        button="default"
                         label="Theme"
                         size="default"
                     >
@@ -73,7 +73,7 @@ export const ThemeToggleDropdown = React.forwardRef<
                             className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] focus:outline-none"
                         >
                             <ButtonWithLabel
-                                variant="glass"
+                                button="glass"
                                 label="Light"
                                 size="default"
                             >
@@ -89,7 +89,7 @@ export const ThemeToggleDropdown = React.forwardRef<
                             className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] focus:outline-none"
                         >
                             <ButtonWithLabel
-                                variant="glass"
+                                button="glass"
                                 label="Dark"
                                 size="default"
                             >
@@ -108,7 +108,7 @@ export const ThemeToggleDropdown = React.forwardRef<
                             className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] focus:outline-none"
                         >
                             <ButtonWithLabel
-                                variant="glass"
+                                button="glass"
                                 label="Auto"
                                 size="default"
                             >

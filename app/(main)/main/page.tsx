@@ -2,10 +2,8 @@
 
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
 import { NavBarVertical } from "@/components/ui/navigation/web/navbar/NavbarVertical/NavBarVertical";
-import { OverlayNav } from "@/components/ui/navigation/web/overlay/OverlayNav/OverlayNav";
 import { OverlayRoot } from "@/components/ui/navigation/web/overlay/OverlayRoot/OverlayRoot";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
-import React from "react";
 
 export default function MainPage() {
     return (
@@ -19,9 +17,7 @@ export default function MainPage() {
             />
             <OverlayTrigger>
                 <OverlayRoot>
-                    <OverlayNav>
-                        <NavBarVertical />
-                    </OverlayNav>
+                    <NavBarVertical />
                 </OverlayRoot>
             </OverlayTrigger>
         </div>

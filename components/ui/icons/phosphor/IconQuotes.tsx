@@ -1,7 +1,8 @@
 /**
+ * @description
  * memo bypasses re-rendering a component if its props are unchanged.
  *
- * https://react.dev/reference/react/memo
+ * @see https://react.dev/reference/react/memo
  */
 
 import { SVGProps, memo } from "react";
@@ -9,12 +10,12 @@ import { cn } from "@/lib/utils";
 
 export const IconQuotes = memo<React.ComponentProps<"svg">>(function IconQuotes(
     /**
-     * Accessibility to other SVG props
+     * @summary Accessibility to other SVG props
      */
     { fill, fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * Create custom values for className
+     * @summary Creates custom values for className
      */
     const variants = cn(
         "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative"

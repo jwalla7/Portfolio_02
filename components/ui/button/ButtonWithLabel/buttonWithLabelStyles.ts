@@ -12,33 +12,17 @@ export const buttonWithLabelStyles = cva(
             },
             labelDiv: {
                 default: `
-                    box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 w-[199px] relative overflow-hidden gap-2.5 px-2.5 pt-[3px]
+                    box-border flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 w-[11.658vw] relative overflow-hidden gap-2.5 px-2.5 pt-[3px]
                 `,
             },
             text: {
                 default: `
-                    whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[26px] leading-[normal] text-left hover:text-neutral-50 text-neutral-50/[0.34]
+                    whitespace-pre-wrap flex-grow-0 flex-shrink-0 font-['Roboto'] text-[1.625rem] leading-[normal] text-left hover:text-neutral-50 text-neutral-50/[0.34]
                 `,
             },
             button: {
                 default: `
-                bg-black
-                box-border
-                flex
-                justify-center
-                items-center
-                flex-grow-0
-                flex-shrink-0
-                w-[3.912vw]
-                h-[6.978056426332288vh]
-                relative
-                gap-[13px]
-                p-[9px]
-                rounded-[12.4px]
-                backdrop-blur-[12.4px]
-
-                
-
+                bg-black box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[3.912vw] h-[6.978vh] relative gap-[1.358vh] py-[0.940vh] px-[0.527vw] rounded-[12.4px] backdrop-blur-[12.4px]
                 active:bg-gradient-to-r from-[rgba(255,255,255,0.89)] from-1.16% to-[rgba(255,255,255,0.89)] from-100.34%
                 `,
                 destructive: `

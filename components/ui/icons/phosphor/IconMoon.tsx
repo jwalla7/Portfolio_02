@@ -4,6 +4,7 @@
  *
  * @see https://react.dev/reference/react/memo
  */
+
 import { SVGProps, memo } from "react";
 import { motion } from "framer-motion";
 import { IconDirection } from "@/types/icon";

@@ -1,6 +1,6 @@
 /**
  * @description
- * memo bypasses re-rendering a component if its props are unchanged.
+ * memo bypasses re-rendering a component if its props are unchanged
  *
  * @see https://react.dev/reference/react/memo
  */

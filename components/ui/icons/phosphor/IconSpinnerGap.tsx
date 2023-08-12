@@ -15,17 +15,16 @@ export const IconSpinnerGap = memo<
     }
 >(function IconSpinnerGap(
     /**
-     * @summary
      * Sets default `iconDirection`value and enables accessibility to className values
      */
     { iconDirection = "0_rotation", className },
     /**
-     * @summary Accessibility to other SVG props
+     * Accessibility to other SVG props
      */
-    { fill, fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * @summary Creates className values
+     * Creates className values
      */
     const variants = cn(
         "transition duration-100 ease-in",

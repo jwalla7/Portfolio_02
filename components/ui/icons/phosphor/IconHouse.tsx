@@ -10,15 +10,20 @@ import { cn } from "@/lib/utils";
 
 export const IconHouse = memo<React.ComponentProps<"svg">>(function IconHouse(
     /**
+     * Accessibility to custom attribute values
+     */
+    { className },
+    /**
      * Accessibility to other SVG props
      */
     { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * Creates custom values for className
+     * Creates custom values for className attribute
      */
     const variants = cn(
-        "block grow-0 shrink-0 w-[33.39px] h-[33.39px] relative"
+        "block grow-0 shrink-0 w-[33.39px] h-[33.39px] relative",
+        className
     );
     return (
         <i>

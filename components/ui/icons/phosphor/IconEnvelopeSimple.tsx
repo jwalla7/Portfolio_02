@@ -10,7 +10,7 @@ import { SVGProps, memo } from "react";
 export const IconEnvelopSimple = memo<React.ComponentProps<"svg">>(
     function IconEnvelopSimple(
         /**
-         * Accessibility to other SVG props.
+         * Accessibility to other SVG props
          */
         {
             fill = "currentColor",

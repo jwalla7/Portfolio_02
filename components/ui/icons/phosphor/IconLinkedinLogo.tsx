@@ -5,6 +5,7 @@
  * @see https://react.dev/reference/react/memo
  */
 
+import { cn } from "@/lib/utils";
 import { SVGProps, memo } from "react";
 
 export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(
@@ -23,7 +24,7 @@ export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(
         }: SVGProps<SVGSVGElement>
     ) {
         /**
-         * Creates custom values for className
+         * Creates custom values for className attribute
          */
         const variants = cn(
             "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",

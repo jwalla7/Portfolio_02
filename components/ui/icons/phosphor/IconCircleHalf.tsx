@@ -15,23 +15,23 @@ export const IconCircleHalf = memo<
     }
 >(function IconCircleHalf(
     /**
-     * @summary Accessibility to customized attributes setMotion, and className
+     * Accessibility to customized attributes setMotion, and className
      */
     { className, setMotion },
     /**
-     * @summary Accessibility to other SVG props
+     * Accessibility to other SVG props
      */
-    { fill, fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * @summary Creates custom values for className
+     * Creates custom values for className
      */
     const variants = cn(
         "block flex-grow-0 flex-shrink-0 w-[36px] h-[36px] relative",
         className
     );
     /**
-     * @summary Establishes which variation of `IconSun` to render
+     * Establishes which variation of `IconCircleHalf` to render
      */
     if (setMotion) {
         return (
@@ -71,22 +71,24 @@ export const IconCircleHalf = memo<
         );
     } else {
         return (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fab"
-                data-icon="phosphorIcon-circle-half"
-                viewBox="0 0 256 256"
-                className={variants}
-                {...props}
-            >
-                <path
-                    fill={fill}
-                    fillOpacity={fillOpacity}
-                    d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM40,128a88.1,88.1,0,0,1,88-88V216A88.1,88.1,0,0,1,40,128Z"
-                ></path>
-            </svg>
+            <i>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fab"
+                    data-icon="phosphorIcon-circle-half"
+                    viewBox="0 0 256 256"
+                    className={variants}
+                    {...props}
+                >
+                    <path
+                        fill={fill}
+                        fillOpacity={fillOpacity}
+                        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM40,128a88.1,88.1,0,0,1,88-88V216A88.1,88.1,0,0,1,40,128Z"
+                    ></path>
+                </svg>
+            </i>
         );
     }
 });

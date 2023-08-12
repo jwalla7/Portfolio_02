@@ -15,7 +15,7 @@ export const IconSpinnerGap = memo<
     }
 >(function IconSpinnerGap(
     /**
-     * Sets default `iconDirection`value and enables accessibility to className values
+     * Sets default `iconDirection`value and enables accessibility to className attribute
      */
     { iconDirection = "0_rotation", className },
     /**
@@ -24,7 +24,7 @@ export const IconSpinnerGap = memo<
     { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * Creates className values
+     * Creates className attribute values
      */
     const variants = cn(
         "transition duration-100 ease-in",

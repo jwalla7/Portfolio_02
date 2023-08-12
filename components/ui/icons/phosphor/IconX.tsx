@@ -5,14 +5,26 @@
  * @see https://react.dev/reference/react/memo
  */
 
+import { cn } from "@/lib/utils";
 import { SVGProps, memo } from "react";
 
 export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX(
+    /**
+     * Accessibility to className attribute
+     */
+    { className },
     /**
      * Accessibility to other SVG props
      */
     { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
+    /**
+     * Creates custom values for className attribute
+     */
+    const variants = cn(
+        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
+        className
+    );
     return (
         <i>
             <svg
@@ -22,6 +34,7 @@ export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX(
                 data-prefix="fab"
                 data-icon="phosphorIcon-X"
                 viewBox="0 0 256 256"
+                className={variants}
                 {...props}
             >
                 <path

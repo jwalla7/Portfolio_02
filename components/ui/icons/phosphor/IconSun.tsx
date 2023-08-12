@@ -31,7 +31,7 @@ export const IconSun = memo<
         className
     );
     /**
-     * Establishes which variation of `IconX` to render
+     * Establishes which variation of `IconSun` to render
      */
     if (setMotion) {
         return (

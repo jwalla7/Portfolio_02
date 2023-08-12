@@ -24,10 +24,10 @@ export const IconSun = memo<
     { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * Creates custom values for className
+     * Creates custom values for className attribute
      */
     const variants = cn(
-        "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative",
+        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
         className
     );
     /**

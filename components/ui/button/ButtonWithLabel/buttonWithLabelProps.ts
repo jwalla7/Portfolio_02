@@ -9,6 +9,6 @@ export interface ButtonWithLabelProps
             >
         > {
     children?: React.ReactNode;
-    label: string | "undefined";
+    label: string | undefined;
     asChild?: boolean;
 }

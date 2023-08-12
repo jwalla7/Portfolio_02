@@ -5,10 +5,15 @@
  * @see https://react.dev/reference/react/memo
  */
 
+import { cn } from "@/lib/utils";
 import { SVGProps, memo } from "react";
 
 export const IconEqualizer = memo<React.ComponentProps<"svg">>(
     function IconEqualizer(
+        /**
+         * Accessibility to custom attribute values
+         */
+        { className },
         /**
          * Accessibility to other SVG props
          */
@@ -18,6 +23,13 @@ export const IconEqualizer = memo<React.ComponentProps<"svg">>(
             ...props
         }: SVGProps<SVGSVGElement>
     ) {
+        /**
+         * Creates custom values for className attribute
+         */
+        const variants = cn(
+            "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
+            className
+        );
         return (
             <i>
                 <svg
@@ -27,6 +39,7 @@ export const IconEqualizer = memo<React.ComponentProps<"svg">>(
                     data-prefix="fab"
                     data-icon="phosphorIcon-equalizer"
                     viewBox="0 0 256 256"
+                    className={variants}
                     {...props}
                 >
                     <path

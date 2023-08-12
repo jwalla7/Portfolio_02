@@ -27,7 +27,7 @@ export const IconCircleHalf = memo<
      * Creates custom values for className
      */
     const variants = cn(
-        "block flex-grow-0 flex-shrink-0 w-[36px] h-[36px] relative",
+        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
         className
     );
     /**

@@ -23,7 +23,7 @@ export const IconMoon = memo<
     /**
      *@summary Accessibility to other SVG props
      */
-    { fill, fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
      * @summary Creates custom values for className

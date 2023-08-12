@@ -14,6 +14,14 @@ export const buttonVariants = cva(
                 secondary:
                     "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 ghost: "hover:bg-accent hover:text-accent-foreground",
+                glass: `
+                    bg-transparent
+                    dark:bg-transparent
+                    dark:group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.08)] from-0% to-[rgba(242,242,242,0.13)] from-76.04%
+                    dark:group-hover:text-accent-foreground
+                    group-hover:text-accent-foreground
+                    hover:bg-primary/90
+                    `,
                 link: "underline-offset-4 hover:underline text-primary",
             },
             size: {

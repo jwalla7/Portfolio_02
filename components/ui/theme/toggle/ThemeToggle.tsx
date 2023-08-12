@@ -33,6 +33,7 @@ export const ThemeToggle = React.forwardRef<
                     setMotion={true}
                     iconDirection="0_rotation"
                     className="w-9 h-9"
+                    fill="white"
                 />
             ) : (
                 <IconSun setMotion={true} className="w-9 h-9" />

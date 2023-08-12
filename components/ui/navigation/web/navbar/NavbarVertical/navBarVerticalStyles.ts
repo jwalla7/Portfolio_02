@@ -4,7 +4,7 @@ export const navBarVerticalStyles = cva(``, {
     variants: {
         rootDiv: {
             default: `
-                box-border flex flex-col justify-start items-start w-full h-full box-border flex flex-col justify-start items-start w-[364.78px] h-screen bg-red-500
+                box-border flex flex-col justify-start items-start w-full h-full box-border flex flex-col justify-start items-start w-[364.78px] h-screen
                 `,
         },
         navDiv: {

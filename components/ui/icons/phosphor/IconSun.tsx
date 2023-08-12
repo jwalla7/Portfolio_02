@@ -15,23 +15,23 @@ export const IconSun = memo<
     }
 >(function IconSun(
     /**
-     * @summary Accessibility to customized attributes setMotion, className, and to other SVG props
+     * Accessibility to customized attributes setMotion, className, and to other SVG props
      */
     { setMotion, className },
     /**
-     * @summary Accessibility to other SVG props
+     * Accessibility to other SVG props
      */
-    { fill, fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * @summary Creates custom values for className
+     * Creates custom values for className
      */
     const variants = cn(
         "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative",
         className
     );
     /**
-     * @summary Establishes which variation of `IconSun` to render
+     * Establishes which variation of `IconX` to render
      */
     if (setMotion) {
         return (

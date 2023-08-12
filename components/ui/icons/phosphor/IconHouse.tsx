@@ -18,7 +18,7 @@ export const IconHouse = memo<React.ComponentProps<"svg">>(function IconHouse(
      * @summary Creates custom values for className
      */
     const variants = cn(
-        "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative"
+        "block grow-0 shrink-0 w-[33.39px] h-[33.39px] relative"
     );
     return (
         <svg

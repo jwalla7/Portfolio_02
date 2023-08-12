@@ -10,12 +10,12 @@ import { cn } from "@/lib/utils";
 
 export const IconQuotes = memo<React.ComponentProps<"svg">>(function IconQuotes(
     /**
-     * @summary Accessibility to other SVG props
+     * Accessibility to other SVG props
      */
-    { fill, fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * @summary Creates custom values for className
+     * Creates custom values for className
      */
     const variants = cn(
         "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative"

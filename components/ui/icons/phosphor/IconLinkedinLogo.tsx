@@ -10,6 +10,10 @@ import { SVGProps, memo } from "react";
 export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(
     function IconLinkedinLogo(
         /**
+         * Accessibility to className attribute
+         */
+        { className },
+        /**
          * Accessibility to other SVG props
          */
         {
@@ -18,6 +22,13 @@ export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(
             ...props
         }: SVGProps<SVGSVGElement>
     ) {
+        /**
+         * Creates custom values for className
+         */
+        const variants = cn(
+            "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
+            className
+        );
         return (
             <i>
                 <svg
@@ -27,6 +38,7 @@ export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(
                     data-prefix="fab"
                     data-icon="phosphorIcon-linkedinLogo"
                     viewBox="0 0 256 256"
+                    className={variants}
                     {...props}
                 >
                     <path

@@ -17,16 +17,16 @@ export const IconMoon = memo<
     }
 >(function IconMoon(
     /**
-     * @summary Accessibility to attributes iconDirection, setMotion, and className
+     *  Accessibility to attributes iconDirection, setMotion, and className
      */
     { iconDirection = "0_rotation", setMotion, className },
     /**
-     *@summary Accessibility to other SVG props
+     * Accessibility to other SVG props
      */
     { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * @summary Creates custom values for className
+     * Creates custom values for className
      */
     const variants = cn(
         "block flex-grow-0 flex-shrink-0 w-[33.39px] h-[33.39px] relative",
@@ -41,7 +41,7 @@ export const IconMoon = memo<
         className
     );
     /**
-     * @summary Establishes which variation of `IconMoon` to render
+     *  Establishes which variation of `IconMoon` to render
      */
     if (setMotion) {
         return (

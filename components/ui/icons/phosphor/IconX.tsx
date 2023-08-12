@@ -9,9 +9,9 @@ import { SVGProps, memo } from "react";
 
 export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX(
     /**
-     * @summary Accessibility to other SVG props
+     * Accessibility to other SVG props
      */
-    { fill, fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     return (
         <svg

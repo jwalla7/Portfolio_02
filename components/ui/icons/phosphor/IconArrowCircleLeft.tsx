@@ -25,7 +25,7 @@ export const IconArrowCircleLeft = memo<
      * Create className values
      */
     const variants = cn(
-        "block flex-grow-0 flex-shrink-0 w-[1.956vw] h-[3.489vh] relative",
+        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
         {
             "rotate-0": iconDirection === "0_rotation",
             "rotate-90": iconDirection === "90_rotation",

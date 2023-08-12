@@ -22,7 +22,7 @@ export const IconArrowCircleLeft = memo<
     { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
 ) {
     /**
-     * Create className values
+     * Create className attribute values
      */
     const variants = cn(
         "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",

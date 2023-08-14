@@ -1,26 +1,46 @@
 import { cva } from "class-variance-authority";
 
-export const navBarVerticalStyles = cva(``, {
-    variants: {
-        rootDiv: {
-            default: `
-                box-border flex flex-col justify-start items-start w-full h-full box-border flex flex-col justify-start items-start w-[364.78px] h-screen
+export const navBarVerticalStyles = cva(
+    `
+box-border flex flex-col justify-center items-start
+`,
+    {
+        variants: {
+            root: {
+                default: `
+            data-root
+            w-full
+            h-full
+            w-[21.37vw]
                 `,
-        },
-        navDiv: {
-            default: `
-                box-border flex flex-col grow basis-full justify-center items-start w-[331.78px] gap-[55px] px-[39px] pt-[205px]
+            },
+            nav: {
+                default: `
+            data-navbar
+            grow
+            basis-full
+            w-[19.436vw]
+            gap-[55px]
+            px-[2.285vw]
+            pt-[21.421vh]
                 `,
-        },
-        themeDiv: {
-            default: `
-                box-border flex flex-col grow-0 shrink-0 justify-center items-start self-stretch h-[255px] gap-[55px] px-[39px]
+            },
+            theme: {
+                default: `
+            data-theme
+            grow
+            shrink
+            self-stretch
+            h-[26.646vh]
+            gap-[55px]
+            px-[2.285vw]
                 `,
+            },
         },
-    },
-    defaultVariants: {
-        rootDiv: `default`,
-        navDiv: `default`,
-        themeDiv: `default`,
-    },
-});
+        defaultVariants: {
+            root: `default`,
+            nav: `default`,
+            theme: `default`,
+        },
+    }
+);

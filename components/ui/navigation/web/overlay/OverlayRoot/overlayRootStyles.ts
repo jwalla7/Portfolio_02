@@ -2,27 +2,24 @@ import { cva } from "class-variance-authority";
 
 export const overlayStylesLayerRoot = cva(
     `
+    data-root
+    box-border
     flex
     flex-col
     gap-2.5
-    group-display:inline-block
     h-screen
     items-start
     justify-start
-    min-h-screen
-    min-w-full
-    relative
     translate-x-[-21.370vw]
-    w-[100vw]
+    w-screen
     z-auto
     `,
     {
         variants: {
             background: {
-                root: `bg-gradient-to-t from-[#00050d] from-[-43.58%] via-[rgba(0,5,13,0)] from-59.23% to-transparent`,
+                root: `bg-gradient-to-t from-[#00050d] from-[-43.58%] to-[rgba(0,5,13,0)] from-59.23%`,
             },
         },
-
         defaultVariants: {
             background: `root`,
         },
@@ -31,21 +28,23 @@ export const overlayStylesLayerRoot = cva(
 
 export const overlayStylesLayer_1 = cva(
     `
+    data-layer_1
     basis-full
     border-box
     flex
-    flex-grow
+    grow
     gap-2.5
     items-start
     justify-start
     overflow-hidden
     self-stretch
-    z-1
+    z-auto
     `,
     {
         variants: {
             background: {
-                layer_1: `bg-gradient-to-r from[#00050d] from-0% via-[rgba(0,5,13,0.99)] from-6.67% via-[rgba(0,5,13,0.96)] from-13.33% via-[rgba(0,5,13,0.92)] from-20% via-[rgba(0,5,13,0.86)] from-26.67% via-[rgba(0,5,13,0.77)] from-33.33% via-[rgba(0,5,13,0.67)] from-40% via-[rgba(0,5,13,0.56)] from-46.67% via-[rgba(0,5,13,0.44)] from-53.33% via-[rgba(0,5,13,0.33)] from-60% via-[rgba(0,5,13,0.23)] from-66.67% via-[rgba(0,5,13,0.14)] from-73.33% via-[rgba(0,5,13,0.08)] from-80% via-[rgba(0,5,13,0.04)] from-86.67% via-[rgba(0,5,13,0.01)] from-93.33% to-[rgba(0,5,13,0)] from-100%`,
+                layer_1: `bg-gradient-to-r from[#00050d] from-0% via-[rgba(0,5,13,0.99)] from-6.67% via-[rgba(0,5,13,0.96)] from-13.33% via-[rgba(0,5,13,0.92)] from-20% via-[rgba(0,5,13,0.86)] from-26.67% via-[rgba(0,5,13,0.77)] from-33.33% via-[rgba(0,5,13,0.67)] from-40% via-[rgba(0,5,13,0.56)] from-46.67% via-[rgba(0,5,13,0.44)] from-53.33% via-[rgba(0,5,13,0.33)] from-60% via-[rgba(0,5,13,0.23)] from-66.67% via-[rgba(0,5,13,0.14)] from-73.33% via-[rgba(0,5,13,0.08)] from-80% via-[rgba(0,5,13,0.04)] from-86.67% via-[rgba(0,5,13,0.01)] from-93.33% via-[rgba(0,5,13,0)] from-100% to-transparent `,
+                none: "bg-none",
             },
         },
         defaultVariants: {
@@ -56,15 +55,16 @@ export const overlayStylesLayer_1 = cva(
 
 export const overlayStylesLayer_2 = cva(
     `
+    data-layer_2
     border-box
     flex
-    flex-grow-0
-    flex-shrink-0
+    grow-0
+    shrink-0
     gap-2.5
     items-start
     justify-start
     self-stretch
-    w-36
+    w-[8.436vw]
     z-1
     `,
     {
@@ -81,23 +81,23 @@ export const overlayStylesLayer_2 = cva(
 
 export const overlayStylesLayer_3 = cva(
     `
+    data-layer_3
     border-box
     flex
     flex-col
-    flex-shrink-0
-    flex-grow-0
+    -shrink-0
+    -grow-0
     gap-2.5
     items-start
     justify-start
     self-stretch
-    w-[364.78px]
+    w-[21.37vw]
     z-1
-
     `,
     {
         variants: {
             background: {
-                layer_3: `bg-gradient-to-r from-[rgba(2,13,0,0.89)] via-[rgba(0,5,13,0.88)] from-4.69% via-[rgba(0,5,13,0.86)] from-8.85% via-[rgba(0,5,13,0.82)] from-13.54% via-[rgba(0,5,13,0.71)] from-30.77% via-[rgba(0,5,13,0.38)] from-71.35% to-[rgba(0,5,13,0.01)]`,
+                layer_3: `bg-gradient-to-r from-[rgba(2,13,0,0.89)] via-[rgba(0,5,13,0.88)] from-4.69% via-[rgba(0,5,13,0.86)] from-8.85% via-[rgba(0,5,13,0.82)] from-13.54% via-[rgba(0,5,13,0.71)] from-30.77% via-[rgba(0,5,13,0.38)] from-71.35% to-[rgba(0,5,13,0.01)] from 100%`,
             },
         },
         defaultVariants: {

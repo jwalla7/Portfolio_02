@@ -9,28 +9,28 @@ import { IconHouse } from "@/components/ui/icons/phosphor/IconHouse";
 
 export const NavBarVertical: FC<NavBarVerticalProps> = () => {
     return (
-        <div className={cn(navBarVerticalStyles({ rootDiv: "default" }))}>
-            <div className={cn(navBarVerticalStyles({ navDiv: "default" }))}>
+        <div className={cn(navBarVerticalStyles({ root: "default" }))}>
+            <div className={cn(navBarVerticalStyles({ nav: "default" }))}>
                 <ButtonWithLabel
                     rootDiv="default"
-                    button="default"
+                    buttonDiv="default"
                     labelDiv="default"
                     label="Home"
-                    text="default"
+                    textDiv="default"
                 >
                     <IconHouse fill="white" fillOpacity={100} />
                 </ButtonWithLabel>
                 <ButtonWithLabel
                     rootDiv="default"
-                    button="default"
+                    buttonDiv="default"
                     labelDiv="default"
                     label="Daily Quotes"
-                    text="default"
+                    textDiv="default"
                 >
                     <IconQuotes fill="white" fillOpacity={100} />
                 </ButtonWithLabel>
             </div>
-            <div className={cn(navBarVerticalStyles({ themeDiv: "default" }))}>
+            <div className={cn(navBarVerticalStyles({ theme: "default" }))}>
                 <ThemeToggle />
             </div>
         </div>

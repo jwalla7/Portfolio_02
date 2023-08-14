@@ -15,7 +15,10 @@ export interface ButtonWithLabelProps
          *
          * the Type_ButtonWithLabel type declaration.
          */
-        Omit<Type_ButtonWithLabel, "rootDiv" | "labelDiv" | "text" | "button">,
+        Omit<
+            Type_ButtonWithLabel,
+            "rootDiv" | "labelDiv" | "textDiv" | "buttonDiv"
+        >,
         /**
          * Required
          *
@@ -31,7 +34,7 @@ export interface ButtonWithLabelProps
              */
             Pick<
                 Type_ButtonWithLabel,
-                "rootDiv" | "labelDiv" | "text" | "button"
+                "rootDiv" | "labelDiv" | "textDiv" | "buttonDiv"
             >
         > {
     children?: React.ReactNode;

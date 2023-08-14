@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode, useRef } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 
 export interface OverlayRootProps {
     children?: ReactNode;

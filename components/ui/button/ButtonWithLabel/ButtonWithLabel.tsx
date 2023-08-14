@@ -1,29 +1,24 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { ButtonWithLabelProps } from "./buttonWithLabelProps";
 import { buttonWithLabelStyles } from "./buttonWithLabelStyles";
 
 export const ButtonWithLabel = ({
-    text,
+    textDiv,
     rootDiv,
     labelDiv,
     label,
-    button,
-    className,
+    buttonDiv,
     children,
     ...props
 }: ButtonWithLabelProps) => {
     return (
-        <div className={cn(buttonWithLabelStyles({ rootDiv, className }))}>
-            <button
-                className={cn(buttonWithLabelStyles({ button }))}
-                {...props}
-            >
+        <div className={buttonWithLabelStyles({ rootDiv })}>
+            <button className={buttonWithLabelStyles({ buttonDiv })} {...props}>
                 {children}
             </button>
-            <div className={cn(buttonWithLabelStyles({ labelDiv }))}>
-                <span className={cn(buttonWithLabelStyles({ text }))}>
+            <div className={buttonWithLabelStyles({ labelDiv })}>
+                <span className={buttonWithLabelStyles({ textDiv })}>
                     {label}
                 </span>
             </div>

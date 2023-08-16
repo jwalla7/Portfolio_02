@@ -4,21 +4,20 @@ import { ButtonWithLabelProps } from "./buttonWithLabelProps";
 import { buttonWithLabelStyles } from "./buttonWithLabelStyles";
 
 export const ButtonWithLabel = ({
-    textDiv,
-    rootDiv,
-    labelDiv,
     label,
-    buttonDiv,
     children,
     ...props
 }: ButtonWithLabelProps) => {
     return (
-        <div className={buttonWithLabelStyles({ rootDiv })}>
-            <button className={buttonWithLabelStyles({ buttonDiv })} {...props}>
+        <div className={buttonWithLabelStyles({ root: "default" })}>
+            <button
+                className={buttonWithLabelStyles({ button: "default" })}
+                {...props}
+            >
                 {children}
             </button>
-            <div className={buttonWithLabelStyles({ labelDiv })}>
-                <span className={buttonWithLabelStyles({ textDiv })}>
+            <div className={buttonWithLabelStyles({ label: "default" })}>
+                <span className={buttonWithLabelStyles({ text: "default" })}>
                     {label}
                 </span>
             </div>

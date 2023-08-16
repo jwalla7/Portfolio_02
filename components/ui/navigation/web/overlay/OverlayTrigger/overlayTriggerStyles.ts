@@ -13,6 +13,7 @@ export const overlayTriggerStyles = cva(
     relative
     top-0
     w-[21.37vw]
+    bg-none
     z-2
     `
 );

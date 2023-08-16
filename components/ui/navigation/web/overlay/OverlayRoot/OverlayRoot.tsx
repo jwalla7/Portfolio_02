@@ -22,12 +22,12 @@ export const OverlayRoot: React.FC<OverlayRootProps> = ({ children }) => {
                 >
                     <div
                         className={overlayStylesLayer_3({
-                            background: "layer_3",
+                            background: "none",
                         })}
                     >
-                        <OverlayNav overlayRefProps={displayStateRef}>
+                        {/* <OverlayNav overlayRefProps={displayStateRef}>
                             {children}
-                        </OverlayNav>
+                        </OverlayNav> */}
                     </div>
                 </div>
             </div>

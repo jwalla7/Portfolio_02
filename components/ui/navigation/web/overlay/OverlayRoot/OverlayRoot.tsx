@@ -13,21 +13,21 @@ export const OverlayRoot: React.FC<OverlayRootProps> = ({ children }) => {
 
     return (
         <div
-            className={overlayStylesLayerRoot({ background: "root" })}
+            className={overlayStylesLayerRoot({ background: "default" })}
             ref={displayStateRef}
         >
-            <div className={overlayStylesLayer_1({ background: "layer_1" })}>
+            <div className={overlayStylesLayer_1({ background: "default" })}>
                 <div
-                    className={overlayStylesLayer_2({ background: "layer_2" })}
+                    className={overlayStylesLayer_2({ background: "default" })}
                 >
                     <div
                         className={overlayStylesLayer_3({
                             background: "none",
                         })}
                     >
-                        {/* <OverlayNav overlayRefProps={displayStateRef}>
+                        <OverlayNav overlayRefProps={displayStateRef}>
                             {children}
-                        </OverlayNav> */}
+                        </OverlayNav>
                     </div>
                 </div>
             </div>

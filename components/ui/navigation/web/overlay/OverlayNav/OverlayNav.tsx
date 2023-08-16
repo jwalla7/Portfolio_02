@@ -23,7 +23,7 @@ export const OverlayNav = ({ children, overlayRefProps }: OverlayNavProps) => {
 
     return (
         <nav
-            className={overlayNavStyles({ navDiv: "navDivDefault" })}
+            className={overlayNavStyles({ nav: "none" })}
             onMouseEnter={showDisplay}
             onMouseLeave={hideDisplay}
         >

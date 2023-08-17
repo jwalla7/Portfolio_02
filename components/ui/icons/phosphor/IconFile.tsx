@@ -6,6 +6,7 @@
  */
 
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 import React, { SVGProps, memo } from "react";
 
 export const IconFile = memo<React.ComponentProps<"svg">>(function IconFile(
@@ -34,7 +35,7 @@ export const IconFile = memo<React.ComponentProps<"svg">>(function IconFile(
                 data-prefix="fab"
                 data-icon="phosphorIcon-file"
                 viewBox="0 0 256 256"
-                className={variants}
+                className={clsx(variants, props.className)}
                 {...props}
             >
                 <path

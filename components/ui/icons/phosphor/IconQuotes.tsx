@@ -7,6 +7,7 @@
 
 import { SVGProps, memo } from "react";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 
 export const IconQuotes = memo<React.ComponentProps<"svg">>(function IconQuotes(
     /**
@@ -34,7 +35,7 @@ export const IconQuotes = memo<React.ComponentProps<"svg">>(function IconQuotes(
                 data-prefix="fab"
                 data-icon="phosphorIcon-house"
                 viewBox="0 0 256 256"
-                className={variants}
+                className={clsx(variants, props.className)}
                 {...props}
             >
                 <path

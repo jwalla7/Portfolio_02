@@ -7,6 +7,7 @@
 
 import { cn } from "@/lib/utils";
 import { IconDirection } from "@/types/icon";
+import clsx from "clsx";
 import { SVGProps, memo } from "react";
 
 export const IconSpinnerGap = memo<
@@ -45,7 +46,7 @@ export const IconSpinnerGap = memo<
                 data-prefix="fab"
                 data-icon="phosphorIcon-spinnerGap"
                 viewBox="0 0 256 256"
-                className={variants}
+                className={clsx(variants, props.className)}
                 {...props}
             >
                 <path

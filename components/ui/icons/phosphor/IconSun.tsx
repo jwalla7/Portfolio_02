@@ -8,6 +8,7 @@
 import { SVGProps, memo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 
 export const IconSun = memo<
     React.JSX.IntrinsicElements["svg"] & {
@@ -44,7 +45,7 @@ export const IconSun = memo<
                     data-icon="phosphorIcon-sun"
                     viewBox="0 0 256 256"
                     preserveAspectRatio="xMidYMid meet"
-                    className={variants}
+                    className={clsx(variants, props.className)}
                 >
                     <motion.path
                         /**
@@ -85,7 +86,7 @@ export const IconSun = memo<
                     data-icon="phosphorIcon-sun"
                     viewBox="0 0 256 256"
                     preserveAspectRatio="xMidYMid meet"
-                    className={variants}
+                    className={clsx(variants, props.className)}
                     {...props}
                 >
                     <path

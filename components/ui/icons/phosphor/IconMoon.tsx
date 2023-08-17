@@ -9,6 +9,7 @@ import { SVGProps, memo } from "react";
 import { motion } from "framer-motion";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 
 export const IconMoon = memo<
     React.ComponentProps<"svg"> & {
@@ -53,7 +54,7 @@ export const IconMoon = memo<
                     data-prefix="fab"
                     data-icon="phosphorIcon-moon"
                     viewBox="0 0 256 256"
-                    className={variants}
+                    className={clsx(variants, props.className)}
                 >
                     <motion.path
                         /**
@@ -93,7 +94,7 @@ export const IconMoon = memo<
                     data-prefix="fab"
                     data-icon="phosphorIcon-moon"
                     viewBox="0 0 256 256"
-                    className={variants}
+                    className={clsx(variants, props.className)}
                     {...props}
                 >
                     <path

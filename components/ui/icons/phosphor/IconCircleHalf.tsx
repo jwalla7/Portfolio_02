@@ -8,6 +8,7 @@
 import { SVGProps, memo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 
 export const IconCircleHalf = memo<
     React.ComponentProps<"svg"> & {
@@ -43,7 +44,7 @@ export const IconCircleHalf = memo<
                     data-prefix="fab"
                     data-icon="phosphorIcon-circle-half"
                     viewBox="0 0 256 256"
-                    className={variants}
+                    className={clsx(variants, props.className)}
                 >
                     <motion.path
                         /**

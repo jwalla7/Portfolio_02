@@ -6,6 +6,7 @@
  */
 
 import { Type_ButtonWithLabel } from "@/types/button-with-label";
+import { MutableRefObject } from "react";
 export interface ButtonWithLabelProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
         /**
@@ -38,6 +39,7 @@ export interface ButtonWithLabelProps
             >
         > {
     children?: React.ReactNode;
-    label: string | undefined;
     asChild?: boolean;
+    label: string | undefined;
+    navButtonRef: MutableRefObject<HTMLDivElement | null>;
 }

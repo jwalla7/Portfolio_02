@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useRef, useState } from "react";
 import { NavBarVerticalProps } from "./navBarVerticalProps";
 import { cn } from "@/lib/utils";
 import { ButtonWithLabel } from "@/components/ui/button/ButtonWithLabel/ButtonWithLabel";
@@ -12,6 +12,11 @@ import {
 } from "./navBarVerticalStyles";
 
 export const NavBarVertical: FC<NavBarVerticalProps> = () => {
+    const navButtonRef = useRef(null);
+    const themeButtonRef = useRef(null);
+
+    const [_clicked, setClicked] = useState(false);
+
     return (
         <div className={cn(navBarVerticalRootStyles({ root: "default" }))}>
             <div className={cn(navBarVerticalNavStyles({ nav: "default" }))}>
@@ -30,6 +35,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
                     labelDiv="default"
                     label="Daily Quotes"
                     textDiv="default"
+                    navButtonRef={navButtonRef}
                 >
                     <IconQuotes fill="white" fillOpacity={100} />
                 </ButtonWithLabel>

@@ -6,6 +6,7 @@
  */
 
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 import { SVGProps, memo } from "react";
 
 export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX(
@@ -34,7 +35,7 @@ export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX(
                 data-prefix="fab"
                 data-icon="phosphorIcon-X"
                 viewBox="0 0 256 256"
-                className={variants}
+                className={clsx(variants, props.className)}
                 {...props}
             >
                 <path

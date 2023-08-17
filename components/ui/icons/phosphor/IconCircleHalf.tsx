@@ -82,7 +82,7 @@ export const IconCircleHalf = memo<
                     data-prefix="fab"
                     data-icon="phosphorIcon-circle-half"
                     viewBox="0 0 256 256"
-                    className={variants}
+                    className={clsx(variants, props.className)}
                     {...props}
                 >
                     <path

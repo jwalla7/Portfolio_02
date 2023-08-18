@@ -1,4 +1,5 @@
 /**
+ * @description
  * This component will create a vertical navigation bar with nested nav and theme buttons.
  *
  * This component should be separated according to concerns.

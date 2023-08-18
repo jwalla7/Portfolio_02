@@ -4,8 +4,8 @@ import { ButtonWithLabelProps } from "./buttonWithLabelProps";
 
 export const ButtonWithLabel = ({
     navButtonRef,
+    icon,
     label,
-    children,
     ...props
 }: ButtonWithLabelProps) => {
     // If clicked show white button, if not clicked show transparent button
@@ -19,8 +19,9 @@ export const ButtonWithLabel = ({
                 group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.089)] from-0% via-[rgba(242,242,242,0.13)] from-76.04%
                 box-border border-0 grow-0 shrink-0 justify-center items-center w-[66.78px] h-[66.78px] relative gap-[13px] p-[9px] rounded-[12.4px] backdrop-blur-[12.4px]"
                 {...props}
+                ref={navButtonRef}
             >
-                {children}
+                {icon}
             </button>
             <div className="bg-transparent hover:bg-transparent flex justify-start items-center relative self-auto grow-0 shrink-0 gap-2.5 px-2.5 pt-[3px]">
                 <span

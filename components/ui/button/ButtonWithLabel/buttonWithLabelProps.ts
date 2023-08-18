@@ -6,7 +6,9 @@
  */
 
 import { Type_ButtonWithLabel } from "@/types/button-with-label";
-import { MutableRefObject } from "react";
+import { Url } from "next/dist/shared/lib/router/router";
+import { LinkProps } from "next/link";
+import { MutableRefObject, ReactNode } from "react";
 export interface ButtonWithLabelProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
         /**
@@ -38,8 +40,10 @@ export interface ButtonWithLabelProps
                 "rootDiv" | "labelDiv" | "textDiv" | "buttonDiv"
             >
         > {
-    children?: React.ReactNode;
+    children?: ReactNode;
     asChild?: boolean;
     label: string | undefined;
-    navButtonRef: MutableRefObject<HTMLDivElement | null>;
+    icon: ReactNode | undefined;
+    buttonEventsRef?: MutableRefObject<HTMLDivElement | null> | undefined;
+    route?: LinkProps | Url | undefined;
 }

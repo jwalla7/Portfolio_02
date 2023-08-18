@@ -13,6 +13,7 @@ export const navBarVerticalRootStyles = cva(``, {
             justify-center
             w-[21.37vw]
             w-full
+            bg-transparent
             `,
             none: `bg-none`,
         },
@@ -37,6 +38,7 @@ export const navBarVerticalNavStyles = cva(``, {
             pt-[21.421vh]
             px-[2.285vw]
             w-[19.436vw]
+            bg-transparent
             `,
             none: `bg-none`,
         },
@@ -61,6 +63,7 @@ export const navBarVerticalThemeStyles = cva(``, {
             px-[2.285vw]
             self-stretch
             shrink
+            bg-transparent
             `,
             none: `bg-none`,
         },

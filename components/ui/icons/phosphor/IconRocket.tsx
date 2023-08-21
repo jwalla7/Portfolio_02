@@ -79,7 +79,7 @@ export const IconRocket = memo<
         );
     } else {
         return (
-            <i>
+            <i className="place-self-stretch">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"

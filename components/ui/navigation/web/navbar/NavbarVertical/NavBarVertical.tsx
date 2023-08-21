@@ -38,7 +38,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             labelDiv: "default",
             textDiv: "default",
             label: "Home",
-            icon: <IconHouse fill="white" fillOpacity={100} />,
+            icon: <IconHouse className="text-white" fillOpacity={100} />,
             route: "/",
             buttonEventsRef: navButtonRef,
         });
@@ -48,7 +48,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             labelDiv: "default",
             textDiv: "default",
             label: "Resume",
-            icon: <IconFile fill="white" fillOpacity={100} />,
+            icon: <IconFile className="text-white" fillOpacity={100} />,
             route: "/resume",
             buttonEventsRef: navButtonRef,
         });
@@ -58,7 +58,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             labelDiv: "default",
             textDiv: "default",
             label: "Music",
-            icon: <IconEqualizer fill="white" fillOpacity={100} />,
+            icon: <IconEqualizer className="text-white" fillOpacity={100} />,
             route: "/music",
             buttonEventsRef: navButtonRef,
         });
@@ -68,7 +68,9 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             labelDiv: "default",
             textDiv: "default",
             label: "Email",
-            icon: <IconEnvelopSimple fill="white" fillOpacity={100} />,
+            icon: (
+                <IconEnvelopSimple className="text-white" fillOpacity={100} />
+            ),
             route: "/email",
             buttonEventsRef: navButtonRef,
         });

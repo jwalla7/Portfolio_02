@@ -27,7 +27,7 @@ export const IconFile = memo<React.ComponentProps<"svg">>(function IconFile(
         className
     );
     return (
-        <i>
+        <i className="place-self-stretch">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"

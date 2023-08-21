@@ -46,7 +46,7 @@ export const IconMoon = memo<
      */
     if (setMotion) {
         return (
-            <i>
+            <i className="place-self-stretch">
                 <motion.svg
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"
@@ -86,7 +86,7 @@ export const IconMoon = memo<
         );
     } else {
         return (
-            <i>
+            <i className="place-self-stretch">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"

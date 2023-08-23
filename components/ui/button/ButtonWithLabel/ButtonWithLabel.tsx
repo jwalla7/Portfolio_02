@@ -1,6 +1,8 @@
 "use client";
 
+import clsx from "clsx";
 import { ButtonWithLabelProps } from "./buttonWithLabelProps";
+import { robotoRegular } from "@/design/fontDefaults";
 
 export const ButtonWithLabel = ({
     navButtonRef,
@@ -22,9 +24,10 @@ export const ButtonWithLabel = ({
             </button>
             <div className="bg-transparent hover:bg-transparent flex justify-start items-center relative place-self-center grow-0 shrink-0 gap-2.5 pt-[3px]">
                 <span
-                    className="
-                group-hover:text-neutral-50
-                whitespace-pre-line grow-0 shrink-0 font-['Roboto'] text-[1.625rem] leading-normal text-left text-neutral-50/[0.34]"
+                    className={clsx(
+                        "group-hover:text-neutral-50 whitespace-pre-line grow-0 shrink-0 text-[1.625rem] leading-normal text-left text-neutral-50/[0.34]",
+                        robotoRegular.className
+                    )}
                 >
                     {label}
                 </span>

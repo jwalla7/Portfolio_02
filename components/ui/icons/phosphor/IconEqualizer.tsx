@@ -32,7 +32,7 @@ export const IconEqualizer = memo<React.ComponentProps<"svg">>(
             className
         );
         return (
-            <i className="place-self-stretch">
+            <i className="place-self-stretch grow">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"

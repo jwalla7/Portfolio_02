@@ -2,7 +2,9 @@
  * @description
  * This component will create a vertical navigation bar with nested nav and theme buttons.
  *
- * This component should be separated according to concerns.
+ * This component should be separated into smaller components according to concerns.
+ *
+ * This current structure is not ideal, but for the sake of time, I will leave it as is in the interim.
  */
 
 import { FC, useMemo, useRef } from "react";
@@ -20,6 +22,7 @@ import {
     navBarVerticalRootStyles,
     navBarVerticalThemeStyles,
 } from "./navBarVerticalStyles";
+import { IconQuotes } from "@/components/ui/icons/phosphor/IconQuotes";
 
 export const NavBarVertical: FC<NavBarVerticalProps> = () => {
     // TODO: Create a theme button ref
@@ -27,6 +30,8 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
     const navButtonRef = useRef(null);
     /**
      * Stores data that will determine the shape and quantity of the buttons.
+     *
+     * The data is stored in order by insertion.
      *
      * Displays the buttons in the order they are added to the map.
      */
@@ -72,6 +77,16 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
                 <IconEnvelopSimple className="text-white" fillOpacity={100} />
             ),
             route: "/email",
+            buttonEventsRef: navButtonRef,
+        });
+        navMap.set("Daily_Quotes", {
+            rootDiv: "default",
+            buttonDiv: "default",
+            labelDiv: "default",
+            textDiv: "default",
+            label: "Daily Quotes",
+            icon: <IconQuotes className="text-white" fillOpacity={100} />,
+            route: "/messages",
             buttonEventsRef: navButtonRef,
         });
         return navMap;

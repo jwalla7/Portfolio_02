@@ -44,6 +44,6 @@ export interface ButtonWithLabelProps
     asChild?: boolean;
     label: string | undefined;
     icon: ReactNode | undefined;
-    buttonEventsRef?: MutableRefObject<HTMLDivElement | null> | undefined;
+    buttoneventsref?: MutableRefObject<HTMLDivElement | null> | undefined;
     route?: LinkProps | Url | undefined;
 }

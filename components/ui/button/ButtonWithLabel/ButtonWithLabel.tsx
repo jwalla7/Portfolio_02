@@ -11,7 +11,7 @@ export const ButtonWithLabel = ({
     ...props
 }: ButtonWithLabelProps) => {
     return (
-        <div className="flex justify-start items-start gap-[21px] group">
+        <div className="flex justify-start items-center gap-x-[1.23vw] gap-y-[2.194vh] group">
             <button
                 className="
                 bg-transparent
@@ -20,7 +20,9 @@ export const ButtonWithLabel = ({
                 {...props}
                 ref={navButtonRef}
             >
-                {icon}
+                <i className="place-items-center place-self-stretch justify-self-center self-center">
+                    {icon}
+                </i>
             </button>
             <div className="bg-transparent hover:bg-transparent flex justify-start items-center relative place-items-center grow-0 shrink-0 gap-2.5 pt-[3px]">
                 <span

@@ -31,9 +31,9 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
     /**
      * Stores data that will determine the shape and quantity of the buttons.
      *
-     * The data is stored in order by insertion.
+     * The data is stored in order by insertion in a Map data structure.
      *
-     * Displays the buttons in the order they are added to the map.
+     *
      */
     const navButtonData = useMemo(() => {
         const navMap = new Map<string, ButtonWithLabelProps>();
@@ -45,7 +45,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             label: "Home",
             icon: <IconHouse className="text-white" fillOpacity={100} />,
             route: "/",
-            buttonEventsRef: navButtonRef,
+            buttoneventsref: navButtonRef,
         });
         navMap.set("Resume", {
             rootDiv: "default",
@@ -55,7 +55,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             label: "Resume",
             icon: <IconFile className="text-white" fillOpacity={100} />,
             route: "/resume",
-            buttonEventsRef: navButtonRef,
+            buttoneventsref: navButtonRef,
         });
         navMap.set("Music", {
             rootDiv: "default",
@@ -65,7 +65,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             label: "Music",
             icon: <IconEqualizer className="text-white" fillOpacity={100} />,
             route: "/music",
-            buttonEventsRef: navButtonRef,
+            buttoneventsref: navButtonRef,
         });
         navMap.set("Email", {
             rootDiv: "default",
@@ -77,7 +77,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
                 <IconEnvelopSimple className="text-white" fillOpacity={100} />
             ),
             route: "/email",
-            buttonEventsRef: navButtonRef,
+            buttoneventsref: navButtonRef,
         });
         navMap.set("Daily_Quotes", {
             rootDiv: "default",
@@ -87,7 +87,7 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             label: "Daily Quotes",
             icon: <IconQuotes className="text-white" fillOpacity={100} />,
             route: "/messages",
-            buttonEventsRef: navButtonRef,
+            buttoneventsref: navButtonRef,
         });
         return navMap;
     }, []);

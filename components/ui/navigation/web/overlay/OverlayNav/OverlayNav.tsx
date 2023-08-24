@@ -17,6 +17,7 @@ export const OverlayNav = ({ children, overlayRefProps }: OverlayNavProps) => {
             overlayRefProps?.current?.classList.remove("visible");
         }
         if (overlayRefProps) {
+            overlayRefProps?.current?.classList.add("animate-slideLeftAndFade");
             overlayRefProps?.current?.classList.add("hidden");
         }
     };

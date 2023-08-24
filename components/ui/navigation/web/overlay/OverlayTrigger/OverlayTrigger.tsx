@@ -4,19 +4,20 @@ import { cn } from "@/lib/utils";
 import { OverlayTriggerProps } from "./overlayTriggerProps";
 import { overlayTriggerStyles } from "./overlayTriggerStyles";
 import * as HoverCard from "@radix-ui/react-hover-card";
+import clsx from "clsx";
 
 export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
     className,
     children,
 }) => {
     return (
-        <HoverCard.Root openDelay={0} closeDelay={0}>
+        <HoverCard.Root openDelay={0}>
             <HoverCard.Trigger asChild>
                 <div className={cn(overlayTriggerStyles({ className }))}></div>
             </HoverCard.Trigger>
             <HoverCard.Portal className="w-screen">
                 <HoverCard.Content
-                    className={className}
+                    className={clsx(className, "animate-slideRightAndFade")}
                     /**
                      * sideOffset
                      *

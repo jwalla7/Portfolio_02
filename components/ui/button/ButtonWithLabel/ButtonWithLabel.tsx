@@ -27,7 +27,7 @@ export const ButtonWithLabel = ({
             <div className="bg-transparent hover:bg-transparent flex justify-start items-center relative place-items-center grow-0 shrink-0 gap-2.5 pt-[3px]">
                 <span
                     className={clsx(
-                        "group-hover:text-neutral-50 whitespace-pre-line grow-0 shrink-0 text-[1.625rem] leading-normal text-left text-neutral-50/[0.34]",
+                        "group-hover:text-neutral-50 whitespace-pre-line grow-0 shrink-0 text-[1.625rem] leading-normal text-left text-neutral-50/[0.34] hover:cursor-auto",
                         robotoRegular.className
                     )}
                 >

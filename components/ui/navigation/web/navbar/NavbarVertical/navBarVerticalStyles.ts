@@ -35,7 +35,7 @@ export const navBarVerticalNavStyles = cva(``, {
             grow
             items-start
             justify-center
-            pt-[21.421vh]
+            pt-[11.89vh]
             px-[2.285vw]
             w-[19.436vw]
             bg-transparent

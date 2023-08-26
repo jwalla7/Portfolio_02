@@ -32,7 +32,7 @@ export const IconQuotes = memo<React.ComponentProps<"svg">>(function IconQuotes(
             aria-hidden="true"
             focusable="false"
             data-prefix="fab"
-            data-icon="phosphorIcon-house"
+            data-icon="phosphorIcon-quotes"
             viewBox="0 0 256 256"
             className={clsx(variants, props.className)}
             {...props}

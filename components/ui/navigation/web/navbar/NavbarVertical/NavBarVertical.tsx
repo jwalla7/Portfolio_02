@@ -17,12 +17,12 @@ import { IconFile } from "@/components/ui/icons/phosphor/IconFile";
 import { IconEqualizer } from "@/components/ui/icons/phosphor/IconEqualizer";
 import { IconEnvelopSimple } from "@/components/ui/icons/phosphor/IconEnvelopeSimple";
 import { IconHouse } from "@/components/ui/icons/phosphor/IconHouse";
+import { IconQuotes } from "@/components/ui/icons/phosphor/IconQuotes";
 import {
     navBarVerticalNavStyles,
     navBarVerticalRootStyles,
     navBarVerticalThemeStyles,
 } from "./navBarVerticalStyles";
-import { IconQuotes } from "@/components/ui/icons/phosphor/IconQuotes";
 
 export const NavBarVertical: FC<NavBarVerticalProps> = () => {
     // TODO: Create a theme button ref

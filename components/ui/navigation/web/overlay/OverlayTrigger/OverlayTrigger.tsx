@@ -20,7 +20,7 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
             delayDuration={0}
             orientation="vertical"
         >
-            <NavigationMenu.Item className="w-screen h-screen list-none">
+            <NavigationMenu.Item className="w-screen h-full list-none">
                 <NavigationMenu.Trigger asChild>
                     <div
                         className={cn(overlayTriggerStyles({ className }))}
@@ -28,7 +28,10 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
                 </NavigationMenu.Trigger>
                 <NavigationMenu.Content
                     ref={displayStateRef}
-                    className={clsx(className, "animate-slideRightAndFade")}
+                    className={clsx(
+                        className,
+                        "animate-slideRightAndFade h-screen"
+                    )}
                     /**
                      * sideOffset
                      *

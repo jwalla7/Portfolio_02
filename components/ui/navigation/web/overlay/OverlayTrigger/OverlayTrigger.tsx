@@ -16,11 +16,11 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
 
     return (
         <NavigationMenu.Root
-            className="w-screen h-full animate-slideRightAndFade"
+            className="w-screen h-screen"
             delayDuration={0}
             orientation="vertical"
         >
-            <NavigationMenu.Item className="w-screen h-full list-none">
+            <NavigationMenu.Item className="w-screen h-[209.5vh] list-none">
                 <NavigationMenu.Trigger asChild>
                     <div
                         className={cn(overlayTriggerStyles({ className }))}

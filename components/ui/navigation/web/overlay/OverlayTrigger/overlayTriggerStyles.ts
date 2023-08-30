@@ -15,6 +15,7 @@ export const overlayTriggerStyles = cva(
     left-0
     w-[21.37vw]
     bg-none
+    animate-slideRightAndFade
     z-2
     `
 );

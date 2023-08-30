@@ -1,14 +1,15 @@
 import { FC } from "react";
 import { OverlayNavProps } from "./overlayNavProps";
 import { overlayNavStyles } from "./overlayNavStyles";
+import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
+import clsx from "clsx";
 
 export const OverlayNav: FC<OverlayNavProps> = ({
     children,
     overlayRefProps,
 }) => {
     const showDisplay = () => {
-        console.log("showDisplay");
-        console.log(overlayRefProps?.current?.classList);
+        console.log("showDisplay: ", overlayRefProps?.current);
         if (overlayRefProps?.current?.classList.contains("hidden")) {
             overlayRefProps?.current?.classList.remove("hidden");
         }
@@ -17,25 +18,26 @@ export const OverlayNav: FC<OverlayNavProps> = ({
         }
     };
     const hideDisplay = () => {
-        console.log("hideDisplay");
-        console.log(overlayRefProps?.current?.classList);
+        console.log("hideDisplay: ", overlayRefProps?.current);
         if (overlayRefProps?.current?.classList.contains("visible")) {
             overlayRefProps?.current?.classList.remove("visible");
         }
         if (overlayRefProps?.current) {
-            overlayRefProps?.current?.classList.add("animate-slideLeftAndFade");
             overlayRefProps?.current?.classList.add("hidden");
         }
     };
 
     return (
-        <nav
-            className={overlayNavStyles({ nav: "none" })}
+        <NavigationMenuSub
+            className={clsx(
+                overlayNavStyles({ nav: "none" }),
+                "animate-slideRightAndFade transition duration-150 ease-in"
+            )}
             onMouseEnter={showDisplay}
             onMouseLeave={hideDisplay}
             ref={overlayRefProps}
         >
             {children}
-        </nav>
+        </NavigationMenuSub>
     );
 };

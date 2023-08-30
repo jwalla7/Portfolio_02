@@ -28,10 +28,7 @@ export const OverlayTrigger: React.FC<OverlayTriggerProps> = ({
                 </NavigationMenu.Trigger>
                 <NavigationMenu.Content
                     ref={displayStateRef}
-                    className={clsx(
-                        className,
-                        "animate-slideRightAndFade h-screen"
-                    )}
+                    className={clsx(className, "h-screen")}
                     /**
                      * sideOffset
                      *

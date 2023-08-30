@@ -18,7 +18,11 @@ import { IconEqualizer } from "@/components/ui/icons/phosphor/IconEqualizer";
 import { IconEnvelopSimple } from "@/components/ui/icons/phosphor/IconEnvelopeSimple";
 import { IconHouse } from "@/components/ui/icons/phosphor/IconHouse";
 import { IconQuotes } from "@/components/ui/icons/phosphor/IconQuotes";
-import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
+import {
+    NavigationMenuIndicator,
+    NavigationMenuLink,
+    NavigationMenuSub,
+} from "@radix-ui/react-navigation-menu";
 import {
     navBarVerticalNavStyles,
     navBarVerticalRootStyles,

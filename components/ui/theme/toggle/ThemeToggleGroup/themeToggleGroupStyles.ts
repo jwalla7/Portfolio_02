@@ -23,7 +23,6 @@ export const themeToggleGroupStylesItem = cva(
 export const themeToggleGroupStylesLabel = cva(
     `
     flex-grow
-    font-['Roboto']
     leading-[normal]
     self-stretch
     text-[18.269317626953125px]

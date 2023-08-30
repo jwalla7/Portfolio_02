@@ -13,11 +13,13 @@ import {
 } from "./themeToggleGroupStyles";
 import { IconCircleHalf } from "@/components/ui/icons/phosphor/IconCircleHalf";
 import { IconMoon } from "@/components/ui/icons/phosphor/IconMoon";
+import { IconSun } from "@/components/ui/icons/phosphor/IconSun";
+import { robotoRegular } from "@/design/fontDefaults";
 
 export const ThemeToggleGroup = React.forwardRef<
     HTMLButtonElement,
     ThemeToggleGroupProps
->(({ children, className }, ref) => {
+>(() => {
     return (
         <ToggleGroup
             className={cn(themeToggleGroupStyles())}
@@ -31,14 +33,19 @@ export const ThemeToggleGroup = React.forwardRef<
                 aria-label="Left aligned"
             >
                 <div className={cn(themeToggleGroupStylesLabelDiv())}>
-                    <label className={cn(themeToggleGroupStylesLabel())}>
+                    <label
+                        className={cn(
+                            themeToggleGroupStylesLabel(),
+                            robotoRegular.className
+                        )}
+                    >
                         Light
                     </label>
                 </div>
                 <i className={cn(themeToggleGroupStylesIconDiv())}>
-                    <IconCircleHalf
+                    <IconSun
                         setMotion={true}
-                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative"
+                        className="block grow-0 shrink-0 w-[32.5px] h-[32.5px] relative"
                     />
                 </i>
             </ToggleGroupItem>
@@ -46,14 +53,18 @@ export const ThemeToggleGroup = React.forwardRef<
                 className={cn(themeToggleGroupStylesItem())}
                 value="center"
                 aria-label="Center aligned"
-                ref={ref}
             >
                 <div className={cn(themeToggleGroupStylesLabelDiv())}>
                     <label className={cn(themeToggleGroupStylesLabel())}>
                         Auto
                     </label>
                 </div>
-                <i className={cn(themeToggleGroupStylesIconDiv())}>
+                <i
+                    className={cn(
+                        themeToggleGroupStylesIconDiv(),
+                        robotoRegular.className
+                    )}
+                >
                     <IconCircleHalf
                         setMotion={true}
                         className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative"
@@ -64,10 +75,14 @@ export const ThemeToggleGroup = React.forwardRef<
                 className={cn(themeToggleGroupStylesItem())}
                 value="right"
                 aria-label="Right aligned"
-                ref={ref}
             >
                 <div className={cn(themeToggleGroupStylesLabelDiv())}>
-                    <label className={cn(themeToggleGroupStylesLabel())}>
+                    <label
+                        className={cn(
+                            themeToggleGroupStylesLabel(),
+                            robotoRegular.className
+                        )}
+                    >
                         Dark
                     </label>
                 </div>

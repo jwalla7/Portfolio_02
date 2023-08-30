@@ -18,6 +18,7 @@ import { IconEqualizer } from "@/components/ui/icons/phosphor/IconEqualizer";
 import { IconEnvelopSimple } from "@/components/ui/icons/phosphor/IconEnvelopeSimple";
 import { IconHouse } from "@/components/ui/icons/phosphor/IconHouse";
 import { IconQuotes } from "@/components/ui/icons/phosphor/IconQuotes";
+import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
 import {
     navBarVerticalNavStyles,
     navBarVerticalRootStyles,
@@ -27,7 +28,7 @@ import {
 export const NavBarVertical: FC<NavBarVerticalProps> = () => {
     // TODO: Create a theme button ref
     // const themeButtonRef = useRef(null);
-    const navButtonRef = useRef(null);
+    const navButtonRef = useRef<HTMLButtonElement | null>(null);
     /**
      * Stores data that will determine the shape and quantity of the buttons.
      *
@@ -38,40 +39,40 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
     const navButtonData = useMemo(() => {
         const navMap = new Map<string, ButtonWithLabelProps>();
         navMap.set("Home", {
-            rootDiv: "default",
-            buttonDiv: "default",
-            labelDiv: "default",
-            textDiv: "default",
+            rootdiv: "default",
+            buttondiv: "default",
+            labeldiv: "default",
+            textdiv: "default",
             label: "Home",
             icon: <IconHouse className="text-white" fillOpacity={100} />,
             route: "/",
             buttoneventsref: navButtonRef,
         });
         navMap.set("Resume", {
-            rootDiv: "default",
-            buttonDiv: "default",
-            labelDiv: "default",
-            textDiv: "default",
+            rootdiv: "default",
+            buttondiv: "default",
+            labeldiv: "default",
+            textdiv: "default",
             label: "Resume",
             icon: <IconFile className="text-white" fillOpacity={100} />,
             route: "/resume",
             buttoneventsref: navButtonRef,
         });
         navMap.set("Music", {
-            rootDiv: "default",
-            buttonDiv: "default",
-            labelDiv: "default",
-            textDiv: "default",
+            rootdiv: "default",
+            buttondiv: "default",
+            labeldiv: "default",
+            textdiv: "default",
             label: "Music",
             icon: <IconEqualizer className="text-white" fillOpacity={100} />,
             route: "/music",
             buttoneventsref: navButtonRef,
         });
         navMap.set("Email", {
-            rootDiv: "default",
-            buttonDiv: "default",
-            labelDiv: "default",
-            textDiv: "default",
+            rootdiv: "default",
+            buttondiv: "default",
+            labeldiv: "default",
+            textdiv: "default",
             label: "Email",
             icon: (
                 <IconEnvelopSimple className="text-white" fillOpacity={100} />
@@ -80,10 +81,10 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
             buttoneventsref: navButtonRef,
         });
         navMap.set("Daily_Quotes", {
-            rootDiv: "default",
-            buttonDiv: "default",
-            labelDiv: "default",
-            textDiv: "default",
+            rootdiv: "default",
+            buttondiv: "default",
+            labeldiv: "default",
+            textdiv: "default",
             label: "Daily Quotes",
             icon: <IconQuotes className="text-white" fillOpacity={100} />,
             route: "/messages",
@@ -104,17 +105,24 @@ export const NavBarVertical: FC<NavBarVerticalProps> = () => {
                 {Array.from(navButtonData.keys()).map((key, index) => {
                     const buttonID = navButtonData.get(key);
                     return (
-                        <ButtonWithLabel
+                        <NavigationMenuLink
+                            aria-current="step"
                             key={index}
-                            rootDiv={buttonID?.rootDiv}
-                            buttonDiv={buttonID?.buttonDiv}
-                            labelDiv={buttonID?.labelDiv}
-                            textDiv={buttonID?.textDiv}
-                            label={buttonID?.label}
-                            icon={buttonID?.icon}
-                            route={buttonID?.route}
-                            buttonEventsRef={buttonID?.buttonEventsRef}
-                        />
+                            href={buttonID?.route ?? "/"}
+                            className="no-underline"
+                        >
+                            <ButtonWithLabel
+                                key={index}
+                                rootdiv={buttonID?.rootdiv}
+                                buttondiv={buttonID?.buttondiv}
+                                labeldiv={buttonID?.labeldiv}
+                                textdiv={buttonID?.textdiv}
+                                label={buttonID?.label}
+                                icon={buttonID?.icon}
+                                route={buttonID?.route}
+                                buttoneventsref={buttonID?.buttoneventsref}
+                            />
+                        </NavigationMenuLink>
                     );
                 })}
             </div>

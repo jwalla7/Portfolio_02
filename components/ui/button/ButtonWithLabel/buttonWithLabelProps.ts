@@ -6,9 +6,10 @@
  */
 
 import { Type_ButtonWithLabel } from "@/types/button-with-label";
+import { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import { Url } from "next/dist/shared/lib/router/router";
 import { LinkProps } from "next/link";
-import { MutableRefObject, ReactNode } from "react";
+import { MutableRefObject, ReactElement, ReactNode } from "react";
 export interface ButtonWithLabelProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
         /**
@@ -20,7 +21,7 @@ export interface ButtonWithLabelProps
          */
         Omit<
             Type_ButtonWithLabel,
-            "rootDiv" | "labelDiv" | "textDiv" | "buttonDiv"
+            "rootdiv" | "labeldiv" | "textdiv" | "buttondiv"
         >,
         /**
          * Required
@@ -37,13 +38,19 @@ export interface ButtonWithLabelProps
              */
             Pick<
                 Type_ButtonWithLabel,
-                "rootDiv" | "labelDiv" | "textDiv" | "buttonDiv"
+                "rootdiv" | "labeldiv" | "textdiv" | "buttondiv"
             >
         > {
     children?: ReactNode;
+    data?: Map<string, ButtonWithLabelProps> | undefined;
     asChild?: boolean;
     label: string | undefined;
-    icon: ReactNode | undefined;
-    buttoneventsref?: MutableRefObject<HTMLDivElement | null> | undefined;
-    route?: LinkProps | Url | undefined;
+    icon: ReactElement | ReactNode | undefined;
+    buttoneventsref?: MutableRefObject<HTMLButtonElement | null> | undefined;
+    clickedButtonRef?: MutableRefObject<HTMLButtonElement | null | undefined>;
+    /** temporary any, need to look into InternalLinkProps */
+    route?: any | LinkProps | Url | undefined;
+    link?: React.ForwardRefExoticComponent<
+        NavigationMenuProps & React.RefAttributes<HTMLElement>
+    >;
 }

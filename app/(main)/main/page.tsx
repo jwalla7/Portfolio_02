@@ -3,7 +3,6 @@
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
 import { IconRocket } from "@/components/ui/icons/phosphor/IconRocket";
 import { NavBarVertical } from "@/components/ui/navigation/web/navbar/NavbarVertical/NavBarVertical";
-import { OverlayRoot } from "@/components/ui/navigation/web/overlay/OverlayRoot/OverlayRoot";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 
 export default function MainPage() {
@@ -18,10 +17,7 @@ export default function MainPage() {
             />
             <IconRocket setMotion={true} className="text-white" />
             <OverlayTrigger>
-                <OverlayRoot>
-                    {/* TODO - Create button styling */}
-                    <NavBarVertical />
-                </OverlayRoot>
+                <NavBarVertical />
             </OverlayTrigger>
         </div>
     );

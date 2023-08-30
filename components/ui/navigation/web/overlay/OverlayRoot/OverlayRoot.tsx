@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { forwardRef } from "react";
 import { OverlayRootProps } from "./overlayRootProps";
 import { OverlayNav } from "../OverlayNav/OverlayNav";
 import {
@@ -8,27 +8,30 @@ import {
     overlayStylesLayer_3,
 } from "./overlayRootStyles";
 
-export const OverlayRoot: React.FC<OverlayRootProps> = ({ children }) => {
-    const displayStateRef = useRef<HTMLDivElement | null>(null);
-
-    return (
-        <div
-            className={overlayStylesLayerRoot({ background: "default" })}
-            ref={displayStateRef}
-        >
-            <div className={overlayStylesLayer_1({ background: "default" })}>
-                <div className={overlayStylesLayer_2({ background: "none" })}>
+export const OverlayRoot = forwardRef<HTMLDivElement, OverlayRootProps>(
+    ({ children, overlayRefProps }) => {
+        return (
+            <div className={overlayStylesLayerRoot({ background: "default" })}>
+                <div
+                    className={overlayStylesLayer_1({ background: "default" })}
+                >
                     <div
-                        className={overlayStylesLayer_3({
-                            background: "none",
-                        })}
+                        className={overlayStylesLayer_2({ background: "none" })}
                     >
-                        <OverlayNav overlayRefProps={displayStateRef}>
-                            {children}
-                        </OverlayNav>
+                        <div
+                            className={overlayStylesLayer_3({
+                                background: "none",
+                            })}
+                        >
+                            <OverlayNav overlayRefProps={overlayRefProps}>
+                                {children}
+                            </OverlayNav>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+);
+
+OverlayRoot.displayName = "OverlayRoot";

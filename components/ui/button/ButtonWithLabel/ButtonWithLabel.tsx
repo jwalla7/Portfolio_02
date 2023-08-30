@@ -16,7 +16,7 @@ export const ButtonWithLabel = ({
                 className="
                 bg-transparent
                 group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.089)] from-0% via-[rgba(242,242,242,0.13)] from-76.04% to-neutral-50/[0.1]
-                box-border border-0 grow-0 shrink-0 justify-center items-center w-[3.9121265377855887vw] h-[6.9780564263323vh] relative rounded-[12.4px] backdrop-blur-[12.4px] px-[10.55%]"
+                box-border border-0 grow-0 shrink-0 justify-center items-center w-[3.9121265377855887vw] h-[6.9780564263323vh] relative rounded-[12.4px] backdrop-blur-[12.4px] px-[9%]"
                 {...props}
                 ref={navButtonRef}
             >

@@ -28,7 +28,7 @@ export default function RootLayout({
             <body
                 className={cn(
                     robotoRegular.className,
-                    "min-w-full min-h-screen m-0 antialiased overflow-x-hidden overscroll-y-none"
+                    "min-w-full min-h-screen m-0 p-0 antialiased overflow-x-hidden overscroll-y-none"
                 )}
             >
                 <ThemeProvider

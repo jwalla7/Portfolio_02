@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority";
-
+// removed translate-x-[-21.370vw]
 export const overlayStylesLayerRoot = cva(
     `
     data-root
@@ -10,8 +10,10 @@ export const overlayStylesLayerRoot = cva(
     h-screen
     items-start
     justify-start
-    translate-x-[-21.370vw]
     w-screen
+    fixed
+    top-0
+    left-0
     `,
     {
         variants: {

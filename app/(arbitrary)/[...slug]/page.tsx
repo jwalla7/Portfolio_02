@@ -1,7 +1,7 @@
 // import { Metadata } from "next";
-import { notFound } from "next/navigation";
 // import { siteConfig } from "@/config/site";
 import { allPages } from "contentlayer/generated";
+import Custom404 from "@/app/not-found";
 
 interface PageProps {
     params: {
@@ -21,7 +21,7 @@ async function getPageFromParams(params: any) {
 export default async function PagePage({ params }: PageProps) {
     const page = await getPageFromParams(params);
     if (!page) {
-        notFound();
+        Custom404();
     }
-    return <article>Article</article>;
+    return Custom404();
 }

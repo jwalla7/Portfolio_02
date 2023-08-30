@@ -1,6 +1,0 @@
-The ThemeToggleGroup button exists when the browser viewport size is greater than mobile viewport sizes.
-It's purpose is to toggle or change the theme of the web app. 
-It has three states or variants: 
-1. Not hovered/not selected: small in scale and transparent
-2. Not hovered/selected: larger in scale and transparent
-3. Hovered/selected: large in scale and opaque.

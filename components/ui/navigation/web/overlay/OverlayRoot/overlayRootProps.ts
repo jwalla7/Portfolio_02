@@ -1,9 +1,8 @@
-import { MouseEventHandler, ReactNode } from "react";
+import { MutableRefObject } from "react";
+import { OverlayTriggerProps } from "../OverlayTrigger/overlayTriggerProps";
 
-export interface OverlayRootProps {
-    children?: ReactNode;
-    onMouseEnter?: MouseEventHandler<HTMLDivElement> | undefined;
-    onMouseLeave?: MouseEventHandler<HTMLDivElement> | undefined;
+export interface OverlayRootProps extends OverlayTriggerProps {
+    overlayRefProps?: MutableRefObject<HTMLDivElement | null> | undefined;
     showDisplay?: () => void;
     hideDisplay?: () => void;
 }

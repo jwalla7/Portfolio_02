@@ -47,7 +47,7 @@ export interface ButtonWithLabelProps
     label: string | undefined;
     icon: ReactElement | ReactNode | undefined;
     buttoneventsref?: MutableRefObject<HTMLButtonElement | null> | undefined;
-    clickedButtonRef?: MutableRefObject<HTMLButtonElement | null | undefined>;
+    clickedButtonRef?: MutableRefObject<HTMLButtonElement | null>;
     /** temporary any, need to look into InternalLinkProps */
     route?: any | LinkProps | Url | undefined;
     link?: React.ForwardRefExoticComponent<

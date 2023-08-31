@@ -9,9 +9,16 @@ import {
 } from "./overlayRootStyles";
 
 export const OverlayRoot = forwardRef<HTMLDivElement, OverlayRootProps>(
-    ({ children, overlayRefProps }) => {
+    ({ children, overlayRefProps }, ref) => {
+        console.log(
+            "Root overlayRefProps: ",
+            overlayRefProps?.current?.classList
+        );
         return (
-            <div className={overlayStylesLayerRoot({ background: "default" })}>
+            <div
+                className={overlayStylesLayerRoot({ background: "default" })}
+                ref={overlayRefProps}
+            >
                 <div
                     className={overlayStylesLayer_1({ background: "default" })}
                 >
@@ -23,7 +30,10 @@ export const OverlayRoot = forwardRef<HTMLDivElement, OverlayRootProps>(
                                 background: "none",
                             })}
                         >
-                            <OverlayNav overlayRefProps={overlayRefProps}>
+                            <OverlayNav
+                                overlayRefProps={overlayRefProps}
+                                ref={ref}
+                            >
                                 {children}
                             </OverlayNav>
                         </div>

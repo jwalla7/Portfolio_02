@@ -1,5 +1,5 @@
-import { ButtonProps } from "../Button/buttonProps";
+import { ButtonWithLabelProps } from "../ButtonWithLabel/buttonWithLabelProps";
 
-export interface ButtonGroupProps extends ButtonProps {
+export interface ButtonGroupProps extends ButtonWithLabelProps {
     children?: React.ReactNode;
 }

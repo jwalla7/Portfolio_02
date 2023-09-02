@@ -41,17 +41,17 @@ export interface ButtonWithLabelProps
                 "rootdiv" | "labeldiv" | "textdiv" | "buttondiv"
             >
         > {
-    children?: ReactNode;
-    data?: Map<string, ButtonWithLabelProps> | undefined;
-    asChild?: boolean;
-    label: string | undefined;
-    icon: ReactElement | ReactNode | undefined;
-    buttoneventsref?: MutableRefObject<HTMLButtonElement | null> | undefined;
-    clickedButtonRef?: MutableRefObject<HTMLButtonElement | null>;
-    /** temporary any, need to look into InternalLinkProps */
-    route?: any | LinkProps | Url | undefined;
     active?: boolean;
+    asChild?: boolean;
+    buttoneventsref?: MutableRefObject<HTMLButtonElement | null> | undefined;
+    children?: ReactNode;
+    clickedButtonRef?: MutableRefObject<HTMLButtonElement | null>;
+    data?: Map<string, ButtonWithLabelProps> | undefined;
+    icon: ReactElement | ReactNode | undefined;
+    label: string | undefined;
     link?: React.ForwardRefExoticComponent<
         NavigationMenuProps & React.RefAttributes<HTMLElement>
     >;
+    /** temporary any, need to look into InternalLinkProps */
+    route?: any | LinkProps | Url | undefined;
 }

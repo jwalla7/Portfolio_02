@@ -7,7 +7,7 @@
  * This current structure is not ideal, but for the sake of time, I will leave it as is in the interim.
  */
 
-import { forwardRef, useCallback, useMemo, useRef } from "react";
+import { forwardRef, useMemo, useRef } from "react";
 import { NavBarVerticalProps } from "./navBarVerticalProps";
 import { cn } from "@/lib/utils";
 import { ButtonWithLabel } from "@/components/ui/button/ButtonWithLabel/ButtonWithLabel";
@@ -19,15 +19,12 @@ import { IconEnvelopSimple } from "@/components/ui/icons/phosphor/IconEnvelopeSi
 import { IconHouse } from "@/components/ui/icons/phosphor/IconHouse";
 import { IconQuotes } from "@/components/ui/icons/phosphor/IconQuotes";
 import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
+import { usePathname } from "next/dist/client/components/navigation";
 import {
     navBarVerticalNavStyles,
     navBarVerticalRootStyles,
     navBarVerticalThemeStyles,
 } from "./navBarVerticalStyles";
-import { LinkProps } from "next/link";
-import { Url } from "next/dist/shared/lib/router/router";
-import { usePathname } from "next/dist/client/components/navigation";
-import clsx from "clsx";
 
 export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
     () => {
@@ -41,7 +38,6 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
          *
          *
          */
-        const iconRef = useRef<SVGSVGElement | null>(null);
         const url = usePathname();
         const navButtonData = useMemo(() => {
             const navMap = new Map<string, ButtonWithLabelProps>();
@@ -109,15 +105,6 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
             });
             return navMap;
         }, []);
-
-        const setButton = useCallback(
-            (pathname: any | LinkProps | Url | undefined) => {
-                if (pathname === url) {
-                    console.log();
-                }
-            },
-            [url]
-        );
         // TODO: Create a theme button data map
         // const themeButtonData = useMemo(() => {
         //     const themeMap = new Map<string, ButtonWithLabelProps>();

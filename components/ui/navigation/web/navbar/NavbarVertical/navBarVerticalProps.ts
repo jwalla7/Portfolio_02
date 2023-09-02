@@ -1,6 +1,5 @@
-import { HoverCardProps } from "@radix-ui/react-hover-card";
+import { ButtonWithLabelProps } from "@/components/ui/button/ButtonWithLabel/buttonWithLabelProps";
 
-export interface NavBarVerticalProps extends HoverCardProps {
-    choldren?: React.ReactNode;
+export interface NavBarVerticalProps extends ButtonWithLabelProps {
     className?: string;
 }

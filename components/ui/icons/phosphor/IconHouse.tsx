@@ -5,11 +5,15 @@
  * @see https://react.dev/reference/react/memo
  */
 
-import { SVGProps, memo } from "react";
 import { cn } from "@/lib/utils";
 import clsx from "clsx";
+import { memo } from "react";
 
-export const IconHouse = memo<React.ComponentProps<"svg">>(function IconHouse(
+interface IconHouseProps extends React.ComponentProps<"svg"> {
+    active: boolean;
+}
+
+export const IconHouse = memo<IconHouseProps>(function IconHouse(
     /**
      * Accessibility to custom attribute values
      */
@@ -17,12 +21,17 @@ export const IconHouse = memo<React.ComponentProps<"svg">>(function IconHouse(
     /**
      * Accessibility to other SVG props
      */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    {
+        active,
+        fill = active ? "text-black" : "currentColor",
+        fillOpacity,
+        ...props
+    }: IconHouseProps
 ) {
     /**
      * Creates custom values for className attribute
      */
-    const variants = cn(
+    const variants = clsx(
         "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
         className
     );
@@ -34,7 +43,7 @@ export const IconHouse = memo<React.ComponentProps<"svg">>(function IconHouse(
             data-prefix="fab"
             data-icon="phosphorIcon-house"
             viewBox="0 0 256 256"
-            className={clsx(variants, props.className)}
+            className={cn(variants, props.className)}
             {...props}
         >
             <path

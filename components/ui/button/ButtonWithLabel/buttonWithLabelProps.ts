@@ -50,6 +50,7 @@ export interface ButtonWithLabelProps
     clickedButtonRef?: MutableRefObject<HTMLButtonElement | null>;
     /** temporary any, need to look into InternalLinkProps */
     route?: any | LinkProps | Url | undefined;
+    active?: boolean;
     link?: React.ForwardRefExoticComponent<
         NavigationMenuProps & React.RefAttributes<HTMLElement>
     >;

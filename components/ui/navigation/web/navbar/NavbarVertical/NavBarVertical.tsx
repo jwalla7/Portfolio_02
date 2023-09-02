@@ -7,7 +7,7 @@
  * This current structure is not ideal, but for the sake of time, I will leave it as is in the interim.
  */
 
-import { forwardRef, useMemo, useRef } from "react";
+import { forwardRef, useCallback, useMemo, useRef } from "react";
 import { NavBarVerticalProps } from "./navBarVerticalProps";
 import { cn } from "@/lib/utils";
 import { ButtonWithLabel } from "@/components/ui/button/ButtonWithLabel/ButtonWithLabel";
@@ -27,6 +27,7 @@ import {
 import { LinkProps } from "next/link";
 import { Url } from "next/dist/shared/lib/router/router";
 import { usePathname } from "next/dist/client/components/navigation";
+import clsx from "clsx";
 
 export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
     () => {
@@ -42,18 +43,6 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
          */
         const iconRef = useRef<SVGSVGElement | null>(null);
         const url = usePathname();
-        const setButton = (pathname: any | LinkProps | Url | undefined) => {
-            console.log("url: ", url);
-            if (pathname === url) {
-                console.log(pathname);
-                console.log("navRef: ", navButtonRef.current);
-                console.log("iconRef: ", iconRef.current);
-                navButtonRef.current?.classList.remove("bg-transparent");
-                navButtonRef.current?.classList.add("bg-white");
-                iconRef.current?.classList.add("remove-white");
-                iconRef.current?.classList.add("text-black");
-            }
-        };
         const navButtonData = useMemo(() => {
             const navMap = new Map<string, ButtonWithLabelProps>();
             navMap.set("Home", {
@@ -62,14 +51,8 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 labeldiv: "default",
                 textdiv: "default",
                 label: "Home",
-                icon: (
-                    <IconHouse
-                        className="text-white"
-                        fillOpacity={100}
-                        ref={iconRef}
-                    />
-                ),
-                route: "/",
+                icon: <IconHouse fill="currentColor" fillOpacity={100} />,
+                route: "/main",
                 buttoneventsref: navButtonRef,
             });
             navMap.set("Resume", {
@@ -78,13 +61,7 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 labeldiv: "default",
                 textdiv: "default",
                 label: "Resume",
-                icon: (
-                    <IconFile
-                        className="text-white"
-                        fillOpacity={100}
-                        ref={iconRef}
-                    />
-                ),
+                icon: <IconFile className="text-white" fillOpacity={100} />,
                 route: "/resume",
                 buttoneventsref: navButtonRef,
             });
@@ -95,11 +72,7 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 textdiv: "default",
                 label: "Music",
                 icon: (
-                    <IconEqualizer
-                        className="text-white"
-                        fillOpacity={100}
-                        ref={iconRef}
-                    />
+                    <IconEqualizer className="text-white" fillOpacity={100} />
                 ),
                 route: "/music",
                 buttoneventsref: navButtonRef,
@@ -114,7 +87,6 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                     <IconEnvelopSimple
                         className="text-white"
                         fillOpacity={100}
-                        ref={iconRef}
                     />
                 ),
                 route: "/email",
@@ -126,19 +98,21 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 labeldiv: "default",
                 textdiv: "default",
                 label: "Daily Quotes",
-                icon: (
-                    <IconQuotes
-                        className="text-white"
-                        fillOpacity={100}
-                        ref={iconRef}
-                    />
-                ),
+                icon: <IconQuotes className="text-white" fillOpacity={100} />,
                 route: "/messages",
                 buttoneventsref: navButtonRef,
             });
             return navMap;
         }, []);
 
+        const setButton = useCallback(
+            (pathname: any | LinkProps | Url | undefined) => {
+                if (pathname === url) {
+                    console.log();
+                }
+            },
+            [url]
+        );
         // TODO: Create a theme button data map
         // const themeButtonData = useMemo(() => {
         //     const themeMap = new Map<string, ButtonWithLabelProps>();
@@ -152,7 +126,6 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 >
                     {Array.from(navButtonData.keys()).map((key, index) => {
                         const buttonID = navButtonData.get(key);
-                        setButton(buttonID?.route);
                         return (
                             <NavigationMenuLink
                                 aria-current="step"
@@ -170,6 +143,7 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                                     icon={buttonID?.icon}
                                     route={buttonID?.route}
                                     buttoneventsref={buttonID?.buttoneventsref}
+                                    active={buttonID?.route === url}
                                 />
                             </NavigationMenuLink>
                         );

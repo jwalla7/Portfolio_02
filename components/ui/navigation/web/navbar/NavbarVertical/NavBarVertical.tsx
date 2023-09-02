@@ -118,6 +118,8 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 >
                     {Array.from(navButtonData.keys()).map((key, index) => {
                         const buttonID = navButtonData.get(key);
+                        console.log("buttonID.active: ", buttonID?.active);
+                        console.log("buttonID.icon: ", buttonID?.route);
                         return (
                             <NavigationMenuLink
                                 aria-current="step"

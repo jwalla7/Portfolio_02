@@ -13,11 +13,11 @@ export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(
         const displayStateRef = useRef<HTMLDivElement | null>(null);
         return (
             <NavigationMenu.Root
-                className="w-screen h-screen"
+                className="w-screen h-[209.5vh]"
                 delayDuration={0}
                 orientation="vertical"
             >
-                <NavigationMenu.Item className="w-screen h-[209.5vh] list-none">
+                <NavigationMenu.Item className="w-screen h-full list-none">
                     <NavigationMenu.Trigger asChild>
                         <div
                             className={cn(overlayTriggerStyles({ className }))}

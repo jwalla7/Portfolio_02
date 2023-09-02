@@ -51,7 +51,12 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 labeldiv: "default",
                 textdiv: "default",
                 label: "Home",
-                icon: <IconHouse fill="currentColor" fillOpacity={100} />,
+                icon: (
+                    <IconHouse
+                        fillOpacity={100}
+                        active={url === navMap.get("Home")?.route}
+                    />
+                ),
                 route: "/main",
                 buttoneventsref: navButtonRef,
             });

@@ -1,9 +1,9 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { OverlayNavProps } from "./overlayNavProps";
 import { overlayNavStyles } from "./overlayNavStyles";
 import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
-import clsx from "clsx";
 import { NavBarVertical } from "../../navbar/NavbarVertical/NavBarVertical";
+import { cn } from "@/lib/utils";
 
 export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(
     ({ children, overlayRefProps }, ref) => {
@@ -29,7 +29,7 @@ export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(
 
         return (
             <NavigationMenuSub
-                className={clsx(
+                className={cn(
                     overlayNavStyles({ nav: "none" }),
                     "animate-slideRightAndFade transition duration-150 ease-in"
                 )}

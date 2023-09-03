@@ -35,7 +35,7 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
         const navButtonRef = useRef<HTMLButtonElement | null>(null);
         /**
          * Stores data that will determine the shape and quantity of the buttons.
-         *
+         *s
          * The data is stored in order by insertion in a Map data structure.
          *
          *
@@ -128,20 +128,6 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
         //     return themeMap;
         // }, [])
 
-        const showDisplay = () => {
-            console.log(
-                "showDisplayNAV: ",
-                overlayRefProps?.current?.classList
-            );
-
-            if (overlayRefProps?.current?.classList.contains("hidden")) {
-                overlayRefProps?.current?.classList.remove("hidden");
-            }
-            if (overlayRefProps?.current) {
-                overlayRefProps?.current?.classList.add("visible");
-            }
-        };
-
         return (
             <div className={cn(navBarVerticalRootStyles({ root: "default" }))}>
                 <div
@@ -150,37 +136,29 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                     {Array.from(navButtonData.keys()).map((key, index) => {
                         const buttonID = navButtonData.get(key);
                         return (
-                            <div
+                            <NavigationMenuLink
                                 key={index}
-                                ref={overlayRefProps}
-                                onClick={(event) => {
-                                    if (buttonID?.route === url) {
-                                        console.log("clicked");
-                                        event.preventDefault();
-                                        showDisplay();
-                                    }
-                                }}
+                                className="no-underline"
+                                href={
+                                    buttonID?.route === url
+                                        ? (event: Event) =>
+                                              event.preventDefault()
+                                        : buttonID?.route ?? "/"
+                                }
                             >
-                                <NavigationMenuLink
-                                    aria-current="step"
-                                    className="no-underline"
-                                    href={buttonID?.route ?? "/"}
-                                >
-                                    <ButtonWithLabel
-                                        rootdiv={buttonID?.rootdiv}
-                                        buttondiv={buttonID?.buttondiv}
-                                        labeldiv={buttonID?.labeldiv}
-                                        textdiv={buttonID?.textdiv}
-                                        label={buttonID?.label}
-                                        icon={buttonID?.icon}
-                                        route={buttonID?.route}
-                                        buttoneventsref={
-                                            buttonID?.buttoneventsref
-                                        }
-                                        active={buttonID?.route === url}
-                                    />
-                                </NavigationMenuLink>
-                            </div>
+                                <ButtonWithLabel
+                                    key={index}
+                                    rootdiv={buttonID?.rootdiv}
+                                    buttondiv={buttonID?.buttondiv}
+                                    labeldiv={buttonID?.labeldiv}
+                                    textdiv={buttonID?.textdiv}
+                                    label={buttonID?.label}
+                                    icon={buttonID?.icon}
+                                    route={buttonID?.route}
+                                    buttoneventsref={buttonID?.buttoneventsref}
+                                    active={buttonID?.route === url}
+                                />
+                            </NavigationMenuLink>
                         );
                     })}
                 </div>

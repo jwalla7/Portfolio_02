@@ -7,6 +7,7 @@
 
 import { cn } from "@/lib/utils";
 import clsx from "clsx";
+import { memo } from "react";
 
 interface IconEqualizer extends React.ComponentProps<"svg"> {
     active: boolean;

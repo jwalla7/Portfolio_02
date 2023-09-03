@@ -1,8 +1,9 @@
-import { FC, forwardRef } from "react";
+import { forwardRef } from "react";
 import { OverlayNavProps } from "./overlayNavProps";
 import { overlayNavStyles } from "./overlayNavStyles";
 import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
 import clsx from "clsx";
+import { NavBarVertical } from "../../navbar/NavbarVertical/NavBarVertical";
 
 export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(
     ({ children, overlayRefProps }, ref) => {
@@ -34,9 +35,10 @@ export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(
                 )}
                 onMouseEnter={showDisplay}
                 onMouseLeave={hideDisplay}
-                ref={overlayRefProps}
             >
-                {children}
+                <NavBarVertical overlayRefProps={overlayRefProps}>
+                    {children}
+                </NavBarVertical>
             </NavigationMenuSub>
         );
     }

@@ -7,7 +7,7 @@
 
 import { cn } from "@/lib/utils";
 import clsx from "clsx";
-import React, { SVGProps, memo } from "react";
+import { memo } from "react";
 
 interface IconFileProps extends React.ComponentProps<"svg"> {
     active: boolean;

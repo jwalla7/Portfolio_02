@@ -13,15 +13,17 @@ async function getPageFromParams(params: any) {
     const slug = params?.slug?.join("/");
     const page = allPages.find((page) => page.slugAsParams === slug);
 
-    if (!page) null;
-
+    if (!page) {
+        return null;
+    }
     return page;
 }
 
 export default async function PagePage({ params }: PageProps) {
     const page = await getPageFromParams(params);
+
     if (!page) {
-        Custom404();
+        return <Custom404 />;
     }
-    return Custom404();
+    return page;
 }

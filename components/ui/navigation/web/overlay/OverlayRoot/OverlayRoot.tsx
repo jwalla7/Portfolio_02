@@ -30,10 +30,7 @@ export const OverlayRoot = forwardRef<HTMLDivElement, OverlayRootProps>(
                                 background: "none",
                             })}
                         >
-                            <OverlayNav
-                                overlayRefProps={overlayRefProps}
-                                ref={ref}
-                            >
+                            <OverlayNav overlayRefProps={overlayRefProps}>
                                 {children}
                             </OverlayNav>
                         </div>

@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @description
  * This component will create a vertical navigation bar with nested nav and theme buttons.
@@ -27,7 +29,7 @@ import {
 } from "./navBarVerticalStyles";
 
 export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
-    () => {
+    ({ overlayRefProps }, ref) => {
         // TODO: Create a theme button ref
         // const themeButtonRef = useRef(null);
         const navButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -50,7 +52,12 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 icon: (
                     <IconHouse
                         fillOpacity={100}
-                        active={url === navMap.get("Home")?.route}
+                        active={url === "/main"}
+                        className={
+                            url === "/main"
+                                ? "text-black dark:text-black"
+                                : "text-white"
+                        }
                     />
                 ),
                 route: "/main",
@@ -62,7 +69,17 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 labeldiv: "default",
                 textdiv: "default",
                 label: "Resume",
-                icon: <IconFile className="text-white" fillOpacity={100} />,
+                icon: (
+                    <IconFile
+                        className={
+                            url === "/resume"
+                                ? "text-black dark:text-black"
+                                : "text-white"
+                        }
+                        active={url === "/resume"}
+                        fillOpacity={100}
+                    />
+                ),
                 route: "/resume",
                 buttoneventsref: navButtonRef,
             });
@@ -111,6 +128,20 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
         //     return themeMap;
         // }, [])
 
+        const showDisplay = () => {
+            console.log(
+                "showDisplayNAV: ",
+                overlayRefProps?.current?.classList
+            );
+
+            if (overlayRefProps?.current?.classList.contains("hidden")) {
+                overlayRefProps?.current?.classList.remove("hidden");
+            }
+            if (overlayRefProps?.current) {
+                overlayRefProps?.current?.classList.add("visible");
+            }
+        };
+
         return (
             <div className={cn(navBarVerticalRootStyles({ root: "default" }))}>
                 <div
@@ -118,28 +149,38 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 >
                     {Array.from(navButtonData.keys()).map((key, index) => {
                         const buttonID = navButtonData.get(key);
-                        console.log("buttonID.active: ", buttonID?.active);
-                        console.log("buttonID.icon: ", buttonID?.route);
                         return (
-                            <NavigationMenuLink
-                                aria-current="step"
+                            <div
                                 key={index}
-                                href={buttonID?.route ?? "/"}
-                                className="no-underline"
+                                ref={overlayRefProps}
+                                onClick={(event) => {
+                                    if (buttonID?.route === url) {
+                                        console.log("clicked");
+                                        event.preventDefault();
+                                        showDisplay();
+                                    }
+                                }}
                             >
-                                <ButtonWithLabel
-                                    key={index}
-                                    rootdiv={buttonID?.rootdiv}
-                                    buttondiv={buttonID?.buttondiv}
-                                    labeldiv={buttonID?.labeldiv}
-                                    textdiv={buttonID?.textdiv}
-                                    label={buttonID?.label}
-                                    icon={buttonID?.icon}
-                                    route={buttonID?.route}
-                                    buttoneventsref={buttonID?.buttoneventsref}
-                                    active={buttonID?.route === url}
-                                />
-                            </NavigationMenuLink>
+                                <NavigationMenuLink
+                                    aria-current="step"
+                                    className="no-underline"
+                                    href={buttonID?.route ?? "/"}
+                                >
+                                    <ButtonWithLabel
+                                        rootdiv={buttonID?.rootdiv}
+                                        buttondiv={buttonID?.buttondiv}
+                                        labeldiv={buttonID?.labeldiv}
+                                        textdiv={buttonID?.textdiv}
+                                        label={buttonID?.label}
+                                        icon={buttonID?.icon}
+                                        route={buttonID?.route}
+                                        buttoneventsref={
+                                            buttonID?.buttoneventsref
+                                        }
+                                        active={buttonID?.route === url}
+                                    />
+                                </NavigationMenuLink>
+                            </div>
                         );
                     })}
                 </div>

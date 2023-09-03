@@ -1,12 +1,13 @@
 "use client";
 
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
+import { NavBarVertical } from "@/components/ui/navigation/web/navbar/NavbarVertical/NavBarVertical";
+import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import { robotoRegular } from "@/design/fontDefaults";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 
 const ResumePage = () => {
-    console.log("resumepage");
     const { resolvedTheme } = useTheme();
 
     if (resolvedTheme) {
@@ -24,6 +25,9 @@ const ResumePage = () => {
                 >
                     My resume
                 </h1>
+                <OverlayTrigger>
+                    <NavBarVertical />
+                </OverlayTrigger>
             </div>
         );
     }

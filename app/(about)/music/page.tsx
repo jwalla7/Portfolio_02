@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import { robotoRegular } from "@/design/fontDefaults";
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
+import { NavBarVertical } from "@/components/ui/navigation/web/navbar/NavbarVertical/NavBarVertical";
+import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 
 const MusicPage = () => {
     return (
@@ -20,6 +22,9 @@ const MusicPage = () => {
             >
                 My music
             </h1>
+            <OverlayTrigger>
+                <NavBarVertical />
+            </OverlayTrigger>
         </div>
     );
 };

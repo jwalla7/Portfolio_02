@@ -2,6 +2,7 @@ import "../design/input.css";
 import { ThemeProvider } from "@/components/ui/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { robotoRegular } from "@/design/fontDefaults";
+import React from "react";
 
 export const metadata = {
     title: "Create Next App",
@@ -22,30 +23,31 @@ export default function RootLayout({
          *
          * https://legacy.reactjs.org/docs/dom-elements/html
          */
-
-        <html lang="en" suppressHydrationWarning={true}>
-            <head />
-            <body
-                className={cn(
-                    robotoRegular.className,
-                    "min-w-full min-h-screen m-0 antialiased overflow-x-hidden overscroll-y-none"
-                )}
-            >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    /**
-                     * `enableSystem` enables system preference and developer tools `toggle theme` simulation for the layout
-                     *
-                     * when on `system` theme.
-                     *
-                     * https://github.com/pacocoursey/next-themes
-                     */
-                    enableSystem={true}
+        <React.StrictMode>
+            <html lang="en" suppressHydrationWarning={true}>
+                <head />
+                <body
+                    className={cn(
+                        robotoRegular.className,
+                        "min-w-full min-h-screen m-0 antialiased overflow-x-hidden overscroll-y-none"
+                    )}
                 >
-                    {children}
-                </ThemeProvider>
-            </body>
-        </html>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        /**
+                         * `enableSystem` enables system preference and developer tools `toggle theme` simulation for the layout
+                         *
+                         * when on `system` theme.
+                         *
+                         * https://github.com/pacocoursey/next-themes
+                         */
+                        enableSystem={true}
+                    >
+                        {children}
+                    </ThemeProvider>
+                </body>
+            </html>
+        </React.StrictMode>
     );
 }

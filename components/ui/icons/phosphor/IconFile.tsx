@@ -6,7 +6,6 @@
  */
 
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 import { memo } from "react";
 
 interface IconFileProps extends React.ComponentProps<"svg"> {
@@ -43,7 +42,7 @@ export const IconFile = memo<IconFileProps>(function IconFile(
             data-prefix="fab"
             data-icon="phosphorIcon-file"
             viewBox="0 0 256 256"
-            className={clsx(variants, props.className)}
+            className={cn(variants, props.className)}
             {...props}
         >
             <path

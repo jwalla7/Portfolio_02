@@ -6,7 +6,6 @@
  */
 
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 import { memo } from "react";
 
 interface IconEqualizer extends React.ComponentProps<"svg"> {
@@ -43,7 +42,7 @@ export const IconEqualizer = memo<IconEqualizer>(function IconEqualizer(
             data-prefix="fab"
             data-icon="phosphorIcon-equalizer"
             viewBox="0 0 256 256"
-            className={clsx(variants, props.className)}
+            className={cn(variants, props.className)}
             {...props}
         >
             <path

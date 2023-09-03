@@ -5,11 +5,14 @@
  * @see https://react.dev/reference/react/memo
  */
 
-import { SVGProps, memo } from "react";
+import { memo } from "react";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 
-export const IconQuotes = memo<React.ComponentProps<"svg">>(function IconQuotes(
+interface IconQuotes extends React.ComponentProps<"svg"> {
+    active: boolean;
+}
+
+export const IconQuotes = memo<IconQuotes>(function IconQuotes(
     /**
      * Accessibility to className attribute
      */
@@ -17,7 +20,12 @@ export const IconQuotes = memo<React.ComponentProps<"svg">>(function IconQuotes(
     /**
      * Accessibility to other SVG props
      */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    {
+        active,
+        fill = active ? cn("text-black dark:text-black") : "currentColor",
+        fillOpacity,
+        ...props
+    }: IconQuotes
 ) {
     /**
      * Creates custom values for className attribute
@@ -34,7 +42,7 @@ export const IconQuotes = memo<React.ComponentProps<"svg">>(function IconQuotes(
             data-prefix="fab"
             data-icon="phosphorIcon-quotes"
             viewBox="0 0 256 256"
-            className={clsx(variants, props.className)}
+            className={cn(variants, props.className)}
             {...props}
         >
             <path

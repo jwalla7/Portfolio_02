@@ -23,7 +23,7 @@ export const IconHouse = memo<IconHouseProps>(function IconHouse(
      */
     {
         active,
-        fill = active ? "text-black dark:text-black" : "currentColor",
+        fill = active ? cn("text-black dark:text-black") : "currentColor",
         fillOpacity,
         ...props
     }: IconHouseProps

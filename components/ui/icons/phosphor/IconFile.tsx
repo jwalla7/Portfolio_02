@@ -9,7 +9,11 @@ import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import React, { SVGProps, memo } from "react";
 
-export const IconFile = memo<React.ComponentProps<"svg">>(function IconFile(
+interface IconFileProps extends React.ComponentProps<"svg"> {
+    active: boolean;
+}
+
+export const IconFile = memo<IconFileProps>(function IconFile(
     /**
      * Accessibility to custom attribute values
      */
@@ -17,7 +21,12 @@ export const IconFile = memo<React.ComponentProps<"svg">>(function IconFile(
     /**
      * Accessibility to other SVG props
      */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    {
+        active,
+        fill = active ? cn("text-black dark:text-black") : "currentColor",
+        fillOpacity,
+        ...props
+    }: IconFileProps
 ) {
     /**
      * Creates custom values for className attribute

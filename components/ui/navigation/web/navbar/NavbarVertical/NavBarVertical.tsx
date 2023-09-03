@@ -35,7 +35,7 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
         const navButtonRef = useRef<HTMLButtonElement | null>(null);
         /**
          * Stores data that will determine the shape and quantity of the buttons.
-         *s
+         *
          * The data is stored in order by insertion in a Map data structure.
          *
          *

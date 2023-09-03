@@ -6,7 +6,6 @@
  */
 
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 import { memo } from "react";
 
 interface IconHouseProps extends React.ComponentProps<"svg"> {
@@ -31,7 +30,7 @@ export const IconHouse = memo<IconHouseProps>(function IconHouse(
     /**
      * Creates custom values for className attribute
      */
-    const variants = clsx(
+    const variants = cn(
         "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
         className
     );

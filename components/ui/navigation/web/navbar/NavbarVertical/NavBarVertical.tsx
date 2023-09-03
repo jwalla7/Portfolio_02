@@ -90,7 +90,15 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 textdiv: "default",
                 label: "Music",
                 icon: (
-                    <IconEqualizer className="text-white" fillOpacity={100} />
+                    <IconEqualizer
+                        className={
+                            url === "/music"
+                                ? "text-black dark:text-black"
+                                : "text-white"
+                        }
+                        active={url === "/music"}
+                        fillOpacity={100}
+                    />
                 ),
                 route: "/music",
                 buttoneventsref: navButtonRef,
@@ -103,11 +111,16 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 label: "Email",
                 icon: (
                     <IconEnvelopSimple
-                        className="text-white"
+                        className={
+                            url === "/contact"
+                                ? "text-black dark:text-black"
+                                : "text-white"
+                        }
+                        active={url === "/contact"}
                         fillOpacity={100}
                     />
                 ),
-                route: "/email",
+                route: "/contact",
                 buttoneventsref: navButtonRef,
             });
             navMap.set("Daily_Quotes", {
@@ -116,7 +129,17 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 labeldiv: "default",
                 textdiv: "default",
                 label: "Daily Quotes",
-                icon: <IconQuotes className="text-white" fillOpacity={100} />,
+                icon: (
+                    <IconQuotes
+                        className={
+                            url === "/messages"
+                                ? "text-black dark:text-black"
+                                : "text-white"
+                        }
+                        active={url === "/messages"}
+                        fillOpacity={100}
+                    />
+                ),
                 route: "/messages",
                 buttoneventsref: navButtonRef,
             });
@@ -129,9 +152,13 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
         // }, [])
 
         return (
-            <div className={cn(navBarVerticalRootStyles({ root: "default" }))}>
+            <div
+                className={cn(navBarVerticalRootStyles({ root: "default" }))}
+                ref={ref}
+            >
                 <div
                     className={cn(navBarVerticalNavStyles({ nav: "default" }))}
+                    ref={overlayRefProps}
                 >
                     {Array.from(navButtonData.keys()).map((key, index) => {
                         const buttonID = navButtonData.get(key);
@@ -141,8 +168,10 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                                 className="no-underline"
                                 href={
                                     buttonID?.route === url
-                                        ? (event: Event) =>
-                                              event.preventDefault()
+                                        ? (event: Event) => {
+                                              event.preventDefault();
+                                              event.stopPropagation();
+                                          }
                                         : buttonID?.route ?? "/"
                                 }
                             >

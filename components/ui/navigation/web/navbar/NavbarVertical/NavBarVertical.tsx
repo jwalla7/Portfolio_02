@@ -32,7 +32,6 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                 <div
                     className={cn(navBarVerticalNavStyles({ nav: "default" }))}
                     ref={overlayRefProps}
-                    aria-disabled="false"
                 >
                     {Array.from(navButtonData.keys()).map((key, index) => {
                         const buttonID = navButtonData.get(key);

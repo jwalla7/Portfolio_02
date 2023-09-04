@@ -1,4 +1,5 @@
 "use client";
+
 /**
  * @description
  * Generates and manages data for navigation buttons.
@@ -7,6 +8,7 @@
  *
  * Data is memoized, making it available for rendering navigation buttons in components based on the URL.
  */
+
 import { useMemo, useRef } from "react";
 import { ButtonWithLabelProps } from "@/components/ui/button/ButtonWithLabel/buttonWithLabelProps";
 import { IconFile } from "@/components/ui/icons/phosphor/IconFile";
@@ -15,7 +17,6 @@ import { IconEnvelopSimple } from "@/components/ui/icons/phosphor/IconEnvelopeSi
 import { IconHouse } from "@/components/ui/icons/phosphor/IconHouse";
 import { IconQuotes } from "@/components/ui/icons/phosphor/IconQuotes";
 import { usePathname } from "next/dist/client/components/navigation";
-import { IconSun } from "@/components/ui/icons/phosphor/IconSun";
 
 export function useNavButtonData() {
     const navButtonRef = useRef<HTMLButtonElement | null>(null);

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { forwardRef } from "react";
 import { ThemeToggleGroupProps } from "./themeToggleGroupProps";
 import { cn } from "@/lib/utils";
 import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
@@ -16,7 +16,7 @@ import { IconMoon } from "@/components/ui/icons/phosphor/IconMoon";
 import { IconSun } from "@/components/ui/icons/phosphor/IconSun";
 import { robotoRegular } from "@/design/fontDefaults";
 
-export const ThemeToggleGroup = React.forwardRef<
+export const ThemeToggleGroup = forwardRef<
     HTMLButtonElement,
     ThemeToggleGroupProps
 >(() => {

@@ -14,9 +14,9 @@ export default function VisitorsPage() {
             <div className="w-[364.78px]">
                 <ThemeToggleGroup />
             </div>
-            <OverlayTrigger>
-                <NavBarVertical />
-            </OverlayTrigger>
+            {/* <OverlayTrigger> */}
+            {/* <NavBarVertical /> */}
+            {/* </OverlayTrigger> */}
         </div>
     );
 }

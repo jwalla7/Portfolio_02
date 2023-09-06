@@ -2,22 +2,25 @@ import { cva } from "class-variance-authority";
 
 export const themeToggleGroupStyles = cva(
     `
-    box-border flex justify-between items-start w-[189px] h-fit
+    box-border flex flex-grow justify-start items-center place-items-center w-[3.074vw] h-fit gap-y-[.764vh] gap-x-[.428vw]
     `
 );
 
 export const themeToggleGroupStylesItem = cva(
     `
     box-border
+    bg-transparent
+    border-0
     flex
     flex-col
     justify-start
     items-center
     flex-grow-0
     flex-shrink-0
-    w-[52.48px]
-    gap-[7.307741641998291px]
-    `
+    w-[3.074vw]
+    gap-x-[.428vw]
+    gap-y-[2.764vh]
+1    `
 );
 
 export const themeToggleGroupStylesLabel = cva(
@@ -34,12 +37,12 @@ export const themeToggleGroupStylesLabel = cva(
 
 export const themeToggleGroupStylesLabelDiv = cva(
     `
-    box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-[2.0130577087402344px]
+    box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-x-[.118vw] p-y-[.210vh]
     `
 );
 
 export const themeToggleGroupStylesIconDiv = cva(
     `
-    box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[60.29px] h-[60.29px] relative gap-[11.73647403717041px] p-[8.125236511230469px] rounded-[11.2px]
+    box-border flex justify-center items-center flex-grow-0 flex-shrink-0 w-[3.532vw] h-[6.3vh] relative gap-x-[0.688vw] gap-y-[1.226vh] p-x-[.476vw] p-y-[.849vh] rounded-[11.2px]
     `
 );

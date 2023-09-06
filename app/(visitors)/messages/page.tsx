@@ -11,7 +11,7 @@ export default function VisitorsPage() {
             className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen h-[213vh] overflow-hidden"
         >
             <div>visitors page</div>
-            <div className="w-[364.78px]">
+            <div className="w-[364.78px] bg-slate-800">
                 <ThemeToggleGroup />
             </div>
             {/* <OverlayTrigger> */}

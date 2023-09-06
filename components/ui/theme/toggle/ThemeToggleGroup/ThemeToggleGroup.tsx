@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useRef } from "react";
 import { ThemeToggleGroupProps } from "./themeToggleGroupProps";
 import { cn } from "@/lib/utils";
 import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
@@ -19,7 +19,7 @@ import { robotoRegular } from "@/design/fontDefaults";
 export const ThemeToggleGroup = forwardRef<
     HTMLButtonElement,
     ThemeToggleGroupProps
->(() => {
+>((active) => {
     return (
         <ToggleGroup
             className={cn(themeToggleGroupStyles())}
@@ -42,12 +42,12 @@ export const ThemeToggleGroup = forwardRef<
                         Light
                     </label>
                 </div>
-                <i className={cn(themeToggleGroupStylesIconDiv())}>
+                <div className={cn(themeToggleGroupStylesIconDiv())}>
                     <IconSun
                         setMotion={true}
-                        className="block grow-0 shrink-0 w-[32.5px] h-[32.5px] relative"
+                        className="block grow-0 shrink-0 w-[32.5px] h-[32.5px] relative text-white"
                     />
-                </i>
+                </div>
             </ToggleGroupItem>
             <ToggleGroupItem
                 className={cn(themeToggleGroupStylesItem())}
@@ -67,7 +67,7 @@ export const ThemeToggleGroup = forwardRef<
                 >
                     <IconCircleHalf
                         setMotion={true}
-                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative"
+                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative text-white"
                     />
                 </i>
             </ToggleGroupItem>
@@ -90,7 +90,7 @@ export const ThemeToggleGroup = forwardRef<
                     <IconMoon
                         iconDirection="-45_rotation"
                         setMotion={true}
-                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative"
+                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative place-self-center mt-[-12px] text-white"
                     />
                 </i>
             </ToggleGroupItem>

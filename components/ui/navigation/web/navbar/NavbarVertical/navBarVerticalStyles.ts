@@ -31,7 +31,8 @@ export const navBarVerticalNavStyles = cva(``, {
             box-border
             flex
             flex-col
-            gap-[55px]
+            gap-x-[3.22vw]
+            gap-y-[5.747vh]
             grow
             items-start
             justify-center
@@ -55,8 +56,9 @@ export const navBarVerticalThemeStyles = cva(``, {
             box-border
             flex
             flex-col
-            gap-[55px]
-            grow
+            gap-x-[3.22vw]
+            gap-y-[5.747vh]
+            flex-grow
             h-[26.646vh]
             items-start
             justify-center

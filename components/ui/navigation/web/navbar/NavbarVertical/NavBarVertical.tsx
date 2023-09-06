@@ -9,9 +9,9 @@ import { forwardRef } from "react";
 import { ButtonWithLabel } from "@/components/ui/button/ButtonWithLabel/ButtonWithLabel";
 import { NavBarVerticalProps } from "./navBarVerticalProps";
 import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
-import { ThemeToggle } from "@/components/ui/theme/toggle/ThemeToggle";
 import { cn } from "@/lib/utils";
 import { useNavButtonData } from "./NavBarVerticalData";
+import { ThemeToggleGroup } from "@/components/ui/theme/toggle/ThemeToggleGroup/ThemeToggleGroup";
 import { usePathname } from "next/dist/client/components/navigation";
 import {
     navBarVerticalNavStyles,
@@ -69,7 +69,7 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                         navBarVerticalThemeStyles({ theme: "default" })
                     )}
                 >
-                    <ThemeToggle />
+                    <ThemeToggleGroup />
                 </div>
             </div>
         );

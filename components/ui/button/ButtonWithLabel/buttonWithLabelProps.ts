@@ -17,11 +17,6 @@ import {
     ReactNode,
 } from "react";
 
-type active = (
-    active: ButtonWithLabelProps["active"]
-) => typeof active extends true
-    ? HTMLAttributes<HTMLElement> & { className?: string }
-    : undefined;
 export interface ButtonWithLabelProps
     extends ButtonHTMLAttributes<HTMLButtonElement>,
         /**
@@ -54,7 +49,11 @@ export interface ButtonWithLabelProps
             >
         > {
     active?: boolean;
-    activeClass?: active | undefined;
+    activeClass?: (
+        active: ButtonWithLabelProps["active"]
+    ) => typeof active extends true
+        ? HTMLAttributes<HTMLElement> & { className?: string }
+        : null | undefined;
     inactiveClass?: (
         active: ButtonWithLabelProps["active"]
     ) => typeof active extends false

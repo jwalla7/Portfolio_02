@@ -11,21 +11,6 @@ export const ButtonWithLabel = forwardRef(
         { icon, label, active, ...props }: ButtonWithLabelProps,
         navButtonRef: LegacyRef<HTMLButtonElement> | undefined
     ) => {
-        const {
-            children,
-            buttoneventsref,
-            clickedButtonRef,
-            data,
-            asChild,
-            activeClass,
-            inactiveClass,
-            hoverClass,
-            darkClass,
-            link,
-            route,
-            ...rest // the rest are standard HTML button attributes
-        } = props;
-
         return (
             <div
                 className={cn(btnWithLblButtonStyles({ buttonDiv: "default" }))}
@@ -36,12 +21,6 @@ export const ButtonWithLabel = forwardRef(
                         active
                             ? btnWithLblButtonStyles({ button: "active" })
                             : btnWithLblButtonStyles({ button: "inactive" })
-                    )}
-                    activeClass={cn(
-                        btnWithLblButtonStyles({ button: "active" })
-                    )}
-                    inactiveClass={cn(
-                        btnWithLblButtonStyles({ button: "inactive" })
                     )}
                     {...props}
                     ref={navButtonRef}

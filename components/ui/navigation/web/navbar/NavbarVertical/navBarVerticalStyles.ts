@@ -40,6 +40,7 @@ export const navBarVerticalNavStyles = cva(``, {
             px-[2.285vw]
             w-[19.436vw]
             bg-transparent
+            mb-[2.55%]
             `,
             none: `bg-none`,
         },
@@ -66,6 +67,7 @@ export const navBarVerticalThemeStyles = cva(``, {
             self-stretch
             shrink
             bg-transparent
+            ml-[-2.55%]
             `,
             none: `bg-none`,
         },

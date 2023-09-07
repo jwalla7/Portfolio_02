@@ -19,7 +19,7 @@ import { robotoRegular } from "@/design/fontDefaults";
 export const ThemeToggleGroup = forwardRef<
     HTMLButtonElement,
     ThemeToggleGroupProps
->((active) => {
+>(({ active }, ref) => {
     return (
         <ToggleGroup
             className={cn(themeToggleGroupStyles())}
@@ -31,6 +31,7 @@ export const ThemeToggleGroup = forwardRef<
                 className={cn(themeToggleGroupStylesItem())}
                 value="left"
                 aria-label="Left aligned"
+                ref={ref}
             >
                 <div className={cn(themeToggleGroupStylesLabelDiv())}>
                     <label
@@ -90,7 +91,7 @@ export const ThemeToggleGroup = forwardRef<
                     <IconMoon
                         iconDirection="-45_rotation"
                         setMotion={true}
-                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative place-self-center mt-[-12px] text-white"
+                        className="block flex-grow-0 flex-shrink-0 w-[32.5px] h-[32.5px] relative place-self-center mt-[-21px] text-white"
                     />
                 </i>
             </ToggleGroupItem>

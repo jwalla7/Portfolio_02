@@ -9,9 +9,21 @@ import { Type_ButtonWithLabel } from "@/types/button-with-label";
 import { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import { Url } from "next/dist/shared/lib/router/router";
 import { LinkProps } from "next/link";
-import { MutableRefObject, ReactElement, ReactNode } from "react";
+import {
+    ButtonHTMLAttributes,
+    HTMLAttributes,
+    MutableRefObject,
+    ReactElement,
+    ReactNode,
+} from "react";
+
+type active = (
+    active: ButtonWithLabelProps["active"]
+) => typeof active extends true
+    ? HTMLAttributes<HTMLElement> & { className?: string }
+    : undefined;
 export interface ButtonWithLabelProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    extends ButtonHTMLAttributes<HTMLButtonElement>,
         /**
          * Omit
          *
@@ -42,6 +54,18 @@ export interface ButtonWithLabelProps
             >
         > {
     active?: boolean;
+    activeClass?: active | undefined;
+    inactiveClass?: (
+        active: ButtonWithLabelProps["active"]
+    ) => typeof active extends false
+        ? HTMLAttributes<HTMLElement> & { className?: string }
+        : null | undefined;
+    hoverClass?:
+        | (HTMLAttributes<HTMLElement> & { className?: string })
+        | undefined;
+    darkClass?:
+        | (HTMLAttributes<HTMLElement> & { className?: string })
+        | undefined;
     asChild?: boolean;
     buttoneventsref?: MutableRefObject<HTMLButtonElement | null> | undefined;
     children?: ReactNode;

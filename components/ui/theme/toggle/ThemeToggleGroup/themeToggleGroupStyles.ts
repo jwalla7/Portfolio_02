@@ -2,7 +2,7 @@ import { cva } from "class-variance-authority";
 
 export const themeToggleGroupStyles = cva(
     `
-    box-border flex flex-grow justify-start items-center place-items-center w-[3.074vw] h-fit gap-y-[.764vh] gap-x-[.428vw]
+    box-border flex flex-grow justify-start items-center place-items-center w-[3.074vw] h-fit gap-y-[2.764vh] gap-x-[1.13vw] mt-[13.13%]
     `
 );
 
@@ -20,7 +20,7 @@ export const themeToggleGroupStylesItem = cva(
     w-[3.074vw]
     gap-x-[.428vw]
     gap-y-[2.764vh]
-1    `
+    `
 );
 
 export const themeToggleGroupStylesLabel = cva(
@@ -37,7 +37,7 @@ export const themeToggleGroupStylesLabel = cva(
 
 export const themeToggleGroupStylesLabelDiv = cva(
     `
-    box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-x-[.118vw] p-y-[.210vh]
+    box-border flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden p-x-[.118vw] p-y-[.210vh] mb-[8%]
     `
 );
 

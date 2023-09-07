@@ -2,7 +2,7 @@
 
 /**
  * @description
- * Generates and manages data for navigation buttons.
+ * Generates and manages data for navigation and theme buttons.
  *
  * It uses a Map data structure to store button properties like labels, icons, and routes, dynamically changing them based on the current URL.
  *

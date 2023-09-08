@@ -43,14 +43,6 @@ export const btnWithLblButtonStyles = cva(
                 click:bg-gradient-to-r from-[rgba(255,255,255,0.89)] 1.16% to-[rgba(255,255,255,0.89)] 100.34%
             `,
             },
-            defaultVariants: {
-                background: `default`,
-                button: `default`,
-                buttonDiv: `default`,
-                iconDiv: `default`,
-                labelDiv: `default`,
-                labelSpan: `default`,
-            },
         },
     }
 );

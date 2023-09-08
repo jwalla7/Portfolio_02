@@ -38,14 +38,14 @@ export const ButtonWithLabel = forwardRef(
                         btnWithLblButtonStyles({ labelDiv: "default" })
                     )}
                 >
-                    <span
+                    <label
                         className={cn(
                             btnWithLblButtonStyles({ labelSpan: "default" }),
                             robotoRegular.className
                         )}
                     >
                         {label}
-                    </span>
+                    </label>
                 </div>
             </div>
         );

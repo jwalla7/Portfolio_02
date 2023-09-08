@@ -18,6 +18,7 @@ import {
     navBarVerticalRootStyles,
     navBarVerticalThemeStyles,
 } from "./navBarVerticalStyles";
+import { ThemeToggle } from "@/components/ui/theme/toggle/ThemeToggle";
 
 export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
     ({ overlayRefProps }, ref) => {
@@ -69,7 +70,8 @@ export const NavBarVertical = forwardRef<HTMLDivElement, NavBarVerticalProps>(
                         navBarVerticalThemeStyles({ theme: "default" })
                     )}
                 >
-                    <ThemeToggleGroup />
+                    <ThemeToggle />
+                    {/* <ThemeToggleGroup /> */}
                 </div>
             </div>
         );

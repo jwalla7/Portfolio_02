@@ -1,120 +1,126 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useTransition } from "react";
 import { ThemeToggleGroupProps } from "./themeToggleGroupProps";
 import { cn } from "@/lib/utils";
-import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
+import { ToggleGroupItem } from "@radix-ui/react-toggle-group";
 import { themeToggleGroupStyles } from "./themeToggleGroupStyles";
-import { IconCircleHalf } from "@/components/ui/icons/phosphor/IconCircleHalf";
-import { IconMoon } from "@/components/ui/icons/phosphor/IconMoon";
-import { IconSun } from "@/components/ui/icons/phosphor/IconSun";
 import { robotoRegular } from "@/design/fontDefaults";
+import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
 
-export const ThemeToggleGroup = forwardRef<
-    HTMLButtonElement,
-    ThemeToggleGroupProps
->(({ active }, ref) => {
-    return (
-        <ToggleGroup
-            className={cn(themeToggleGroupStyles({ toggleDiv: "default" }))}
-            type="single"
-            orientation="horizontal"
-            aria-label="Text alignment"
-        >
+export const ThemeToggleGroup = forwardRef(
+    ({
+        active,
+        title,
+        label,
+        icon,
+        value,
+        buttoneventsref,
+        ...props
+    }: ThemeToggleGroupProps) => {
+        /**
+         * theme
+         *
+         *
+         */
+        const { theme, setTheme, resolvedTheme } = useTheme();
+        const [_, startTransition] = useTransition();
+        /**
+         * currentTheme
+         *
+         * States the current theme or system theme
+         */
+        const currentTheme = theme ?? resolvedTheme;
+        /**
+         * targetTheme
+         *
+         * Confirms the target theme button's title as a lowercase string
+         */
+        const targetTheme = title?.toLocaleLowerCase();
+        /**
+         * active
+         *
+         * Confirms if the current theme or system theme matches the target theme button's title
+         */
+        active = currentTheme === title?.toLocaleLowerCase();
+
+        return (
             <ToggleGroupItem
-                className={cn(themeToggleGroupStyles({ itemDiv: "default" }))}
-                value="left"
-                aria-label="Left aligned"
-                ref={ref}
+                className={cn(themeToggleGroupStyles({ itemdiv: "default" }))}
+                value={cn(value)}
+                onClick={() => {
+                    startTransition(() => {
+                        !active && targetTheme === "system"
+                            ? setTheme("system")
+                            : !active && targetTheme === "dark"
+                            ? setTheme("dark")
+                            : setTheme("light");
+                    });
+                }}
+                {...props}
+                ref={buttoneventsref}
             >
-                <div
-                    className={cn(
-                        themeToggleGroupStyles({ labelDiv: "default" })
-                    )}
-                >
-                    <label
-                        className={cn(
-                            themeToggleGroupStyles({ label: "default" }),
-                            robotoRegular.className
-                        )}
+                {active && targetTheme ? (
+                    <motion.div whileTap={{ scale: 0.9 }} className="mb-[5%]">
+                        <div
+                            className={cn(
+                                themeToggleGroupStyles({ labeldiv: "active" })
+                            )}
+                        >
+                            <label
+                                className={cn(
+                                    themeToggleGroupStyles({
+                                        labeltext: "active",
+                                    }),
+                                    robotoRegular.className
+                                )}
+                            >
+                                {label}
+                            </label>
+                        </div>
+                        <i
+                            className={cn(
+                                themeToggleGroupStyles({ icondiv: "default" })
+                            )}
+                        >
+                            {icon}
+                        </i>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        whileHover={{ transformOrigin: "bottom" }}
+                        whileTap={{ scale: 1.155 }}
+                        className="mt-[21%]"
                     >
-                        Light
-                    </label>
-                </div>
-                <i
-                    className={cn(
-                        themeToggleGroupStyles({ iconDiv: "default" })
-                    )}
-                >
-                    <IconSun
-                        setMotion={true}
-                        className="block flex-grow-0 flex-shrink-0 w-[1.904vw] h-[3.396vh] relative place-self-center text-white"
-                    />
-                </i>
+                        <div
+                            className={cn(
+                                themeToggleGroupStyles({ labeldiv: "inactive" })
+                            )}
+                        >
+                            <label
+                                className={cn(
+                                    themeToggleGroupStyles({
+                                        labeltext: "inactive",
+                                    }),
+                                    robotoRegular.className
+                                )}
+                            >
+                                {label}
+                            </label>
+                        </div>
+                        <i
+                            className={cn(
+                                themeToggleGroupStyles({ icondiv: "default" })
+                            )}
+                        >
+                            {icon}
+                        </i>
+                    </motion.div>
+                )}
             </ToggleGroupItem>
-            <ToggleGroupItem
-                className={cn(themeToggleGroupStyles({ itemDiv: "default" }))}
-                value="center"
-                aria-label="Center aligned"
-            >
-                <div
-                    className={cn(
-                        themeToggleGroupStyles({ labelDiv: "default" })
-                    )}
-                >
-                    <label
-                        className={cn(
-                            themeToggleGroupStyles({ label: "default" })
-                        )}
-                    >
-                        Auto
-                    </label>
-                </div>
-                <i
-                    className={cn(
-                        themeToggleGroupStyles({ iconDiv: "default" }),
-                        robotoRegular.className
-                    )}
-                >
-                    <IconCircleHalf
-                        setMotion={true}
-                        className="block flex-grow-0 flex-shrink-0 w-[1.904vw] h-[3.396vh] relative place-self-center text-white"
-                    />
-                </i>
-            </ToggleGroupItem>
-            <ToggleGroupItem
-                className={cn(themeToggleGroupStyles({ itemDiv: "default" }))}
-                value="right"
-                aria-label="Right aligned"
-            >
-                <div
-                    className={cn(
-                        themeToggleGroupStyles({ labelDiv: "default" })
-                    )}
-                >
-                    <label
-                        className={cn(
-                            themeToggleGroupStyles({ label: "default" }),
-                            robotoRegular.className
-                        )}
-                    >
-                        Dark
-                    </label>
-                </div>
-                <i
-                    className={cn(
-                        themeToggleGroupStyles({ iconDiv: "default" })
-                    )}
-                >
-                    <IconMoon
-                        iconDirection="-45_rotation"
-                        setMotion={true}
-                        className="block flex-grow-0 flex-shrink-0 w-[1.904vw] h-[3.396vh] relative place-self-center mt-[2.194vh] text-white"
-                    />
-                </i>
-            </ToggleGroupItem>
-        </ToggleGroup>
-    );
-});
+        );
+    }
+);
 
 ThemeToggleGroup.displayName = "ThemeToggleGroup";

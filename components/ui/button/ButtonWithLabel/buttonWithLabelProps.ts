@@ -21,13 +21,18 @@ export interface ButtonWithLabelProps
         /**
          * Omit
          *
-         * Omits the keys of the rootDiv, labelDiv, text, and button types from
+         * Omits the keys of the buttonDiv, button, labelDiv, labelText, iconDiv, and background types from
          *
          * the Type_ButtonWithLabel type declaration.
          */
         Omit<
             Type_ButtonWithLabel,
-            "rootdiv" | "labeldiv" | "textdiv" | "buttondiv"
+            | "buttonDiv"
+            | "button"
+            | "labelDiv"
+            | "labelText"
+            | "iconDiv"
+            | "background"
         >,
         /**
          * Required
@@ -38,13 +43,16 @@ export interface ButtonWithLabelProps
             /**
              * Pick
              *
-             * Enables inheritance of the rootDiv, labelDiv, text, and button types from
-             *
-             * the Type_ButtonWithLabel type declaration.
+             * Enables inheritance from the Type_ButtonWithLabel type declaration.
              */
             Pick<
                 Type_ButtonWithLabel,
-                "rootdiv" | "labeldiv" | "textdiv" | "buttondiv"
+                | "buttonDiv"
+                | "button"
+                | "labelDiv"
+                | "labelText"
+                | "iconDiv"
+                | "background"
             >
         > {
     active?: boolean;

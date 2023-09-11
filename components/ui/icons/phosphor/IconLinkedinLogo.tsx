@@ -6,7 +6,6 @@
  */
 
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 import { SVGProps, memo } from "react";
 
 export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(
@@ -39,7 +38,7 @@ export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(
                 data-prefix="fab"
                 data-icon="phosphorIcon-linkedinLogo"
                 viewBox="0 0 256 256"
-                className={clsx(variants, props.className)}
+                className={cn(variants, props.className)}
                 {...props}
             >
                 <path

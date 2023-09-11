@@ -6,7 +6,6 @@
  */
 
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 import { SVGProps, memo } from "react";
 
 export const IconGitHubLogo = memo<React.ComponentProps<"svg">>(
@@ -40,7 +39,7 @@ export const IconGitHubLogo = memo<React.ComponentProps<"svg">>(
                 data-icon="phosphorIcon-github"
                 role="img"
                 viewBox="0 0 496 512"
-                className={clsx(variants, props.className)}
+                className={cn(variants, props.className)}
                 {...props}
             >
                 <path

@@ -1,6 +1,10 @@
 "use client";
 
-import { ThemeToggleGroup } from "@/components/ui/theme/toggle/ThemeToggleGroup/ThemeToggleGroup";
+import { Sidebar } from "@/components/ui/navigation/web/navbar/Sidebar/Sidebar";
+import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
+import ThemeMenuDropdown from "@/components/ui/theme/dropdown/ThemeMenuDropdown/ThemeMenuDropdown";
+import { ThemeToggleDropdown } from "@/components/ui/theme/dropdown/ThemeToggleDropdown/ThemeToggleDropdown";
+import { ThemeToggle } from "@/components/ui/theme/toggle/ThemeToggle/ThemeToggle";
 
 export default function VisitorsPage() {
     return (
@@ -9,11 +13,12 @@ export default function VisitorsPage() {
             className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen h-[213vh] overflow-hidden"
         >
             <div>visitors page</div>
-            <div className="w-[364.78px] bg-slate-800">
-                <ThemeToggleGroup />
-            </div>
+            {/* <ThemeToggle /> */}
+            <ThemeMenuDropdown>
+                <ThemeToggleDropdown />
+            </ThemeMenuDropdown>
             {/* <OverlayTrigger> */}
-            {/* <NavBarVertical /> */}
+            {/* <Sidebar /> */}
             {/* </OverlayTrigger> */}
         </div>
     );

@@ -7,7 +7,6 @@
 import { SVGProps, memo } from "react";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 
 export const IconArrowCircleLeft = memo<
     React.ComponentProps<"svg"> & {
@@ -45,7 +44,7 @@ export const IconArrowCircleLeft = memo<
             data-prefix="fab"
             data-icon="phosphorIcon-arrowCircleLeft"
             viewBox="0 0 256 256"
-            className={clsx(variants, props.className)}
+            className={cn(variants, props.className)}
             {...props}
         >
             <path

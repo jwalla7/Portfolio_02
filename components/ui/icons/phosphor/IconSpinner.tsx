@@ -8,7 +8,6 @@
 import { SVGProps, memo } from "react";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 
 export const IconSpinner = memo<
     React.ComponentProps<"svg"> & {
@@ -45,7 +44,7 @@ export const IconSpinner = memo<
             data-prefix="fab"
             data-icon="phosphorIcon-spinner"
             viewBox="0 0 256 256"
-            className={clsx(variants, props.className)}
+            className={cn(variants, props.className)}
             {...props}
         >
             <path

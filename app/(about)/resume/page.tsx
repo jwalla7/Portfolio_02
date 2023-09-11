@@ -1,7 +1,6 @@
 "use client";
 
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
-import { NavBarVertical } from "@/components/ui/navigation/web/navbar/NavbarVertical/NavBarVertical";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import { robotoRegular } from "@/design/fontDefaults";
 import { cn } from "@/lib/utils";
@@ -24,9 +23,7 @@ export default function ResumePage() {
             >
                 My resume
             </h1>
-            <OverlayTrigger defaultValue="open">
-                <NavBarVertical />
-            </OverlayTrigger>
+            <OverlayTrigger />
         </div>
     );
 }

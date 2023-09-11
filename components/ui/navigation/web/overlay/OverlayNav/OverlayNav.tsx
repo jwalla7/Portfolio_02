@@ -1,12 +1,12 @@
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 import { OverlayNavProps } from "./overlayNavProps";
 import { overlayNavStyles } from "./overlayNavStyles";
 import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
-import { NavBarVertical } from "../../navbar/NavbarVertical/NavBarVertical";
+import { Sidebar } from "../../navbar/Sidebar/Sidebar";
 import { cn } from "@/lib/utils";
 
 export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(
-    ({ children, overlayRefProps }, ref) => {
+    ({ children, overlayRefProps }) => {
         const showDisplay = () => {
             console.log("showDisplay: ", overlayRefProps?.current?.classList);
 
@@ -35,10 +35,9 @@ export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(
                 )}
                 onMouseEnter={showDisplay}
                 onMouseLeave={hideDisplay}
+                ref={overlayRefProps}
             >
-                <NavBarVertical overlayRefProps={overlayRefProps}>
-                    {children}
-                </NavBarVertical>
+                <Sidebar overlayRefProps={overlayRefProps}>{children}</Sidebar>
             </NavigationMenuSub>
         );
     }

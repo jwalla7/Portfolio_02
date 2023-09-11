@@ -8,7 +8,10 @@ export interface ThemeToggleGroupProps
     active?: boolean;
     buttoneventsref?: MutableRefObject<HTMLButtonElement | null> | undefined;
     children?: React.ReactNode;
-    clickedButtonRef?: MutableRefObject<HTMLButtonElement | null>;
+    clickedbuttonref?: MutableRefObject<boolean | null>;
     data?: Map<string, ThemeToggleGroupProps> | undefined;
+    title: string | undefined;
+    label?: string | undefined;
     icon?: ReactElement | ReactNode | undefined;
+    value?: "left" | "center" | "right" | undefined;
 }

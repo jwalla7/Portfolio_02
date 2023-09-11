@@ -31,7 +31,7 @@ export const IconQuotes = memo<IconQuotes>(function IconQuotes(
      * Creates custom values for className attribute
      */
     const variants = cn(
-        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative ml-[-21%]",
+        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative ml-[-21%] 4xl:ml-[-34%]",
         className
     );
     return (

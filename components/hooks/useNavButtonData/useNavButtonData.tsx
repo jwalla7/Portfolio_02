@@ -17,6 +17,7 @@ import { IconEnvelopSimple } from "@/components/ui/icons/phosphor/IconEnvelopeSi
 import { IconHouse } from "@/components/ui/icons/phosphor/IconHouse";
 import { IconQuotes } from "@/components/ui/icons/phosphor/IconQuotes";
 import { usePathname } from "next/dist/client/components/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 export function useNavButtonData() {
     const navButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -45,12 +46,14 @@ export function useNavButtonData() {
         /**
          * Home Navigation Button Data
          */
-        navMap.set("Home", {
-            rootdiv: "default",
-            buttondiv: "default",
-            labeldiv: "default",
-            textdiv: "default",
+        navMap.set(uuidv4(), {
             label: "Home",
+            buttonDiv: "default",
+            button: "default",
+            labelDiv: "default",
+            labelText: "default",
+            iconDiv: "default",
+            background: "default",
             icon: (
                 <IconHouse
                     fillOpacity={100}
@@ -68,12 +71,14 @@ export function useNavButtonData() {
         /**
          * Resume Navigation Button Data
          */
-        navMap.set("Resume", {
-            rootdiv: "default",
-            buttondiv: "default",
-            labeldiv: "default",
-            textdiv: "default",
+        navMap.set(uuidv4(), {
             label: "Resume",
+            buttonDiv: "default",
+            button: "default",
+            labelDiv: "default",
+            labelText: "default",
+            iconDiv: "default",
+            background: "default",
             icon: (
                 <IconFile
                     className={
@@ -91,12 +96,14 @@ export function useNavButtonData() {
         /**
          * Music Navigation Button Data
          */
-        navMap.set("Music", {
-            rootdiv: "default",
-            buttondiv: "default",
-            labeldiv: "default",
-            textdiv: "default",
+        navMap.set(uuidv4(), {
             label: "Music",
+            buttonDiv: "default",
+            button: "default",
+            labelDiv: "default",
+            labelText: "default",
+            iconDiv: "default",
+            background: "default",
             icon: (
                 <IconEqualizer
                     className={
@@ -114,12 +121,14 @@ export function useNavButtonData() {
         /**
          * Email Navigation Button Data
          */
-        navMap.set("Email", {
-            rootdiv: "default",
-            buttondiv: "default",
-            labeldiv: "default",
-            textdiv: "default",
+        navMap.set(uuidv4(), {
             label: "Email",
+            buttonDiv: "default",
+            button: "default",
+            labelDiv: "default",
+            labelText: "default",
+            iconDiv: "default",
+            background: "default",
             icon: (
                 <IconEnvelopSimple
                     className={
@@ -137,12 +146,14 @@ export function useNavButtonData() {
         /**
          * Daily Quotes Navigation Button Data
          */
-        navMap.set("Daily_Quotes", {
-            rootdiv: "default",
-            buttondiv: "default",
-            labeldiv: "default",
-            textdiv: "default",
+        navMap.set(uuidv4(), {
             label: "Daily Quotes",
+            buttonDiv: "default",
+            button: "default",
+            labelDiv: "default",
+            labelText: "default",
+            iconDiv: "default",
+            background: "default",
             icon: (
                 <IconQuotes
                     className={
@@ -161,15 +172,4 @@ export function useNavButtonData() {
     }, [url]);
 
     return navButtonData;
-}
-
-export function useThemeButtonData() {
-    const themeButtonRef = useRef(null);
-
-    const themeButtonData = useMemo(() => {
-        const themeMap = new Map<string, HTMLButtonElement>();
-        return themeMap;
-    }, []);
-
-    return themeButtonData;
 }

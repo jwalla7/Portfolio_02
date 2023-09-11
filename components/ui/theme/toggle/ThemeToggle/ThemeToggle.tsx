@@ -3,10 +3,10 @@
 import React, { forwardRef, useTransition } from "react";
 
 import { useTheme } from "next-themes";
-import { IconMoon } from "../../icons/phosphor/IconMoon";
-import { IconSun } from "../../icons/phosphor/IconSun";
+import { IconMoon } from "../../../icons/phosphor/IconMoon";
+import { IconSun } from "../../../icons/phosphor/IconSun";
 import { ThemeToggleProps } from "./themeToggleProps";
-import { Button } from "../../button/Button/Button";
+import { Button } from "../../../button/Button/Button";
 
 export const ThemeToggle = React.forwardRef<
     HTMLButtonElement,
@@ -30,13 +30,14 @@ export const ThemeToggle = React.forwardRef<
                 theme === "system"
             ) : theme === "dark" ? (
                 <IconMoon
+                    active
                     setMotion={true}
                     iconDirection="0_rotation"
                     className="w-9 h-9"
                     fill="white"
                 />
             ) : (
-                <IconSun setMotion={true} className="w-9 h-9" />
+                <IconSun active setMotion={true} className="w-9 h-9" />
             )}
         </Button>
     );

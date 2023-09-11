@@ -5,16 +5,19 @@
  * @see https://react.dev/reference/react/memo
  */
 
-import { SVGProps, memo } from "react";
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
+
+interface IconMoonProps extends React.ComponentProps<"svg"> {
+    active: boolean;
+}
 
 export const IconMoon = memo<
-    React.ComponentProps<"svg"> & {
-        iconDirection: IconDirection;
+    IconMoonProps & {
         setMotion: boolean;
+        iconDirection: IconDirection;
     }
 >(function IconMoon(
     /**
@@ -24,7 +27,16 @@ export const IconMoon = memo<
     /**
      * Accessibility to other SVG props
      */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
+    {
+        active,
+        fill = active
+            ? cn(
+                  "text-neutral-50/[0.34] dark:text-neutral-50/[0.34] hover:text-white"
+              )
+            : "currentColor",
+        fillOpacity,
+        ...props
+    }: IconMoonProps
 ) {
     /**
      * Creates custom values for className attribute
@@ -53,7 +65,7 @@ export const IconMoon = memo<
                 data-prefix="fab"
                 data-icon="phosphorIcon-moon"
                 viewBox="0 0 256 256"
-                className={clsx(variants, props.className)}
+                className={cn(variants, props.className)}
             >
                 <motion.path
                     /**
@@ -91,7 +103,7 @@ export const IconMoon = memo<
                 data-prefix="fab"
                 data-icon="phosphorIcon-moon"
                 viewBox="0 0 256 256"
-                className={clsx(variants, props.className)}
+                className={cn(variants, props.className)}
                 {...props}
             >
                 <path

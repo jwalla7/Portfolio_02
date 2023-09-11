@@ -2,15 +2,18 @@
 
 import { ButtonWithLabelProps } from "./buttonWithLabelProps";
 import { robotoRegular } from "@/design/fontDefaults";
-import { LegacyRef, forwardRef } from "react";
+import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 import { btnWithLblButtonStyles } from "./buttonWithLabelStyles";
 
 export const ButtonWithLabel = forwardRef(
-    (
-        { icon, label, active, ...props }: ButtonWithLabelProps,
-        navButtonRef: LegacyRef<HTMLButtonElement> | undefined
-    ) => {
+    ({
+        icon,
+        label,
+        active,
+        buttoneventsref,
+        ...props
+    }: ButtonWithLabelProps) => {
         return (
             <div
                 className={cn(btnWithLblButtonStyles({ buttonDiv: "default" }))}
@@ -23,7 +26,7 @@ export const ButtonWithLabel = forwardRef(
                             : btnWithLblButtonStyles({ button: "inactive" })
                     )}
                     {...props}
-                    ref={navButtonRef}
+                    ref={buttoneventsref}
                 >
                     <i
                         className={cn(
@@ -40,7 +43,7 @@ export const ButtonWithLabel = forwardRef(
                 >
                     <label
                         className={cn(
-                            btnWithLblButtonStyles({ labelSpan: "default" }),
+                            btnWithLblButtonStyles({ labelText: "default" }),
                             robotoRegular.className
                         )}
                     >

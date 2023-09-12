@@ -2,6 +2,7 @@
     "extends": [
         "prettier"
     ],
+    "printWidth": 999,
     "overrides": [
         {
             "files": [

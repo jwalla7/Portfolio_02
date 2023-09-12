@@ -1,18 +1,15 @@
 "use client";
 
 import { forwardRef, useTransition } from "react";
-import { ThemeToggleGroupProps } from "./themeToggleGroupProps";
-import { cn } from "@/lib/utils";
-import { ToggleGroupItem } from "@radix-ui/react-toggle-group";
-import { themeToggleGroupStyles } from "./themeToggleGroupStyles";
-import { robotoRegular } from "@/design/fontDefaults";
 import { useTheme } from "next-themes";
+import { ThemeToggleGroupProps } from "./themeToggleGroupProps";
+import { ToggleGroupItem } from "@radix-ui/react-toggle-group";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { robotoRegular } from "@/design/fontDefaults";
+import { themeToggleGroupStyles } from "./themeToggleGroupStyles";
 
-export const ThemeToggleGroup = forwardRef<
-    HTMLButtonElement,
-    ThemeToggleGroupProps
->(({ active, title, label, icon, value, ...props }, ref) => {
+export const ThemeToggleGroup = forwardRef<HTMLButtonElement, ThemeToggleGroupProps>(({ active, title, label, icon, value, ...props }, ref) => {
     /**
      * theme
      */
@@ -46,11 +43,7 @@ export const ThemeToggleGroup = forwardRef<
             value={cn(value)}
             onClick={() => {
                 startTransition(() => {
-                    !active && targetTheme === "system"
-                        ? setTheme("system")
-                        : !active && targetTheme === "dark"
-                        ? setTheme("dark")
-                        : setTheme("light");
+                    !active && targetTheme === "system" ? setTheme("system") : !active && targetTheme === "dark" ? setTheme("dark") : setTheme("light");
                 });
             }}
             {...props}
@@ -58,59 +51,17 @@ export const ThemeToggleGroup = forwardRef<
         >
             {active && targetTheme ? (
                 <motion.div whileTap={{ scale: 0.9 }} className="mb-[5%]">
-                    <div
-                        className={cn(
-                            themeToggleGroupStyles({ labeldiv: "active" })
-                        )}
-                    >
-                        <label
-                            className={cn(
-                                themeToggleGroupStyles({
-                                    labeltext: "active",
-                                }),
-                                robotoRegular.className
-                            )}
-                        >
-                            {label}
-                        </label>
+                    <div className={cn(themeToggleGroupStyles({ labeldiv: "active" }))}>
+                        <label className={cn(themeToggleGroupStyles({ labeltext: "active" }), robotoRegular.className)}>{label}</label>
                     </div>
-                    <i
-                        className={cn(
-                            themeToggleGroupStyles({ icondiv: "default" })
-                        )}
-                    >
-                        {icon}
-                    </i>
+                    <i className={cn(themeToggleGroupStyles({ icondiv: "default" }))}>{icon}</i>
                 </motion.div>
             ) : (
-                <motion.div
-                    whileHover={{ transformOrigin: "0% 100%" }}
-                    whileTap={{ scale: 1.155 }}
-                    className="mt-[21%]"
-                >
-                    <div
-                        className={cn(
-                            themeToggleGroupStyles({ labeldiv: "inactive" })
-                        )}
-                    >
-                        <label
-                            className={cn(
-                                themeToggleGroupStyles({
-                                    labeltext: "inactive",
-                                }),
-                                robotoRegular.className
-                            )}
-                        >
-                            {label}
-                        </label>
+                <motion.div whileHover={{ transformOrigin: "0% 100%" }} whileTap={{ scale: 1.155 }} className="mt-[21%]">
+                    <div className={cn(themeToggleGroupStyles({ labeldiv: "inactive" }))}>
+                        <label className={cn(themeToggleGroupStyles({ labeltext: "inactive" }), robotoRegular.className)}>{label}</label>
                     </div>
-                    <i
-                        className={cn(
-                            themeToggleGroupStyles({ icondiv: "default" })
-                        )}
-                    >
-                        {icon}
-                    </i>
+                    <i className={cn(themeToggleGroupStyles({ icondiv: "default" }))}>{icon}</i>
                 </motion.div>
             )}
         </ToggleGroupItem>

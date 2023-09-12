@@ -2,7 +2,7 @@
 
 /**
  * @description
- * This component creates a vertical navigation bar with nested nav and theme buttons
+ * This component creates a vertical navigation bar with nested nav and theme buttons.
  */
 
 import { forwardRef, useTransition } from "react";

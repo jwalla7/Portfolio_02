@@ -10,14 +10,10 @@ import {
 
 export const OverlayRoot = forwardRef<HTMLDivElement, OverlayRootProps>(
     ({ children, overlayRefProps }, ref) => {
-        console.log(
-            "Root overlayRefProps: ",
-            overlayRefProps?.current?.classList
-        );
         return (
             <div
                 className={overlayStylesLayerRoot({ background: "default" })}
-                ref={overlayRefProps}
+                ref={ref || overlayRefProps}
             >
                 <div
                     className={overlayStylesLayer_1({ background: "default" })}

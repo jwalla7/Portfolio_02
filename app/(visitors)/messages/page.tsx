@@ -1,6 +1,6 @@
 "use client";
 
-import { Sidebar } from "@/components/ui/navigation/web/navbar/Sidebar/Sidebar";
+import { Sidebar } from "@/components/ui/navigation/web/sidebar/Sidebar/Sidebar";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import ThemeMenuDropdown from "@/components/ui/theme/dropdown/ThemeMenuDropdown/ThemeMenuDropdown";
 import { ThemeToggleDropdown } from "@/components/ui/theme/dropdown/ThemeToggleDropdown/ThemeToggleDropdown";

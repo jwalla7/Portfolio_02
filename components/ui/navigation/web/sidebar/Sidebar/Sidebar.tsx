@@ -24,9 +24,8 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
         const navButtonData = useNavButtonData();
         const themeButtonData = useThemeButtonData();
         const url = usePathname();
-
         return (
-            <div className={cn(sidebarStyles({ root: "active" }))} ref={ref}>
+            <div className={cn(sidebarStyles({ root: "active" }))}>
                 <div
                     className={cn(sidebarStyles({ nav: "active" }))}
                     ref={overlayRefProps}
@@ -65,7 +64,10 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
                         );
                     })}
                 </div>
-                <div className={cn(sidebarStyles({ theme: "active" }))}>
+                <div
+                    className={cn(sidebarStyles({ theme: "active" }))}
+                    ref={ref}
+                >
                     <ToggleGroup
                         className={cn(
                             themeToggleGroupStyles({ togglediv: "default" })

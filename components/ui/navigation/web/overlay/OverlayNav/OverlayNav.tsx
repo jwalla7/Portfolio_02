@@ -2,14 +2,12 @@ import { forwardRef } from "react";
 import { OverlayNavProps } from "./overlayNavProps";
 import { overlayNavStyles } from "./overlayNavStyles";
 import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
-import { Sidebar } from "../../navbar/Sidebar/Sidebar";
+import { Sidebar } from "../../sidebar/Sidebar/Sidebar";
 import { cn } from "@/lib/utils";
 
 export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(
-    ({ children, overlayRefProps }) => {
+    ({ children, overlayRefProps }, ref) => {
         const showDisplay = () => {
-            console.log("showDisplay: ", overlayRefProps?.current?.classList);
-
             if (overlayRefProps?.current?.classList.contains("hidden")) {
                 overlayRefProps?.current?.classList.remove("hidden");
             }
@@ -35,7 +33,7 @@ export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(
                 )}
                 onMouseEnter={showDisplay}
                 onMouseLeave={hideDisplay}
-                ref={overlayRefProps}
+                ref={ref || overlayRefProps}
             >
                 <Sidebar overlayRefProps={overlayRefProps}>{children}</Sidebar>
             </NavigationMenuSub>

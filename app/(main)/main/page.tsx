@@ -2,7 +2,6 @@
 
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
 import { IconRocket } from "@/components/ui/icons/phosphor/IconRocket";
-import { Sidebar } from "@/components/ui/navigation/web/navbar/Sidebar/Sidebar";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 
 export default function MainPage() {
@@ -16,9 +15,7 @@ export default function MainPage() {
                 imageDarkThemeSrc="/images/SKY-darkmode.jpg"
             />
             <IconRocket setMotion={true} className="text-white" />
-            <OverlayTrigger>
-                <Sidebar />
-            </OverlayTrigger>
+            <OverlayTrigger />
         </div>
     );
 }

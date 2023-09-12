@@ -100,8 +100,8 @@ export const themeToggleGroupStyles = cva(
                 `,
                 inactive: `
                 data-[theme_icon_inactive]
-                group-hover:transition-ease-in-smooth
-                group-hover:duration-100
+                group-hover:ease-in
+                group-hover:duration-75
                 group-hover:scale-[1.427955]
                 w-[1.334vw]
                 h-[2.379vh]

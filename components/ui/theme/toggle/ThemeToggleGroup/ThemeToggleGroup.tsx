@@ -27,13 +27,13 @@ export const ThemeToggleGroup = forwardRef<HTMLButtonElement, ThemeToggleGroupPr
     /**
      * targetTheme
      *
-     * Confirms the target theme button's title as a lowercase string
+     * Confirms the target theme button's title as a lowercase string.
      */
     const targetTheme = title?.toLocaleLowerCase();
     /**
      * active
      *
-     * Confirms if the current theme or system theme matches the target theme button's title
+     * Confirms if the current theme or system theme matches the target theme button's title.
      */
     active = currentTheme === title?.toLocaleLowerCase();
 
@@ -57,7 +57,7 @@ export const ThemeToggleGroup = forwardRef<HTMLButtonElement, ThemeToggleGroupPr
                     <i className={cn(themeToggleGroupStyles({ icondiv: "default" }))}>{icon}</i>
                 </motion.div>
             ) : (
-                <motion.div whileHover={{ transformOrigin: "0% 100%" }} whileTap={{ scale: 1.155 }} className="mt-[21%]">
+                <motion.div whileHover={{ transformOrigin: "0% %55 %89 100%" }} whileTap={{ scale: 1.21 }} className="mt-[21%]">
                     <div className={cn(themeToggleGroupStyles({ labeldiv: "inactive" }))}>
                         <label className={cn(themeToggleGroupStyles({ labeltext: "inactive" }), robotoRegular.className)}>{label}</label>
                     </div>

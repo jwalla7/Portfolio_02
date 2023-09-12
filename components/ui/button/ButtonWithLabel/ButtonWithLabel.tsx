@@ -5,7 +5,7 @@ import { ButtonWithLabelProps } from "./buttonWithLabelProps";
 import { btnWithLblButtonStyles } from "./buttonWithLabelStyles";
 import { cn } from "@/lib/utils";
 import { robotoRegular } from "@/design/fontDefaults";
-// s
+
 export const ButtonWithLabel = forwardRef<HTMLButtonElement, ButtonWithLabelProps>(({ icon, label, active, ...props }, buttoneventsref) => {
     return (
         <div className={cn(btnWithLblButtonStyles({ buttonDiv: "default" }))}>

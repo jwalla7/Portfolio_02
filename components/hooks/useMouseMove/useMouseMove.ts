@@ -13,7 +13,6 @@ export function useMouseMove({ buttonRef, attributeRef }: useMouseMoveProps) {
     useEffect(() => {
         const ref = buttonRef?.current || attributeRef?.current;
         const traceMouseMove = (mouseEvent: MouseEvent) => {
-            console.log("Mouse move event");
             if (ref) {
                 /**
                  * getRectangleBoundary
@@ -36,7 +35,7 @@ export function useMouseMove({ buttonRef, attributeRef }: useMouseMoveProps) {
                  */
                 const y = mouseEvent.clientY - getRectangleBoundary.top;
 
-                console.log(`Mouse X: ${x}, Mouse Y: ${y}`);
+                console.log(`X-MouseMove Event: ${x}, Y-MouseMove Event: ${y}`);
 
                 Array.from(ref.children).forEach((child: Element) => {
                     if (child instanceof HTMLElement) {
@@ -49,8 +48,8 @@ export function useMouseMove({ buttonRef, attributeRef }: useMouseMoveProps) {
         console.log("refEvent: ", ref);
         ref?.addEventListener("mousemove", traceMouseMove);
 
-        // return () => {
-        //     ref?.removeEventListener("mousemove", traceMouseMove);
-        // }
+        return () => {
+            ref?.removeEventListener("mousemove", traceMouseMove);
+        };
     });
 }

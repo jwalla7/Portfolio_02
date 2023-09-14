@@ -8,7 +8,6 @@ export const overlayTriggerStyles = cva(
     items-start
     justify-start
     left-[-0.1%]
-    h-full
     min-h-screen
     relative
     top-0
@@ -17,5 +16,17 @@ export const overlayTriggerStyles = cva(
     bg-none
     animate-slideRightAndFade
     z-2
-    `
+    `,
+    {
+        variants: {
+            triggerdiv: {
+                active: `
+                max-h-fit
+                `,
+                inactive: `
+                h-full
+                `,
+            },
+        },
+    }
 );

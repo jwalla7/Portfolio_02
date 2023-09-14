@@ -18,14 +18,14 @@ import { useNavButtonData } from "@/components/hooks/useNavButtonData/useNavButt
 import { usePathname } from "next/dist/client/components/navigation";
 import { useThemeButtonData } from "@/components/hooks/useThemeButtonData/useThemeButtonData";
 
-export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRefProps }, ref) => {
+export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRef, sidebarRef }, ref) => {
     const [_, startTransition] = useTransition();
     const navButtonData = useNavButtonData();
     const themeButtonData = useThemeButtonData();
     const url = usePathname();
     return (
         <div className={cn(sidebarStyles({ root: "active" }))}>
-            <div className={cn(sidebarStyles({ nav: "active" }))} ref={overlayRefProps}>
+            <div className={cn(sidebarStyles({ nav: "active" }))} ref={overlayRef}>
                 {Array.from(navButtonData.keys()).map((key, index) => {
                     const buttonID = navButtonData.get(key);
                     return (
@@ -34,6 +34,9 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRefPro
                             className="no-underline"
                             href={buttonID?.route ?? "/"}
                             onClick={() => {
+                                if (sidebarRef?.current) {
+                                    sidebarRef?.current?.toggleTracker();
+                                }
                                 if (buttonID?.route === url) {
                                     startTransition(() => {
                                         (event: Event) => {
@@ -53,7 +56,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRefPro
                                 label={buttonID?.label}
                                 icon={buttonID?.icon}
                                 route={buttonID?.route}
-                                buttoneventsref={buttonID?.buttoneventsref}
+                                buttonRef={buttonID?.buttonRef}
                                 active={buttonID?.route === url}
                             />
                         </NavigationMenuLink>

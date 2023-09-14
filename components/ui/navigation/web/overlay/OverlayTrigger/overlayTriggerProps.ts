@@ -1,8 +1,10 @@
+import { useSideBarProps } from "@/components/hooks/useSidebar/useSidebarProps";
 import { PopoverTriggerProps } from "@radix-ui/react-popover";
-import { MutableRefObject } from "react";
+import { MutableRefObject, RefObject } from "react";
 
 export interface OverlayTriggerProps extends PopoverTriggerProps {
     children?: React.ReactNode;
     className?: string;
-    overlayRefProps?: MutableRefObject<HTMLDivElement | null> | undefined;
+    overlayRef?: MutableRefObject<HTMLDivElement | null> | undefined;
+    sidebarRef?: RefObject<useSideBarProps> | undefined;
 }

@@ -20,7 +20,11 @@ import { usePathname } from "next/dist/client/components/navigation";
 import { v4 as uuidv4 } from "uuid";
 
 export function useNavButtonData() {
-    const navButtonRef = useRef<HTMLButtonElement | null>(null);
+    const homeButtonRef = useRef(null);
+    const resumeButtonRef = useRef(null);
+    const musicButtonRef = useRef(null);
+    const emailButtonRef = useRef(null);
+    const dailyQuotesButtonRef = useRef(null);
     /**
      * usePathname
      *
@@ -58,15 +62,11 @@ export function useNavButtonData() {
                 <IconHouse
                     fillOpacity={100}
                     active={url === "/main"}
-                    className={
-                        url === "/main"
-                            ? "text-black dark:text-black"
-                            : "text-white"
-                    }
+                    className={url === "/main" ? "text-black dark:text-black" : "text-white"}
                 />
             ),
             route: "/main",
-            buttoneventsref: navButtonRef,
+            buttonRef: homeButtonRef,
         });
         /**
          * Resume Navigation Button Data
@@ -81,17 +81,13 @@ export function useNavButtonData() {
             background: "default",
             icon: (
                 <IconFile
-                    className={
-                        url === "/resume"
-                            ? "text-black dark:text-black"
-                            : "text-white"
-                    }
+                    className={url === "/resume" ? "text-black dark:text-black" : "text-white"}
                     active={url === "/resume"}
                     fillOpacity={100}
                 />
             ),
             route: "/resume",
-            buttoneventsref: navButtonRef,
+            buttonRef: resumeButtonRef,
         });
         /**
          * Music Navigation Button Data
@@ -106,17 +102,13 @@ export function useNavButtonData() {
             background: "default",
             icon: (
                 <IconEqualizer
-                    className={
-                        url === "/music"
-                            ? "text-black dark:text-black"
-                            : "text-white"
-                    }
+                    className={url === "/music" ? "text-black dark:text-black" : "text-white"}
                     active={url === "/music"}
                     fillOpacity={100}
                 />
             ),
             route: "/music",
-            buttoneventsref: navButtonRef,
+            buttonRef: musicButtonRef,
         });
         /**
          * Email Navigation Button Data
@@ -131,17 +123,13 @@ export function useNavButtonData() {
             background: "default",
             icon: (
                 <IconEnvelopSimple
-                    className={
-                        url === "/contact"
-                            ? "text-black dark:text-black"
-                            : "text-white"
-                    }
+                    className={url === "/contact" ? "text-black dark:text-black" : "text-white"}
                     active={url === "/contact"}
                     fillOpacity={100}
                 />
             ),
             route: "/contact",
-            buttoneventsref: navButtonRef,
+            buttonRef: emailButtonRef,
         });
         /**
          * Daily Quotes Navigation Button Data
@@ -156,17 +144,13 @@ export function useNavButtonData() {
             background: "default",
             icon: (
                 <IconQuotes
-                    className={
-                        url === "/messages"
-                            ? "text-black dark:text-black"
-                            : "text-white"
-                    }
+                    className={url === "/messages" ? "text-black dark:text-black" : "text-white"}
                     active={url === "/messages"}
                     fillOpacity={100}
                 />
             ),
             route: "/messages",
-            buttoneventsref: navButtonRef,
+            buttonRef: dailyQuotesButtonRef,
         });
         return navMap;
     }, [url]);

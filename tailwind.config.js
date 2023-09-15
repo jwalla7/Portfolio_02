@@ -11,12 +11,7 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: ["class"],
-    content: [
-        "./app/**/*.{ts,tsx}",
-        "./components/**/*.{ts,tsx}",
-        "./components/ui/**/*.{ts,tsx}",
-        "./content/**/*.{md,mdx}",
-    ],
+    content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./components/ui/**/*.{ts,tsx}", "./content/**/*.{md,mdx}"],
 
     /**
      * The `theme` section is where you define color, palette, type scale,
@@ -36,12 +31,10 @@ module.exports = {
             },
             backgroundImage: {
                 none: "none",
-                "gradient-to-r":
-                    "linear-gradient(to right, var(--tw-gradient-stops))",
-                "gradient-to-br":
-                    "linear-gradient(to bottom right, var(--tw-gradient-stops))",
-                "gradient-to-t":
-                    "linear-gradient(to top, var(--tw-gradient-stops))",
+                "gradient-to-r": "linear-gradient(to right, var(--tw-gradient-stops))",
+                "gradient-to-br": "linear-gradient(to bottom right, var(--tw-gradient-stops))",
+                "gradient-to-t": "linear-gradient(to top, var(--tw-gradient-stops))",
+                "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
             },
             colors: {
                 border: "hsl(var(--border))",
@@ -63,8 +56,7 @@ module.exports = {
                 },
                 destructive: {
                     DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
-                    foreground:
-                        "hsl(var(--destructive-foreground) / <alpha-value>)",
+                    foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
                 },
                 muted: {
                     DEFAULT: "hsl(var(--muted))",
@@ -118,14 +110,10 @@ module.exports = {
                 },
             },
             animation: {
-                slideUpAndFade:
-                    "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-                slideRightAndFade:
-                    "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-                slideDownAndFade:
-                    "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-                slideLeftAndFade:
-                    "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                slideRightAndFade: "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                slideDownAndFade: "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                slideLeftAndFade: "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
                 shineBottomRightAndFade: "shine 1s",
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
@@ -158,8 +146,5 @@ module.exports = {
     corePlugins: {
         preflight: false,
     },
-    plugins: [
-        require("tailwindcss-animate"),
-        require("@tailwindcss/typography"),
-    ],
+    plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };

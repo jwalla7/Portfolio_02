@@ -8,8 +8,8 @@ import { robotoRegular } from "@/design/fontDefaults";
 import { useMouseMove } from "@/components/hooks/useMouseMove/useMouseMove";
 
 export const ButtonWithLabel = forwardRef<HTMLDivElement, ButtonWithLabelProps>(
-    ({ icon, label, active, buttonRef, ...props }, attributeRef) => {
-        useMouseMove({ buttonRef: buttonRef });
+    ({ icon, label, active, buttonRef, traceChildren, ...props }, attributeRef) => {
+        useMouseMove({ buttonRef: buttonRef, traceChildren: traceChildren });
         return (
             <div className={cn(btnWithLblButtonStyles({ buttonDiv: "default" }))} ref={attributeRef}>
                 <button

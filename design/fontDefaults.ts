@@ -17,27 +17,27 @@ export const inter = Inter({
 });
 
 // Roboto family
-export const robotoLight = localFont({
-    src: "../public/fonts/Roboto-Light.ttf",
-    variable: "--font-roboto-light",
-});
+// export const robotoLight = localFont({
+//     src: "../public/fonts/Roboto-Light.ttf",
+//     variable: "--font-roboto-light",
+// });
 
 export const robotoRegular = localFont({
     src: "../public/fonts/Roboto-Regular.ttf",
     variable: "--font-roboto-regular",
 });
 
-export const robotoMedium = localFont({
-    src: "../public/fonts/Roboto-Medium.ttf",
-    variable: "--font-roboto-medium",
-});
+// export const robotoMedium = localFont({
+//     src: "../public/fonts/Roboto-Medium.ttf",
+//     variable: "--font-roboto-medium",
+// });
 
-export const robotoBold = localFont({
-    src: "../public/fonts/Roboto-Bold.ttf",
-    variable: "--font-roboto-bold",
-});
+// export const robotoBold = localFont({
+//     src: "../public/fonts/Roboto-Bold.ttf",
+//     variable: "--font-roboto-bold",
+// });
 
-export const robotoBlack = localFont({
-    src: "../public/fonts/Roboto-Black.ttf",
-    variable: "--font-roboto-black",
-});
+// export const robotoBlack = localFont({
+//     src: "../public/fonts/Roboto-Black.ttf",
+//     variable: "--font-roboto-black",
+// });

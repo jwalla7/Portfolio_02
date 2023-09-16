@@ -7,45 +7,103 @@ export const btnWithLblButtonStyles = cva(
         variants: {
             buttonDiv: {
                 default: `
-                flex justify-start items-center gap-x-[1.23vw] gap-y-[2.194vh] group
+                flex
+                gap-x-[1.23vw]
+                gap-y-[2.194vh]
+                group
+                items-center
+                justify-start
                 `,
             },
             button: {
                 default: `
-                box-border border-0 grow-0 shrink-0 justify-center items-center place-items-center w-[3.9121265377855887vw] h-[6.9780564263323vh] relative rounded-[12.4px] backdrop-blur-[12.4px] px-[9%]
-                4xl:w-[calc(3.9121265377855887vw-5.89%)]:px-[10%]
+                backdrop-blur-[12.4px]
+                border-0
+                box-border
+                grow-0
+                h-[6.9780564263323vh]
+                items-center
+                justify-center
+                place-items-center
+                px-[9%]
+                relative
+                rounded-[12.4px]
+                shrink-0
+                w-[3.9121265377855887vw]
+                4xl:px-[10%]
+                4xl:w-[calc(3.9121265377855887vw-5.89%)]
                 `,
                 active: `
-                group-hover:bg-[#E6E6E6] bg-secondary/80 dark:group-hover:bg-[#E6E6E6] dark:bg-[hsl(240,4.8%,95.9%)]
-                z-10
+                bg-secondary/80
+                group-hover:bg-[#E6E6E6]
+                dark:group-hover:bg-[#E6E6E6]
+                dark:bg-[hsl(240,4.8%,95.9%)]
                 `,
                 inactive: `
-                bg-transparent inset-1
-                group-hover:transition-opacity duration-500
+                bg-transparent
+                inset-1
+                group-hover:transition-opacity
+                group-hover:duration-500
                 group-hover:opacity-1
                 group-hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]
                 `,
             },
             iconDiv: {
                 default: `
-                place-items-center place-self-stretch justify-self-center self-center items-center justify-center
+                items-center
+                justify-center
+                justify-self-center
+                place-items-center
+                place-self-stretch
+                self-center
                 `,
             },
             labelDiv: {
                 default: `
-                bg-transparent hover:bg-transparent flex justify-start items-center relative place-items-center grow-0 shrink-0 gap-2.5 pt-[3px]
+                bg-transparent
+                flex
+                gap-2.5
+                grow-0
+                items-center
+                justify-start
+                place-items-center
+                pt-[3px]
+                relative
+                shrink-0
+                hover:bg-transparent
                 `,
             },
             labelText: {
                 default: `
-                group-hover:text-neutral-50 text-neutral-50/[0.34] whitespace-pre-line grow-0 shrink-0 text-[1.625rem] leading-normal text-left hover:cursor-auto,
+                grow-0
+                leading-normal
+                shrink-0
+                text-[1.625rem]
+                text-left
+                text-neutral-50/[0.34]
+                whitespace-pre-line
+                group-hover:text-neutral-50
+                hover:cursor-auto
                 `,
             },
             background: {
                 default: `
-                group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.08)] from-0% via-[rgba(242,242,242,0.13)] from-76.04%
-                box-border border-0 grow-0 shrink-0 justify-center items-center w-[3.912vw] h-[6.978vh] relative gap-[13px] py-[9px] px-[9%] rounded-[12.4px] backdrop-blur-[12.4px]
+                backdrop-blur-[12.4px]
+                border-0
+                box-border
+                gap-[13px]
+                grow-0
+                h-[6.978vh]
+                items-center
+                justify-center
+                px-[9%]
+                py-[9px]
+                relative
+                rounded-[12.4px]
+                shrink-0
+                w-[3.912vw]
                 click:bg-gradient-to-r from-[rgba(255,255,255,0.89)] 1.16% to-[rgba(255,255,255,0.89)] 100.34%
+                group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.08)] from-0% via-[rgba(242,242,242,0.13)] from-76.04%
             `,
             },
         },

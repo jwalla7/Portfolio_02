@@ -9,7 +9,7 @@
 import { useEffect } from "react";
 import { useMouseMoveProps } from "./useMouseMoveProps";
 
-export function useMouseMove({ buttonRef, attributeRef, childrenRef }: useMouseMoveProps) {
+export function useMouseMove({ buttonRef, attributeRef, childrenRef, traceChildren }: useMouseMoveProps) {
     useEffect(() => {
         const ref = buttonRef?.current || attributeRef?.current || childrenRef?.current;
         const traceMouseMove = (mouseEvent: MouseEvent) => {
@@ -34,28 +34,26 @@ export function useMouseMove({ buttonRef, attributeRef, childrenRef }: useMouseM
                  * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientY
                  */
                 const y = mouseEvent.clientY - getRectangleBoundary.top;
-
-                console.log(`X-MouseMove Event: ${x}, Y-MouseMove Event: ${y}`);
-
-                if (ref instanceof HTMLElement) {
+                /**
+                 * Type Guard for current HTMLElement node
+                 */
+                if (!traceChildren && ref instanceof HTMLElement) {
                     ref.style.setProperty("--x-mouse", `${x}px`);
                     ref.style.setProperty("--y-mouse", `${y}px`);
-                    console.log("refInst: ", ref);
                 }
-
                 /**
-                 * Implement if you want to apply the mousemove event to all children of the ref
+                 *  Type Guard for children HTMLElement nodes
+                 */
+                if (traceChildren && ref instanceof HTMLElement) {
                     Array.from(ref.children).forEach((child: Element) => {
                         if (child instanceof HTMLElement) {
                             child.style.setProperty("--x", `${x}px`);
                             child.style.setProperty("--y", `${y}px`);
-                            console.log("child: ", child)
                         }
-                    }); 
-                */
+                    });
+                }
             }
         };
-        console.log("refEvent: ", ref);
         ref?.addEventListener("mousemove", traceMouseMove);
 
         return () => {

@@ -16,7 +16,6 @@ export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(({
      */
     const displayStateRef = useRef<HTMLDivElement | null>(null);
     const sidebarRef = useSidebar();
-    console.log("root: ", sidebarRef?.current);
 
     return (
         <NavigationMenu.Root className="w-screen h-[209.5vh]" delayDuration={0} orientation="vertical">

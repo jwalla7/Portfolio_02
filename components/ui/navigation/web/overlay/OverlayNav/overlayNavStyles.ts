@@ -4,8 +4,8 @@ export const overlayNavStyles = cva(``, {
     variants: {
         nav: {
             default: `
-                data-nav-overlay
                 border-box
+                data-nav-overlay
                 flex
                 flex-col
                 flex-grow-0

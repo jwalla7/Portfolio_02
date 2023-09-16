@@ -67,6 +67,7 @@ export function useNavButtonData() {
             ),
             route: "/main",
             buttonRef: homeButtonRef,
+            traceChildren: false,
         });
         /**
          * Resume Navigation Button Data
@@ -88,6 +89,7 @@ export function useNavButtonData() {
             ),
             route: "/resume",
             buttonRef: resumeButtonRef,
+            traceChildren: false,
         });
         /**
          * Music Navigation Button Data
@@ -109,6 +111,7 @@ export function useNavButtonData() {
             ),
             route: "/music",
             buttonRef: musicButtonRef,
+            traceChildren: false,
         });
         /**
          * Email Navigation Button Data
@@ -130,6 +133,7 @@ export function useNavButtonData() {
             ),
             route: "/contact",
             buttonRef: emailButtonRef,
+            traceChildren: false,
         });
         /**
          * Daily Quotes Navigation Button Data
@@ -151,6 +155,7 @@ export function useNavButtonData() {
             ),
             route: "/messages",
             buttonRef: dailyQuotesButtonRef,
+            traceChildren: false,
         });
         return navMap;
     }, [url]);

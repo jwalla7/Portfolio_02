@@ -9,9 +9,9 @@
 import { useEffect } from "react";
 import { useMouseMoveProps } from "./useMouseMoveProps";
 
-export function useMouseMove({ buttonRef, attributeRef }: useMouseMoveProps) {
+export function useMouseMove({ buttonRef, attributeRef, childrenRef }: useMouseMoveProps) {
     useEffect(() => {
-        const ref = buttonRef?.current || attributeRef?.current;
+        const ref = buttonRef?.current || attributeRef?.current || childrenRef?.current;
         const traceMouseMove = (mouseEvent: MouseEvent) => {
             if (ref) {
                 /**
@@ -37,12 +37,22 @@ export function useMouseMove({ buttonRef, attributeRef }: useMouseMoveProps) {
 
                 console.log(`X-MouseMove Event: ${x}, Y-MouseMove Event: ${y}`);
 
-                Array.from(ref.children).forEach((child: Element) => {
-                    if (child instanceof HTMLElement) {
-                        child.style.setProperty("--x", `${x}px`);
-                        child.style.setProperty("--y", `${y}px`);
-                    }
-                });
+                if (ref instanceof HTMLElement) {
+                    ref.style.setProperty("--x-mouse", `${x}px`);
+                    ref.style.setProperty("--y-mouse", `${y}px`);
+                    console.log("refInst: ", ref);
+                }
+
+                /**
+                 * Implement if you want to apply the mousemove event to all children of the ref
+                    Array.from(ref.children).forEach((child: Element) => {
+                        if (child instanceof HTMLElement) {
+                            child.style.setProperty("--x", `${x}px`);
+                            child.style.setProperty("--y", `${y}px`);
+                            console.log("child: ", child)
+                        }
+                    }); 
+                */
             }
         };
         console.log("refEvent: ", ref);

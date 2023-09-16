@@ -17,9 +17,13 @@ export const btnWithLblButtonStyles = cva(
                 `,
                 active: `
                 group-hover:bg-[#E6E6E6] bg-secondary/80 dark:group-hover:bg-[#E6E6E6] dark:bg-[hsl(240,4.8%,95.9%)]
+                z-10
                 `,
                 inactive: `
-                bg-transparent group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.089)] from-0% via-[rgba(242,242,242,0.13)] from-76.04% to-neutral-50/[0.1]
+                bg-transparent inset-1
+                group-hover:transition-opacity duration-500
+                group-hover:opacity-1
+                group-hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]
                 `,
             },
             iconDiv: {

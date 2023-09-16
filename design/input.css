@@ -44,7 +44,8 @@ https: //tailwindcss.com/docs/customizing-colors#naming-your-colors
 
     --radius: 0.5rem;
 
-    --overlay: 0 5 13 / 0.99
+    --overlay: 0 5 13 / 0.99;
+
   }
 
   .dark {

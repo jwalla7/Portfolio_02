@@ -1,9 +1,10 @@
 /**
+ * @description
  * Full configuration example,
- * https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/config.full.js
+ * @see https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/config.full.js
  *
  * Core plugins,
- * https:tailwindcss.com/docs/configuration#core-plugins
+ * @see https://tailwindcss.com/docs/configuration#core-plugins
  */
 
 import { fontFamily } from "tailwindcss/defaultTheme";

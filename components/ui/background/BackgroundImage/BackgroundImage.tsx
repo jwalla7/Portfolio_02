@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * @description
+ * Determines which version of background image to display based on browser theme.
+ *
+ * Different images based on the current theme may cause a hydration mismatch problem with next / image.
+ */
+
 import { BackgroundImageProps } from "./backgroundImageProps";
 import Image from "next/image";
 import { useTheme } from "next-themes";
@@ -7,17 +14,7 @@ import { Suspense, useEffect, useState } from "react";
 import { ProgressBar } from "../../loaders/Progress/ProgressBar";
 import Custom404 from "@/app/not-found";
 
-/**
- * Determines which version of background image to display based on browser theme.
- *
- * Different images based on the current theme may cause a hydration mismatch problem with next/image.
- */
-
-export const BackgroundImage = ({
-    imageLightThemeSrc,
-    imageDarkThemeSrc,
-    className,
-}: BackgroundImageProps) => {
+export const BackgroundImage = ({ imageLightThemeSrc, imageDarkThemeSrc, className }: BackgroundImageProps) => {
     const { theme, resolvedTheme } = useTheme();
     const [_resolvedImage, setResolvedImage] = useState(false);
 
@@ -33,7 +30,7 @@ export const BackgroundImage = ({
      *
      * If enableSystem is true and the active theme is "system", this returns whether the system preference resolved to "dark" or "light".
      *
-     * https://github.com/pacocoursey/next-themes
+     * @see https://github.com/pacocoursey/next-themes
      */
     return (
         <Suspense fallback={<ProgressBar />}>
@@ -41,13 +38,13 @@ export const BackgroundImage = ({
                 /**
                  * next/image
                  *
-                 * https://nextjs.org/docs/app/building-your-application/optimizing/images#usage
+                 * @see https://nextjs.org/docs/app/building-your-application/optimizing/images#usage
                  */
                 <Image
                     /**
                      * alt
                      *
-                     * https://nextjs.org/docs/pages/building-your-application/optimizing/images#alt
+                     * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images#alt
                      */
                     alt="background image of galaxy during the day"
                     /**
@@ -55,19 +52,19 @@ export const BackgroundImage = ({
                      *
                      * You should add the priority property to the image that will be the Largest Contentful Paint (LCP) element for each page.
                      *
-                     * https://nextjs.org/docs/pages/building-your-application/optimizing/images
+                     * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images
                      */
                     priority
                     /**
                      * src
                      *
-                     * https://nextjs.org/docs/pages/building-your-application/optimizing/images#src
+                     * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images#src
                      */
                     src={imageLightThemeSrc}
                     /**
                      * quality
                      *
-                     * https://nextjs.org/docs/pages/building-your-application/optimizing/images#quality
+                     * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images#quality
                      */
                     quality={100}
                     /**
@@ -75,14 +72,14 @@ export const BackgroundImage = ({
                      *
                      * The `fill` prop allows your image to be sized by its parent element.
                      *
-                     * https://nextjs.org/docs/pages/building-your-application/optimizing/images#fill-container
+                     * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images#fill-container
                      */
                     fill
                     sizes="100vw"
                     /**
                      * style
                      *
-                     * https://nextjs.org/docs/pages/building-your-application/optimizing/images#style
+                     * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images#style
                      */
                     style={{
                         objectFit: "fill",

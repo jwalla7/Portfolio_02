@@ -1,9 +1,11 @@
 /**
  * @description
  *
- * Determines the mouse position within an HTML attribute
+ * Determines the mouse position within a specified HTML attribute
  *
- * Accepts an RefObject of type HTMLElement
+ * Accepts a RefObject of type HTMLElement
+ *
+ * Accepts a boolean value to determine whether to trace children nodes or not.
  */
 
 import { useEffect } from "react";

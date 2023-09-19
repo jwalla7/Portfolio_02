@@ -35,6 +35,7 @@
     "clsx": "^1.2.1",
     "contentlayer": "^0.3.2",
     "date-fns": "^2.30.0",
+    "focus-trap": "^7.5.2",
     "framer-motion": "^10.12.17",
     "js-cookie": "^3.0.5",
     "lint-staged": "^13.2.2",

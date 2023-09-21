@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 import { OverlayNavProps } from "./overlayNavProps";
 import { overlayNavStyles } from "./overlayNavStyles";
 import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
@@ -8,37 +8,41 @@ import { cn } from "@/lib/utils";
 export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ children, overlayRef, sidebarRef }, ref) => {
     const divRef = useRef<HTMLDivElement | null>(null);
 
-    const showDisplay = () => {
-        console.log("showDisplay");
-        if (overlayRef?.current?.classList.contains("hidden")) {
-            overlayRef?.current?.classList.remove("hidden");
+    const openSidebar = useCallback(() => {
+        const ref = overlayRef?.current;
+        if (ref) {
+            ref.classList.remove("hidden");
+            ref.classList.add("visible");
+            ref.setAttribute("data-state", "open");
         }
-        if (overlayRef?.current) {
-            overlayRef?.current?.classList.add("visible");
+    }, [overlayRef]);
+    const closeSidebar = useCallback(() => {
+        const ref = overlayRef?.current;
+        if (ref) {
+            ref?.classList.remove("visible");
+            ref?.classList.add("hidden");
+            ref?.setAttribute("data-state", "closed");
         }
-    };
-    const hideDisplay = () => {
-        if (overlayRef?.current?.classList.contains("visible")) {
-            overlayRef?.current?.classList.remove("visible");
-        }
-        if (overlayRef?.current) {
-            overlayRef?.current?.classList.add("hidden");
-        }
-    };
+    }, [overlayRef]);
 
-    useImperativeHandle(sidebarRef, () => ({
-        toggleTracker: () => {
-            showDisplay();
-            console.log("toggleTracker toggled:", sidebarRef?.current);
-        },
-        divRef: divRef,
-    }));
+    useImperativeHandle(
+        sidebarRef,
+        () => ({
+            toggleTracker: () => {
+                if (divRef?.current?.getAttribute("data-state") === "open") closeSidebar();
+                if (divRef?.current?.getAttribute("data-state") === "closed") openSidebar();
+                console.log("toggleTracker toggled:", sidebarRef?.current);
+            },
+            divRef: divRef,
+        }),
+        [sidebarRef, openSidebar, closeSidebar, divRef]
+    );
 
     return (
         <NavigationMenuSub
             className={cn(overlayNavStyles({ nav: "none" }), "animate-slideRightAndFade transition duration-150 ease-in")}
-            onMouseEnter={showDisplay}
-            onMouseLeave={hideDisplay}
+            onMouseEnter={openSidebar}
+            onMouseLeave={closeSidebar}
             ref={ref || overlayRef}
         >
             <Sidebar overlayRef={overlayRef} sidebarRef={sidebarRef}>

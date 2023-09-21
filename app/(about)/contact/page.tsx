@@ -4,10 +4,7 @@ import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTr
 
 const ContactPage = () => {
     return (
-        <div
-            suppressHydrationWarning
-            className="absolute left-0 top-0 right-0 bottom-0 min-w-full min-h-screen h-[213vh] overflow-hidden"
-        >
+        <div suppressHydrationWarning className="min-w-full min-h-screen h-screen overflow-hidden">
             <OverlayTrigger />
         </div>
     );

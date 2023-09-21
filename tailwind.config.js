@@ -109,6 +109,10 @@ module.exports = {
                     from: { height: "var(--radix-accordion-content-height)" },
                     to: { height: 0 },
                 },
+                rotateGradient: {
+                    "0%, 100%": { "background-position": "0% 50%" },
+                    "50%": { "background-position": "100% 50%" },
+                },
             },
             animation: {
                 slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",

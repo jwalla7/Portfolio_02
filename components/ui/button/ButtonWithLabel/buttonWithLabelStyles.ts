@@ -10,9 +10,9 @@ export const btnWithLblButtonStyles = cva(
                 flex
                 gap-x-[1.23vw]
                 gap-y-[2.194vh]
-                group
                 items-center
                 justify-start
+                group
                 `,
             },
             button: {
@@ -39,13 +39,14 @@ export const btnWithLblButtonStyles = cva(
                 dark:group-hover:bg-[#E6E6E6]
                 dark:bg-[hsl(240,4.8%,95.9%)]
                 `,
+                // TODO add a border that is not transparent by default.
+                // bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] relative overflow-hidden bg-[length:250%_250%,100%_100%] bg-[position:-100%_0,0_0] bg-no-repeat transition-[background-position_0s_ease] group-hover:bg-[position:200%_0,0_0] group-hover:duration-[1500ms]
                 inactive: `
+                group-hover:outline-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]
                 bg-transparent
-                inset-1
-                group-hover:transition-opacity
-                group-hover:duration-500
-                group-hover:opacity-1
+                dark:bg-transparent
                 group-hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]
+                dark:group-hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]
                 `,
             },
             iconDiv: {
@@ -60,7 +61,6 @@ export const btnWithLblButtonStyles = cva(
             },
             labelDiv: {
                 default: `
-                bg-transparent
                 flex
                 gap-2.5
                 grow-0
@@ -70,7 +70,6 @@ export const btnWithLblButtonStyles = cva(
                 pt-[3px]
                 relative
                 shrink-0
-                hover:bg-transparent
                 `,
             },
             labelText: {
@@ -83,28 +82,7 @@ export const btnWithLblButtonStyles = cva(
                 text-neutral-50/[0.34]
                 whitespace-pre-line
                 group-hover:text-neutral-50
-                hover:cursor-auto
                 `,
-            },
-            background: {
-                default: `
-                backdrop-blur-[12.4px]
-                border-0
-                box-border
-                gap-[13px]
-                grow-0
-                h-[6.978vh]
-                items-center
-                justify-center
-                px-[9%]
-                py-[9px]
-                relative
-                rounded-[12.4px]
-                shrink-0
-                w-[3.912vw]
-                click:bg-gradient-to-r from-[rgba(255,255,255,0.89)] 1.16% to-[rgba(255,255,255,0.89)] 100.34%
-                group-hover:bg-gradient-to-r from-[rgba(255,255,255,0.08)] from-0% via-[rgba(242,242,242,0.13)] from-76.04%
-            `,
             },
         },
     }

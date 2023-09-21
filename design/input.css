@@ -77,7 +77,14 @@ https: //tailwindcss.com/docs/customizing-colors#naming-your-colors
     --destructive-foreground: 0 85.7% 97.3%;
 
     --ring: 240 3.7% 15.9%;
+
   }
+    .gradient-animation {
+      /* background-size: 400%; */
+      -webkit-animation: rotateGradient 3s ease infinite;
+      -moz-animation: rotateGradient 3s ease infinite;
+      animation: rotateGradient 3s ease infinite;
+    }
 }
 
 @layer base {

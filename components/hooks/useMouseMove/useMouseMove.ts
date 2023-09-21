@@ -57,7 +57,6 @@ export function useMouseMove({ buttonRef, attributeRef, childrenRef, traceChildr
             }
         };
         ref?.addEventListener("mousemove", traceMouseMove);
-
         return () => {
             ref?.removeEventListener("mousemove", traceMouseMove);
         };

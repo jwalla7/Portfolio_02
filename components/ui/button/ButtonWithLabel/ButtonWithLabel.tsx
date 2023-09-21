@@ -11,7 +11,12 @@ export const ButtonWithLabel = forwardRef<HTMLDivElement, ButtonWithLabelProps>(
     ({ icon, label, active, buttonRef, traceChildren, ...props }, attributeRef) => {
         useMouseMove({ buttonRef: buttonRef, traceChildren: traceChildren });
         return (
-            <div className={cn(btnWithLblButtonStyles({ buttonDiv: "default" }))} ref={attributeRef}>
+            <div
+                className={cn(btnWithLblButtonStyles({ buttonDiv: "default" }))}
+                ref={attributeRef}
+                aria-disabled={true}
+                tabIndex={-1}
+            >
                 <button
                     className={cn(
                         btnWithLblButtonStyles({ button: "default" }),
@@ -19,6 +24,7 @@ export const ButtonWithLabel = forwardRef<HTMLDivElement, ButtonWithLabelProps>(
                     )}
                     {...props}
                     ref={buttonRef}
+                    tabIndex={0}
                 >
                     <i className={cn(btnWithLblButtonStyles({ iconDiv: "default" }))}>{icon}</i>
                 </button>

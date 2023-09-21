@@ -5,7 +5,7 @@
  * This component creates a vertical navigation bar with nested nav and theme buttons.
  */
 
-import { forwardRef, useTransition } from "react";
+import { forwardRef, useCallback, useTransition } from "react";
 import { ButtonWithLabel } from "@/components/ui/button/ButtonWithLabel/ButtonWithLabel";
 import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
 import { SidebarProps } from "./sidebarProps";
@@ -17,12 +17,29 @@ import { themeToggleGroupStyles } from "@/components/ui/theme/toggle/ThemeToggle
 import { useNavButtonData } from "@/components/hooks/useNavButtonData/useNavButtonData";
 import { usePathname } from "next/dist/client/components/navigation";
 import { useThemeButtonData } from "@/components/hooks/useThemeButtonData/useThemeButtonData";
+import { ButtonWithLabelProps } from "@/components/ui/button/ButtonWithLabel/buttonWithLabelProps";
 
 export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRef, sidebarRef }, ref) => {
     const [_, startTransition] = useTransition();
     const navButtonData = useNavButtonData();
     const themeButtonData = useThemeButtonData();
     const url = usePathname();
+
+    const navClickEvent = useCallback(
+        (event: any, buttonRoute: ButtonWithLabelProps | undefined) => {
+            if (buttonRoute?.route === url) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            startTransition(() => {
+                if (sidebarRef?.current) {
+                    console.log("sidebarRef", sidebarRef.current.toggleTracker());
+                    sidebarRef.current.toggleTracker();
+                }
+            });
+        },
+        [url, sidebarRef]
+    );
     return (
         <div className={cn(sidebarStyles({ root: "active" }))}>
             <div className={cn(sidebarStyles({ nav: "active" }))} ref={overlayRef}>
@@ -31,21 +48,10 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRef, s
                     return (
                         <NavigationMenuLink
                             key={index}
+                            tabIndex={-1}
                             className="no-underline"
                             href={buttonID?.route ?? "/"}
-                            onClick={() => {
-                                if (sidebarRef?.current) {
-                                    sidebarRef?.current?.toggleTracker();
-                                }
-                                if (buttonID?.route === url) {
-                                    startTransition(() => {
-                                        (event: Event) => {
-                                            event.preventDefault();
-                                            event.stopPropagation();
-                                        };
-                                    });
-                                }
-                            }}
+                            onClick={(event) => navClickEvent(event, buttonID)}
                         >
                             <ButtonWithLabel
                                 key={index}
@@ -75,6 +81,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRef, s
                         return (
                             <ThemeToggleGroup
                                 key={index}
+                                tabIndex={-1}
                                 active
                                 title={themeButtonID?.title}
                                 togglediv={themeButtonID?.togglediv}

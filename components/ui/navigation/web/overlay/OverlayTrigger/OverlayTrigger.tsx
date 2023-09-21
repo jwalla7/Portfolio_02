@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useRef } from "react";
+import { forwardRef, useCallback, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { OverlayTriggerProps } from "./overlayTriggerProps";
 import { overlayTriggerStyles } from "./overlayTriggerStyles";
@@ -15,20 +15,55 @@ export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(({
      * States the display state of the overlay and its children using a boolean and mutable ref.
      */
     const displayStateRef = useRef<HTMLDivElement | null>(null);
+    /**
+     * sidebarRef
+     */
     const sidebarRef = useSidebar();
+    /**
+     * traceFocus
+     */
+    const traceFocus = {
+        /**
+         * openSidebar
+         */
+        openSidebar: useCallback(() => {
+            const { current: ref } = displayStateRef;
+            if (!ref) return;
+            ref.click();
+            ref.classList.add("visible");
+            ref.setAttribute("data-state", "open");
+            ref.ariaExpanded = "true";
+        }, [displayStateRef]),
+        /**
+         * traceMouseLeave
+         */
+        traceMouseLeave: useCallback(() => {
+            const { current: ref } = displayStateRef;
+            if (!ref) return;
+            ref.classList.remove("visible");
+            ref.classList.add("hidden");
+            ref.setAttribute("data-state", "closed");
+            ref.ariaExpanded = "false";
+        }, [displayStateRef]),
+    };
 
     return (
-        <NavigationMenu.Root className="w-screen h-[209.5vh]" delayDuration={0} orientation="vertical">
-            <NavigationMenu.Item className="w-screen h-full list-none">
-                <NavigationMenu.Trigger asChild>
-                    <div className={cn(overlayTriggerStyles({ triggerdiv: "inactive" }))} ref={ref} />
+        <NavigationMenu.Root className="w-screen h-auto" delayDuration={0} orientation="vertical" tabIndex={-1}>
+            <NavigationMenu.Item className="w-screen h-auto list-none" tabIndex={-1}>
+                <NavigationMenu.Trigger asChild tabIndex={0} className="outline-none h-auto">
+                    <div
+                        className={cn(overlayTriggerStyles({ triggerdiv: "inactive" }))}
+                        ref={displayStateRef}
+                        onFocus={() => traceFocus.openSidebar()}
+                    />
                 </NavigationMenu.Trigger>
-                <NavigationMenu.Content className={cn(className, "h-screen")}>
-                    <OverlayRoot overlayRef={displayStateRef} sidebarRef={sidebarRef}>
+                <NavigationMenu.Content className={cn(className, "h-auto")}>
+                    <OverlayRoot overlayRef={displayStateRef} sidebarRef={sidebarRef} ref={ref}>
                         {children}
                     </OverlayRoot>
                 </NavigationMenu.Content>
             </NavigationMenu.Item>
+            <NavigationMenu.Indicator></NavigationMenu.Indicator>
         </NavigationMenu.Root>
     );
 });

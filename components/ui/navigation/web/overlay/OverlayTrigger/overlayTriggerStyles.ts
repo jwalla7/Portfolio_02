@@ -21,7 +21,7 @@ export const overlayTriggerStyles = cva(
         variants: {
             triggerdiv: {
                 active: `
-                max-h-fit
+                max-h-screen
                 `,
                 inactive: `
                 h-full

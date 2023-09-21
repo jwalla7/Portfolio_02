@@ -18,7 +18,7 @@ export const useSidebar = (): RefObject<useSideBarProps> => {
     useEffect(() => {
         //TODO: complete implementation
         if (ref.current) ref.current?.toggleTracker();
-        // console.log("ref: ", ref.current?.divRef?.current?.style.display);
+        console.log("SIDEref: ", ref.current?.divRef?.current?.style.display);
     }, [ref]);
 
     return ref;

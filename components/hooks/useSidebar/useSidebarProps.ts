@@ -1,4 +1,4 @@
-import { MutableRefObject, RefObject } from "react";
+import { MutableRefObject } from "react";
 
 export interface useSideBarProps {
     toggleTracker: () => void;

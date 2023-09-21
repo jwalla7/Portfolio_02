@@ -2,6 +2,7 @@
 
 /**
  * @description
+ *
  * Determines which version of background image to display based on browser theme.
  *
  * Different images based on the current theme may cause a hydration mismatch problem with next / image.

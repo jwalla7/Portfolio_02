@@ -49,8 +49,8 @@ export function useMouseMove({ buttonRef, attributeRef, childrenRef, traceChildr
                 if (traceChildren && ref instanceof HTMLElement) {
                     Array.from(ref.children).forEach((child: Element) => {
                         if (child instanceof HTMLElement) {
-                            child.style.setProperty("--x", `${x}px`);
-                            child.style.setProperty("--y", `${y}px`);
+                            child.style.setProperty("--x-mouse", `${x}px`);
+                            child.style.setProperty("--y-mouse", `${y}px`);
                         }
                     });
                 }

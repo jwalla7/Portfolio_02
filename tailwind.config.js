@@ -11,6 +11,7 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    mode: "jit",
     darkMode: ["class"],
     content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./components/ui/**/*.{ts,tsx}", "./content/**/*.{md,mdx}"],
 
@@ -151,5 +152,5 @@ module.exports = {
     corePlugins: {
         preflight: false,
     },
-    plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+    plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), require("@kamona/tailwindcss-perspective")],
 };

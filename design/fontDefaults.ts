@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 
 /**
  * next/font will automatically optimize fonts (including custom)
@@ -22,10 +22,10 @@ export const inter = Inter({
 //     variable: "--font-roboto-light",
 // });
 
-export const robotoRegular = localFont({
-    src: "../public/fonts/Roboto-Regular.ttf",
-    variable: "--font-roboto-regular",
-});
+// export const robotoRegular = localFont({
+//     src: "../public/fonts/Roboto-Regular.ttf",
+//     variable: "--font-roboto-regular",
+// });
 
 // export const robotoMedium = localFont({
 //     src: "../public/fonts/Roboto-Medium.ttf",

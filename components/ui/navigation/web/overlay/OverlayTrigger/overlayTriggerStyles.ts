@@ -13,7 +13,6 @@ export const overlayTriggerStyles = cva(
     top-0
     left-0
     w-[21.37vw]
-    bg-none
     animate-slideRightAndFade
     z-2
     `,
@@ -24,6 +23,7 @@ export const overlayTriggerStyles = cva(
                 max-h-screen
                 `,
                 inactive: `
+                absolute
                 h-full
                 `,
             },

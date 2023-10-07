@@ -5,42 +5,46 @@ export const cardStyles = cva(
 `,
     {
         variants: {
-            root: {
-                default: `
-            data-[__card-root__]
-            box-border
-            flex
-            justify-center
-            items-start
-            w-[95.548vw]
-            h-[85.831vh]
-            overflow-hidden
-            gap-x-[1.319vw]
-            gap-y-[2.353vh]
-            rounded-[42.4px]
-            m-[2%]
-
-            drop-shadow-[0_23.251039505004883px_29.000864028930664px_rgba(0,0,0,0.05)]
-            `,
-            },
             size: {
                 sm: ``,
-                md: ``,
-                lg: ``,
+                md: `w-[25.146vw]`,
+                lg: `w-[42.616vw]`,
             },
             position: {
                 left: `
-            box-border
-            flex
-            justify-center
-            items-start
-            self-stretch
-            grow-0
-            shrink-0
-            gap-[13.248456001281738px]
-            `,
-                center: ``,
-                right: ``,
+                `,
+                center: `
+                data-[__card-center__]
+                self-stretch
+                py-[38.42px]
+                justify-center
+                items-start
+                gap-[13.25px]
+                flex
+                `,
+                right: `
+                data-[__card-right__]
+                self-stretch
+                justify-center
+                items-start
+                gap-[13.25px]
+                flex
+                perspective-10
+                `,
+            },
+            container: {
+                outer: `
+                    data-[__card-content-outer__] w-[25.146vw] self-stretch bg-neutral-50 bg-opacity-10 rounded-[42.40px] shadow-[inset_1px_2px_4px_0_rgba(0,0,0,0.05)] dark:shadow-[inset_1px_2px_4px_0_rgba(255,255,255,0.05)] backdrop-blur-[259.67px] transform-style-3d -rotate-y-15
+                    `,
+                inner: `
+                    data-[__card-content-inner__]
+                    `,
+                center_outer: `
+                data-[__card-content-center-root__] grow shrink basis-0 self-stretch rounded-[42.40px] flex-col justify-start items-start gap-[13px] inline-flex
+                `,
+                center_inner: `
+                data-[__card-content-center__] self-stretch grow shrink basis-0 opacity-80 bg-neutral-50 bg-opacity-10 rounded-[42.40px] shadow-[inset_1px_2px_4px_0_rgba(0,0,0,0.05)] dark:shadow-[inset_1px_2px_4px_0_rgba(255,255,255,0.05)] backdrop-blur-[259.67px]
+                `,
             },
         },
     }

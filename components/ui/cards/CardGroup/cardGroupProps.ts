@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export interface CardGroupProps {
     children?: ReactNode;
+    isCard?: boolean;
 }

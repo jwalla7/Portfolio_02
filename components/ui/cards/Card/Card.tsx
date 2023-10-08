@@ -1,3 +1,8 @@
+/**
+ * @description
+ * The Card component renders a card with customizable size and position.
+ */
+
 import { type ReactElement, forwardRef } from "react";
 import { CardProps } from "./cardProps";
 import { cn } from "@/lib/utils";

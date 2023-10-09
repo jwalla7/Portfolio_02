@@ -18,7 +18,7 @@ export const SphereScene = (): ReactElement => {
             <spotLight intensity={0.9} position={[-10, 20, 40]} castShadow={true} color="#fafafa" />
             <directionalLight
                 color="#fafafa"
-                position={[15, 15, 15]}
+                position={[0, 50, 100]}
                 castShadow
                 shadow-mapSize-width={2048}
                 shadow-mapSize-height={2048}

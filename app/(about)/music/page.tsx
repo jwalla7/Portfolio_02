@@ -14,7 +14,9 @@ export default function MusicPage() {
             </div>
             <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" />
             <CardGroup>
-                <Card size="lg" position="center" />
+                <Card size="lg" position="center">
+                    {/* TODO: Card Content */}
+                </Card>
                 <Card size="md" position="right" />
             </CardGroup>
             <OverlayTrigger />

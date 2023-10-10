@@ -40,7 +40,7 @@ export const cardStyles = cva(
                     data-[__card-content-inner__]
                     `,
                 center_outer: `
-                data-[__card-content-center-outer__] grow shrink basis-0 self-stretch rounded-[42.40px] flex-col justify-start items-start gap-[13px] inline-flex
+                data-[__card-content-center-outer__] grow shrink basis-0 self-stretch rounded-[42.40px] flex-col justify-start items-start gap-[13px] inline-flex bg-transparent
                 `,
                 center_inner: `
                 data-[__card-content-center-inner__] self-stretch grow shrink basis-0 opacity-80 bg-neutral-50 bg-opacity-10 rounded-[42.40px] shadow-[inset_1px_2px_4px_0_rgba(0,0,0,0.05)] dark:shadow-[inset_1px_2px_4px_0_rgba(255,255,255,0.05)] backdrop-blur-[259.67px]

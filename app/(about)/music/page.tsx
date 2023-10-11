@@ -10,7 +10,7 @@ import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/Pla
 export default function MusicPage() {
     return (
         <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
-            <div className="absolute mt-[16%] ml-[36%] w-[21vw] h-[34vh] bg-transparent">
+            <div className="absolute mt-[15%] ml-[35%] w-[21vw] h-[34vh] bg-transparent">
                 <SphereCamera />
             </div>
             <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" />

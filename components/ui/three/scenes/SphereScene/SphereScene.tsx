@@ -14,14 +14,14 @@ export const SphereScene = (): ReactElement => {
 
     return (
         <>
-            <ambientLight intensity={0.9} color="#191919" />
-            <spotLight intensity={0.9} position={[-10, 20, 40]} castShadow={true} color="#fafafa" />
+            <ambientLight intensity={0.9} color="#ffffff" />
+            <spotLight intensity={0.9} position={[-10, 20, 40]} castShadow={true} color="#ffffff" />
             <directionalLight
-                color="#fafafa"
+                color="#ffffff"
                 position={[0, 50, 100]}
                 castShadow
-                shadow-mapSize-width={2048}
-                shadow-mapSize-height={2048}
+                shadow-mapSize-width={4096}
+                shadow-mapSize-height={4096}
             />
             <SphereModel ref={sphereRef} />
         </>

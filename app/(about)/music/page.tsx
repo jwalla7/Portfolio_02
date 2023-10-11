@@ -5,6 +5,7 @@ import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTr
 import { CardGroup } from "@/components/ui/cards/CardGroup/CardGroup";
 import { Card } from "@/components/ui/cards/Card/Card";
 import { SphereCamera } from "@/components/ui/three/cameras/SphereCamera/SphereCamera";
+import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/PlaybackCard";
 
 export default function MusicPage() {
     return (
@@ -14,7 +15,9 @@ export default function MusicPage() {
             </div>
             <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" />
             <CardGroup>
-                <Card size="lg" position="center" />
+                <Card size="lg" position="center">
+                    <PlaybackCard />
+                </Card>
                 <Card size="md" position="right" />
             </CardGroup>
             <OverlayTrigger />

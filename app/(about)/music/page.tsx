@@ -5,17 +5,18 @@ import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTr
 import { CardGroup } from "@/components/ui/cards/CardGroup/CardGroup";
 import { Card } from "@/components/ui/cards/Card/Card";
 import { SphereCamera } from "@/components/ui/three/cameras/SphereCamera/SphereCamera";
+import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/PlaybackCard";
 
 export default function MusicPage() {
     return (
         <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
-            <div className="absolute mt-[13%] ml-[34%] w-[21vw] h-[34vh] bg-transparent">
+            <div className="absolute mt-[16%] ml-[36%] w-[21vw] h-[34vh] bg-transparent">
                 <SphereCamera />
             </div>
             <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" />
             <CardGroup>
                 <Card size="lg" position="center">
-                    {/* TODO: Card Content */}
+                    <PlaybackCard />
                 </Card>
                 <Card size="md" position="right" />
             </CardGroup>

@@ -42,7 +42,7 @@ export const IconArrowPlay = memo<
             aria-hidden="true"
             focusable="false"
             data-prefix="fab"
-            data-icon="phosphorIcon-playArrow"
+            data-icon="phosphorIcon-arrowPlay"
             viewBox="0 0 256 256"
             className={cn(variants, props.className)}
             {...props}

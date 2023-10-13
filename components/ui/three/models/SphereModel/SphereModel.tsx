@@ -14,13 +14,13 @@
 import { ReactElement, forwardRef, useMemo, useRef } from "react";
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { GLTFResult, SphereModelProps } from "./sphereModelProps";
-import { ShaderMaterial } from "three";
+import { MeshBasicMaterial, ShaderMaterial } from "three";
 
 export const SphereModel = forwardRef<THREE.Group, SphereModelProps>(({ ...props }, ref): ReactElement => {
     const group = useRef<THREE.Group>(null);
     const { nodes, materials, animations } = useGLTF("/glb/sphere_morph.glb") as GLTFResult;
     const { actions } = useAnimations(nodes["0"].animations, group);
-    // const redMaterial = useMemo(() => new MeshBasicMaterial({ color: "#939892" }), []);
+    const redMaterial = useMemo(() => new MeshBasicMaterial({ color: "#939892" }), []);
     const gradientMaterial = useMemo(() => {
         return new ShaderMaterial({
             vertexShader: `

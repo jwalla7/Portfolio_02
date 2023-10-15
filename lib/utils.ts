@@ -22,6 +22,6 @@ export function avg(arr: Uint8Array): number {
     return total / arr.length;
 }
 
-export function max(arr: number[]): number {
+export function max(arr: Uint8Array): number {
     return arr.reduce((a, b) => Math.max(a, b));
 }

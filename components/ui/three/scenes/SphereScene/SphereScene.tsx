@@ -1,74 +1,48 @@
-import { useFrame } from "@react-three/fiber";
-import { ReactElement, useEffect, useRef, useState } from "react";
-import { SphereModel } from "../../models/SphereModel/SphereModel";
-import { avg } from "@/lib/utils";
-import * as THREE from "three";
-import { setSphereMorph } from "../..";
+import { ReactElement, useRef } from "react";
 import { SphereAudioRenderProps } from "../../renderers/SphereAudioRender/sphereAudioRenderProps";
+import useAudioAnalyzer from "@/components/hooks/useAudioAnalyzer/useAudioAnalyzer";
+import { avg } from "@/lib/utils";
+import { useFrame } from "@react-three/fiber";
+import { Group, Mesh } from "three";
+import { setSphereMorph } from "../..";
+import { SphereModel } from "../../models/SphereModel/SphereModel";
 
 export const SphereScene = ({ audioSrc }: SphereAudioRenderProps): ReactElement => {
-    // const sphereRef = useRef<THREE.Group | null>(null);
-    // useFrame(() => {
-    //     const { current: group } = sphereRef;
-    //     if (group) {
-    //         group.rotation.x += 0.01;
-    //         group.rotation.y += 0.01;
-    //     }
-    // });
-
-    const groupRef = useRef<THREE.Group | null>(null);
-    const sphereRef = useRef<THREE.Mesh>();
-    // const { camera, renderer } = useThree();
-    const analyserRef = useRef<THREE.AudioAnalyser>();
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        if (audioSrc) {
-            try {
-                const audio = new Audio(audioSrc);
-                const context = new (window.AudioContext || (window as any).webkitAudioContext)();
-                const src = context.createMediaElementSource(audio);
-                const analyser = context.createAnalyser();
-                src.connect(analyser);
-                analyser.connect(context.destination);
-                analyser.fftSize = 512;
-
-                const listener = new THREE.AudioListener();
-                const threeAudio = new THREE.Audio(listener);
-                threeAudio.setMediaElementSource(audio); // Link the HTML audio element with the THREE.Audio object
-                analyserRef.current = new THREE.AudioAnalyser(threeAudio, 32);
-
-                // Start playing the audio
-                audio.play();
-            } catch (e: any) {
-                setError(`Error with AudioContext: ${e.message}`);
-            }
-        }
-    }, [audioSrc]);
+    const groupRef = useRef<Group | null>(null);
+    const sphereRef = useRef<Mesh>(null);
+    const { analyser, error } = useAudioAnalyzer(audioSrc);
 
     useFrame(() => {
-        if (analyserRef.current && groupRef.current && sphereRef.current) {
-            const frequencyData = analyserRef.current.getFrequencyData();
-            const lowerHalfArray = frequencyData.slice(0, frequencyData.length / 2);
-            const upperHalfArray = frequencyData.slice(frequencyData.length / 2, frequencyData.length);
-            const overallAvg = avg(frequencyData);
-            const lowerAvg = avg(lowerHalfArray);
-            const upperAvg = avg(upperHalfArray);
+        if (analyser && sphereRef.current) {
+            const frequencyData = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(frequencyData);
+            if (sphereRef.current) {
+                const lowerHalfArray = frequencyData.slice(0, frequencyData.length / 2);
+                const upperHalfArray = frequencyData.slice(frequencyData.length / 2, frequencyData.length);
 
-            setSphereMorph(sphereRef.current, lowerAvg, upperAvg);
+                const lowerAvg = avg(lowerHalfArray);
+                const upperAvg = avg(upperHalfArray);
 
-            groupRef.current.rotation.y += 0.005;
+                console.log("Lower Average:", lowerAvg);
+                console.log("Upper Average:", upperAvg);
+
+                setSphereMorph(sphereRef.current, lowerAvg, upperAvg);
+            }
+
+            if (groupRef.current) {
+                groupRef.current.rotation.y += 0.005;
+            }
         }
     });
 
-    // if (error) {
-    // return <className="error-message">{error}</className=>;
-    // }
+    if (error) {
+        console.log(error);
+    }
 
     return (
         <>
-            <ambientLight intensity={0.9} color="#ffffff" />
-            <spotLight intensity={0.9} position={[-10, 20, 40]} castShadow={true} color="#ffffff" />
+            <ambientLight intensity={0.5} color="#ffffff" />
+            <spotLight position={[-10, 40, 20]} angle={0.3} intensity={0.9} castShadow={true} color="#ffffff" />
             <directionalLight
                 color="#ffffff"
                 position={[0, 50, 100]}
@@ -76,7 +50,9 @@ export const SphereScene = ({ audioSrc }: SphereAudioRenderProps): ReactElement 
                 shadow-mapSize-width={4096}
                 shadow-mapSize-height={4096}
             />
-            <SphereModel ref={groupRef} />
+            <group ref={groupRef} dispose={null}>
+                <SphereModel sphereRefPass={sphereRef} />
+            </group>
         </>
     );
 };

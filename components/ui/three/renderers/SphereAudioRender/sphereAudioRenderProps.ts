@@ -1,3 +1,3 @@
 export interface SphereAudioRenderProps {
-    audioSrc: string | null;
+    audioSrc: string | any;
 }

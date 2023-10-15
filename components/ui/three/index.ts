@@ -1,52 +1,57 @@
 import { createNoise3D } from "simplex-noise";
-import * as THREE from "three";
+import { Mesh, Material, Vector3, BufferGeometry, Box3, BufferAttribute, MathUtils } from "three";
 
 // Audio Utils
-export function setSphereMorph(mesh: THREE.Mesh, bassFr: number, treFr: number) {
+export function setSphereMorph(mesh: Mesh, bassFr: number, treFr: number) {
     const noise = createNoise3D();
-    const geometry = mesh.geometry as THREE.BufferGeometry;
-    const positionAttribute = geometry.getAttribute("position");
+    const geometry = mesh.geometry as BufferGeometry;
+    const positionAttribute = geometry.attributes.position;
 
-    if (!positionAttribute) {
-        console.error("Position attribute is missing from the geometry");
+    if (!(positionAttribute instanceof BufferAttribute)) {
+        console.error("Position attribute is not a BufferAttribute or is missing from the geometry");
+        return;
+    }
+
+    if (!(mesh.geometry instanceof BufferGeometry)) {
+        console.error("Mesh geometry is not a BufferGeometry.");
         return;
     }
 
     const positionsArray = positionAttribute.array as Float32Array;
 
-    const offset: number = (mesh.geometry as THREE.IcosahedronGeometry).parameters.radius;
-    const amp = 7;
+    // Calculate the offset using bounding box
+    const boundingBox = new Box3().setFromBufferAttribute(positionAttribute);
+    const offset = boundingBox.getCenter(new Vector3()).length();
+
+    const amp = 4;
     const time: number = window.performance.now();
     const rf = 0.00001;
 
+    // Define min and max distances for clamping
+    const minDistance = offset - 5;
+    const maxDistance = offset + 5;
+
     for (let i = 0; i < positionsArray.length; i += 3) {
-        const x = positionsArray[i];
-        const y = positionsArray[i + 1];
-        const z = positionsArray[i + 2];
+        const vertex = new Vector3(positionsArray[i], positionsArray[i + 1], positionsArray[i + 2]);
+        vertex.normalize();
 
-        if (x !== undefined && y !== undefined && z !== undefined) {
-            const length = Math.sqrt(x * x + y * y + z * z);
-            const normalizedX = x / length;
-            const normalizedY = y / length;
-            const normalizedZ = z / length;
+        const noiseValue = noise(vertex.x + time * rf, vertex.y + time * rf, vertex.z + time * rf);
+        const distance = MathUtils.clamp(offset + bassFr + noiseValue * amp * treFr * 2, minDistance, maxDistance);
 
-            const distance =
-                offset +
-                bassFr +
-                noise(normalizedX + time * rf * 7, normalizedY + time * rf * 8, normalizedZ + time * rf * 9) * amp * treFr;
+        vertex.multiplyScalar(distance);
 
-            positionsArray[i] = normalizedX * distance;
-            positionsArray[i + 1] = normalizedY * distance;
-            positionsArray[i + 2] = normalizedZ * distance;
-        }
+        positionsArray[i] = vertex.x;
+        positionsArray[i + 1] = vertex.y;
+        positionsArray[i + 2] = vertex.z;
     }
 
-    if (geometry.attributes.position !== undefined) {
-        geometry.attributes.position.needsUpdate = true;
-        geometry.computeVertexNormals();
-    }
+    positionAttribute.needsUpdate = true;
+    geometry.computeVertexNormals();
 
-    if (mesh.material instanceof THREE.Material) {
+    // Only need one check for Material
+    if (mesh.material instanceof Material) {
         mesh.material.needsUpdate = true;
+    } else {
+        console.error("Mesh material is not a Material.");
     }
 }

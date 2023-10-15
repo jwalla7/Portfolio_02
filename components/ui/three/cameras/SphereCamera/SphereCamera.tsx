@@ -2,7 +2,6 @@ import { Canvas } from "@react-three/fiber";
 import { SphereScene } from "../../scenes/SphereScene/SphereScene";
 import { ReactElement } from "react";
 import { OrbitControls } from "@react-three/drei";
-import { SphereAudioRender } from "../../renderers/SphereAudioRender/SphereAudioRender";
 
 export const SphereCamera = ({ audioSrc }: any): ReactElement => {
     return (

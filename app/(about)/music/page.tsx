@@ -8,6 +8,7 @@ import { SphereCamera } from "@/components/ui/three/cameras/SphereCamera/SphereC
 import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/PlaybackCard";
 
 export default function MusicPage() {
+    const audioSrc = "/audio/smpl0002.mp3";
     return (
         <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
             <div className="absolute mt-[15%] ml-[35%] w-[21vw] h-[34vh] bg-transparent">

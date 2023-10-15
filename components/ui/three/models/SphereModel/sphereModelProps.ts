@@ -21,4 +21,3 @@ export type GLTFActions = {
     Animation: AnimationClip;
 };
 export type ActionName = "Animation";
-// export type GLTFActions = Record<ActionName, THREE.AnimationClip[]>;

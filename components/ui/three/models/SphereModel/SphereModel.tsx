@@ -18,13 +18,6 @@ import { MeshBasicMaterial, ShaderMaterial } from "three";
 
 export const SphereModel = forwardRef<THREE.Group, SphereModelProps>(({ sphereRefPass, ...props }, ref): ReactElement => {
     const { nodes, materials } = useGLTF("/glb/sphere_morph.glb") as GLTFResult;
-    useEffect(() => {
-        const mesh = nodes["0"];
-        if (!mesh.morphTargetInfluences || !mesh.morphTargetDictionary) {
-            console.error("The loaded model does not have morph target influences or dictionary.");
-        }
-    }, [nodes]);
-
     const redMaterial = useMemo(() => new MeshBasicMaterial({ color: "#939892" }), []);
     const gradientMaterial = useMemo(() => {
         return new ShaderMaterial({

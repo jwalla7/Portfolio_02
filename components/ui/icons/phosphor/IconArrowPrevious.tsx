@@ -8,11 +8,11 @@ import { SVGProps, memo } from "react";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
 
-export const IconArrowPlay = memo<
+export const IconArrowPrevious = memo<
     React.ComponentProps<"svg"> & {
         iconDirection: IconDirection;
     }
->(function IconArrowPlay(
+>(function IconArrowPrevious(
     /**
      * Set default value for iconDirection
      */
@@ -42,7 +42,7 @@ export const IconArrowPlay = memo<
             aria-hidden="true"
             focusable="false"
             data-prefix="fab"
-            data-icon="phosphorIcon-arrowPlay"
+            data-icon="phosphorIcon-arrowPrevious"
             viewBox="0 0 256 256"
             className={cn(variants, props.className)}
             {...props}
@@ -50,7 +50,7 @@ export const IconArrowPlay = memo<
             <path
                 fill={fill}
                 fillOpacity={fillOpacity}
-                d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"
+                d="M232,71.84V184.16a15.92,15.92,0,0,1-24.48,13.34L128,146.86v37.3a15.92,15.92,0,0,1-24.48,13.34L15.33,141.34a15.8,15.8,0,0,1,0-26.68L103.52,58.5A15.91,15.91,0,0,1,128,71.84v37.3L207.52,58.5A15.91,15.91,0,0,1,232,71.84Z"
             ></path>
         </svg>
     );

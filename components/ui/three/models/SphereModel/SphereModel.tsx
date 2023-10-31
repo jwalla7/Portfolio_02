@@ -15,6 +15,7 @@ import { ReactElement, forwardRef, useEffect, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTFResult, SphereModelProps } from "./sphereModelProps";
 import { MeshBasicMaterial, ShaderMaterial } from "three";
+import { setSphereMorph } from "../..";
 
 export const SphereModel = forwardRef<THREE.Group, SphereModelProps>(({ sphereRefPass, ...props }, ref): ReactElement => {
     const { nodes, materials } = useGLTF("/glb/sphere_morph.glb") as GLTFResult;

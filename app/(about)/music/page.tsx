@@ -11,13 +11,13 @@ export default function MusicPage() {
     const audioSrc = "/audio/smpl0002.mp3";
     return (
         <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
-            <div className="absolute mt-[15%] ml-[35%] w-[21vw] h-[34vh] bg-transparent">
-                <SphereCamera audioSrc={audioSrc} />
+            <div className="absolute mt-[15%] ml-[35%] w-[calc(21vw)] h-[calc(34vh)] bg-transparent">
+                <SphereCamera />
             </div>
             <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" />
             <CardGroup>
                 <Card size="lg" position="center">
-                    <PlaybackCard />
+                    <PlaybackCard audioSrc={audioSrc} />
                 </Card>
                 <Card size="md" position="right" />
             </CardGroup>

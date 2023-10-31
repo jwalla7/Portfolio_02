@@ -36,6 +36,7 @@ export function setSphereMorph(mesh: Mesh, bassFr: number, treFr: number) {
         vertex.normalize();
 
         const noiseValue = noise(vertex.x + time * rf, vertex.y + time * rf, vertex.z + time * rf);
+        // console.log("bassFr: ", bassFr, "treFr: ", treFr, "nosieVal: ", noiseValue);
         const distance = MathUtils.clamp(offset + bassFr + noiseValue * amp * treFr * 2, minDistance, maxDistance);
 
         vertex.multiplyScalar(distance);
@@ -54,4 +55,32 @@ export function setSphereMorph(mesh: Mesh, bassFr: number, treFr: number) {
     } else {
         console.error("Mesh material is not a Material.");
     }
+}
+
+export function makeRoughBall(mesh: Mesh<BufferGeometry>, bassFr: number, treFr: number): void {
+    const positionAttribute = mesh.geometry.getAttribute("position");
+    if (!positionAttribute || !(positionAttribute.array instanceof Float32Array)) {
+        throw new Error("Position attribute not found or incorrect type in the geometry.");
+    }
+
+    const positionsArray = positionAttribute.array;
+    const noise = createNoise3D();
+    const amp = 7;
+    const time = window.performance.now();
+    const rf = 0.00001;
+
+    for (let i = 0; i < positionsArray.length; i += 3) {
+        const vertex = new Vector3(positionsArray[i], positionsArray[i + 1], positionsArray[i + 2]);
+        vertex.normalize();
+        const noiseFactor = noise(vertex.x + time * rf * 7, vertex.y + time * rf * 8, vertex.z + time * rf * 9);
+        const distance = bassFr + noiseFactor * amp * treFr;
+        vertex.multiplyScalar(distance);
+        positionsArray[i] = vertex.x;
+        positionsArray[i + 1] = vertex.y;
+        positionsArray[i + 2] = vertex.z;
+    }
+
+    positionAttribute.needsUpdate = true;
+    positionAttribute.normalized = true;
+    mesh.geometry.computeVertexNormals();
 }

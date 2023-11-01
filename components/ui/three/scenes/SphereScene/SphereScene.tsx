@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { Group, IcosahedronGeometry, Mesh, MeshLambertMaterial } from "three";
 import { makeRoughBall } from "../..";
 import { Icosahedron } from "@react-three/drei";
-import { useAudioContext } from "@/components/context";
+import { useAudioContext } from "@/components/context/audio/AudioContext";
 
 export const SphereScene = (): ReactElement => {
     const groupRef = useRef<Group | null>(null);

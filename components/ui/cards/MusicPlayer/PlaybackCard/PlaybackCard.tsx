@@ -6,12 +6,10 @@ import { robotoRegular } from "@/design/fontDefaults";
 import { IconArrowNext } from "@/components/ui/icons/phosphor/IconArrowNext";
 import { IconArrowPrevious } from "@/components/ui/icons/phosphor/IconArrowPrevious";
 import { playCardStyles } from "./playbackCardStyles";
-import { useAudio } from "@/components/hooks/useAudio/useAudio";
 import { IconArrowPause } from "@/components/ui/icons/phosphor/IconArrowPause";
-import { useAudioContext } from "@/components/context";
+import { useAudioContext } from "@/components/context/audio/AudioContext";
 // TODO: Add styles using cva to PlaybackCard
 export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ children }, ref) => {
-    // const { toggleAudio, audioIsPlaying } = useAudio();
     const { toggleAudio, audioIsPlaying } = useAudioContext();
     return (
         <div className="PlaybackPlayerRootContainer w-[42.648vw] h-[77.847vh] flex-col justify-center items-center gap-[10.09px] inline-flex">

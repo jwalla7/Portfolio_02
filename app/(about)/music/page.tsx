@@ -6,10 +6,9 @@ import { CardGroup } from "@/components/ui/cards/CardGroup/CardGroup";
 import { Card } from "@/components/ui/cards/Card/Card";
 import { SphereCamera } from "@/components/ui/three/cameras/SphereCamera/SphereCamera";
 import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/PlaybackCard";
-import { AudioProvider } from "@/components/context";
+import { AudioProvider } from "@/components/context/audio/AudioProvider";
 
 export default function MusicPage() {
-    // const audioSrc = "/audio/smpl0002.mp3";
     return (
         <AudioProvider>
             <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">

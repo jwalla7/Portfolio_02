@@ -42,7 +42,7 @@ export function useAudio(): useAudioProps {
                 if (!audioContextRef.current) {
                     createAudioContext();
                 }
-                setAudioIsPlaying(!isPlaying);
+                setAudioIsPlaying(isPlaying);
                 try {
                     await audio.play();
                     if (audioContextRef.current) {
@@ -56,7 +56,7 @@ export function useAudio(): useAudioProps {
                     }
                 }
             } else {
-                setAudioIsPlaying(!isPlaying);
+                setAudioIsPlaying(isPlaying);
                 audio.pause();
                 if (audioContextRef.current) {
                     await audioContextRef.current.suspend();

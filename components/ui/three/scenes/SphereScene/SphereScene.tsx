@@ -2,14 +2,14 @@ import { ReactElement, useEffect, useRef, useState } from "react";
 import { avg, max, modulate } from "@/lib/utils";
 import { useFrame } from "@react-three/fiber";
 import { Group, IcosahedronGeometry, Mesh, MeshLambertMaterial } from "three";
-import { makeRoughBall, setSphereMorph } from "../..";
-import { useAudio } from "@/components/hooks/useAudio/useAudio";
+import { makeRoughBall } from "../..";
 import { Icosahedron } from "@react-three/drei";
+import { useAudioContext } from "@/components/context";
 
 export const SphereScene = (): ReactElement => {
     const groupRef = useRef<Group | null>(null);
     const sphereRef = useRef<Mesh | null>(null);
-    const { analyser, audioIsPlaying } = useAudio();
+    const { analyser, audioIsPlaying, toggleAudio } = useAudioContext();
     useFrame(() => {
         // if (sphereRef.current) console.log("sphereRef.current true?: ", sphereRef.current)
         // if (!analyser) console.log("NOanalyser: ", analyser)
@@ -54,22 +54,50 @@ export const SphereScene = (): ReactElement => {
         }
     });
 
+    // useEffect(() => {
+    //     if (analyser) {
+
+    //     const icosahedronGeometry = new IcosahedronGeometry(10, 4);
+    //     const lambertMaterial = new MeshLambertMaterial({
+    //         color: 0xfafafa,
+    //         wireframe: false,
+    //     });
+    //     const ball = new Mesh(icosahedronGeometry, lambertMaterial);
+    //     ball.position.set(0, 0, 0);
+    //     sphereRef.current = ball;
+
+    //     if (groupRef.current) {
+    //         groupRef.current.add(ball);
+    //     }
+    // } else {
+    //     console.log("null analyser, sorry");
+    // }
+    // }, [audioIsPlaying, analyser]);
+
     useEffect(() => {
-        console.log("USEEFanalyser: ", analyser);
-        const icosahedronGeometry = new IcosahedronGeometry(10, 4);
-        const lambertMaterial = new MeshLambertMaterial({
-            color: 0xfafafa,
-            wireframe: false,
-        });
+        if (analyser) {
+            console.log("USEEFanalyser: ", analyser);
+            const icosahedronGeometry = new IcosahedronGeometry(10, 4);
+            const lambertMaterial = new MeshLambertMaterial({
+                color: 0xfafafa,
+                wireframe: false,
+            });
 
-        const ball = new Mesh(icosahedronGeometry, lambertMaterial);
-        ball.position.set(0, 0, 0);
-        sphereRef.current = ball;
+            const ball = new Mesh(icosahedronGeometry, lambertMaterial);
+            ball.position.set(0, 0, 0);
+            sphereRef.current = ball;
 
-        if (groupRef.current) {
-            groupRef.current.add(ball);
+            if (groupRef.current) {
+                groupRef.current.add(ball);
+            }
+        } else {
+            console.log("Analyser is null");
         }
-    }, [audioIsPlaying]);
+    }, [audioIsPlaying, analyser]); // dependency on analyser
+
+    useEffect(() => {
+        console.log("IS AUDIO PLAYING: ", audioIsPlaying);
+    }, [audioIsPlaying, analyser]);
 
     return (
         <>

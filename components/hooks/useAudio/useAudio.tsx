@@ -42,7 +42,7 @@ export function useAudio(): useAudioProps {
                 if (!audioContextRef.current) {
                     createAudioContext();
                 }
-                setAudioIsPlaying(isPlaying);
+                setAudioIsPlaying(!isPlaying);
                 try {
                     await audio.play();
                     if (audioContextRef.current) {
@@ -56,7 +56,7 @@ export function useAudio(): useAudioProps {
                     }
                 }
             } else {
-                setAudioIsPlaying(isPlaying);
+                setAudioIsPlaying(!isPlaying);
                 audio.pause();
                 if (audioContextRef.current) {
                     await audioContextRef.current.suspend();
@@ -70,61 +70,6 @@ export function useAudio(): useAudioProps {
             console.error("Error toggling audio", e);
         }
     }, [createAudioContext]);
-    // console.log("AUDIOanalyser: ", analyser)
-
-    // useEffect(() => {
-    //     if (audioRef.current && audioContextRef.current) return;
-
-    //     audioRef.current = new Audio(audioSrc);
-    //     audioRef.current.addEventListener("ended", () => setAudioIsPlaying(false));
-
-    //     return () => {
-    //         if (audioRef.current) {
-    //             audioRef.current.pause();
-    //             audioRef.current.removeEventListener("ended", () => setAudioIsPlaying(false));
-    //         }
-    //     };
-    // }, [createAudioContext]);
-
-    // const toggleAudio = useCallback(async () => {
-    //     const audio = audioRef.current;
-    //     if (!audio) return;
-
-    //     try {
-    //         const isPlaying = audio.paused || audio.ended;
-    //         if (isPlaying) {
-    //             if (!audioContextRef.current) {
-    //                 createAudioContext();
-    //             }
-    //             setAudioIsPlaying(isPlaying);
-    //             try {
-    //                 await audio.play();
-    //                 if (audioContextRef.current) {
-    //                     await audioContextRef.current.resume();
-    //                 }
-    //             } catch (error) {
-    //                 console.error("Error playing audio", error);
-    //                 if (audioContextRef.current && audioContextRef.current.state === "suspended") {
-    //                     await audioContextRef.current.resume();
-    //                     await audio.play();
-    //                     setAudioIsPlaying(isPlaying);
-    //                 }
-    //             }
-    //         } else {
-    //             setAudioIsPlaying(isPlaying);
-    //             audio.pause();
-    //             if (audioContextRef.current) {
-    //                 await audioContextRef.current.suspend();
-    //             }
-    //         }
-
-    //         // Log the audioContext state and isAudioPlaying state
-    //         console.log("audioContextState: ", audioContextRef.current?.state);
-    //         console.log("isAudioPlaying: ", audioIsPlaying);
-    //     } catch (e) {
-    //         console.error("Error toggling audio", e);
-    //     }
-    // }, [createAudioContext, audioIsPlaying]);
 
     useEffect(() => {
         if (audioRef.current && audioContextRef.current) return;

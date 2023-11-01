@@ -9,16 +9,13 @@ import { Icosahedron } from "@react-three/drei";
 export const SphereScene = (): ReactElement => {
     const groupRef = useRef<Group | null>(null);
     const sphereRef = useRef<Mesh | null>(null);
-    const { analyser, error, audioIsPlaying } = useAudio();
-
+    const { analyser, audioIsPlaying } = useAudio();
     useFrame(() => {
         // if (sphereRef.current) console.log("sphereRef.current true?: ", sphereRef.current)
-        // if (audioIsPlaying) console.log("audioIsPlaying true?: ", audioIsPlaying)
-        if (analyser && sphereRef.current && audioIsPlaying) {
+        // if (!analyser) console.log("NOanalyser: ", analyser)
+        if (analyser && sphereRef.current) {
             const frequencyData = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(frequencyData);
-
-            // console.log("frequencyData: ", frequencyData);
 
             // const halfLength = frequencyData.length / 2;
             // const lowerHalfArray = frequencyData.slice(0, halfLength);
@@ -45,6 +42,8 @@ export const SphereScene = (): ReactElement => {
                 const lowerMaxFr = lowerMax / lowerHalfArray.length;
                 const upperAvgFr = upperAvg / upperHalfArray.length;
 
+                console.log("LOWERMAX: ", lowerMaxFr, "UPPERAVG: ", upperAvgFr);
+
                 sphereRef.current.rotation.x += 0.001;
                 sphereRef.current.rotation.y += 0.003;
                 sphereRef.current.rotation.z += 0.005;
@@ -56,6 +55,7 @@ export const SphereScene = (): ReactElement => {
     });
 
     useEffect(() => {
+        console.log("USEEFanalyser: ", analyser);
         const icosahedronGeometry = new IcosahedronGeometry(10, 4);
         const lambertMaterial = new MeshLambertMaterial({
             color: 0xfafafa,
@@ -69,11 +69,7 @@ export const SphereScene = (): ReactElement => {
         if (groupRef.current) {
             groupRef.current.add(ball);
         }
-    }, []);
-
-    if (error) {
-        console.error(error);
-    }
+    }, [audioIsPlaying]);
 
     return (
         <>
@@ -87,7 +83,10 @@ export const SphereScene = (): ReactElement => {
                 shadow-mapSize-height={4096}
             />
             <group ref={groupRef}>
-                <Icosahedron ref={sphereRef} args={[10, 4]}>
+                <Icosahedron
+                    // ref={sphereRef}
+                    args={[10, 4]}
+                >
                     <meshLambertMaterial attach="material" color="black" wireframe />
                 </Icosahedron>
             </group>

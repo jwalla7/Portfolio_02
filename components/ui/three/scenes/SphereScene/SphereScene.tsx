@@ -4,8 +4,8 @@ import { Icosahedron } from "@react-three/drei";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
 import { getAVG, getMAX, getSphere, regulate } from "@/lib/audio";
 import { Group, IcosahedronGeometry, Mesh, MeshLambertMaterial } from "three";
-import { gradientMaterial } from "../../models";
 import { useTheme } from "next-themes";
+import { gradientMaterial } from "../../renderers";
 
 export const SphereScene = (): ReactElement => {
     const groupRef = useRef<Group>(null);

@@ -6,6 +6,7 @@
         "darkmode",
         "lightmode",
         "Overylay",
-        "webp"
+        "webp",
+        "wireframe"
     ]
 }

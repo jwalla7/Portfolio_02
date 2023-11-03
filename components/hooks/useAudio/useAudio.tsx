@@ -1,3 +1,12 @@
+/**
+ * @description
+ * Provides an easy way to control audio playback.
+ *
+ * It creates an AudioContext, connecting it to an HTMLAudioElement.
+ *
+ * It controls the audio playback, so that this logic can be reused across different components in the application.
+ */
+
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useAudioProps } from "./useAudioProps";
 
@@ -15,7 +24,19 @@ export function useAudio(): useAudioProps {
             const AudioContextClass = AudioContext || (window as any).webkitAudioContext;
             audioContextRef.current = new AudioContextClass();
             const src = audioContextRef.current.createMediaElementSource(audioRef.current);
+            /**
+             * AnalyserNode
+             *
+             * https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode
+             */
             const analyserNode = audioContextRef.current.createAnalyser();
+            /**
+             * smoothingTimeConstant
+             *
+             * https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/smoothingTimeConstant
+             */
+            analyserNode.smoothingTimeConstant = 0.55;
+
             src.connect(analyserNode);
             analyserNode.connect(audioContextRef.current.destination);
             analyserNode.fftSize = 512;

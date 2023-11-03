@@ -1,121 +1,95 @@
-import { ReactElement, useEffect, useRef, useState } from "react";
-import { avg, max, modulate } from "@/lib/utils";
+import { ReactElement, useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Group, IcosahedronGeometry, Mesh, MeshLambertMaterial } from "three";
-import { makeRoughBall } from "../..";
 import { Icosahedron } from "@react-three/drei";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
+import { getAVG, getMAX, getSphere, regulate } from "@/lib/audio";
+import { Group, IcosahedronGeometry, Mesh, MeshLambertMaterial } from "three";
+import { gradientMaterial } from "../../models";
 
 export const SphereScene = (): ReactElement => {
-    const groupRef = useRef<Group | null>(null);
+    const groupRef = useRef<Group>(null);
     const sphereRef = useRef<Mesh | null>(null);
-    const { analyser, audioIsPlaying, toggleAudio } = useAudioContext();
+    const { analyser, audioIsPlaying } = useAudioContext();
+
     useFrame(() => {
-        // if (sphereRef.current) console.log("sphereRef.current true?: ", sphereRef.current)
-        // if (!analyser) console.log("NOanalyser: ", analyser)
         if (analyser && sphereRef.current) {
             const frequencyData = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(frequencyData);
 
-            // const halfLength = frequencyData.length / 2;
-            // const lowerHalfArray = frequencyData.slice(0, halfLength);
-            // const upperHalfArray = frequencyData.slice(halfLength);
+            if (frequencyData.some((value) => value > 0)) {
+                const highLimit = frequencyData.length * 0.05;
+                const lowerFrequencies = frequencyData.slice(0, highLimit);
+                const upperFrequencies = frequencyData.slice(highLimit);
+                const maxLowerFrequency = getMAX(lowerFrequencies);
+                const avgUpperFrequency = getAVG(upperFrequencies);
+                const normalizedMaxLowerFrequency = maxLowerFrequency / lowerFrequencies.length;
+                const normalizedAvgUpperFrequency = avgUpperFrequency / upperFrequencies.length;
 
-            // const lowerMax = max(lowerHalfArray);
-            // const upperAvg = avg(upperHalfArray);
-            // const lowerMaxFr = lowerMax / lowerHalfArray.length;
-            // const upperAvgFr = upperAvg / upperHalfArray.length;
-
-            // sphereRef.current.rotation.x += 0.001;
-            // sphereRef.current.rotation.y += 0.003;
-            // sphereRef.current.rotation.z += 0.005;
-            // makeRoughBall(sphereRef.current, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 8), modulate(upperAvgFr, 0, 1, 0, 4));
-
-            if (frequencyData.some((value) => value !== 0)) {
-                // Audio is not paused, process frequency data
-                const halfLength = frequencyData.length / 2;
-                const lowerHalfArray = frequencyData.slice(0, halfLength);
-                const upperHalfArray = frequencyData.slice(halfLength);
-
-                const lowerMax = max(lowerHalfArray);
-                const upperAvg = avg(upperHalfArray);
-                const lowerMaxFr = lowerMax / lowerHalfArray.length;
-                const upperAvgFr = upperAvg / upperHalfArray.length;
-
-                console.log("LOWERMAX: ", lowerMaxFr, "UPPERAVG: ", upperAvgFr);
-
-                sphereRef.current.rotation.x += 0.001;
-                sphereRef.current.rotation.y += 0.003;
-                sphereRef.current.rotation.z += 0.005;
-                makeRoughBall(sphereRef.current, modulate(Math.pow(lowerMaxFr, 0.8), 0, 1, 0, 8), modulate(upperAvgFr, 0, 1, 0, 4));
-            } else {
-                // Audio is paused, skip processing
+                sphereRef.current.rotation.x += 0.0001;
+                sphereRef.current.rotation.y += 0.0005;
+                sphereRef.current.rotation.z += 0.0008;
+                getSphere(
+                    sphereRef.current,
+                    regulate(Math.pow(normalizedMaxLowerFrequency, 0.2), 0, 1, -1, 6),
+                    regulate(normalizedAvgUpperFrequency, 0, 8, 0, 4)
+                );
             }
         }
     });
 
-    // useEffect(() => {
-    //     if (analyser) {
-
-    //     const icosahedronGeometry = new IcosahedronGeometry(10, 4);
-    //     const lambertMaterial = new MeshLambertMaterial({
-    //         color: 0xfafafa,
-    //         wireframe: false,
-    //     });
-    //     const ball = new Mesh(icosahedronGeometry, lambertMaterial);
-    //     ball.position.set(0, 0, 0);
-    //     sphereRef.current = ball;
-
-    //     if (groupRef.current) {
-    //         groupRef.current.add(ball);
-    //     }
-    // } else {
-    //     console.log("null analyser, sorry");
-    // }
-    // }, [audioIsPlaying, analyser]);
-
     useEffect(() => {
         if (analyser) {
-            console.log("USEEFanalyser: ", analyser);
             const icosahedronGeometry = new IcosahedronGeometry(10, 4);
             const lambertMaterial = new MeshLambertMaterial({
                 color: 0xfafafa,
                 wireframe: false,
             });
+            const shaderMaterial = gradientMaterial();
 
-            const ball = new Mesh(icosahedronGeometry, lambertMaterial);
-            ball.position.set(0, 0, 0);
-            sphereRef.current = ball;
-
+            const shape = new Mesh(
+                icosahedronGeometry,
+                lambertMaterial
+                // shaderMaterial
+            );
+            shape.position.set(0, 0, 0);
+            sphereRef.current = shape;
             if (groupRef.current) {
-                groupRef.current.add(ball);
+                groupRef.current.add(shape);
             }
         } else {
-            console.log("Analyser is null");
+            console.error("Analyser is null");
         }
-    }, [audioIsPlaying, analyser]); // dependency on analyser
-
-    useEffect(() => {
-        console.log("IS AUDIO PLAYING: ", audioIsPlaying);
     }, [audioIsPlaying, analyser]);
 
     return (
         <>
-            <ambientLight intensity={0.5} color="#ffffff" />
-            <spotLight position={[-10, 40, 20]} angle={0.3} intensity={0.9} castShadow={true} color="#ffffff" />
+            <ambientLight
+                intensity={0.5}
+                color="#14ff00"
+                // color={0x556a7b}
+                // color={0xcccccc}
+            />
+            <spotLight
+                position={[-10, 40, 20]}
+                angle={0.3}
+                intensity={0.9}
+                // castShadow
+                color="#ff0000"
+                // color={0x556a7b}
+                // color={0xffe6fc}
+            />
             <directionalLight
-                color="#ffffff"
+                color="#ffc700"
+                // color={0xe4dad1}
+                // color={0xb3bfd8}
                 position={[0, 50, 100]}
-                castShadow
+                // castShadow
                 shadow-mapSize-width={4096}
                 shadow-mapSize-height={4096}
             />
             <group ref={groupRef}>
-                <Icosahedron
-                    // ref={sphereRef}
-                    args={[10, 4]}
-                >
-                    <meshLambertMaterial attach="material" color="black" wireframe />
+                <Icosahedron ref={sphereRef} args={[10, 4]}>
+                    <meshLambertMaterial attach="material" />
                 </Icosahedron>
             </group>
         </>

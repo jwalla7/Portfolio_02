@@ -4,18 +4,17 @@
  *
  * It also applies a gradient material to the sphere using the ShaderMaterial class from the three library.
  *
- * @credits
+ * @credits for sphere_morph.glb
  * Author: alexey.roudenko (https://sketchfab.com/alexey.roudenko)
  * License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
  * Source: https://sketchfab.com/3d-models/sphere-morph-ae4088fa0a8646458cdae599927598aa
  * Title: Sphere Morph
  */
 
-import { ReactElement, forwardRef, useEffect, useMemo } from "react";
+import { ReactElement, forwardRef, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTFResult, SphereModelProps } from "./sphereModelProps";
 import { MeshBasicMaterial, ShaderMaterial } from "three";
-import { setSphereMorph } from "../..";
 
 export const SphereModel = forwardRef<THREE.Group, SphereModelProps>(({ sphereRefPass, ...props }, ref): ReactElement => {
     const { nodes, materials } = useGLTF("/glb/sphere_morph.glb") as GLTFResult;

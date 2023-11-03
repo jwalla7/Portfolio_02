@@ -36,7 +36,6 @@ export function useAudio(): useAudioProps {
              * https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/smoothingTimeConstant
              */
             analyserNode.smoothingTimeConstant = 0.55;
-
             src.connect(analyserNode);
             analyserNode.connect(audioContextRef.current.destination);
             analyserNode.fftSize = 512;
@@ -51,14 +50,10 @@ export function useAudio(): useAudioProps {
 
     const toggleAudio = useCallback(async () => {
         const audio = audioRef.current;
-        if (!audio) return;
 
+        if (!audio) return;
         try {
             const isPlaying = audio.paused || audio.ended;
-            console.log("Is audio playing?", isPlaying);
-            console.log("Audio src:", audio.src);
-            console.log("Audio volume:", audio.volume);
-            console.log("Audio muted:", audio.muted);
             if (isPlaying) {
                 if (!audioContextRef.current) {
                     createAudioContext();
@@ -83,10 +78,6 @@ export function useAudio(): useAudioProps {
                     await audioContextRef.current.suspend();
                 }
             }
-
-            // Log the audioContext state and isAudioPlaying state
-            console.log("audioContextState: ", audioContextRef.current?.state);
-            console.log("isAudioPlaying: ", isPlaying);
         } catch (e) {
             console.error("Error toggling audio", e);
         }
@@ -105,7 +96,5 @@ export function useAudio(): useAudioProps {
             }
         };
     }, []);
-
-    console.log("ReturnAnalyser: ", analyser);
     return { analyser: analyser, toggleAudio, audioIsPlaying };
 }

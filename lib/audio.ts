@@ -8,12 +8,8 @@
 import { createNoise3D } from "simplex-noise";
 import { BufferGeometry, Mesh, Vector3 } from "three";
 
-export function getSphere(mesh: Mesh<BufferGeometry>, bassFr: number, treFr: number): void {
+export const getSphere = (mesh: Mesh<BufferGeometry>, bassFr: number, treFr: number): void => {
     const positionAttribute = mesh.geometry.getAttribute("position");
-    if (!positionAttribute || !(positionAttribute.array instanceof Float32Array)) {
-        console.error("Position attribute not found or incorrect type in the geometry.");
-    }
-
     const positionsArray = positionAttribute.array;
     const noise = createNoise3D();
     const amp = 5;
@@ -34,7 +30,7 @@ export function getSphere(mesh: Mesh<BufferGeometry>, bassFr: number, treFr: num
     positionAttribute.needsUpdate = true;
     positionAttribute.normalized = true;
     mesh.geometry.computeVertexNormals();
-}
+};
 
 export const getFraction = (val: number, minVal: number, maxVal: number): number => (val - minVal) / (maxVal - minVal);
 

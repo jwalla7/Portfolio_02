@@ -5,11 +5,13 @@ import { useAudioContext } from "@/components/context/audio/AudioContext";
 import { getAVG, getMAX, getSphere, regulate } from "@/lib/audio";
 import { Group, IcosahedronGeometry, Mesh, MeshLambertMaterial } from "three";
 import { gradientMaterial } from "../../models";
+import { useTheme } from "next-themes";
 
 export const SphereScene = (): ReactElement => {
     const groupRef = useRef<Group>(null);
     const sphereRef = useRef<Mesh | null>(null);
     const { analyser, audioIsPlaying } = useAudioContext();
+    const { theme, resolvedTheme } = useTheme();
 
     useFrame(() => {
         if (analyser && sphereRef.current) {
@@ -63,27 +65,18 @@ export const SphereScene = (): ReactElement => {
 
     return (
         <>
-            <ambientLight
-                intensity={0.5}
-                color="#14ff00"
-                // color={0x556a7b}
-                // color={0xcccccc}
-            />
+            <ambientLight intensity={0.5} color={theme === "light" || resolvedTheme === "light" ? 0x0000ff : 0xffcbf4} />
             <spotLight
                 position={[-10, 40, 20]}
                 angle={0.3}
                 intensity={0.9}
-                // castShadow
-                color="#ff0000"
-                // color={0x556a7b}
-                // color={0xffe6fc}
+                castShadow
+                color={theme === "light" || resolvedTheme === "light" ? 0xe3d4cd : 0xdbc7c5}
             />
             <directionalLight
-                color="#ffc700"
-                // color={0xe4dad1}
-                // color={0xb3bfd8}
+                color={theme === "light" || resolvedTheme === "light" ? 0xc7b7b7 : 0xb0b0ff}
                 position={[0, 50, 100]}
-                // castShadow
+                castShadow
                 shadow-mapSize-width={4096}
                 shadow-mapSize-height={4096}
             />

@@ -6,21 +6,24 @@ import { CardGroup } from "@/components/ui/cards/CardGroup/CardGroup";
 import { Card } from "@/components/ui/cards/Card/Card";
 import { SphereCamera } from "@/components/ui/three/cameras/SphereCamera/SphereCamera";
 import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/PlaybackCard";
+import { AudioProvider } from "@/components/context/audio/AudioProvider";
 
 export default function MusicPage() {
     return (
-        <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
-            <div className="absolute mt-[15%] ml-[35%] w-[21vw] h-[34vh] bg-transparent">
-                <SphereCamera />
+        <AudioProvider>
+            <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
+                <div className="absolute mt-[15%] ml-[35%] w-[calc(21vw)] h-[calc(34vh)] bg-transparent">
+                    <SphereCamera />
+                </div>
+                <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" />
+                <CardGroup>
+                    <Card size="lg" position="center">
+                        <PlaybackCard />
+                    </Card>
+                    <Card size="md" position="right" />
+                </CardGroup>
+                <OverlayTrigger />
             </div>
-            <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" />
-            <CardGroup>
-                <Card size="lg" position="center">
-                    <PlaybackCard />
-                </Card>
-                <Card size="md" position="right" />
-            </CardGroup>
-            <OverlayTrigger />
-        </div>
+        </AudioProvider>
     );
 }

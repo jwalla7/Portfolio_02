@@ -1,5 +1,3 @@
-import { Type_Site } from "@/types/site";
-
 export const siteConfig: Type_Site = {
     name: "jwalla",
     description: "Portfolio",

@@ -6,8 +6,11 @@ import { robotoRegular } from "@/design/fontDefaults";
 import { IconArrowNext } from "@/components/ui/icons/phosphor/IconArrowNext";
 import { IconArrowPrevious } from "@/components/ui/icons/phosphor/IconArrowPrevious";
 import { playCardStyles } from "./playbackCardStyles";
+import { IconArrowPause } from "@/components/ui/icons/phosphor/IconArrowPause";
+import { useAudioContext } from "@/components/context/audio/AudioContext";
 // TODO: Add styles using cva to PlaybackCard
 export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ children }, ref) => {
+    const { toggleAudio, audioIsPlaying } = useAudioContext();
     return (
         <div className="PlaybackPlayerRootContainer w-[42.648vw] h-[77.847vh] flex-col justify-center items-center gap-[10.09px] inline-flex">
             {/* pl-[51px] pr-[10.09px] pt-[25px] pb-[10.09px] */}
@@ -58,15 +61,18 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                 <div className="BackwardButton px-[8.12px] pt-[31.12px] pb-[4.06px] justify-center items-center gap-[13.53px] flex">
                     <IconArrowPrevious iconDirection="45_rotation" className="text-white mb-[34%]" />
                 </div>
-                <button className={playCardStyles({ playButton: "root" })}>
+                <button className={playCardStyles({ playButton: "root" })} onClick={toggleAudio}>
                     <div className={cn(playCardStyles({ playButton: "default" }))}>
                         <div className={cn(playCardStyles({ playButton: "outer" }))}>
                             <div className={cn(playCardStyles({ playButton: "inner" }))} />
-                            <IconArrowPlay
-                                iconDirection="-45_rotation"
-                                className="z-30 drop-shadow-md w-10 h-10 text-white
-                        dark:absolute"
-                            />
+                            {audioIsPlaying ? (
+                                <IconArrowPause className="z-30 drop-shadow-md w-10 h-10 text-white dark:absolute" />
+                            ) : (
+                                <IconArrowPlay
+                                    iconDirection="-45_rotation"
+                                    className="z-30 drop-shadow-md w-10 h-10 text-white dark:absolute"
+                                />
+                            )}
                         </div>
                     </div>
                 </button>

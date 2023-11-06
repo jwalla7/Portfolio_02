@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import { PlaybackCardProps } from "./playbackCardProps";
 import { IconArrowPlay } from "@/components/ui/icons/phosphor/IconArrowPlay";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import { robotoRegular } from "@/design/fontDefaults";
 import { IconArrowNext } from "@/components/ui/icons/phosphor/IconArrowNext";
 import { IconArrowPrevious } from "@/components/ui/icons/phosphor/IconArrowPrevious";
@@ -66,16 +67,17 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                         <div className={cn(playCardStyles({ playButton: "outer" }))}>
                             <div className={cn(playCardStyles({ playButton: "inner" }))} />
                             {audioIsPlaying ? (
-                                <IconArrowPause className="z-30 drop-shadow-md w-10 h-10 text-white dark:absolute" />
+                                <IconArrowPause className={cn("z-30 drop-shadow-md w-10 h-10 text-white dark:absolute")} />
                             ) : (
                                 <IconArrowPlay
                                     iconDirection="-45_rotation"
-                                    className="z-30 drop-shadow-md w-10 h-10 text-white dark:absolute"
+                                    className={cn("z-30 drop-shadow-md w-10 h-10 text-white dark:absolute group")}
                                 />
                             )}
                         </div>
                     </div>
                 </button>
+
                 <div className="ForwardButton px-[8.12px] pt-[31.12px] pb-[4.06px] justify-center items-center gap-[13.53px] flex">
                     <IconArrowNext iconDirection="-45_rotation" className="text-white mb-[34%]" />
                 </div>

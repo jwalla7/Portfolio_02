@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "16 || 18"
+    "node": "18 || 20"
   },
   "author": {
     "email": "jwalla7@protonmail.com",
@@ -20,6 +20,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@audius/sdk": "^2.0.2",
     "@next/swc-darwin-arm64": "^13.4.9",
     "@phosphor-icons/react": "^2.0.9",
     "@radix-ui/colors": "^0.1.9",
@@ -42,9 +43,9 @@
     "framer-motion": "^10.12.17",
     "js-cookie": "^3.0.5",
     "lint-staged": "^13.2.2",
-    "next": "^14.0.1",
+    "next": "^13 || ^14.0.0",
     "next-auth": "^4.22.1",
-    "next-contentlayer": "^0.3.2",
+    "next-contentlayer": "^0.3.4",
     "next-themes": "^0.2.1",
     "npm": "^9.7.1",
     "protobufjs": "^7.2.4",
@@ -63,6 +64,7 @@
     "tailwind-merge": "^1.12.0",
     "three": "^0.156.1",
     "uuid": "^9.0.0",
+    "web3": "^4.2.2",
     "zod": "^3.21.4"
   },
   "devDependencies": {

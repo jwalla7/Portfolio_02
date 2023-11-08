@@ -20,7 +20,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@audius/sdk": "^3.0.7",
+    "@audius/sdk": "^2.0.2",
     "@next/swc-darwin-arm64": "^13.4.9",
     "@phosphor-icons/react": "^2.0.9",
     "@radix-ui/colors": "^0.1.9",
@@ -39,12 +39,10 @@
     "clsx": "^1.2.1",
     "contentlayer": "^0.3.4",
     "date-fns": "^2.30.0",
-    "encoding": "^0.1.13",
     "focus-trap": "^7.5.2",
     "framer-motion": "^10.12.17",
     "js-cookie": "^3.0.5",
     "lint-staged": "^13.2.2",
-    "markdown-wasm": "^1.2.0",
     "next": "^13 || ^14.0.0",
     "next-auth": "^4.22.1",
     "next-contentlayer": "^0.3.4",

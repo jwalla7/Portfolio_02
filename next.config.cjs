@@ -8,20 +8,14 @@ import "./env.mjs"; // Validate schema on build https://env.t3.gg/docs/nextjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    webpack: (config, { isServer }) => {
-        if (!isServer) {
-            config.resolve.extensions.push(".wasm");
-        }
-        config.experiments = {
-            ...config.experiments,
-            asyncWebAssembly: true,
-            layers: true,
+    experimental: {
+        appDir: true,
+    },
+    /** https://github.com/vercel/next.js/issues/27650 */
+    webpack(config) {
+        config.infrastructureLogging = {
+            level: "error",
         };
-        config.module.rules.push({
-            test: /\.wasm$/,
-            type: "webassembly/async",
-        });
-
         return config;
     },
 };

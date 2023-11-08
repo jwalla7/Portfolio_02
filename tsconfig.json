@@ -3,7 +3,7 @@
     /* Project */
     "incremental": true,
     /* Language and Environment */
-    "target": "es5",
+    "target": "ESNext",
     "jsx": "preserve",
     "lib": [
       "dom",

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "18 || 20"
+    "node": "18 || 21"
   },
   "author": {
     "email": "jwalla7@protonmail.com",
@@ -11,7 +11,7 @@
     "url": "https://github.com/jwalla7"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--trace-deprecation' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint '**/*.{js,mjs,ts,tsx}'",
@@ -20,7 +20,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@audius/sdk": "^2.0.2",
+    "@audius/sdk": "^3.0.7",
     "@next/swc-darwin-arm64": "^13.4.9",
     "@phosphor-icons/react": "^2.0.9",
     "@radix-ui/colors": "^0.1.9",
@@ -60,6 +60,7 @@
     "remark": "^14.0.3",
     "remark-gfm": "^3.0.1",
     "simplex-noise": "^4.0.1",
+    "string-replace-loader": "^3.1.0",
     "styled-components": "^5.3.11",
     "tailwind-merge": "^1.12.0",
     "three": "^0.156.1",

@@ -21,19 +21,19 @@ const nextConfig = {
             test: /\.wasm$/,
             type: "webassembly/async",
         });
-        config.module.rules.push({
-            test: /[\\/]node_modules[\\/](keyv|cacheable-request|got|swarm-js)[\\/].*\.js$/,
-            use: [
-                {
-                    loader: "string-replace-loader",
-                    options: {
-                        search: "Buffer\\(",
-                        replace: "Buffer.from(",
-                        flags: "g",
-                    },
-                },
-            ],
-        });
+        // config.module.rules.push({
+        //     test: /[\\/]node_modules[\\/](keyv|cacheable-request|got|swarm-js)[\\/].*\.js$/,
+        //     use: [
+        //         {
+        //             loader: "string-replace-loader",
+        //             options: {
+        //                 search: "Buffer\\(",
+        //                 replace: "Buffer.from(",
+        //                 flags: "g",
+        //             },
+        //         },
+        //     ],
+        // });
         return config;
     },
 };

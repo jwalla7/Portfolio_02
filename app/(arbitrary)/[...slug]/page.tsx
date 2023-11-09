@@ -21,7 +21,6 @@ async function getPageFromParams(params: any) {
 }
 
 export default async function PagePage({ params }: PageProps) {
-    audiusTest();
     const page: any = await getPageFromParams(params);
 
     if (!page) {

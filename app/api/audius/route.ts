@@ -20,20 +20,12 @@ export const audiusTest = async () => {
         const { data: track } = await audiusSdk.tracks.getTrack({
             trackId: "1B5ab8z",
         });
-        console.log("TRACK FETCHHHH: ", track);
-
-        // const streamTrack = async (trackId: string): Promise<string> => {
-        //     const url = await audiusSdk.tracks.streamTrack({
-        //         trackId: trackId,
-        //     });
-        //     console.log("STREAM TRACK: ", url);
-        //     return url;
-        // };
+        console.log("TRACK FETCH: ", track);
 
         const { data: trackResolve } = await audiusSdk.resolve({
             url: "https://audius.co/jwalla7/test-smpl",
         });
-        console.log("TRACK RRRRRRESOLVE: ", trackResolve);
+        console.log("TRACK RESOLVE: ", trackResolve);
     } catch (error) {
         console.error("Error in audiusTest: ", error);
     }

@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/ui/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { robotoRegular } from "@/design/fontDefaults";
 import React from "react";
+import { audiusTest } from "./api/audius/route";
 
 export const metadata = {
     title: "Create Next App",
@@ -10,6 +11,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+    audiusTest();
     return (
         /**
          *

@@ -1,7 +1,6 @@
 // import { Metadata } from "next";
 // import { siteConfig } from "@/config/site";
 // import { allPages } from "contentlayer/generated";
-import { audiusTest } from "@/app/api/audius/route";
 import Custom404 from "@/app/not-found";
 
 interface PageProps {
@@ -21,7 +20,6 @@ async function getPageFromParams(params: any) {
 }
 
 export default async function PagePage({ params }: PageProps) {
-    audiusTest();
     const page: any = await getPageFromParams(params);
 
     if (!page) {

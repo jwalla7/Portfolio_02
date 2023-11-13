@@ -1,4 +1,4 @@
-// import { Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 
 /**
@@ -10,11 +10,11 @@ import localFont from "next/font/local";
  */
 
 // Inter regular
-// export const inter = Inter({
-//     subsets: ["latin"],
-//     variable: "--font-inter-regular",
-//     weight: "400",
-// });
+export const inter = Inter({
+    subsets: ["latin"],
+    variable: "--font-inter-regular",
+    weight: "400",
+});
 
 // Roboto family
 // export const robotoLight = localFont({

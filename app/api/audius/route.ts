@@ -12,9 +12,9 @@ const audiusSdk = sdk({
 
 export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const userId = "1B5ab8z";
+        const trackId = "1B5ab8z";
 
-        const { data: track } = await audiusSdk.tracks.getTrack({ trackId: userId });
+        const { data: track } = await audiusSdk.tracks.getTrack({ trackId: trackId });
         console.log("USER TRACKS: ", track);
 
         res.status(200).json({ track });

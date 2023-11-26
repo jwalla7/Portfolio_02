@@ -12,9 +12,7 @@ import { cn } from "@/lib/utils";
 interface IconCircleHalfProps extends React.ComponentProps<"svg"> {
     active: boolean;
 }
-export const IconCircleHalf = memo<
-    IconCircleHalfProps & { setMotion: boolean }
->(function IconCircleHalf(
+export const IconCircleHalf = memo<IconCircleHalfProps & { setMotion: boolean }>(function IconCircleHalf(
     /**
      * Accessibility to customized attributes setMotion, and className
      */
@@ -24,11 +22,7 @@ export const IconCircleHalf = memo<
      */
     {
         active,
-        fill = active
-            ? cn(
-                  "text-neutral-50/[0.34] dark:text-neutral-50/[0.34] hover:text-white"
-              )
-            : "currentColor",
+        fill = active ? cn("text-neutral-50/[0.34] dark:text-neutral-50/[0.34] hover:text-white") : "currentColor",
         fillOpacity,
         ...props
     }: IconCircleHalfProps
@@ -36,10 +30,7 @@ export const IconCircleHalf = memo<
     /**
      * Creates custom values for className
      */
-    const variants = cn(
-        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
-        className
-    );
+    const variants = cn("block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative", className);
     /**
      * Establishes which variation of `IconCircleHalf` to render
      */

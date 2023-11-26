@@ -29,11 +29,7 @@ export const IconMoon = memo<
      */
     {
         active,
-        fill = active
-            ? cn(
-                  "text-neutral-50/[0.34] dark:text-neutral-50/[0.34] hover:text-white"
-              )
-            : "currentColor",
+        fill = active ? cn("text-neutral-50/[0.34] dark:text-neutral-50/[0.34] hover:text-white") : "currentColor",
         fillOpacity,
         ...props
     }: IconMoonProps

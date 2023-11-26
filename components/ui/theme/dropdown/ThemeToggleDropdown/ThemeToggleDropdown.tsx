@@ -20,10 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { themeToggleDropdownVariants } from "./themeToggleDropdownVariants";
 
-export const ThemeToggleDropdown = React.forwardRef<
-    HTMLButtonElement,
-    ThemeToggleDropdownProps
->(() => {
+export const ThemeToggleDropdown = React.forwardRef<HTMLButtonElement, ThemeToggleDropdownProps>(() => {
     const { theme, setTheme } = useTheme();
     const [mounted, setMount] = useState<boolean>(false);
     const [_, startTransition] = useTransition();
@@ -45,37 +42,23 @@ export const ThemeToggleDropdown = React.forwardRef<
                         {theme === "light" ? (
                             <IconSun active setMotion={true} />
                         ) : theme === "dark" ? (
-                            <IconMoon
-                                active
-                                setMotion={true}
-                                iconDirection="-45_rotation"
-                            />
+                            <IconMoon active setMotion={true} iconDirection="-45_rotation" />
                         ) : (
                             <IconCircleHalf active setMotion={true} />
                         )}
                     </ButtonWithLabel>
                 </DropdownMenuTrigger>
                 <DropdownMenuPortal>
-                    <DropdownMenuContent
-                        className={cn(
-                            themeToggleDropdownVariants.dropdownMenuContent()
-                        )}
-                    >
+                    <DropdownMenuContent className={cn(themeToggleDropdownVariants.dropdownMenuContent())}>
                         <DropdownMenuItem
                             onClick={() => {
                                 startTransition(() => {
                                     setTheme("light");
                                 });
                             }}
-                            className={cn(
-                                themeToggleDropdownVariants.dropdownMenuItems()
-                            )}
+                            className={cn(themeToggleDropdownVariants.dropdownMenuItems())}
                         >
-                            <ButtonWithLabel
-                                button="glass"
-                                label="Light"
-                                size="default"
-                            >
+                            <ButtonWithLabel button="glass" label="Light" size="default">
                                 <IconSun active setMotion={false} />
                             </ButtonWithLabel>
                         </DropdownMenuItem>
@@ -87,16 +70,8 @@ export const ThemeToggleDropdown = React.forwardRef<
                             }}
                             className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] focus:outline-none"
                         >
-                            <ButtonWithLabel
-                                button="glass"
-                                label="Dark"
-                                size="default"
-                            >
-                                <IconMoon
-                                    active
-                                    setMotion={false}
-                                    iconDirection="0_rotation"
-                                />
+                            <ButtonWithLabel button="glass" label="Dark" size="default">
+                                <IconMoon active setMotion={false} iconDirection="0_rotation" />
                             </ButtonWithLabel>
                         </DropdownMenuItem>
                         <DropdownMenuItem
@@ -107,11 +82,7 @@ export const ThemeToggleDropdown = React.forwardRef<
                             }}
                             className="box-border flex flex-col justify-center items-center flex-grow basis-full gap-[55px] px-[39px] focus:outline-none"
                         >
-                            <ButtonWithLabel
-                                button="glass"
-                                label="Auto"
-                                size="default"
-                            >
+                            <ButtonWithLabel button="glass" label="Auto" size="default">
                                 <IconCircleHalf active setMotion={false} />
                             </ButtonWithLabel>
                         </DropdownMenuItem>

@@ -8,10 +8,7 @@ import { IconSun } from "../../../icons/phosphor/IconSun";
 import { ThemeToggleProps } from "./themeToggleProps";
 import { Button } from "../../../button/Button/Button";
 
-export const ThemeToggle = React.forwardRef<
-    HTMLButtonElement,
-    ThemeToggleProps
->(() => {
+export const ThemeToggle = React.forwardRef<HTMLButtonElement, ThemeToggleProps>(() => {
     /** useTheme provides current theme data  */
     const { theme, setTheme } = useTheme();
     const [_, startTransition] = React.useTransition();
@@ -29,13 +26,7 @@ export const ThemeToggle = React.forwardRef<
             {!theme ? (
                 theme === "system"
             ) : theme === "dark" ? (
-                <IconMoon
-                    active
-                    setMotion={true}
-                    iconDirection="0_rotation"
-                    className="w-9 h-9"
-                    fill="white"
-                />
+                <IconMoon active setMotion={true} iconDirection="0_rotation" className="w-9 h-9" fill="white" />
             ) : (
                 <IconSun active setMotion={true} className="w-9 h-9" />
             )}

@@ -20,20 +20,12 @@ export const IconFile = memo<IconFileProps>(function IconFile(
     /**
      * Accessibility to other SVG props
      */
-    {
-        active,
-        fill = active ? cn("text-black dark:text-black") : "currentColor",
-        fillOpacity,
-        ...props
-    }: IconFileProps
+    { active, fill = active ? cn("text-black dark:text-black") : "currentColor", fillOpacity, ...props }: IconFileProps
 ) {
     /**
      * Creates custom values for className attribute
      */
-    const variants = cn(
-        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
-        className
-    );
+    const variants = cn("block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative", className);
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

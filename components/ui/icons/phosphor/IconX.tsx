@@ -21,10 +21,7 @@ export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX(
     /**
      * Creates custom values for className attribute
      */
-    const variants = cn(
-        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
-        className
-    );
+    const variants = cn("block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative", className);
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

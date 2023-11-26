@@ -20,20 +20,12 @@ export const IconQuotes = memo<IconQuotes>(function IconQuotes(
     /**
      * Accessibility to other SVG props
      */
-    {
-        active,
-        fill = active ? cn("text-black dark:text-black") : "currentColor",
-        fillOpacity,
-        ...props
-    }: IconQuotes
+    { active, fill = active ? cn("text-black dark:text-black") : "currentColor", fillOpacity, ...props }: IconQuotes
 ) {
     /**
      * Creates custom values for className attribute
      */
-    const variants = cn(
-        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative ml-[-21%] 4xl:ml-[-34%]",
-        className
-    );
+    const variants = cn("block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative ml-[-21%] 4xl:ml-[-34%]", className);
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

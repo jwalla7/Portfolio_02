@@ -2,8 +2,10 @@ import "../design/input.css";
 import { ThemeProvider } from "@/components/ui/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { robotoRegular } from "@/design/fontDefaults";
-import React from "react";
-import { audiusTest } from "./api/audius/route";
+import { StrictMode } from "react";
+// import { audiusTest } from "./api/audius/route";
+// import { QueryClient } from "@tanstack/react-query";
+import { QueryProvider } from "@/components/queries/QueryProvider";
 
 export const metadata = {
     title: "Create Next App",
@@ -11,7 +13,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    audiusTest();
     return (
         /**
          *
@@ -21,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          *
          * https://legacy.reactjs.org/docs/dom-elements/html
          */
-        <React.StrictMode>
+        <StrictMode>
             <html lang="en" suppressHydrationWarning={true}>
                 <head />
                 <body
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         "min-w-full min-h-screen m-0 antialiased overflow-x-hidden overscroll-y-none"
                     )}
                 >
+                    {/* <QueryProvider> */}
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="system"
@@ -44,8 +46,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     >
                         {children}
                     </ThemeProvider>
+                    {/* </QueryProvider> */}
                 </body>
             </html>
-        </React.StrictMode>
+        </StrictMode>
     );
 }

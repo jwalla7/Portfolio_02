@@ -1,4 +1,3 @@
-export interface ThemeToggleDropdownProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ThemeToggleDropdownProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode;
 }

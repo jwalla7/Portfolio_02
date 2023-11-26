@@ -1,6 +1,9 @@
 export interface useAudioProps {
-    analyser: AnalyserNode | null;
-    error?: string | null;
-    audioIsPlaying?: boolean;
-    toggleAudio: () => void;
+    analyser: Type_Audio["analyser"];
+    audioIsPlaying?: Type_Audio["audioIsPlaying"];
+    audioStream: Type_Audio["audioStream"];
+    error?: Type_Audio["error"];
+    nextAudio?: Type_Audio["nextAudio"];
+    previousAudio?: Type_Audio["previousAudio"];
+    toggleAudio: Type_Audio["toggleAudio"];
 }

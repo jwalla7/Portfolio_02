@@ -9,9 +9,12 @@ import { IconArrowPrevious } from "@/components/ui/icons/phosphor/IconArrowPrevi
 import { playCardStyles } from "./playbackCardStyles";
 import { IconArrowPause } from "@/components/ui/icons/phosphor/IconArrowPause";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
+import { useAudio } from "@/components/hooks/useAudio/useAudio";
+
 // TODO: Add styles using cva to PlaybackCard
 export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ children }, ref) => {
     const { toggleAudio, audioIsPlaying } = useAudioContext();
+    // const { toggleAudio, audioIsPlaying, audiStream } = useAudio();
     return (
         <div className="PlaybackPlayerRootContainer w-[42.648vw] h-[77.847vh] flex-col justify-center items-center gap-[10.09px] inline-flex">
             {/* pl-[51px] pr-[10.09px] pt-[25px] pb-[10.09px] */}

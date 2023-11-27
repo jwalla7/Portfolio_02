@@ -13,8 +13,17 @@ const audiusSdk = sdk({
 export const GET = async (req: NextRequest) => {
     try {
         const trackId = "1B5ab8z";
+        const userId = "oW3lyY7";
+
         const { data: track } = await audiusSdk.tracks.getTrack({ trackId: trackId });
-        console.log("USER TRACKS: ", track);
+        console.log("TRACK: ", track);
+
+        const streamTrack = await audiusSdk.tracks.streamTrack({ trackId: trackId });
+        console.log("STREAM TRACK: ", streamTrack);
+
+        const { data: userTracks } = await audiusSdk.users.getTracksByUser({ id: userId });
+        console.log("USER TRACKS: ", userTracks);
+
         return new NextResponse(JSON.stringify({ track }), { status: 200 });
     } catch (error) {
         if (error instanceof z.ZodError) {

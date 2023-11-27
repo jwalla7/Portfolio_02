@@ -9,14 +9,11 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
-// import { useQuery } from "@tanstack/react-query";
 import { useAudioProps } from "./useAudioProps";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(trackId?: string, userId?: string): useAudioProps {
-    // const audioSrc = "/audio/smpl0002.mp3";
     const [track, setTrack] = useState<Track | Track[] | null>(null);
-    // const [audioStream, setAudioStream] = useState<string | undefined>(trackId || userId);
     const [audioStream, setAudioStream] = useState<string | undefined>(undefined);
     const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
     const [audioIsPlaying, setAudioIsPlaying] = useState<boolean>(false);
@@ -31,11 +28,18 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`/api/audius?trackId=${trackId}&userId=${userId}&stream=true`);
+            const response = await fetch(`/api/audius?trackId=${trackId}&userId=${userId}&stream=true`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
             if (!response.ok) throw new Error("Error fetching audio data");
             const data = await response.json();
-            setTrack(data.track || data.userTracks);
-            setAudioStream(data.streamTrackUrl || data.track?.streamTrackUrl);
+
+            setTrack(data.track);
+            setAudioStream(data.streamTrack);
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -138,50 +142,5 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
         };
     }, []);
 
-    // useEffect(() => {
-    //     const fetchAudioUrl = (async () => {
-    //         try {
-    //             const response = await fetch(`/api/audius?trackId=${trackId}&stream=true`);
-    //             const data = await response.json();
-    //             setTrack(data);
-    //             setAudioStream(data.streamTrackUrl);
-    //         } catch (error) {
-    //             console.error("Error fetching audio", error);
-    //         }
-    //     })
-    // }, [trackId, userId]);
-
-    // useEffect(() => {
-    //     if (audioStream) {
-    //         audioRef.current = new Audio(audioStream);
-    //     }
-    // }, [audioStream]);
-
-    // useEffect(() => {
-    //     const fetchAudioUrl = (async () => {
-    //         try {
-    //             const response = await fetch(`/api/audius?trackId=${trackId}&stream=true`);
-    //             if (!response.ok) throw new Error("Error fetching audio");
-
-    //             const data = await response.json();
-    //             setTrack(data);
-    //             setAudioStream(data.streamTrackUrl);
-    //         } catch (error) {
-    //             console.error("Error fetching audio", error);
-    //         }
-    //     })
-    //     if (audioStream) {
-    //         // if (audioRef.current && audioContextRef.current) return;
-    //         audioRef.current = new Audio(audioStream);
-    //         audioRef.current.addEventListener("ended", () => setAudioIsPlaying(false));
-    //     }
-    //     fetchAudioUrl();
-    //     return () => {
-    //         if (audioRef.current) {
-    //             audioRef.current.pause();
-    //             audioRef.current.removeEventListener("ended", () => setAudioIsPlaying(false));
-    //         }
-    //     };
-    // }, [audioStream, trackId]);
     return { analyser: analyser, toggleAudio, audioIsPlaying, nextAudio, previousAudio, audioStream };
 }

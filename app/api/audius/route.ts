@@ -12,8 +12,11 @@ const audiusSdk = sdk({
 
 export const GET = async (req: NextRequest) => {
     try {
-        const trackId = "1B5ab8z";
-        const userId = "oW3lyY7";
+        const { searchParams } = new URL(req.url);
+        const trackId = searchParams.get("trackId") as string;
+        const userId = searchParams.get("userId") as string;
+        // const trackId = "1B5ab8z";
+        // const userId = "oW3lyY7";
 
         const { data: track } = await audiusSdk.tracks.getTrack({ trackId: trackId });
         console.log("TRACK: ", track);

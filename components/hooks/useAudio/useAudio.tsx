@@ -27,6 +27,7 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
     const fetchAudioData = async () => {
         setLoading(true);
         setError(null);
+
         try {
             const response = await fetch(`/api/audius?trackId=${trackId}&userId=${userId}&stream=true`, {
                 method: "GET",

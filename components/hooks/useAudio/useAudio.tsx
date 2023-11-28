@@ -10,6 +10,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
+import { getSphere } from "@/lib/audio";
 // import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(trackId?: string, userId?: string): useAudioProps {
@@ -24,36 +25,54 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
 
     // FETCH AUDIO NEEDS TO BE REFACTORED WITH REACT QUERY
     // Function to fetch audio data
-    const fetchAudioData = async () => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            const response = await fetch(`/api/audius?trackId=${trackId}&userId=${userId}&stream=true`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (!response.ok) throw new Error("Error fetching audio data");
-            const data = await response.json();
-
-            setTrack(data.track);
-            setAudioStream(data.streamTrack);
-        } catch (err: any) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // Effect to fetch audio data when trackId or userId changes
     useEffect(() => {
-        if (trackId || userId) {
-            fetchAudioData();
-        }
+        if (!(trackId || userId)) return;
+        const fetchAudioData = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await fetch(`/api/audius?trackId=${trackId}&userId=${userId}&stream=true`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // "Access-Control-Allow-Origin": "*",
+                    },
+                });
+
+                if (!response.ok) throw new Error("Error fetching audio data");
+                const data = await response.json();
+                setTrack(data.track);
+                setAudioStream(data.streamTrack);
+                console.log("SETAUDIOSTREAM C: ", data.streamTrack);
+            } catch (err: any) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchAudioData();
+        console.log("AUDIOSTREAM C:", audioStream);
     }, [trackId, userId]);
+
+    // Set the audio source when audioStream changes
+    useEffect(() => {
+        console.log("AUDIOSTREAM C2:", audioStream);
+        console.log("AUDIOREF C2: ", audioRef.current);
+        if (!audioStream) return;
+        audioRef.current = new Audio(audioStream);
+        audioRef.current.crossOrigin = "anonymous";
+        if (audioStream && audioRef.current) {
+            audioRef.current.src = audioStream;
+            // audioRef.current.onloadeddata = () => {
+            //     createAudioContext();
+            //     console.log("AUDIOREF C1: ", audioRef.current)
+            // };
+        }
+        console.log("AUDIOREF C2: ", audioRef.current);
+    }, [
+        audioStream,
+        // createAudioContext
+    ]);
 
     // ANALYZE AUDIO
     const createAudioContext = useCallback(() => {
@@ -98,7 +117,7 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
          *
          * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
          */
-        async () => {
+        (async () => {
             try {
                 const isPlaying = audio.paused || audio.ended;
                 if (isPlaying) {
@@ -128,7 +147,7 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
             } catch (e) {
                 console.error("Error toggling audio", e);
             }
-        };
+        })();
     }, [createAudioContext]);
     // NEXT AUDIO
     const nextAudio = useCallback(() => {

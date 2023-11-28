@@ -4,14 +4,14 @@ import "./env.mjs"; // Validate schema on build https://env.t3.gg/docs/nextjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    headers: () => {
-        return [
-            {
-                source: "/(.*)",
-                headers: securityHeaders,
-            },
-        ];
-    },
+    // headers: () => {
+    //     return [
+    //         {
+    //             source: "/(.*)",
+    //             headers: securityHeaders,
+    //         },
+    //     ];
+    // },
     webpack: (config, { isServer }) => {
         if (!isServer) {
             config.resolve.extensions.push(".wasm");
@@ -51,7 +51,6 @@ const ContentSecurityPolicy = `
     script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live va.vercel-scripts.com;
     style-src 'self' 'unsafe-inline';
     img-src * blob: data:;
-    media-src 'none';
     connect-src *;
     font-src 'self' data:;
 `;

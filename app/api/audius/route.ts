@@ -15,8 +15,6 @@ export const GET = async (req: NextRequest) => {
         const { searchParams } = new URL(req.url);
         const trackId = searchParams.get("trackId") as string;
         const userId = searchParams.get("userId") as string;
-        // const trackId = "1B5ab8z";
-        // const userId = "oW3lyY7";
 
         const { data: track } = await audiusSdk.tracks.getTrack({ trackId: trackId });
         console.log("TRACK: ", track);
@@ -27,7 +25,7 @@ export const GET = async (req: NextRequest) => {
         const { data: userTracks } = await audiusSdk.users.getTracksByUser({ id: userId });
         console.log("USER TRACKS: ", userTracks);
 
-        return new NextResponse(JSON.stringify({ track }), { status: 200 });
+        return new NextResponse(JSON.stringify({ track, userTracks, streamTrack }), { status: 200 });
     } catch (error) {
         if (error instanceof z.ZodError) {
             return new NextResponse(JSON.stringify(error.issues), { status: 422 });

@@ -1,4 +1,3 @@
-import { NextApiRequest } from "next";
 import { env } from "@/env.mjs"; // Adjust the import path as necessary
 import { sdk } from "@audius/sdk";
 import { z } from "zod";
@@ -16,20 +15,19 @@ export const GET = async (req: NextRequest) => {
         const trackId = searchParams.get("trackId") as string;
         const userId = searchParams.get("userId") as string;
 
+        if (!trackId || !userId) throw new Error("Missing required parameters");
+
         const { data: track } = await audiusSdk.tracks.getTrack({ trackId: trackId });
-        console.log("TRACK: ", track);
-
         const streamTrack = await audiusSdk.tracks.streamTrack({ trackId: trackId });
-        console.log("STREAM TRACK: ", streamTrack);
-
         const { data: userTracks } = await audiusSdk.users.getTracksByUser({ id: userId });
-        console.log("USER TRACKS: ", userTracks);
 
         return new NextResponse(JSON.stringify({ track, userTracks, streamTrack }), { status: 200 });
     } catch (error) {
         if (error instanceof z.ZodError) {
             return new NextResponse(JSON.stringify(error.issues), { status: 422 });
         } else {
+            console.error("Error: ", error);
+
             return new NextResponse(null, { status: 500 });
         }
     }

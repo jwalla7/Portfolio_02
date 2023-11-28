@@ -4,14 +4,14 @@ import "./env.mjs"; // Validate schema on build https://env.t3.gg/docs/nextjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    headers: () => {
-        return [
-            {
-                source: "/(.*)",
-                headers: securityHeaders,
-            },
-        ];
-    },
+    // headers: () => {
+    //     return [
+    //         {
+    //             source: "/(.*)",
+    //             headers: securityHeaders,
+    //         },
+    //     ];
+    // },
     webpack: (config, { isServer }) => {
         if (!isServer) {
             config.resolve.extensions.push(".wasm");

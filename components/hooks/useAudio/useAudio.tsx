@@ -10,7 +10,6 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
-import { getSphere } from "@/lib/audio";
 // import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(trackId?: string, userId?: string): useAudioProps {
@@ -24,7 +23,6 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
     const [error, setError] = useState<string | null>(null);
 
     // FETCH AUDIO NEEDS TO BE REFACTORED WITH REACT QUERY
-    // Function to fetch audio data
     useEffect(() => {
         if (!(trackId || userId)) return;
         const fetchAudioData = async () => {
@@ -35,7 +33,7 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        // "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Origin": "*",
                     },
                 });
 
@@ -43,7 +41,6 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
                 const data = await response.json();
                 setTrack(data.track);
                 setAudioStream(data.streamTrack);
-                console.log("SETAUDIOSTREAM C: ", data.streamTrack);
             } catch (err: any) {
                 setError(err.message);
             } finally {
@@ -51,28 +48,18 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
             }
         };
         fetchAudioData();
-        console.log("AUDIOSTREAM C:", audioStream);
     }, [trackId, userId]);
 
     // Set the audio source when audioStream changes
     useEffect(() => {
-        console.log("AUDIOSTREAM C2:", audioStream);
-        console.log("AUDIOREF C2: ", audioRef.current);
         if (!audioStream) return;
         audioRef.current = new Audio(audioStream);
         audioRef.current.crossOrigin = "anonymous";
         if (audioStream && audioRef.current) {
             audioRef.current.src = audioStream;
-            // audioRef.current.onloadeddata = () => {
-            //     createAudioContext();
-            //     console.log("AUDIOREF C1: ", audioRef.current)
-            // };
         }
         console.log("AUDIOREF C2: ", audioRef.current);
-    }, [
-        audioStream,
-        // createAudioContext
-    ]);
+    }, [audioStream]);
 
     // ANALYZE AUDIO
     const createAudioContext = useCallback(() => {

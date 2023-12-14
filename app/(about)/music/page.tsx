@@ -12,7 +12,7 @@ export default function MusicPage() {
     return (
         <AudioProvider>
             <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
-                <div className="absolute mt-[15%] ml-[35%] w-[calc(21vw)] h-[calc(34vh)] bg-transparent">
+                <div className="absolute mt-[10%] ml-[29%] w-[calc(34vw)] h-[calc(55vh)] bg-transparent">
                     <SphereCamera />
                 </div>
                 <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" />

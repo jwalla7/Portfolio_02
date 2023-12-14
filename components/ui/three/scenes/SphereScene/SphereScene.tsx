@@ -19,7 +19,7 @@ export const SphereScene = (): ReactElement => {
             analyser.getByteFrequencyData(frequencyData);
 
             if (frequencyData.some((value) => value > 0)) {
-                const highLimit = frequencyData.length * 0.05;
+                const highLimit = frequencyData.length * 0.075;
                 const lowerFrequencies = frequencyData.slice(0, highLimit);
                 const upperFrequencies = frequencyData.slice(highLimit);
                 const maxLowerFrequency = getMAX(lowerFrequencies);
@@ -33,7 +33,7 @@ export const SphereScene = (): ReactElement => {
                 getSphere(
                     sphereRef.current,
                     regulate(Math.pow(normalizedMaxLowerFrequency, 0.2), 0, 1, -1, 6),
-                    regulate(normalizedAvgUpperFrequency, 0, 8, 0, 4)
+                    regulate(normalizedAvgUpperFrequency, 0, 16, 0, 4)
                 );
             }
         }

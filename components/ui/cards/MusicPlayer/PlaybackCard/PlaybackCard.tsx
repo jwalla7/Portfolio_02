@@ -70,11 +70,11 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                         <div className={cn(playCardStyles({ playButton: "outer" }))}>
                             <div className={cn(playCardStyles({ playButton: "inner" }))} />
                             {audioIsPlaying ? (
-                                <IconArrowPause className={cn("z-30 drop-shadow-md w-10 h-10 text-white dark:absolute")} />
+                                <IconArrowPause className={cn("drop-shadow-md w-10 h-10 text-white dark:absolute")} />
                             ) : (
                                 <IconArrowPlay
                                     iconDirection="-45_rotation"
-                                    className={cn("z-30 drop-shadow-md w-10 h-10 text-white dark:absolute group")}
+                                    className={cn("drop-shadow-md w-10 h-10 text-white dark:absolute group")}
                                 />
                             )}
                         </div>

@@ -20,7 +20,7 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
             {/* pl-[51px] pr-[10.09px] pt-[25px] pb-[10.09px] */}
             <div className="top_content self-stretch pt-[25px] rounded-t-[42.40px] flex-col justify-center items-center gap-[5.05px] flex">
                 <div className="playback_progress_container flex flex-col self-stretch justify-center items-center gap-[5.05px] rounded-2xl">
-                    <div className="song_time_text_container w-[35.298vw] inline-flex">
+                    <div className="song_time_text_container w-[35.298vw] inline-flex bg-red-300">
                         <div className="SongElapsed grow shrink basis-0 h-3 justify-start items-start px-[0.384vw] flex">
                             <div
                                 className={cn(

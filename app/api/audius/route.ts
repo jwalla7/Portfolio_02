@@ -14,12 +14,20 @@ export const GET = async (req: NextRequest) => {
         const { searchParams } = new URL(req.url);
         const trackId = searchParams.get("trackId") as string;
         const userId = searchParams.get("userId") as string;
+        // const playlistId = searchParams.get("playlistId") as string;
+        const albumId = searchParams.get("albumId") as string;
 
         if (!trackId || !userId) throw new Error("Missing required parameters");
 
         const { data: track } = await audiusSdk.tracks.getTrack({ trackId: trackId });
         const streamTrack = await audiusSdk.tracks.streamTrack({ trackId: trackId });
         const { data: userTracks } = await audiusSdk.users.getTracksByUser({ id: userId });
+        // const { data: playlist } = await audiusSdk.playlists.getPlaylist({
+        //     playlistId: playlistId,
+        // });
+        // const { data: album } = await audiusSdk.albums.getAlbumTracks({
+        //     albumId: albumId,
+        // })
 
         return new NextResponse(JSON.stringify({ track, userTracks, streamTrack }), { status: 200 });
     } catch (error) {

@@ -10,6 +10,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
+import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 // import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(trackId?: string, userId?: string): useAudioProps {
@@ -21,6 +22,8 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
     const audioContextRef = useRef<AudioContext | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+
+    const audioCacheData = new LRUCache<LRUCacheProps>(3);
 
     // FETCH AUDIO NEEDS TO BE REFACTORED WITH REACT QUERY
     useEffect(() => {

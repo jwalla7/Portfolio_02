@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import { siteConfig } from "@/config/site";
+// import { Metadata } from "next";
+// import { siteConfig } from "@/config/site";
 // import { allPages } from "contentlayer/.contentlayer/generated";
 import Custom404 from "@/app/not-found";
 

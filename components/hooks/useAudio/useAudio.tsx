@@ -7,13 +7,16 @@
  * It controls the audio playback, so that this logic can be reused across different components in the application.
  */
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 // import { useQuery } from "@tanstack/react-query";
 
-export function useAudio(trackId?: string, userId?: string): useAudioProps {
+export function useAudio(
+    // trackId?: string[],
+    userId?: string
+): useAudioProps {
     const [track, setTrack] = useState<Track | Track[] | null>(null);
     const [audioStream, setAudioStream] = useState<string | undefined>(undefined);
     const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
@@ -23,16 +26,27 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const audioCacheData = new LRUCache<LRUCacheProps>(3);
+    const [currentTrackId, setCurrentTrackId] = useState<TrackData | undefined>(undefined);
+    const [nextTrackId, setNextTrackId] = useState<TrackData | undefined>(undefined);
+
+    const audioCacheData = useMemo(() => new LRUCache<LRUCacheProps | null>(3), []);
+
+    interface TrackData extends LRUCacheProps {
+        id: string;
+        metaData?: string;
+    }
 
     // FETCH AUDIO NEEDS TO BE REFACTORED WITH REACT QUERY
     useEffect(() => {
-        if (!(trackId || userId)) return;
+        // if (!(trackId || userId)) return;
+        if (!userId) return;
         const fetchAudioData = async () => {
+            //Fetches initial audio data (3 tracks)
             setLoading(true);
             setError(null);
+
             try {
-                const response = await fetch(`/api/audius?trackId=${trackId}&userId=${userId}&stream=true`, {
+                const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -41,9 +55,23 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
                 });
 
                 if (!response.ok) throw new Error("Error fetching audio data");
-                const data = await response.json();
-                setTrack(data.track);
-                setAudioStream(data.streamTrack);
+
+                const cachedAudioData: TrackData[] = await response.json();
+
+                if (Array.isArray(cachedAudioData) && cachedAudioData.length > 0) {
+                    cachedAudioData.forEach((trackData, index) => {
+                        if (trackData.id) {
+                            audioCacheData.put(trackData.id, trackData);
+                        } else {
+                            console.error("Invalid track data, missing id:", trackData);
+                        }
+                        if (index === 0) {
+                            // Set the first track to start with
+                            setTrack(trackData.track);
+                            setAudioStream(trackData.streamLink);
+                        }
+                    });
+                }
             } catch (err: any) {
                 setError(err.message);
             } finally {
@@ -51,7 +79,13 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
             }
         };
         fetchAudioData();
-    }, [trackId, userId]);
+        console.log("AUDIO CACHE DATA: ", audioCacheData);
+        console.log("AUDIO CACHE DATA KEYS: ", audioCacheData.getAllKeys());
+    }, [
+        // trackId,
+        audioCacheData,
+        userId,
+    ]);
 
     // Set the audio source when audioStream changes
     useEffect(() => {
@@ -61,7 +95,7 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
         if (audioStream && audioRef.current) {
             audioRef.current.src = audioStream;
         }
-        console.log("AUDIOREF C2: ", audioRef.current);
+        // console.log("AUDIOREF C2: ", audioRef.current);
     }, [audioStream]);
 
     // ANALYZE AUDIO
@@ -109,6 +143,14 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
          */
         (async () => {
             try {
+                // Check if a new track has been selected
+                if (audioStream && audio.src !== audioStream) {
+                    audio.src = audioStream; // Set new source
+                    if (!audioContextRef.current) {
+                        createAudioContext();
+                    }
+                }
+
                 const isPlaying = audio.paused || audio.ended;
                 if (isPlaying) {
                     if (!audioContextRef.current) {
@@ -138,20 +180,20 @@ export function useAudio(trackId?: string, userId?: string): useAudioProps {
                 console.error("Error toggling audio", e);
             }
         })();
-    }, [createAudioContext]);
+    }, [audioStream, createAudioContext]);
 
     // NEXT AUDIO
     const nextAudio = useCallback(() => {
-        async () => {
-            return null;
-        };
+        (async () => {
+            toggleAudio();
+        })();
     }, []);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {
-        async () => {
-            return null;
-        };
-    }, []);
+        (async () => {
+            toggleAudio();
+        })();
+    }, [toggleAudio]);
 
     return { analyser: analyser, toggleAudio, audioIsPlaying, nextAudio, previousAudio, audioStream };
 }

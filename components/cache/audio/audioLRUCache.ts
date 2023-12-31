@@ -1,3 +1,5 @@
+import { Track } from "@audius/sdk/dist/api/Track";
+
 class TrackNode<T> {
     key: string;
     value: T;
@@ -12,9 +14,9 @@ class TrackNode<T> {
 
 export interface LRUCacheProps {
     key: string;
-    value: any;
+    track: Track;
+    streamLink: string;
 }
-
 export class LRUCache<T> {
     private capacity: number;
     private hash: Map<string, TrackNode<T>>;
@@ -24,6 +26,10 @@ export class LRUCache<T> {
     constructor(capacity: number) {
         this.capacity = capacity;
         this.hash = new Map<string, TrackNode<T>>();
+    }
+
+    getAllKeys(): string[] {
+        return Array.from(this.hash.keys());
     }
 
     get(key: string): T | null {

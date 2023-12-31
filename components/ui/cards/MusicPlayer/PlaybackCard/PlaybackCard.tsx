@@ -13,7 +13,7 @@ import { useAudio } from "@/components/hooks/useAudio/useAudio";
 
 // TODO: Add styles using cva to PlaybackCard
 export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ children }, ref) => {
-    const { toggleAudio, audioIsPlaying } = useAudioContext();
+    const { toggleAudio, nextAudio, audioIsPlaying } = useAudioContext();
     // const { toggleAudio, audioIsPlaying, audiStream } = useAudio();
     return (
         <div className="PlaybackPlayerRootContainer w-[42.648vw] h-[77.847vh] flex-col justify-center items-center gap-[10.09px] inline-flex">
@@ -81,9 +81,11 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                     </div>
                 </button>
 
-                <div className="ForwardButton px-[8.12px] pt-[31.12px] pb-[4.06px] justify-center items-center gap-[13.53px] flex">
-                    <IconArrowNext iconDirection="-45_rotation" className="text-white mb-[34%]" />
-                </div>
+                <button className={playCardStyles({ playButton: "root" })} onClick={nextAudio}>
+                    <div className="ForwardButton px-[8.12px] pt-[31.12px] pb-[4.06px] justify-center items-center gap-[13.53px] flex">
+                        <IconArrowNext iconDirection="-45_rotation" className="text-white mb-[34%]" />
+                    </div>
+                </button>
             </div>
         </div>
     );

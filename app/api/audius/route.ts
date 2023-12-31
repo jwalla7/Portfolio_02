@@ -9,32 +9,6 @@ const audiusSdk = sdk({
     apiSecret: env.AUDIUS_SECRET,
 });
 
-// GET Tracks by User, then parse Ids, then Get tracks by Ids, then Stream tracks by Ids
-
-// export const GET = async (req: NextRequest) => {
-//     try {
-//         const { searchParams } = new URL(req.url);
-//         const trackId = searchParams.get("trackId") as string;
-//         const userId = searchParams.get("userId") as string;
-
-//         if (!trackId || !userId) throw new Error("Missing required parameters");
-
-//         const { data: track } = await audiusSdk.tracks.getTrack({ trackId: trackId });
-//         const streamTrack = await audiusSdk.tracks.streamTrack({ trackId: trackId });
-//         const { data: userTracks } = await audiusSdk.users.getTracksByUser({ id: userId });
-
-//         return new NextResponse(JSON.stringify({ track, userTracks, streamTrack }), { status: 200 });
-//     } catch (error) {
-//         if (error instanceof z.ZodError) {
-//             return new NextResponse(JSON.stringify(error.issues), { status: 422 });
-//         } else {
-//             console.error("Error: ", error);
-
-//             return new NextResponse(null, { status: 500 });
-//         }
-//     }
-// };
-
 // Function to get track data and its streaming link
 const getTrackWithStreamLink = async (trackId: string) => {
     try {

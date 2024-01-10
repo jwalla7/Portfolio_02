@@ -11,12 +11,10 @@ import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
+import { set } from "zod";
 // import { useQuery } from "@tanstack/react-query";
 
-export function useAudio(
-    // trackId?: string[],
-    userId?: string
-): useAudioProps {
+export function useAudio(userId?: string): useAudioProps {
     const [track, setTrack] = useState<Track | Track[] | null>(null);
     const [audioStream, setAudioStream] = useState<string | undefined>(undefined);
     const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
@@ -25,9 +23,7 @@ export function useAudio(
     const audioContextRef = useRef<AudioContext | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-
-    const [currentTrackId, setCurrentTrackId] = useState<TrackData | undefined>(undefined);
-    const [nextTrackId, setNextTrackId] = useState<TrackData | undefined>(undefined);
+    const hasFetchedInitialData = useRef<boolean>(false);
 
     const audioCacheData = useMemo(() => new LRUCache<LRUCacheProps | null>(3), []);
 
@@ -53,10 +49,10 @@ export function useAudio(
                         "Access-Control-Allow-Origin": "*",
                     },
                 });
-
                 if (!response.ok) throw new Error("Error fetching audio data");
 
                 const cachedAudioData: TrackData[] = await response.json();
+                hasFetchedInitialData.current = true;
 
                 if (Array.isArray(cachedAudioData) && cachedAudioData.length > 0) {
                     cachedAudioData.forEach((trackData, index) => {
@@ -68,6 +64,8 @@ export function useAudio(
                         if (index === 0) {
                             // Set the first track to start with
                             setTrack(trackData.track);
+                            audioCacheData.setCurrentNode(trackData.id);
+                            console.log("CURRENT NODE: ", audioCacheData.getCurrentNodeValue());
                             setAudioStream(trackData.streamLink);
                         }
                     });
@@ -80,6 +78,7 @@ export function useAudio(
         };
         fetchAudioData();
         console.log("AUDIO CACHE DATA: ", audioCacheData);
+        console.log("CURRENT NODE: ", audioCacheData.getCurrentNodeValue());
         console.log("AUDIO CACHE DATA KEYS: ", audioCacheData.getAllKeys());
     }, [
         // trackId,
@@ -95,8 +94,47 @@ export function useAudio(
         if (audioStream && audioRef.current) {
             audioRef.current.src = audioStream;
         }
-        // console.log("AUDIOREF C2: ", audioRef.current);
     }, [audioStream]);
+
+    const fetchNewTrack = useCallback(async () => {
+        if (!userId) return;
+        if (hasFetchedInitialData.current) {
+            try {
+                const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                });
+                if (!response.ok) throw new Error("Error fetching audio data");
+                const newAudioData: TrackData[] = await response.json();
+                newAudioData.forEach((track, index) => {
+                    if (track) {
+                        const trackId = track.id;
+                        console.log("ALL KEYS: ", audioCacheData.getAllKeys());
+                        if (!audioCacheData.getAllKeys().includes(trackId)) {
+                            audioCacheData.put(trackId, track);
+                            if (index === 1) {
+                                audioCacheData.setCurrentNode(trackId);
+                            }
+                        } else {
+                            console.log("TRACK ALREADY EXISTS IN CACHE");
+                            fetchNewTrack();
+                        }
+                    } else {
+                        console.error("Invalid track data, missing id:", track);
+                    }
+                });
+            } catch (err: any) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+            return audioCacheData.getCurrentNodeValue();
+        }
+        return;
+    }, [userId, audioCacheData]);
 
     // ANALYZE AUDIO
     const createAudioContext = useCallback(() => {
@@ -150,7 +188,6 @@ export function useAudio(
                         createAudioContext();
                     }
                 }
-
                 const isPlaying = audio.paused || audio.ended;
                 if (isPlaying) {
                     if (!audioContextRef.current) {
@@ -184,10 +221,29 @@ export function useAudio(
 
     // NEXT AUDIO
     const nextAudio = useCallback(() => {
+        console.log("NEXT AUDIO");
         (async () => {
-            toggleAudio();
+            const currentNode = audioCacheData.getCurrentNodeValue();
+            const currentNodeKey = String(currentNode?.key);
+            const nextNode = audioCacheData.getNextNode(currentNodeKey);
+
+            if (nextNode) {
+                if (currentNode && audioCacheData.getPreviousNode(currentNodeKey)) {
+                    audioCacheData.moveToTail(currentNodeKey);
+                }
+                // Set the next node as the current node
+                setTrack(nextNode.track);
+                setAudioStream(nextNode.streamLink);
+            } else {
+                const newTrack = await fetchNewTrack();
+                console.log("NEW TRACK FETCH: ", newTrack);
+                if (newTrack) {
+                    setTrack(newTrack.track);
+                    setAudioStream(newTrack.streamLink);
+                }
+            }
         })();
-    }, []);
+    }, [audioCacheData, fetchNewTrack]);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {
         (async () => {

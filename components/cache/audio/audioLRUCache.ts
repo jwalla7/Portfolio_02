@@ -96,6 +96,10 @@ export class LRUCache<T> {
         return null;
     }
 
+    getTailNode(): T | null {
+        return this.tail?.value || null;
+    }
+
     private addToHead(node: TrackNode<T>): void {
         if (!this.head) {
             this.head = node;
@@ -167,16 +171,16 @@ export class LRUCache<T> {
         }
     }
 
-    // private addToTail(node: TrackNode<T>): void {
-    //     if (!this.tail) {
-    //         this.head = node;
-    //         this.tail = node;
-    //     } else {
-    //         this.tail.next = node;
-    //         node.prev = this.tail;
-    //         this.tail = node;
-    //     }
-    // }
+    private addToTail(node: TrackNode<T>): void {
+        if (!this.tail) {
+            this.head = node;
+            this.tail = node;
+        } else {
+            this.tail.next = node;
+            node.prev = this.tail;
+            this.tail = node;
+        }
+    }
 
     moveToTail(key: string): void {
         const node = this.hash.get(key);

@@ -7,11 +7,10 @@
  * It controls the audio playback, so that this logic can be reused across different components in the application.
  */
 
-import { useState, useCallback, useRef, useEffect, useMemo } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo, use } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
-import { set } from "zod";
 // import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(userId?: string): useAudioProps {
@@ -62,14 +61,14 @@ export function useAudio(userId?: string): useAudioProps {
                             console.error("Invalid track data, missing id:", trackData);
                         }
                         if (index === 0) {
-                            // Set the first track to start with
                             setTrack(trackData.track);
-                            audioCacheData.setCurrentNode(trackData.id);
-                            console.log("CURRENT NODE: ", audioCacheData.getCurrentNodeValue());
                             setAudioStream(trackData.streamLink);
+                            audioCacheData.setCurrentNode(trackData.id);
+                            console.log("CURRENT INITIAL NODE: ", audioCacheData.getCurrentNodeValue());
                         }
                     });
                 }
+                console.log("CACHE INITIAL DATA: ", audioCacheData);
             } catch (err: any) {
                 setError(err.message);
             } finally {
@@ -77,9 +76,6 @@ export function useAudio(userId?: string): useAudioProps {
             }
         };
         fetchAudioData();
-        console.log("AUDIO CACHE DATA: ", audioCacheData);
-        console.log("CURRENT NODE: ", audioCacheData.getCurrentNodeValue());
-        console.log("AUDIO CACHE DATA KEYS: ", audioCacheData.getAllKeys());
     }, [
         // trackId,
         audioCacheData,
@@ -109,23 +105,24 @@ export function useAudio(userId?: string): useAudioProps {
                 });
                 if (!response.ok) throw new Error("Error fetching audio data");
                 const newAudioData: TrackData[] = await response.json();
-                newAudioData.forEach((track, index) => {
-                    if (track) {
-                        const trackId = track.id;
-                        console.log("ALL KEYS: ", audioCacheData.getAllKeys());
-                        if (!audioCacheData.getAllKeys().includes(trackId)) {
-                            audioCacheData.put(trackId, track);
-                            if (index === 1) {
-                                audioCacheData.setCurrentNode(trackId);
-                            }
-                        } else {
-                            console.log("TRACK ALREADY EXISTS IN CACHE");
-                            fetchNewTrack();
-                        }
-                    } else {
-                        console.error("Invalid track data, missing id:", track);
+                const uniqueTracks = newAudioData.filter((uniqueTrack) => !audioCacheData.getAllKeys().includes(uniqueTrack.id));
+
+                if (uniqueTracks.length > 0) {
+                    console.log("UNIQUE FETCHED TRACKS: ", uniqueTracks);
+                    uniqueTracks.forEach((track) => {
+                        audioCacheData.put(track.id, track);
+                        audioCacheData.setCurrentNode(track.id);
+                        setTrack(track.track);
+                        setAudioStream(track.streamLink);
+                    });
+                } else {
+                    const leastRecentlyUsedTrack = audioCacheData.getTailNode();
+                    if (leastRecentlyUsedTrack) {
+                        audioCacheData.setCurrentNode(leastRecentlyUsedTrack.key);
+                        setTrack(leastRecentlyUsedTrack.track);
+                        setAudioStream(leastRecentlyUsedTrack.streamLink);
                     }
-                });
+                }
             } catch (err: any) {
                 setError(err.message);
             } finally {
@@ -234,12 +231,14 @@ export function useAudio(userId?: string): useAudioProps {
                 // Set the next node as the current node
                 setTrack(nextNode.track);
                 setAudioStream(nextNode.streamLink);
+                audioCacheData.setCurrentNode(nextNode.key);
             } else {
                 const newTrack = await fetchNewTrack();
-                console.log("NEW TRACK FETCH: ", newTrack);
                 if (newTrack) {
+                    console.log("NEW TRACK FETCH: ", newTrack);
                     setTrack(newTrack.track);
                     setAudioStream(newTrack.streamLink);
+                    audioCacheData.setCurrentNode(newTrack.key);
                 }
             }
         })();

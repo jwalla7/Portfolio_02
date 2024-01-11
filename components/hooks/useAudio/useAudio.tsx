@@ -7,14 +7,14 @@
  * It controls the audio playback, so that this logic can be reused across different components in the application.
  */
 
-import { useState, useCallback, useRef, useEffect, useMemo, use } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 // import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(userId?: string): useAudioProps {
-    const [track, setTrack] = useState<Track | Track[] | null>(null);
+    const [_track, setTrack] = useState<Track | Track[] | null>(null);
     const [audioStream, setAudioStream] = useState<string | undefined>(undefined);
     const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
     const [audioIsPlaying, setAudioIsPlaying] = useState<boolean>(false);
@@ -69,7 +69,7 @@ export function useAudio(userId?: string): useAudioProps {
         } finally {
             setLoading(false);
         }
-    }, [userId]);
+    }, [userId, audioCacheData]);
 
     const fetchNewTrackData = useCallback(async () => {
         if (!userId) return null;
@@ -84,7 +84,10 @@ export function useAudio(userId?: string): useAudioProps {
                 });
                 if (!response.ok) throw new Error("Error fetching audio data");
                 const newAudioData: TrackData[] = await response.json();
+                const currentTrack = _track;
 
+                console.log("CURRENT TRACK: ", currentTrack);
+                console.log("CACHE TRACK: ", audioCacheData.getCurrentNodeValue()?.track);
                 const uniqueTracks = newAudioData.filter((uniqueTrack) => !audioCacheData.get(uniqueTrack.id));
                 if (uniqueTracks.length > 0) {
                     console.log("CACHED DATA 2: ", audioCacheData);
@@ -111,12 +114,12 @@ export function useAudio(userId?: string): useAudioProps {
             return audioCacheData.getCurrentNodeValue();
         }
         return;
-    }, [userId, audioCacheData]);
+    }, [userId, audioCacheData, _track]);
 
     useEffect(() => {
         if (!userId) return;
         fetchInitialAudioData();
-    }, [audioCacheData, userId, fetchInitialAudioData]);
+    }, [userId, fetchInitialAudioData]);
 
     // Set the audio source when audioStream changes
     useEffect(() => {
@@ -161,6 +164,7 @@ export function useAudio(userId?: string): useAudioProps {
     }, []);
 
     // TOGGLE AUDIO
+
     const toggleAudio = useCallback(() => {
         const audio = audioRef.current;
         if (!audio) return;
@@ -219,10 +223,45 @@ export function useAudio(userId?: string): useAudioProps {
         };
     }, [audioStream, createAudioContext]);
 
+    // const autoplayAudio = useCallback(() => {
+    //     if (!audioStream) return;
+    //     audioRef.current = new Audio(audioStream);
+    //     audioRef.current.crossOrigin = "anonymous";
+    //     if (audioStream && audioRef.current) {
+    //         audioRef.current.src = audioStream;
+    //     }
+    //     if (!audioContextRef.current) {
+    //         createAudioContext();
+    //     }
+    //     if (audioIsPlaying) {
+    //         audioContextRef.current?.suspend();
+    //         setAudioIsPlaying(false);
+    //     }
+    //     if (!audioIsPlaying && audioContextRef.current?.state === "suspended") {
+    //         toggleAudio();
+    //     }
+
+    const autoplayAudio = useCallback(() => {
+        if (audioIsPlaying && audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.src = "";
+            setAudioIsPlaying(false);
+            audioContextRef.current?.suspend();
+        }
+        // Create or update the AudioContext
+        if (!audioContextRef.current) {
+            createAudioContext();
+        }
+
+        // Now that audioRef is updated, call toggleAudio to control playback
+        toggleAudio();
+    }, [createAudioContext, toggleAudio, audioIsPlaying]);
+
     // NEXT AUDIO
     const nextAudio = useCallback(() => {
         console.log("NEXT AUDIO");
         console.log("hasFetchedInitialData: ", hasFetchedInitialData.current);
+
         (async () => {
             const currentNode = audioCacheData.getCurrentNodeValue();
             const currentNodeKey = String(currentNode?.key);
@@ -232,20 +271,22 @@ export function useAudio(userId?: string): useAudioProps {
                 if (currentNode && audioCacheData.getPreviousNode(currentNodeKey)) {
                     audioCacheData.moveToTail(currentNodeKey);
                 }
-                // Set the next node as the current node
                 setTrack(nextNode.track);
                 setAudioStream(nextNode.streamLink);
                 audioCacheData.setCurrentNode(nextNode.key);
+                autoplayAudio();
             } else {
                 const newTrack = await fetchNewTrackData();
                 console.log("NEW TRACK FETCH: ", newTrack);
                 if (newTrack) {
                     setTrack(newTrack.track);
                     setAudioStream(newTrack.streamLink);
+                    audioCacheData.setCurrentNode(newTrack.key);
+                    autoplayAudio();
                 }
             }
         })();
-    }, [audioCacheData, fetchNewTrackData, hasFetchedInitialData]);
+    }, [audioCacheData, fetchNewTrackData, hasFetchedInitialData, autoplayAudio]);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {
         (async () => {

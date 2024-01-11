@@ -30,70 +30,49 @@ export function useAudio(userId?: string): useAudioProps {
         id: string;
         metaData?: string;
     }
+    const fetchInitialAudioData = useCallback(async () => {
+        setLoading(true);
+        setError(null);
 
-    // FETCH AUDIO NEEDS TO BE REFACTORED WITH REACT QUERY
-    useEffect(() => {
-        // if (!(trackId || userId)) return;
-        if (!userId) return;
-        const fetchAudioData = async () => {
-            //Fetches initial audio data (3 tracks)
-            setLoading(true);
-            setError(null);
+        try {
+            const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            });
+            if (!response.ok) throw new Error("Error fetching audio data");
 
-            try {
-                const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*",
-                    },
-                });
-                if (!response.ok) throw new Error("Error fetching audio data");
-
-                const cachedAudioData: TrackData[] = await response.json();
+            const cachedAudioData: TrackData[] = await response.json();
+            if (cachedAudioData.length > 0) {
                 hasFetchedInitialData.current = true;
-
-                if (Array.isArray(cachedAudioData) && cachedAudioData.length > 0) {
-                    cachedAudioData.forEach((trackData, index) => {
-                        if (trackData.id) {
-                            audioCacheData.put(trackData.id, trackData);
-                        } else {
-                            console.error("Invalid track data, missing id:", trackData);
-                        }
-                        if (index === 0) {
-                            setTrack(trackData.track);
-                            setAudioStream(trackData.streamLink);
-                            audioCacheData.setCurrentNode(trackData.id);
-                            console.log("CURRENT INITIAL NODE: ", audioCacheData.getCurrentNodeValue());
-                        }
-                    });
-                }
-                console.log("CACHE INITIAL DATA: ", audioCacheData);
-            } catch (err: any) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
             }
-        };
-        fetchAudioData();
-    }, [
-        // trackId,
-        audioCacheData,
-        userId,
-    ]);
-
-    // Set the audio source when audioStream changes
-    useEffect(() => {
-        if (!audioStream) return;
-        audioRef.current = new Audio(audioStream);
-        audioRef.current.crossOrigin = "anonymous";
-        if (audioStream && audioRef.current) {
-            audioRef.current.src = audioStream;
+            if (Array.isArray(cachedAudioData) && cachedAudioData.length > 0) {
+                cachedAudioData.forEach((trackData, index) => {
+                    if (trackData.id) {
+                        audioCacheData.put(trackData.id, trackData);
+                    } else {
+                        console.error("Invalid track data, missing id:", trackData);
+                    }
+                    if (index === 0) {
+                        setTrack(trackData.track);
+                        setAudioStream(trackData.streamLink);
+                        audioCacheData.setCurrentNode(trackData.id);
+                        console.log("CURRENT INITIAL NODE: ", audioCacheData.getCurrentNodeValue());
+                    }
+                });
+            }
+            console.log("CACHE INITIAL DATA: ", audioCacheData);
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
         }
-    }, [audioStream]);
+    }, [userId]);
 
-    const fetchNewTrack = useCallback(async () => {
-        if (!userId) return;
+    const fetchNewTrackData = useCallback(async () => {
+        if (!userId) return null;
         if (hasFetchedInitialData.current) {
             try {
                 const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
@@ -105,9 +84,10 @@ export function useAudio(userId?: string): useAudioProps {
                 });
                 if (!response.ok) throw new Error("Error fetching audio data");
                 const newAudioData: TrackData[] = await response.json();
-                const uniqueTracks = newAudioData.filter((uniqueTrack) => !audioCacheData.getAllKeys().includes(uniqueTrack.id));
 
+                const uniqueTracks = newAudioData.filter((uniqueTrack) => !audioCacheData.get(uniqueTrack.id));
                 if (uniqueTracks.length > 0) {
+                    console.log("CACHED DATA 2: ", audioCacheData);
                     console.log("UNIQUE FETCHED TRACKS: ", uniqueTracks);
                     uniqueTracks.forEach((track) => {
                         audioCacheData.put(track.id, track);
@@ -132,6 +112,21 @@ export function useAudio(userId?: string): useAudioProps {
         }
         return;
     }, [userId, audioCacheData]);
+
+    useEffect(() => {
+        if (!userId) return;
+        fetchInitialAudioData();
+    }, [audioCacheData, userId, fetchInitialAudioData]);
+
+    // Set the audio source when audioStream changes
+    useEffect(() => {
+        if (!audioStream) return;
+        audioRef.current = new Audio(audioStream);
+        audioRef.current.crossOrigin = "anonymous";
+        if (audioStream && audioRef.current) {
+            audioRef.current.src = audioStream;
+        }
+    }, [audioStream]);
 
     // ANALYZE AUDIO
     const createAudioContext = useCallback(() => {
@@ -169,13 +164,15 @@ export function useAudio(userId?: string): useAudioProps {
     const toggleAudio = useCallback(() => {
         const audio = audioRef.current;
         if (!audio) return;
-        /**
-         * IIFE
-         *
-         * Immediately invoked function expression (IIFE) allows you to use async/await within this scope while keeping the outer function synchronous.
-         *
-         * @see https://developer.mozilla.org/en-US/docs/Glossary/IIFE
-         */
+
+        const onAudioEnd = async () => {
+            setAudioIsPlaying(false);
+            if (audioContextRef.current) {
+                await audioContextRef.current.suspend();
+            }
+        };
+        audio.addEventListener("ended", onAudioEnd);
+
         (async () => {
             try {
                 // Check if a new track has been selected
@@ -196,6 +193,7 @@ export function useAudio(userId?: string): useAudioProps {
                         if (audioContextRef.current) {
                             await audioContextRef.current.resume();
                         }
+                        console.log("PLAYING STATE: ", audioContextRef.current?.state);
                     } catch (error) {
                         console.error("Error playing audio", error);
                         if (audioContextRef.current && audioContextRef.current.state === "suspended") {
@@ -209,16 +207,22 @@ export function useAudio(userId?: string): useAudioProps {
                     if (audioContextRef.current) {
                         await audioContextRef.current.suspend();
                     }
+                    console.log("PLAYING STATE: ", audioContextRef.current?.state);
                 }
             } catch (e) {
                 console.error("Error toggling audio", e);
             }
         })();
+
+        return () => {
+            audio.removeEventListener("ended", onAudioEnd);
+        };
     }, [audioStream, createAudioContext]);
 
     // NEXT AUDIO
     const nextAudio = useCallback(() => {
         console.log("NEXT AUDIO");
+        console.log("hasFetchedInitialData: ", hasFetchedInitialData.current);
         (async () => {
             const currentNode = audioCacheData.getCurrentNodeValue();
             const currentNodeKey = String(currentNode?.key);
@@ -233,16 +237,15 @@ export function useAudio(userId?: string): useAudioProps {
                 setAudioStream(nextNode.streamLink);
                 audioCacheData.setCurrentNode(nextNode.key);
             } else {
-                const newTrack = await fetchNewTrack();
+                const newTrack = await fetchNewTrackData();
+                console.log("NEW TRACK FETCH: ", newTrack);
                 if (newTrack) {
-                    console.log("NEW TRACK FETCH: ", newTrack);
                     setTrack(newTrack.track);
                     setAudioStream(newTrack.streamLink);
-                    audioCacheData.setCurrentNode(newTrack.key);
                 }
             }
         })();
-    }, [audioCacheData, fetchNewTrack]);
+    }, [audioCacheData, fetchNewTrackData, hasFetchedInitialData]);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {
         (async () => {

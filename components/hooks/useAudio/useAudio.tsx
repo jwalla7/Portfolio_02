@@ -241,21 +241,31 @@ export function useAudio(userId?: string): useAudioProps {
     //         toggleAudio();
     //     }
 
-    const autoplayAudio = useCallback(() => {
-        if (audioIsPlaying && audioRef.current) {
-            audioRef.current.pause();
-            audioRef.current.src = "";
-            setAudioIsPlaying(false);
-            audioContextRef.current?.suspend();
-        }
-        // Create or update the AudioContext
-        if (!audioContextRef.current) {
-            createAudioContext();
-        }
-
-        // Now that audioRef is updated, call toggleAudio to control playback
-        toggleAudio();
-    }, [createAudioContext, toggleAudio, audioIsPlaying]);
+    const autoplayAudio = useCallback(
+        (currentNode: LRUCacheProps | null) => {
+            if (audioRef.current) {
+                if (audioIsPlaying) {
+                    audioRef.current.pause();
+                    audioContextRef.current?.suspend();
+                }
+                if (currentNode) {
+                    audioCacheData.moveToTail(currentNode.key);
+                }
+                console.log("PAUSED AUDIOREF NOW SRC = ", audioRef.current.src);
+                audioRef.current.src = "";
+                setAudioIsPlaying(false);
+            }
+            // Create or update the AudioContext
+            if (!audioContextRef.current) {
+                createAudioContext();
+            }
+            console.log("CURRENT NODE: ", currentNode);
+            audioRef.current = new Audio(currentNode?.streamLink);
+            console.log("PAUSED AUDIOREF NOW SRC AFTER = ", audioRef.current.src);
+            toggleAudio();
+        },
+        [createAudioContext, toggleAudio, audioIsPlaying, audioCacheData]
+    );
 
     // NEXT AUDIO
     const nextAudio = useCallback(() => {
@@ -274,7 +284,7 @@ export function useAudio(userId?: string): useAudioProps {
                 setTrack(nextNode.track);
                 setAudioStream(nextNode.streamLink);
                 audioCacheData.setCurrentNode(nextNode.key);
-                autoplayAudio();
+                autoplayAudio(currentNode);
             } else {
                 const newTrack = await fetchNewTrackData();
                 console.log("NEW TRACK FETCH: ", newTrack);
@@ -282,7 +292,7 @@ export function useAudio(userId?: string): useAudioProps {
                     setTrack(newTrack.track);
                     setAudioStream(newTrack.streamLink);
                     audioCacheData.setCurrentNode(newTrack.key);
-                    autoplayAudio();
+                    autoplayAudio(newTrack);
                 }
             }
         })();

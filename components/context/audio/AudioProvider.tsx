@@ -4,12 +4,8 @@ import { useAudio } from "@/components/hooks/useAudio/useAudio";
 import { AudioContext } from "./AudioContext";
 
 export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
-    // const [_trackId, setTrackId] = useState<string[]>(["1B5ab8z"]);
     const [_userId, setUserId] = useState<string>("oW3lyY7");
-    const { analyser, audioIsPlaying, toggleAudio, nextAudio, previousAudio, audioStream } = useAudio(
-        // _trackId,
-        _userId
-    );
+    const { analyser, audioIsPlaying, toggleAudio, nextAudio, previousAudio, audioStream } = useAudio(_userId);
 
     const values = useMemo(() => {
         return {

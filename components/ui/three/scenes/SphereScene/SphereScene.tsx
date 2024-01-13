@@ -6,6 +6,7 @@ import { getAVG, getMAX, getSphere, regulate } from "@/lib/audio";
 import { Group, IcosahedronGeometry, Mesh, MeshLambertMaterial } from "three";
 import { useTheme } from "next-themes";
 import { gradientMaterial } from "../../renderers";
+import { AudioVisualizerContext } from "@/components/context/audio/AudioVisualizerContext";
 
 export const SphereScene = (): ReactElement => {
     const groupRef = useRef<Group>(null);
@@ -39,6 +40,12 @@ export const SphereScene = (): ReactElement => {
         }
     });
 
+    const resetSphere = () => {
+        if (sphereRef.current) {
+            sphereRef.current.rotation.set(0, 0, 0);
+        }
+    };
+
     useEffect(() => {
         if (analyser) {
             const icosahedronGeometry = new IcosahedronGeometry(10, 4);
@@ -64,27 +71,29 @@ export const SphereScene = (): ReactElement => {
     }, [audioIsPlaying, analyser]);
 
     return (
-        <>
-            <ambientLight intensity={0.5} color={theme === "light" || resolvedTheme === "light" ? 0x0000ff : 0xffcbf4} />
-            <spotLight
-                position={[-10, 40, 20]}
-                angle={0.3}
-                intensity={0.9}
-                castShadow
-                color={theme === "light" || resolvedTheme === "light" ? 0xe3d4cd : 0xdbc7c5}
-            />
-            <directionalLight
-                color={theme === "light" || resolvedTheme === "light" ? 0xc7b7b7 : 0xb0b0ff}
-                position={[0, 50, 100]}
-                castShadow
-                shadow-mapSize-width={4096}
-                shadow-mapSize-height={4096}
-            />
-            <group ref={groupRef}>
-                <Icosahedron ref={sphereRef} args={[10, 4]}>
-                    <meshLambertMaterial attach="material" />
-                </Icosahedron>
-            </group>
-        </>
+        <AudioVisualizerContext.Provider value={{ analyser, resetSphere }}>
+            <>
+                <ambientLight intensity={0.5} color={theme === "light" || resolvedTheme === "light" ? 0x0000ff : 0xffcbf4} />
+                <spotLight
+                    position={[-10, 40, 20]}
+                    angle={0.3}
+                    intensity={0.9}
+                    castShadow
+                    color={theme === "light" || resolvedTheme === "light" ? 0xe3d4cd : 0xdbc7c5}
+                />
+                <directionalLight
+                    color={theme === "light" || resolvedTheme === "light" ? 0xc7b7b7 : 0xb0b0ff}
+                    position={[0, 50, 100]}
+                    castShadow
+                    shadow-mapSize-width={4096}
+                    shadow-mapSize-height={4096}
+                />
+                <group ref={groupRef}>
+                    <Icosahedron ref={sphereRef} args={[10, 4]}>
+                        <meshLambertMaterial attach="material" />
+                    </Icosahedron>
+                </group>
+            </>
+        </AudioVisualizerContext.Provider>
     );
 };

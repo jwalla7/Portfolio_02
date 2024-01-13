@@ -73,7 +73,7 @@ export function useAudio(userId?: string): useAudioProps {
 
     const fetchNewTrackData = useCallback(async () => {
         if (!userId) return null;
-        if (hasFetchedInitialData.current) {
+        if (hasFetchedInitialData) {
             try {
                 const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
                     method: "GET",
@@ -87,10 +87,8 @@ export function useAudio(userId?: string): useAudioProps {
                 const currentTrack = _track;
 
                 console.log("CURRENT TRACK: ", currentTrack);
-                console.log("CACHE TRACK: ", audioCacheData.getCurrentNodeValue()?.track);
                 const uniqueTracks = newAudioData.filter((uniqueTrack) => !audioCacheData.get(uniqueTrack.id));
                 if (uniqueTracks.length > 0) {
-                    console.log("CACHED DATA 2: ", audioCacheData);
                     console.log("UNIQUE FETCHED TRACKS: ", uniqueTracks);
                     uniqueTracks.forEach((track) => {
                         audioCacheData.put(track.id, track);
@@ -98,6 +96,8 @@ export function useAudio(userId?: string): useAudioProps {
                         setTrack(track.track);
                         setAudioStream(track.streamLink);
                     });
+                    console.log("CURRENT TRACK 2: ", currentTrack);
+                    console.log("CACHE TRACK 2: ", audioCacheData.getCurrentNodeValue()?.track);
                 } else {
                     const leastRecentlyUsedTrack = audioCacheData.getTailNode();
                     if (leastRecentlyUsedTrack) {
@@ -121,6 +121,10 @@ export function useAudio(userId?: string): useAudioProps {
         fetchInitialAudioData();
     }, [userId, fetchInitialAudioData]);
 
+    useEffect(() => {
+        if (!audioRef || audioStream) return;
+    }, [audioRef, audioStream, fetchNewTrackData]);
+
     // Set the audio source when audioStream changes
     useEffect(() => {
         if (!audioStream) return;
@@ -129,6 +133,7 @@ export function useAudio(userId?: string): useAudioProps {
         if (audioStream && audioRef.current) {
             audioRef.current.src = audioStream;
         }
+        console.log("NEW AUDIO STREAM: ", audioStream);
     }, [audioStream]);
 
     // ANALYZE AUDIO
@@ -157,11 +162,12 @@ export function useAudio(userId?: string): useAudioProps {
 
             setAnalyser(analyserNode);
             console.log("AudioContext created:", audioContextRef.current);
+            console.log("AudioRef: ", audioRef.current);
             console.log("AnalyserNode created:", analyserNode);
         } catch (e) {
             console.error("Error creating AudioContext", e);
         }
-    }, []);
+    }, [audioRef]);
 
     // TOGGLE AUDIO
 
@@ -283,20 +289,26 @@ export function useAudio(userId?: string): useAudioProps {
                 }
                 setTrack(nextNode.track);
                 setAudioStream(nextNode.streamLink);
+                if (!audioRef.current) return;
+                audioRef.current.src = nextNode.streamLink;
+                createAudioContext();
                 audioCacheData.setCurrentNode(nextNode.key);
-                autoplayAudio(currentNode);
+                // autoplayAudio(currentNode);
             } else {
                 const newTrack = await fetchNewTrackData();
                 console.log("NEW TRACK FETCH: ", newTrack);
                 if (newTrack) {
                     setTrack(newTrack.track);
                     setAudioStream(newTrack.streamLink);
+                    if (!audioRef.current) return;
+                    audioRef.current.src = newTrack.streamLink;
+                    createAudioContext();
                     audioCacheData.setCurrentNode(newTrack.key);
-                    autoplayAudio(newTrack);
+                    // autoplayAudio(newTrack);
                 }
             }
         })();
-    }, [audioCacheData, fetchNewTrackData, hasFetchedInitialData, autoplayAudio]);
+    }, [audioCacheData, fetchNewTrackData, hasFetchedInitialData, autoplayAudio, createAudioContext]);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {
         (async () => {

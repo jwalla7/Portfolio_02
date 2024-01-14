@@ -11,6 +11,7 @@ import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
+import { useAudioVisualizerContext } from "@/components/context/audio/AudioVisualizerContext";
 // import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(userId?: string): useAudioProps {
@@ -23,6 +24,7 @@ export function useAudio(userId?: string): useAudioProps {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const hasFetchedInitialData = useRef<boolean>(false);
+    const { resetSphere } = useAudioVisualizerContext();
 
     const audioCacheData = useMemo(() => new LRUCache<LRUCacheProps | null>(3), []);
 
@@ -214,6 +216,8 @@ export function useAudio(userId?: string): useAudioProps {
                 } else {
                     setAudioIsPlaying(isPlaying);
                     audio.pause();
+                    resetSphere();
+
                     if (audioContextRef.current) {
                         await audioContextRef.current.suspend();
                     }
@@ -308,7 +312,13 @@ export function useAudio(userId?: string): useAudioProps {
                 }
             }
         })();
-    }, [audioCacheData, fetchNewTrackData, hasFetchedInitialData, autoplayAudio, createAudioContext]);
+    }, [
+        audioCacheData,
+        fetchNewTrackData,
+        hasFetchedInitialData,
+        // autoplayAudio,
+        createAudioContext,
+    ]);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {
         (async () => {

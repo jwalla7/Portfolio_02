@@ -1,0 +1,262 @@
+/* .middle {
+    position: absolute;
+    background: #ffffff;
+    width: 15em;
+    height: 15em;
+    z-index: 1;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    margin: 11% 8%;
+} */
+
+.skills {
+    position: relative;
+    width: 50vw;
+    height: 50vh;
+    margin: 10% auto;
+    align-content: center;
+    justify-content: center;
+}
+
+.piecircle {
+    width: 100%;
+    height: 100%;
+    max-width: 50%;
+    max-height: auto;
+    min-width: 25%;
+    min-height: auto;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.pieanimate {
+    -webkit-transition: 0.2s cubic-bezier(.74, 1.13, .83, 1.2);
+    -moz-transition: 0.2s cubic-bezier(.74, 1.13, .83, 1.2);
+    -o-transition: 0.2s cubic-bezier(.74, 1.13, .83, 1.2);
+    transition: 0.2s cubic-bezier(.74, 1.13, .83, 1.2);
+}
+
+.pieanimate:hover {
+    transform: scale(1.1);
+    transform-origin: center center;
+    opacity: 0.8;
+
+    &:after {
+        opacity: 1;
+    }
+}
+
+.part1 {
+    transform: scale(1.1);
+    background-color: #24a1da;
+    -webkit-clip-path: polygon(50% 0, 50% 50%, 100% 41.2%, 100% 0);
+    clip-path: polygon(78% 0, 50% 50%, 100% 41.2%, 100% 0);
+}
+
+.part2 {
+    background-color: #DEDEDE;
+    -webkit-clip-path: polygon(50% 50%, 100% 41.2%, 100% 100%, 63.4% 100%);
+    clip-path: polygon(50% 50%, 100% 41.2%, 100% 100%, 100% 100%);
+
+    &:hover {
+        background-color: #4FB3E1;
+
+    }
+}
+
+.part3 {
+    background-color: #DEDEDE;
+    -webkit-clip-path: polygon(50% 50%, 36.6% 100%, 63.4% 100%);
+    clip-path: polygon(50% 50%, 45% 100%, 100% 100%);
+
+    &:hover {
+        background-color: #91D0EC;
+
+    }
+}
+
+.part4 {
+    background-color: #DEDEDE;
+    -webkit-clip-path: polygon(50% 50%, 0 100%, 36.6% 100%);
+    clip-path: polygon(50% 50%, 45% 100%, 0% 100%, 0% 80%);
+
+    &:hover {
+        background-color: #e86060;
+
+    }
+}
+
+.part5 {
+    background-color: #DEDEDE;
+    -webkit-clip-path: polygon(50% 50%, 0 36.6%, 0 100%);
+    clip-path: polygon(50% 50%, 0% 35%, 0% 80%);
+
+    &:hover {
+        background-color: #F2B643;
+    }
+}
+
+.part6 {
+    background-color: #DEDEDE;
+    /* -webkit-clip-path: polygon(50% 50%, 0 36.6%, 0 0, 50% 0); */
+    clip-path: polygon(50% 50%, 25% 0%, 0% 0%, 0% 35%);
+
+    &:hover {
+        background-color: #249b22;
+    }
+}
+
+.part7 {
+    background-color: #DEDEDE;
+    -webkit-clip-path: polygon(50% 50%, 0 0, 50% 0);
+    clip-path: polygon(50% 50%, 78% 0%, 25% 0%);
+
+    &:hover {
+        background-color: #ac16b1;
+
+    }
+}
+
+.tags {
+    font-family: "Open Sans", sans-serif;
+    position: absolute;
+    font-size: 14px;
+    right: 0;
+    top: 0;
+    width: 400px;
+    height: 100%;
+    margin-left: 5em;
+    border: 1px solid greenyellow;
+    background-color: #DEDEDE;
+}
+
+.taginvisible {
+    display: none;
+}
+
+.dots {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot1 {
+    background-color: #24a1da;
+}
+
+.dot2 {
+    background-color: #4FB3E1;
+}
+
+.dot3 {
+    background-color: #91D0EC;
+}
+
+.dot4 {
+    background-color: #F7CF84;
+}
+
+.dot5 {
+    background-color: #F2B643;
+}
+
+.dot6 {
+    background-color: #EFA00B;
+}
+
+.dot7 {
+    background-color: rgba(48, 48, 90, 0.8);
+}
+
+.part1:hover+.tag1 {
+    display: block;
+    right: 0;
+    top: 0;
+}
+
+.part2:hover+.tag2 {
+    display: block;
+    right: 0;
+    top: 0;
+    background-color: #4FB3E1;
+}
+
+.part3:hover+.tag3 {
+    display: block;
+    right: 0;
+    top: 0;
+}
+
+.part4:hover+.tag4 {
+    display: block;
+    right: 0;
+    top: 0;
+}
+
+.part5:hover+.tag5 {
+    display: block;
+    right: 0;
+    top: 0;
+}
+
+.part6:hover+.tag6 {
+    display: block;
+    right: 0;
+    top: 0;
+}
+
+.part7:hover+.tag7 {
+    display: block;
+    right: 0;
+    top: 0;
+}
+
+.part2:hover~.part1 {
+    transform: scale(1);
+}
+
+.part3:hover~.part1 {
+    transform: scale(1);
+}
+
+.part4:hover~.part1 {
+    transform: scale(1);
+}
+
+.part5:hover~.part1 {
+    transform: scale(1);
+}
+
+.part6:hover~.part1 {
+    transform: scale(1);
+}
+
+.part7:hover~.part1 {
+    transform: scale(1);
+}
+
+.part2:hover~.tag1 {
+    display: none;
+}
+
+.part3:hover~.tag1 {
+    display: none;
+}
+
+.part4:hover~.tag1 {
+    display: none;
+}
+
+.part5:hover~.tag1 {
+    display: none;
+}
+
+.part6:hover~.tag1 {
+    display: none;
+}
+
+.part7:hover~.tag1 {
+    display: none;
+}

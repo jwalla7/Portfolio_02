@@ -10,9 +10,10 @@ import { AudioProvider } from "@/components/context/audio/AudioProvider";
 import { AudioVisualizerProvider } from "@/components/context/audio/AudioVisualizerProvider";
 
 export default function MusicPage() {
+    console.log("AudioVisualizerProvier: ", AudioVisualizerProvider.contextTypes);
     return (
-        <AudioProvider>
-            <AudioVisualizerProvider>
+        <AudioVisualizerProvider>
+            <AudioProvider>
                 <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
                     <div className="absolute mt-[10%] ml-[29%] w-[calc(34vw)] h-[calc(55vh)] bg-transparent">
                         <SphereCamera />
@@ -29,7 +30,7 @@ export default function MusicPage() {
                     </CardGroup>
                     <OverlayTrigger />
                 </div>
-            </AudioVisualizerProvider>
-        </AudioProvider>
+            </AudioProvider>
+        </AudioVisualizerProvider>
     );
 }

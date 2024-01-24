@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from "react";
+import { ReactElement, useCallback, useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Icosahedron } from "@react-three/drei";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
@@ -13,6 +13,14 @@ export const SphereScene = (): ReactElement => {
     const sphereRef = useRef<Mesh | null>(null);
     const { analyser, audioIsPlaying } = useAudioContext();
     const { theme, resolvedTheme } = useTheme();
+
+    const resetSphere = useCallback(() => {
+        if (sphereRef.current) {
+            sphereRef.current.rotation.set(0, 0, 0);
+            sphereRef.current.position.set(0, 0, 0);
+            console.log("SPHERE RESET implemented: ", sphereRef.current.position);
+        }
+    }, []);
 
     useFrame(() => {
         if (analyser && sphereRef.current) {
@@ -39,12 +47,6 @@ export const SphereScene = (): ReactElement => {
             }
         }
     });
-
-    const resetSphere = () => {
-        if (sphereRef.current) {
-            sphereRef.current.rotation.set(0, 0, 0);
-        }
-    };
 
     useEffect(() => {
         if (analyser) {

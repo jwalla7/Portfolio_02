@@ -24,6 +24,7 @@ export function useAudio(userId?: string): useAudioProps {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const hasFetchedInitialData = useRef<boolean>(false);
+
     const { resetSphere } = useAudioVisualizerContext();
 
     const audioCacheData = useMemo(() => new LRUCache<LRUCacheProps | null>(3), []);
@@ -181,6 +182,7 @@ export function useAudio(userId?: string): useAudioProps {
             setAudioIsPlaying(false);
             if (audioContextRef.current) {
                 await audioContextRef.current.suspend();
+                resetSphere();
             }
         };
         audio.addEventListener("ended", onAudioEnd);
@@ -231,7 +233,7 @@ export function useAudio(userId?: string): useAudioProps {
         return () => {
             audio.removeEventListener("ended", onAudioEnd);
         };
-    }, [audioStream, createAudioContext]);
+    }, [audioStream, createAudioContext, resetSphere]);
 
     // const autoplayAudio = useCallback(() => {
     //     if (!audioStream) return;

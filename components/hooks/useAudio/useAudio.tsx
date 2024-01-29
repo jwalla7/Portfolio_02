@@ -25,6 +25,8 @@ export function useAudio(userId?: string): useAudioProps {
     const [error, setError] = useState<string | null>(null);
     const hasFetchedInitialData = useRef<boolean>(false);
 
+    const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
+
     const { resetSphere } = useAudioVisualizerContext();
 
     const audioCacheData = useMemo(() => new LRUCache<LRUCacheProps | null>(3), []);
@@ -125,7 +127,7 @@ export function useAudio(userId?: string): useAudioProps {
     }, [userId, fetchInitialAudioData]);
 
     useEffect(() => {
-        if (!audioRef || audioStream) return;
+        if (!audioRef || !audioStream || !audioContextRef) return;
     }, [audioRef, audioStream, fetchNewTrackData]);
 
     // Set the audio source when audioStream changes
@@ -139,41 +141,59 @@ export function useAudio(userId?: string): useAudioProps {
         console.log("NEW AUDIO STREAM: ", audioStream);
     }, [audioStream]);
 
+    useEffect(() => {
+        return () => {
+            // Disconnect and cleanup
+            if (mediaElementSourceNodeRef.current) {
+                mediaElementSourceNodeRef.current.disconnect();
+            }
+            if (audioContextRef.current) {
+                audioContextRef.current.close();
+            }
+        };
+    }, []);
+
     // ANALYZE AUDIO
     const createAudioContext = useCallback(() => {
         if (!audioRef.current) return;
 
         try {
-            const AudioContextClass = AudioContext || (window as any).webkitAudioContext;
-            audioContextRef.current = new AudioContextClass();
-            const src = audioContextRef.current.createMediaElementSource(audioRef.current);
-            /**
-             * AnalyserNode
-             *
-             * https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode
-             */
-            const analyserNode = audioContextRef.current.createAnalyser();
-            /**
-             * smoothingTimeConstant
-             *
-             * https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/smoothingTimeConstant
-             */
-            analyserNode.smoothingTimeConstant = 0.55;
-            src.connect(analyserNode);
-            analyserNode.connect(audioContextRef.current.destination);
-            analyserNode.fftSize = 512;
+            // Create AudioContext if it doesn't exist
+            if (!audioContextRef.current || audioContextRef.current.state === "closed") {
+                const AudioContextClass = AudioContext || (window as any).webkitAudioContext;
+                audioContextRef.current = new AudioContextClass();
+            }
 
-            setAnalyser(analyserNode);
-            console.log("AudioContext created:", audioContextRef.current);
-            console.log("AudioRef: ", audioRef.current);
-            console.log("AnalyserNode created:", analyserNode);
+            // If MediaElementSourceNode is already connected to this audio element, skip creating a new one
+            if (mediaElementSourceNodeRef.current && mediaElementSourceNodeRef.current.mediaElement === audioRef.current) {
+                console.log("Using existing MediaElementSourceNode");
+                return;
+            }
+
+            // Disconnect previous MediaElementSourceNode if it exists
+            if (mediaElementSourceNodeRef.current) {
+                mediaElementSourceNodeRef.current.disconnect();
+            }
+
+            // Create a new MediaElementSourceNode and connect it
+            if (audioRef.current && !mediaElementSourceNodeRef.current) {
+                mediaElementSourceNodeRef.current = audioContextRef.current.createMediaElementSource(audioRef.current);
+
+                const analyserNode = audioContextRef.current.createAnalyser();
+                analyserNode.smoothingTimeConstant = 0.55;
+                mediaElementSourceNodeRef.current.connect(analyserNode);
+                analyserNode.connect(audioContextRef.current.destination);
+                analyserNode.fftSize = 512;
+
+                setAnalyser(analyserNode);
+                console.log("AudioContext and AnalyserNode setup complete.");
+            }
         } catch (e) {
             console.error("Error creating AudioContext", e);
         }
     }, [audioRef]);
 
     // TOGGLE AUDIO
-
     const toggleAudio = useCallback(() => {
         const audio = audioRef.current;
         if (!audio) return;
@@ -192,13 +212,13 @@ export function useAudio(userId?: string): useAudioProps {
                 // Check if a new track has been selected
                 if (audioStream && audio.src !== audioStream) {
                     audio.src = audioStream; // Set new source
-                    if (!audioContextRef.current) {
+                    if (!audioContextRef.current || audioContextRef.current.state === "closed") {
                         createAudioContext();
                     }
                 }
                 const isPlaying = audio.paused || audio.ended;
                 if (isPlaying) {
-                    if (!audioContextRef.current) {
+                    if (!audioContextRef.current || audioContextRef.current.state === "closed") {
                         createAudioContext();
                     }
                     setAudioIsPlaying(isPlaying);
@@ -235,24 +255,6 @@ export function useAudio(userId?: string): useAudioProps {
         };
     }, [audioStream, createAudioContext, resetSphere]);
 
-    // const autoplayAudio = useCallback(() => {
-    //     if (!audioStream) return;
-    //     audioRef.current = new Audio(audioStream);
-    //     audioRef.current.crossOrigin = "anonymous";
-    //     if (audioStream && audioRef.current) {
-    //         audioRef.current.src = audioStream;
-    //     }
-    //     if (!audioContextRef.current) {
-    //         createAudioContext();
-    //     }
-    //     if (audioIsPlaying) {
-    //         audioContextRef.current?.suspend();
-    //         setAudioIsPlaying(false);
-    //     }
-    //     if (!audioIsPlaying && audioContextRef.current?.state === "suspended") {
-    //         toggleAudio();
-    //     }
-
     const autoplayAudio = useCallback(
         (currentNode: LRUCacheProps | null) => {
             if (audioRef.current) {
@@ -268,7 +270,7 @@ export function useAudio(userId?: string): useAudioProps {
                 setAudioIsPlaying(false);
             }
             // Create or update the AudioContext
-            if (!audioContextRef.current) {
+            if (!audioContextRef.current || audioContextRef.current.state === "closed") {
                 createAudioContext();
             }
             console.log("CURRENT NODE: ", currentNode);
@@ -283,7 +285,11 @@ export function useAudio(userId?: string): useAudioProps {
     const nextAudio = useCallback(() => {
         console.log("NEXT AUDIO");
         console.log("hasFetchedInitialData: ", hasFetchedInitialData.current);
-
+        setAudioIsPlaying(false);
+        if (audioContextRef.current) {
+            audioContextRef.current.suspend();
+            resetSphere();
+        }
         (async () => {
             const currentNode = audioCacheData.getCurrentNodeValue();
             const currentNodeKey = String(currentNode?.key);
@@ -297,6 +303,9 @@ export function useAudio(userId?: string): useAudioProps {
                 setAudioStream(nextNode.streamLink);
                 if (!audioRef.current) return;
                 audioRef.current.src = nextNode.streamLink;
+                if (audioContextRef.current) {
+                    audioContextRef.current.close();
+                }
                 createAudioContext();
                 audioCacheData.setCurrentNode(nextNode.key);
                 // autoplayAudio(currentNode);
@@ -307,6 +316,9 @@ export function useAudio(userId?: string): useAudioProps {
                     setTrack(newTrack.track);
                     setAudioStream(newTrack.streamLink);
                     if (!audioRef.current) return;
+                    if (audioContextRef.current) {
+                        audioContextRef.current.close();
+                    }
                     audioRef.current.src = newTrack.streamLink;
                     createAudioContext();
                     audioCacheData.setCurrentNode(newTrack.key);
@@ -320,6 +332,7 @@ export function useAudio(userId?: string): useAudioProps {
         hasFetchedInitialData,
         // autoplayAudio,
         createAudioContext,
+        resetSphere,
     ]);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {

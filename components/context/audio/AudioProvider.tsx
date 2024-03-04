@@ -5,7 +5,19 @@ import { AudioContext } from "./AudioContext";
 
 export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
     const [_userId, setUserId] = useState<string>("oW3lyY7");
-    const { analyser, audioIsPlaying, toggleAudio, nextAudio, previousAudio, audioStream } = useAudio(_userId);
+    const {
+        analyser,
+        audioIsPlaying,
+        toggleAudio,
+        nextAudio,
+        previousAudio,
+        audioStream,
+        currentTime,
+        duration,
+        seekAudioTime,
+        durationTimeString,
+        formattedRemainingTime,
+    } = useAudio(_userId);
 
     const values = useMemo(() => {
         return {
@@ -15,8 +27,25 @@ export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
             toggleAudio,
             nextAudio,
             previousAudio,
+            currentTime: currentTime ?? 0,
+            duration: duration ?? 0,
+            seekAudioTime,
+            durationTimeString,
+            formattedRemainingTime,
         };
-    }, [audioStream, analyser, audioIsPlaying, toggleAudio, nextAudio, previousAudio]);
+    }, [
+        audioStream,
+        analyser,
+        audioIsPlaying,
+        toggleAudio,
+        nextAudio,
+        previousAudio,
+        currentTime,
+        duration,
+        seekAudioTime,
+        durationTimeString,
+        formattedRemainingTime,
+    ]);
 
     return <AudioContext.Provider value={values}>{children}</AudioContext.Provider>;
 };

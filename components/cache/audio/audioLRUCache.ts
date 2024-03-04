@@ -1,19 +1,19 @@
 import { Track } from "@audius/sdk/dist/api/Track";
 
 class TrackNode<T> {
-    key: string;
+    id: string;
     value: T;
     prev: TrackNode<T> | null = null;
     next: TrackNode<T> | null = null;
 
-    constructor(key: string, value: T) {
-        this.key = key;
+    constructor(id: string, value: T) {
+        this.id = id;
         this.value = value;
     }
 }
 
 export interface LRUCacheProps {
-    key: string;
+    id: string;
     track: Track;
     streamLink: string;
 }
@@ -29,30 +29,133 @@ export class LRUCache<T> {
         this.hash = new Map<string, TrackNode<T>>();
     }
 
-    put(key: string, value: T): void {
-        let node = this.hash.get(key);
+    put(id: string, value: T): void {
+        let node = this.hash.get(id);
         if (node) {
             node.value = value;
             this.moveToHead(node);
         } else {
-            node = new TrackNode(key, value);
-            this.hash.set(key, node);
+            node = new TrackNode(id, value);
+            this.hash.set(id, node);
             this.addToHead(node);
 
-            if (this.hash.size >= this.capacity) {
+            if (this.hash.size > this.capacity) {
                 this.removeTail();
             }
         }
+        this.currentNode = node;
     }
 
-    get(key: string): T | null {
-        const node = this.hash.get(key);
+    get(id: string): T | null {
+        const node = this.hash.get(id);
         if (node) {
             this.moveToHead(node);
             this.currentNode = node;
             return node.value;
         }
         return null;
+    }
+
+    public getCapacity(): number {
+        return this.capacity;
+    }
+
+    private addToHead(node: TrackNode<T>): void {
+        if (!this.head) {
+            this.head = this.tail = node;
+        } else {
+            node.next = this.head;
+            this.head.prev = node;
+            this.head = node;
+        }
+    }
+
+    private removeTail(): void {
+        if (this.tail) {
+            this.hash.delete(this.tail.id);
+            if (this.head === this.tail) {
+                this.head = this.tail = null;
+            } else {
+                this.tail = this.tail.prev;
+                if (this.tail) this.tail.next = null;
+            }
+        }
+    }
+
+    private removeNodeByKey(id: string): void {
+        const node = this.hash.get(id);
+        if (!node) {
+            return;
+        }
+
+        // Remove node from the doubly linked list
+        if (node.prev) {
+            node.prev.next = node.next;
+        } else {
+            // Node is the head
+            this.head = node.next;
+        }
+
+        if (node.next) {
+            node.next.prev = node.prev;
+        } else {
+            // Node is the tail
+            this.tail = node.prev;
+        }
+
+        // Remove node from the hash map
+        this.hash.delete(id);
+    }
+
+    private moveToHead(node: TrackNode<T>): void {
+        if (node === this.head) return;
+
+        // Detach node from current position
+        if (node.prev) node.prev.next = node.next;
+        if (node.next) node.next.prev = node.prev;
+
+        // If the node is the tail, update the tail
+        if (node === this.tail) {
+            this.tail = node.prev;
+        }
+        // Place node at head
+        node.prev = null;
+        node.next = this.head;
+        if (this.head) {
+            this.head.prev = node;
+        }
+        this.head = node;
+    }
+
+    private addToTail(node: TrackNode<T>): void {
+        if (!this.tail) {
+            this.head = node;
+            this.tail = node;
+        } else {
+            this.tail.next = node;
+            node.prev = this.tail;
+            this.tail = node;
+        }
+    }
+
+    moveToTail(id: string): void {
+        const node = this.hash.get(id);
+        if (node === this.tail) return;
+        if (node) {
+            if (node.prev) node.prev.next = node.next;
+            if (node.next) node.next.prev = node.prev;
+            else this.tail = node.prev;
+
+            if (!this.tail) {
+                this.head = node;
+                this.tail = node;
+            } else {
+                this.tail.next = node;
+                node.prev = this.tail;
+                this.tail = node;
+            }
+            node.next = null;
+        }
     }
 
     getAllKeys(): string[] {
@@ -63,11 +166,17 @@ export class LRUCache<T> {
         return this.currentNode?.value || null;
     }
 
-    setCurrentNode(key: string): void {
-        const node = this.hash.get(key);
+    setCurrentNode(id: string): void {
+        const node = this.hash.get(id);
         if (node) {
             this.currentNode = node;
+        } else {
+            console.log("Current Node Set Not Found In Cache");
         }
+    }
+
+    getHeadNode(): T | null {
+        return this.head?.value || null;
     }
 
     getNextNode(currentKey: string): T | null {
@@ -98,107 +207,5 @@ export class LRUCache<T> {
 
     getTailNode(): T | null {
         return this.tail?.value || null;
-    }
-
-    private addToHead(node: TrackNode<T>): void {
-        if (!this.head) {
-            this.head = node;
-            this.tail = node;
-        } else {
-            node.next = this.head;
-            if (this.head) {
-                this.head.prev = node;
-            }
-            this.head = node;
-        }
-    }
-
-    private removeTail(): void {
-        if (this.tail) {
-            this.hash.delete(this.tail.key);
-            if (this.head === this.tail) {
-                this.head = null;
-                this.tail = null;
-            } else {
-                this.tail = this.tail.prev;
-                if (this.tail) {
-                    this.tail.next = null;
-                }
-            }
-        }
-    }
-
-    private removeNodeByKey(key: string): void {
-        const node = this.hash.get(key);
-        if (!node) {
-            return;
-        }
-
-        // Remove node from the doubly linked list
-        if (node.prev) {
-            node.prev.next = node.next;
-        } else {
-            // Node is the head
-            this.head = node.next;
-        }
-
-        if (node.next) {
-            node.next.prev = node.prev;
-        } else {
-            // Node is the tail
-            this.tail = node.prev;
-        }
-
-        // Remove node from the hash map
-        this.hash.delete(key);
-    }
-
-    private moveToHead(node: TrackNode<T>): void {
-        if (node === this.head) return;
-
-        if (node.prev) node.prev.next = node.next;
-        if (node.next) node.next.prev = node.prev;
-
-        node.next = this.head;
-        node.prev = null;
-        if (this.head) {
-            this.head.prev = node;
-        }
-        this.head = node;
-
-        if (node === this.tail) {
-            this.tail = node.prev;
-        }
-    }
-
-    private addToTail(node: TrackNode<T>): void {
-        if (!this.tail) {
-            this.head = node;
-            this.tail = node;
-        } else {
-            this.tail.next = node;
-            node.prev = this.tail;
-            this.tail = node;
-        }
-    }
-
-    moveToTail(key: string): void {
-        const node = this.hash.get(key);
-        if (node === this.tail) return;
-        if (node) {
-            if (node.prev) node.prev.next = node.next;
-            if (node.next) node.next.prev = node.prev;
-            else this.tail = node.prev;
-
-            if (!this.tail) {
-                this.head = node;
-                this.tail = node;
-            } else {
-                this.tail.next = node;
-                node.prev = this.tail;
-                this.tail = node;
-            }
-            node.next = null;
-        }
     }
 }

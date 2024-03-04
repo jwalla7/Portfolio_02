@@ -12,6 +12,8 @@ import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 import { useAudioVisualizerContext } from "@/components/context/audio/AudioVisualizerContext";
+import { time } from "console";
+// import { d } from "@tanstack/react-query-devtools/build/legacy/devtools-0Hr18ibL";
 // import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(userId?: string): useAudioProps {
@@ -24,17 +26,37 @@ export function useAudio(userId?: string): useAudioProps {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const hasFetchedInitialData = useRef<boolean>(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [durationTimeString, setDurationTimeString] = useState<string>("0:00");
+    const [progressPercentage, setProgressPercentage] = useState<number>(0);
+    const [cacheUpdated, setCacheUpdated] = useState<boolean>(false);
+    const animationFrameId = useRef<number | null>(null);
 
     const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
 
     const { resetSphere } = useAudioVisualizerContext();
 
     const audioCacheData = useMemo(() => new LRUCache<LRUCacheProps | null>(3), []);
-
     interface TrackData extends LRUCacheProps {
         id: string;
         metaData?: string;
     }
+    interface NewTrack extends Track {
+        id: string;
+    }
+    // AUDIO TIME DATA FOR PLAYBACK CONTROL
+    const audioPlaybackData = useCallback(() => {
+        if (audioRef.current) {
+            setCurrentTime(audioRef.current.currentTime);
+            setDuration(audioRef.current.duration || 0);
+            const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100 || 0;
+            setProgressPercentage(progress);
+            animationFrameId.current = requestAnimationFrame(audioPlaybackData);
+        }
+    }, []);
+
+    // FETCH AUDIO DATA
     const fetchInitialAudioData = useCallback(async () => {
         setLoading(true);
         setError(null);
@@ -55,105 +77,98 @@ export function useAudio(userId?: string): useAudioProps {
             }
             if (Array.isArray(cachedAudioData) && cachedAudioData.length > 0) {
                 cachedAudioData.forEach((trackData, index) => {
-                    if (trackData.id) {
+                    let atCapacityNode = null;
+                    if (trackData.id && index < audioCacheData.getCapacity()) {
                         audioCacheData.put(trackData.id, trackData);
+                        atCapacityNode = trackData.id;
+                        console.log("NODE ADDED TO CACHE => : ", trackData.id);
                     } else {
-                        console.error("Invalid track data, missing id:", trackData);
+                        console.error("Invalid attempt to add track data, exceeded capacity:", trackData);
+                    }
+                    if (index < audioCacheData.getCapacity()) {
+                        console.log("AT CAPACITY NODE => INDEX: ", index);
+                        console.log("AT CAPACITY NODE: ", atCapacityNode);
+                        atCapacityNode = trackData.id;
                     }
                     if (index === 0) {
                         setTrack(trackData.track);
                         setAudioStream(trackData.streamLink);
-                        audioCacheData.setCurrentNode(trackData.id);
-                        console.log("CURRENT INITIAL NODE: ", audioCacheData.getCurrentNodeValue());
+                        if (atCapacityNode) {
+                            audioCacheData.setCurrentNode(atCapacityNode);
+                        }
                     }
                 });
+                setCacheUpdated((prevState) => !prevState);
+                console.log("INITIAL CURRENT NODE => : ", audioCacheData.getCurrentNodeValue());
             }
-            console.log("CACHE INITIAL DATA: ", audioCacheData);
         } catch (err: any) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
+        console.log("INITIAL CACHE => : ", audioCacheData);
     }, [userId, audioCacheData]);
 
     const fetchNewTrackData = useCallback(async () => {
         if (!userId) return null;
         if (hasFetchedInitialData) {
+            const existingNodeKeys = audioCacheData.getAllKeys();
             try {
-                const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
+                const response = await fetch(`/api/audius?userId=${userId}&excludeIds=${existingNodeKeys.join(",")}&stream=true`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*",
                     },
                 });
-                if (!response.ok) throw new Error("Error fetching audio data");
+                if (!response.ok) {
+                    throw new Error("Error fetching audio data");
+                }
                 const newAudioData: TrackData[] = await response.json();
-                const currentTrack = _track;
 
-                console.log("CURRENT TRACK: ", currentTrack);
+                // Filter out tracks that are already in the cache to get only unique new tracks
                 const uniqueTracks = newAudioData.filter((uniqueTrack) => !audioCacheData.get(uniqueTrack.id));
+
                 if (uniqueTracks.length > 0) {
-                    console.log("UNIQUE FETCHED TRACKS: ", uniqueTracks);
+                    // Process each unique track
                     uniqueTracks.forEach((track) => {
                         audioCacheData.put(track.id, track);
-                        audioCacheData.setCurrentNode(track.id);
-                        setTrack(track.track);
-                        setAudioStream(track.streamLink);
                     });
-                    console.log("CURRENT TRACK 2: ", currentTrack);
-                    console.log("CACHE TRACK 2: ", audioCacheData.getCurrentNodeValue()?.track);
+
+                    // Set the first unique track as the current node and update state
+                    const firstUniqueTrack = uniqueTracks[0];
+                    console.log("FIRST UNIQUE TRACK: ", firstUniqueTrack);
+                    if (firstUniqueTrack) {
+                        setTrack(firstUniqueTrack.track);
+                        setAudioStream(firstUniqueTrack.streamLink);
+                        audioCacheData.setCurrentNode(firstUniqueTrack.id);
+                        animationFrameId.current = requestAnimationFrame(audioPlaybackData);
+                        console.log(`Added ${uniqueTracks.length} new unique tracks.`);
+                    }
+                    resetSphere();
                 } else {
+                    // Use the least recently used track if no unique tracks are found
                     const leastRecentlyUsedTrack = audioCacheData.getTailNode();
                     if (leastRecentlyUsedTrack) {
-                        audioCacheData.setCurrentNode(leastRecentlyUsedTrack.key);
-                        setTrack(leastRecentlyUsedTrack.track);
-                        setAudioStream(leastRecentlyUsedTrack.streamLink);
+                        setTrack(leastRecentlyUsedTrack.track); // Access the track from the node's value
+                        setAudioStream(leastRecentlyUsedTrack.streamLink); // Access the streamLink from the node's value
+                        audioCacheData.setCurrentNode(leastRecentlyUsedTrack.id); // Ensure you use `key` here
+                        animationFrameId.current = requestAnimationFrame(audioPlaybackData);
+                        console.log("Using the least recently used track.");
+                    } else {
+                        console.log("No tracks available to set as current.");
                     }
                 }
             } catch (err: any) {
+                console.error("Fetching new track data failed:", err);
                 setError(err.message);
             } finally {
                 setLoading(false);
             }
-            return audioCacheData.getCurrentNodeValue();
         }
-        return;
-    }, [userId, audioCacheData, _track]);
+    }, [userId, audioCacheData, animationFrameId, audioPlaybackData, setTrack, setAudioStream, setError, setLoading, resetSphere]);
 
-    useEffect(() => {
-        if (!userId) return;
-        fetchInitialAudioData();
-    }, [userId, fetchInitialAudioData]);
-
-    useEffect(() => {
-        if (!audioRef || !audioStream || !audioContextRef) return;
-    }, [audioRef, audioStream, fetchNewTrackData]);
-
-    // Set the audio source when audioStream changes
-    useEffect(() => {
-        if (!audioStream) return;
-        audioRef.current = new Audio(audioStream);
-        audioRef.current.crossOrigin = "anonymous";
-        if (audioStream && audioRef.current) {
-            audioRef.current.src = audioStream;
-        }
-        console.log("NEW AUDIO STREAM: ", audioStream);
-    }, [audioStream]);
-
-    useEffect(() => {
-        return () => {
-            // Disconnect and cleanup
-            if (mediaElementSourceNodeRef.current) {
-                mediaElementSourceNodeRef.current.disconnect();
-            }
-            if (audioContextRef.current) {
-                audioContextRef.current.close();
-            }
-        };
-    }, []);
-
-    // ANALYZE AUDIO
+    // ANALYZE AUDIO FOR VISUALIZATION
     const createAudioContext = useCallback(() => {
         if (!audioRef.current) return;
 
@@ -202,28 +217,34 @@ export function useAudio(userId?: string): useAudioProps {
             setAudioIsPlaying(false);
             if (audioContextRef.current) {
                 await audioContextRef.current.suspend();
-                resetSphere();
+            }
+            resetSphere();
+            if (animationFrameId.current !== null) {
+                cancelAnimationFrame(animationFrameId.current);
+                animationFrameId.current = null;
             }
         };
         audio.addEventListener("ended", onAudioEnd);
 
         (async () => {
             try {
-                // Check if a new track has been selected
                 if (audioStream && audio.src !== audioStream) {
-                    audio.src = audioStream; // Set new source
+                    audio.src = audioStream;
                     if (!audioContextRef.current || audioContextRef.current.state === "closed") {
+                        resetSphere();
                         createAudioContext();
                     }
                 }
                 const isPlaying = audio.paused || audio.ended;
                 if (isPlaying) {
                     if (!audioContextRef.current || audioContextRef.current.state === "closed") {
+                        resetSphere();
                         createAudioContext();
                     }
                     setAudioIsPlaying(isPlaying);
                     try {
                         await audio.play();
+                        animationFrameId.current = requestAnimationFrame(audioPlaybackData);
                         if (audioContextRef.current) {
                             await audioContextRef.current.resume();
                         }
@@ -238,11 +259,14 @@ export function useAudio(userId?: string): useAudioProps {
                 } else {
                     setAudioIsPlaying(isPlaying);
                     audio.pause();
-                    resetSphere();
-
+                    if (animationFrameId.current !== null) {
+                        cancelAnimationFrame(animationFrameId.current);
+                        animationFrameId.current = null;
+                    }
                     if (audioContextRef.current) {
                         await audioContextRef.current.suspend();
                     }
+                    resetSphere();
                     console.log("PLAYING STATE: ", audioContextRef.current?.state);
                 }
             } catch (e) {
@@ -253,7 +277,7 @@ export function useAudio(userId?: string): useAudioProps {
         return () => {
             audio.removeEventListener("ended", onAudioEnd);
         };
-    }, [audioStream, createAudioContext, resetSphere]);
+    }, [audioStream, createAudioContext, resetSphere, audioPlaybackData]);
 
     const autoplayAudio = useCallback(
         (currentNode: LRUCacheProps | null) => {
@@ -263,9 +287,9 @@ export function useAudio(userId?: string): useAudioProps {
                     audioContextRef.current?.suspend();
                 }
                 if (currentNode) {
-                    audioCacheData.moveToTail(currentNode.key);
+                    audioCacheData.moveToTail(currentNode.id);
                 }
-                console.log("PAUSED AUDIOREF NOW SRC = ", audioRef.current.src);
+                console.log("PAUSED AUDIO REF NOW SRC = ", audioRef.current.src);
                 audioRef.current.src = "";
                 setAudioIsPlaying(false);
             }
@@ -275,7 +299,7 @@ export function useAudio(userId?: string): useAudioProps {
             }
             console.log("CURRENT NODE: ", currentNode);
             audioRef.current = new Audio(currentNode?.streamLink);
-            console.log("PAUSED AUDIOREF NOW SRC AFTER = ", audioRef.current.src);
+            console.log("PAUSED AUDIO REF NOW SRC AFTER = ", audioRef.current.src);
             toggleAudio();
         },
         [createAudioContext, toggleAudio, audioIsPlaying, audioCacheData]
@@ -284,62 +308,245 @@ export function useAudio(userId?: string): useAudioProps {
     // NEXT AUDIO
     const nextAudio = useCallback(() => {
         console.log("NEXT AUDIO");
-        console.log("hasFetchedInitialData: ", hasFetchedInitialData.current);
         setAudioIsPlaying(false);
         if (audioContextRef.current) {
             audioContextRef.current.suspend();
+            if (animationFrameId.current !== null) {
+                cancelAnimationFrame(animationFrameId.current);
+            }
             resetSphere();
         }
         (async () => {
             const currentNode = audioCacheData.getCurrentNodeValue();
-            const currentNodeKey = String(currentNode?.key);
+            console.log("NEXT AUDIO => CURRENT NODE: ", currentNode);
+            console.log("NEXT AUDIO => CURRENT CACHE: ", audioCacheData);
+
+            const currentNodeKey = String(currentNode?.id);
             const nextNode = audioCacheData.getNextNode(currentNodeKey);
 
-            if (nextNode) {
-                if (currentNode && audioCacheData.getPreviousNode(currentNodeKey)) {
-                    audioCacheData.moveToTail(currentNodeKey);
-                }
+            if (nextNode !== null && nextNode.id) {
+                console.log("NEXT AUDIO => NEXT NODE: ", nextNode.id);
+                // if (currentNode && audioCacheData.getPreviousNode(currentNodeKey) === currentNode) {
+                //     audioCacheData.moveToTail(currentNode.id);
+                // }
                 setTrack(nextNode.track);
                 setAudioStream(nextNode.streamLink);
+                console.log("NEXT AUDIO => NEXT TRACK: ", nextNode.id);
+                console.log("NEXT AUDIO => NEXT CACHE: ", audioCacheData);
+                if (audioRef.current) {
+                    audioRef.current.src = nextNode.streamLink;
+                }
                 if (!audioRef.current) return;
                 audioRef.current.src = nextNode.streamLink;
                 if (audioContextRef.current) {
                     audioContextRef.current.close();
+                    createAudioContext();
                 }
-                createAudioContext();
-                audioCacheData.setCurrentNode(nextNode.key);
+                audioCacheData.setCurrentNode(nextNode.id);
+                animationFrameId.current = requestAnimationFrame(audioPlaybackData);
                 // autoplayAudio(currentNode);
             } else {
-                const newTrack = await fetchNewTrackData();
-                console.log("NEW TRACK FETCH: ", newTrack);
-                if (newTrack) {
-                    setTrack(newTrack.track);
-                    setAudioStream(newTrack.streamLink);
-                    if (!audioRef.current) return;
-                    if (audioContextRef.current) {
-                        audioContextRef.current.close();
+                try {
+                    if (nextNode === null) {
+                        const newTrackFetch = await fetchNewTrackData();
+                        if (!newTrackFetch) {
+                            console.log("NO NEW TRACKS FETCHED");
+                            return;
+                        }
+                        const newTrack: LRUCacheProps = newTrackFetch;
+                        if (newTrack && newTrack.id) {
+                            setTrack(newTrack.track);
+                            setAudioStream(newTrack.streamLink);
+                            console.log("NO NEXT AUDIO => FETCHED NEW TRACK: ", newTrack);
+                            if (!audioRef.current) return;
+                            audioRef.current.src = newTrack.streamLink;
+                            if (audioContextRef.current) {
+                                audioContextRef.current.close();
+                                createAudioContext();
+                            }
+                            audioCacheData.setCurrentNode(newTrack.id);
+                            // autoplayAudio(newTrack);
+                        }
                     }
-                    audioRef.current.src = newTrack.streamLink;
-                    createAudioContext();
-                    audioCacheData.setCurrentNode(newTrack.key);
-                    // autoplayAudio(newTrack);
+                } catch (error) {
+                    console.error("ERROR FETCHING => newTRACK", error);
                 }
             }
         })();
     }, [
         audioCacheData,
         fetchNewTrackData,
-        hasFetchedInitialData,
+        // hasFetchedInitialData,
         // autoplayAudio,
         createAudioContext,
         resetSphere,
+        audioPlaybackData,
     ]);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {
-        (async () => {
-            toggleAudio();
-        })();
-    }, [toggleAudio]);
+        const currentNode = audioCacheData.getCurrentNodeValue();
+        if (!currentNode) {
+            console.log("Current track ID not found. Looking for new track.");
+            nextAudio();
+            return;
+        }
+        if (!currentNode.id) {
+            console.log("Current track ID not found.");
+            return;
+        }
+        // Attempt to retrieve the previous node based on the current node's ID
+        const previousNode = audioCacheData.getPreviousNode(currentNode.id);
+        if (previousNode) {
+            // If there is a previous node, use it for playback
+            setTrack(previousNode.track);
+            setAudioStream(previousNode.streamLink);
+            audioCacheData.setCurrentNode(previousNode.id); // Update the current node in the cache
 
-    return { analyser: analyser, toggleAudio, audioIsPlaying, nextAudio, previousAudio, audioStream };
+            if (audioRef.current) {
+                audioRef.current.src = previousNode.streamLink;
+                // audioRef.current.play().catch(err => console.error("Error playing the audio", err));
+            }
+
+            if (audioContextRef.current) {
+                audioContextRef.current.close(); // Reset the AudioContext for the new source
+                createAudioContext();
+            }
+        } else {
+            // Fallback to the least recently used (LRU) track if there's no previous track
+            console.log("NO PREVIOUS TRACK => : Attempting to play the LRU track.");
+            const lruTrack = audioCacheData.getTailNode();
+            if (lruTrack) {
+                setTrack(lruTrack.track);
+                setAudioStream(lruTrack.streamLink);
+                audioCacheData.setCurrentNode(lruTrack.id); // Ensure to update the current node to the LRU node
+
+                if (audioRef.current) {
+                    audioRef.current.src = lruTrack.streamLink;
+                    // audioRef.current.play().catch(err => console.error("Error playing the audio", err));
+                }
+
+                if (audioContextRef.current) {
+                    audioContextRef.current.close();
+                    createAudioContext();
+                }
+            } else {
+                console.log("LRU track not found.");
+            }
+        }
+    }, [audioCacheData, setTrack, setAudioStream, createAudioContext, nextAudio]);
+
+    const updateAudioTime = useCallback(() => {
+        if (audioRef.current) {
+            setCurrentTime(audioRef.current.currentTime);
+            setDuration(audioRef.current.duration || 0);
+        }
+    }, []);
+    const seekAudioTime = useCallback((time: number) => {
+        if (!audioRef.current) return;
+        audioRef.current.currentTime = time;
+        setCurrentTime(time);
+
+        return time;
+    }, []);
+
+    // Format audio time
+    const formatAudioTime = useCallback(
+        (time: number) => {
+            if (!time) return;
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+            setDurationTimeString(`${minutes}:${formattedSeconds}`);
+
+            return durationTimeString;
+        },
+        [durationTimeString]
+    );
+
+    const formattedRemainingTime = useMemo(() => {
+        return formatAudioTime(duration - currentTime);
+    }, [currentTime, duration, formatAudioTime]);
+
+    // Fetch initial audio data
+    useEffect(() => {
+        if (!userId) return;
+        fetchInitialAudioData();
+    }, [userId, fetchInitialAudioData]);
+
+    // Fetch new track data
+    useEffect(() => {
+        if (!audioRef || !audioStream || !audioContextRef) return;
+        if (cacheUpdated) {
+            resetSphere();
+        }
+    }, [audioRef, audioStream, fetchNewTrackData, resetSphere, cacheUpdated]);
+
+    // Update audio
+    useEffect(() => {
+        if (!audioStream) return;
+        audioRef.current = new Audio(audioStream);
+        audioRef.current.crossOrigin = "anonymous";
+        if (audioStream && audioRef.current) {
+            audioRef.current.src = audioStream;
+            updateAudioTime();
+        }
+        console.log("NEW AUDIO STREAM: ", audioStream);
+    }, [audioStream, updateAudioTime]);
+
+    // Update audio time
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        // Load metadata to get duration
+        const onLoadMetadata = () => {
+            setDuration(audio.duration);
+        };
+        // Update current time periodically
+        const getAudioTime = () => {
+            updateAudioTime();
+        };
+        audio.addEventListener("loadedmetadata", onLoadMetadata);
+        audio.addEventListener("timeupdate", getAudioTime);
+
+        return () => {
+            audio.removeEventListener("loadedmetadata", onLoadMetadata);
+            audio.removeEventListener("timeupdate", getAudioTime);
+        };
+    }, [updateAudioTime]);
+
+    // Cleanup audio context
+    useEffect(() => {
+        return () => {
+            // Disconnect and cleanup
+            if (mediaElementSourceNodeRef.current) {
+                mediaElementSourceNodeRef.current.disconnect();
+            }
+            if (audioContextRef.current) {
+                audioContextRef.current.close();
+            }
+        };
+    }, []);
+
+    // Cleanup
+    useEffect(() => {
+        return () => {
+            if (audioContextRef.current) {
+                audioContextRef.current.close();
+            }
+        };
+    }, []);
+
+    return {
+        analyser: analyser,
+        toggleAudio,
+        audioIsPlaying,
+        nextAudio,
+        previousAudio,
+        audioStream,
+        seekAudioTime,
+        currentTime,
+        duration,
+        durationTimeString,
+        formattedRemainingTime,
+    };
 }

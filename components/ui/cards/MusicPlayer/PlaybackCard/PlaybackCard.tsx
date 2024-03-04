@@ -1,8 +1,8 @@
-import { forwardRef, useEffect } from "react";
+import { forwardRef, useCallback, useEffect, useState } from "react";
 import { PlaybackCardProps } from "./playbackCardProps";
 import { IconArrowPlay } from "@/components/ui/icons/phosphor/IconArrowPlay";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { robotoRegular } from "@/design/fontDefaults";
 import { IconArrowNext } from "@/components/ui/icons/phosphor/IconArrowNext";
 import { IconArrowPrevious } from "@/components/ui/icons/phosphor/IconArrowPrevious";
@@ -12,13 +12,44 @@ import { useAudioContext } from "@/components/context/audio/AudioContext";
 
 // TODO: Add styles using cva to PlaybackCard
 export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ children }, ref) => {
-    const { toggleAudio, nextAudio, audioIsPlaying } = useAudioContext();
+    const {
+        toggleAudio,
+        nextAudio,
+        previousAudio,
+        audioIsPlaying,
+        currentTime,
+        duration,
+        durationTimeString,
+        formattedRemainingTime,
+    } = useAudioContext();
+    const [audioTime, setAudioTime] = useState(0);
+    const [audioDuration, setAudioDuration] = useState<string | undefined>("0:00");
+    const [audioRemainingTime, setAudioRemainingTime] = useState<string | undefined>(undefined);
+
+    const formatAudioTime = useCallback(
+        (time: number = currentTime) => {
+            if (!time) return;
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+            const timeString = `${minutes}:${formattedSeconds}`;
+
+            return timeString;
+        },
+        [currentTime]
+    );
+    useEffect(() => {
+        setAudioTime(currentTime);
+        setAudioRemainingTime(formattedRemainingTime);
+        formatAudioTime();
+    }, [audioIsPlaying, currentTime, duration, toggleAudio, formattedRemainingTime, formatAudioTime]);
+
     return (
         <div className="PlaybackPlayerRootContainer w-[42.648vw] h-[77.847vh] flex-col justify-center items-center gap-[10.09px] inline-flex">
             {/* pl-[51px] pr-[10.09px] pt-[25px] pb-[10.09px] */}
             <div className="top_content self-stretch pt-[25px] rounded-t-[42.40px] flex-col justify-center items-center gap-[5.05px] flex">
                 <div className="playback_progress_container flex flex-col self-stretch justify-center items-center gap-[5.05px] rounded-2xl">
-                    <div className="song_time_text_container w-[35.298vw] inline-flex bg-red-300">
+                    <div className="song_time_text_container w-[35.298vw] inline-flex">
                         <div className="SongElapsed grow shrink basis-0 h-3 justify-start items-start px-[0.384vw] flex">
                             <div
                                 className={cn(
@@ -26,7 +57,7 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                                     robotoRegular.className
                                 )}
                             >
-                                3:34
+                                {formatAudioTime() || "0:00"}
                             </div>
                         </div>
                         <div className="SongRemaining grow shrink basis-0 h-3 pl-[3.03px] pr-[10.09px] justify-end items-start gap-[10.09px] flex">
@@ -36,8 +67,7 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                                     robotoRegular.className
                                 )}
                             >
-                                {" "}
-                                - 1.13
+                                - {audioRemainingTime ? audioRemainingTime : "0:00"}
                             </div>
                         </div>
                     </div>
@@ -60,9 +90,11 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
             <div className="BMusicImageTransparent self-stretch grow shrink basis-0 p-2.5" />
 
             <div className="BPlaybackButtonDiv h-[20vh] self-stretch pl-[27px] pb-[13px] justify-center items-center gap-[21.65px] inline-flex rounded-b-[42.40px]">
-                <div className="BackwardButton px-[8.12px] pt-[31.12px] pb-[4.06px] justify-center items-center gap-[13.53px] flex">
-                    <IconArrowPrevious iconDirection="45_rotation" className="text-white mb-[34%]" />
-                </div>
+                <button className={playCardStyles({ playButton: "root" })} onClick={previousAudio}>
+                    <div className="BackwardButton px-[8.12px] pt-[31.12px] pb-[4.06px] justify-center items-center gap-[13.53px] flex">
+                        <IconArrowPrevious iconDirection="45_rotation" className="text-white mb-[34%]" />
+                    </div>
+                </button>
                 <button className={playCardStyles({ playButton: "root" })} onClick={toggleAudio}>
                     <div className={cn(playCardStyles({ playButton: "default" }))}>
                         <div className={cn(playCardStyles({ playButton: "outer" }))}>

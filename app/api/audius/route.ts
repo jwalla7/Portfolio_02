@@ -1,5 +1,5 @@
 import { env } from "@/env.mjs"; // Adjust the import path as necessary
-import { sdk } from "@audius/sdk";
+import { sdk } from "@audius/sdk/src";
 import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 

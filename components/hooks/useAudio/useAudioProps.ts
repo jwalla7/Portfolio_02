@@ -6,4 +6,9 @@ export interface useAudioProps {
     nextAudio?: Type_Audio["nextAudio"];
     previousAudio?: Type_Audio["previousAudio"];
     toggleAudio: Type_Audio["toggleAudio"];
+    seekAudioTime: Type_Audio["seekAudioTime"];
+    currentTime: number;
+    duration: number;
+    durationTimeString: string;
+    formattedRemainingTime: string | undefined;
 }

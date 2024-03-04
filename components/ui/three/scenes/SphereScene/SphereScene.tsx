@@ -1,29 +1,29 @@
-import { ReactElement, useCallback, useEffect, useRef } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Icosahedron } from "@react-three/drei";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
-import { getAVG, getMAX, getSphere, regulate } from "@/lib/audio";
-import { Group, IcosahedronGeometry, Mesh, MeshLambertMaterial } from "three";
-import { useTheme } from "next-themes";
-import { gradientMaterial } from "../../renderers";
 import { AudioVisualizerContext } from "@/components/context/audio/AudioVisualizerContext";
+import { getAVG, getMAX, getSphere, regulate } from "@/lib/audio";
+import { useTheme } from "next-themes";
+// import THREE, { Group, Mesh} from "three";
+import * as THREE from "three";
+import { Icosahedron } from "@react-three/drei";
+import { gradientMaterial } from "../../renderers";
 
 export const SphereScene = (): ReactElement => {
-    const groupRef = useRef<Group>(null);
-    const sphereRef = useRef<Mesh | null>(null);
+    const groupRef = useRef<THREE.Group>(null);
+    const sphereRef = useRef<THREE.Mesh | null>(null);
     const { analyser, audioIsPlaying } = useAudioContext();
     const { theme, resolvedTheme } = useTheme();
+    const [resetFlag, setResetFlag] = useState(false);
 
-    const resetSphere = useCallback(() => {
-        if (sphereRef.current) {
-            sphereRef.current.rotation.set(0, 0, 0);
-            sphereRef.current.position.set(0, 0, 0);
-            console.log("SPHERE RESET implemented: ", sphereRef.current.position);
-        }
-    }, []);
+    // const set = useThree((sphereRef) => sphereRef.set);
+    const resetSphere = () => {
+        setResetFlag((flag) => !flag);
+        // set({ scene: new THREE.Scene() });
+    };
 
     useFrame(() => {
-        if (analyser && sphereRef.current) {
+        if (analyser && sphereRef.current && !resetFlag) {
             const frequencyData = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(frequencyData);
 
@@ -49,15 +49,29 @@ export const SphereScene = (): ReactElement => {
     });
 
     useEffect(() => {
+        if (sphereRef.current) {
+            // sphereRef.current.visible = false
+            // set({ scene: })
+            // console.log("RESET => resetSphere set", sphereRef.current)
+            sphereRef.current.rotation.x = 0;
+            sphereRef.current.rotation.y = 0;
+            sphereRef.current.rotation.z = 0;
+            console.log("RESET => resetSphere x", sphereRef.current.rotation.x);
+            console.log("RESET => resetSphere y", sphereRef.current.rotation.y);
+            console.log("RESET => resetSphere z", sphereRef.current.rotation.x);
+        }
+    }, [audioIsPlaying, analyser, setResetFlag, resetFlag]);
+
+    useEffect(() => {
         if (analyser) {
-            const icosahedronGeometry = new IcosahedronGeometry(10, 4);
-            const lambertMaterial = new MeshLambertMaterial({
+            const icosahedronGeometry = new THREE.IcosahedronGeometry(10, 4);
+            const lambertMaterial = new THREE.MeshLambertMaterial({
                 color: 0xfafafa,
                 wireframe: false,
             });
             const shaderMaterial = gradientMaterial();
 
-            const shape = new Mesh(
+            const shape = new THREE.Mesh(
                 icosahedronGeometry,
                 lambertMaterial
                 // shaderMaterial
@@ -71,7 +85,6 @@ export const SphereScene = (): ReactElement => {
             console.error("Analyser is null");
         }
     }, [audioIsPlaying, analyser]);
-
     return (
         <AudioVisualizerContext.Provider value={{ analyser, resetSphere }}>
             <>

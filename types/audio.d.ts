@@ -6,4 +6,5 @@ declare type Type_Audio = {
     nextAudio?: () => void;
     previousAudio?: () => void;
     toggleAudio: () => void;
+    seekAudioTime: (time: number) => void;
 };

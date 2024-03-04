@@ -43,6 +43,7 @@ export const IconCircleHalf = memo<IconCircleHalfProps & { setMotion: boolean }>
                 data-prefix="fab"
                 data-icon="phosphorIcon-circle-half"
                 viewBox="0 0 256 256"
+                preserveAspectRatio="xMidYMid meet"
                 className={cn(variants, props.className)}
             >
                 <motion.path

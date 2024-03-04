@@ -61,6 +61,7 @@ export const IconMoon = memo<
                 data-prefix="fab"
                 data-icon="phosphorIcon-moon"
                 viewBox="0 0 256 256"
+                preserveAspectRatio="xMidYMid meet"
                 className={cn(variants, props.className)}
             >
                 <motion.path

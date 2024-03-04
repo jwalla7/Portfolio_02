@@ -8,11 +8,12 @@ export const btnWithLblButtonStyles = cva(
             buttonDiv: {
                 default: `
                 flex
+                flex-row
                 gap-y-[2.194vh]
                 gap-x-[1.23vw]
+                group
                 justify-start
                 items-center
-                group
                 w-full
                 `,
             },

@@ -49,7 +49,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRef, s
                         <NavigationMenuLink
                             key={index}
                             tabIndex={-1}
-                            className="no-underline"
+                            className="no-underline flex-nowrap"
                             href={buttonID?.route ?? "/"}
                             onClick={(event) => navClickEvent(event, buttonID)}
                         >

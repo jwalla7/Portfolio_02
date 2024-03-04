@@ -8,6 +8,11 @@ export const AudioContext = createContext<AudioContextProps>({
     nextAudio: () => ({}),
     previousAudio: () => ({}),
     toggleAudio: () => ({}),
+    seekAudioTime: () => ({}),
+    currentTime: 0,
+    duration: 0,
+    durationTimeString: "",
+    formattedRemainingTime: undefined,
 });
 
 export const useAudioContext = () => {

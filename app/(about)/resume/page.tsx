@@ -12,7 +12,7 @@ export default function ResumePage() {
 
     useEffect(() => {
         if (isSidebarOpen) {
-            openSidebar();
+            // openSidebar();
             console.log("IS_SIDEBAR_OPEN:", isSidebarOpen);
             console.log("SIDEBAR STATE ==> ", newDisplayStateRef?.current);
         }

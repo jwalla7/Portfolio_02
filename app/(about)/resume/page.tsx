@@ -12,7 +12,6 @@ export default function ResumePage() {
 
     useEffect(() => {
         if (isSidebarOpen) {
-            // openSidebar();
             console.log("IS_SIDEBAR_OPEN:", isSidebarOpen);
             console.log("SIDEBAR STATE ==> ", newDisplayStateRef?.current);
         }
@@ -21,7 +20,9 @@ export default function ResumePage() {
     return (
         <div suppressHydrationWarning className="min-w-full min-h-screen h-screen overflow-hidden">
             <BackgroundImage imageLightThemeSrc="/images/SPIRLWL-lightmode.png" imageDarkThemeSrc="/images/SPIRLWL-darkmode.png" />
-            <OverlayTrigger ref={newDisplayStateRef} />
+            <OverlayTrigger
+            // ref={newDisplayStateRef}
+            />
         </div>
     );
 }

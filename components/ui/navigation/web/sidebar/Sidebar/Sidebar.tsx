@@ -19,22 +19,22 @@ import { usePathname } from "next/dist/client/components/navigation";
 import { useThemeButtonData } from "@/components/hooks/useThemeButtonData/useThemeButtonData";
 import { ButtonWithLabelProps } from "@/components/ui/button/ButtonWithLabel/buttonWithLabelProps";
 
-export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRef, sidebarRef }, ref) => {
+export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ sidebarRef }, ref) => {
     const [_, startTransition] = useTransition();
     const navButtonData = useNavButtonData();
     const themeButtonData = useThemeButtonData();
     const url = usePathname();
 
     const navClickEvent = useCallback(
-        (event: any, buttonRoute: ButtonWithLabelProps | undefined) => {
+        (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, buttonRoute: ButtonWithLabelProps | undefined) => {
             if (buttonRoute?.route === url) {
                 event.preventDefault();
                 event.stopPropagation();
             }
             startTransition(() => {
                 if (sidebarRef?.current) {
-                    console.log("sidebarRef", sidebarRef.current.toggleTracker());
-                    sidebarRef.current.toggleTracker();
+                    console.log("sidebarRef", sidebarRef.current.toggleSidebarTracker);
+                    sidebarRef.current.toggleSidebarTracker;
                 }
             });
         },
@@ -42,7 +42,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ overlayRef, s
     );
     return (
         <div className={cn(sidebarStyles({ root: "active" }))}>
-            <div className={cn(sidebarStyles({ nav: "active" }))} ref={overlayRef}>
+            <div className={cn(sidebarStyles({ nav: "active" }))} ref={ref}>
                 {Array.from(navButtonData.keys()).map((key, index) => {
                     const buttonID = navButtonData.get(key);
                     return (

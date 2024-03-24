@@ -5,7 +5,9 @@ import { robotoRegular } from "@/design/fontDefaults";
 import { StrictMode } from "react";
 // import { audiusTest } from "./api/audius/route";
 // import { QueryClient } from "@tanstack/react-query";
-import { QueryProvider } from "@/components/queries/QueryProvider";
+// import { QueryProvider } from "@/components/queries/QueryProvider";
+import { LocalStorageProvider } from "@/components/context/storage/LocalStorageProvider";
+import { SidebarProvider } from "@/components/context/sidebar/SidebarProvider";
 
 export const metadata = {
     title: "Create Next App",
@@ -44,7 +46,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                          */
                         enableSystem={true}
                     >
-                        {children}
+                        <LocalStorageProvider>
+                            <SidebarProvider>{children}</SidebarProvider>
+                        </LocalStorageProvider>
                     </ThemeProvider>
                     {/* </QueryProvider> */}
                 </body>

@@ -13,6 +13,7 @@ export const AudioContext = createContext<AudioContextProps>({
     duration: 0,
     durationTimeString: "",
     formattedRemainingTime: undefined,
+    progressPercentage: 0,
 });
 
 export const useAudioContext = () => {

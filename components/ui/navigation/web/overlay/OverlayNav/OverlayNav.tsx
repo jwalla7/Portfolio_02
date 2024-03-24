@@ -1,54 +1,44 @@
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import { forwardRef, useEffect, useRef } from "react";
 import { OverlayNavProps } from "./overlayNavProps";
 import { overlayNavStyles } from "./overlayNavStyles";
 import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
 import { Sidebar } from "../../sidebar/Sidebar/Sidebar";
 import { cn } from "@/lib/utils";
+import { SidebarContext, useSidebarContext } from "@/components/context/sidebar/SidebarContext";
+import { useLocalStorageContext } from "@/components/context/storage/LocalStorageContext";
 
-export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ children, overlayRef, sidebarRef }, ref) => {
-    const divRef = useRef<HTMLDivElement | null>(null);
+export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ children }, ref) => {
+    const { setDisplayStateRef, openSidebar, closeSidebar, newDisplayStateRef } = useSidebarContext();
+    const { isSidebarOpen } = useLocalStorageContext();
+    // const newDisplayStateRef = useRef<HTMLDivElement | null>(null);
 
-    const openSidebar = useCallback(() => {
-        const ref = overlayRef?.current;
-        if (ref) {
-            ref.classList.remove("hidden");
-            ref.classList.add("visible");
-            ref.setAttribute("data-state", "open");
+    useEffect(() => {
+        if (newDisplayStateRef) {
+            setDisplayStateRef(newDisplayStateRef.current);
+            console.log("OVERLAY_REF_CURRENT => ", newDisplayStateRef.current);
         }
-    }, [overlayRef]);
-    const closeSidebar = useCallback(() => {
-        const ref = overlayRef?.current;
-        if (ref) {
-            ref?.classList.remove("visible");
-            ref?.classList.add("hidden");
-            ref?.setAttribute("data-state", "closed");
-        }
-    }, [overlayRef]);
+    });
 
-    useImperativeHandle(
-        sidebarRef,
-        () => ({
-            toggleTracker: () => {
-                if (divRef?.current?.getAttribute("data-state") === "open") closeSidebar();
-                if (divRef?.current?.getAttribute("data-state") === "closed") openSidebar();
-                console.log("toggleTracker toggled:", sidebarRef?.current);
-            },
-            divRef: divRef,
-        }),
-        [sidebarRef, openSidebar, closeSidebar, divRef]
-    );
+    useEffect(() => {
+        if (isSidebarOpen && newDisplayStateRef) {
+            if (newDisplayStateRef.current) {
+                openSidebar();
+                console.log("OVERLAY_REF && ISSIDEBAROPEN: ", newDisplayStateRef, isSidebarOpen);
+            }
+        }
+    });
 
     return (
-        <NavigationMenuSub
-            className={cn(overlayNavStyles({ nav: "none" }), "animate-slideRightAndFade transition duration-150 ease-in")}
-            onMouseEnter={openSidebar}
-            onMouseLeave={closeSidebar}
-            ref={ref || overlayRef}
-        >
-            <Sidebar overlayRef={overlayRef} sidebarRef={sidebarRef}>
-                {children}
-            </Sidebar>
-        </NavigationMenuSub>
+        <SidebarContext.Provider value={{ openSidebar, closeSidebar, newDisplayStateRef, setDisplayStateRef }}>
+            <NavigationMenuSub
+                className={cn(overlayNavStyles({ nav: "none" }), "animate-slideRightAndFade transition duration-150 ease-in")}
+                onMouseEnter={openSidebar}
+                onMouseLeave={closeSidebar}
+                ref={newDisplayStateRef}
+            >
+                <Sidebar ref={newDisplayStateRef}>{children}</Sidebar>
+            </NavigationMenuSub>
+        </SidebarContext.Provider>
     );
 });
 

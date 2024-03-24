@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect, useState } from "react";
+import { EventHandler, MouseEvent, MouseEventHandler, forwardRef, useCallback, useEffect, useState } from "react";
 import { PlaybackCardProps } from "./playbackCardProps";
 import { IconArrowPlay } from "@/components/ui/icons/phosphor/IconArrowPlay";
 import { cn } from "@/lib/utils";
@@ -9,6 +9,7 @@ import { IconArrowPrevious } from "@/components/ui/icons/phosphor/IconArrowPrevi
 import { playCardStyles } from "./playbackCardStyles";
 import { IconArrowPause } from "@/components/ui/icons/phosphor/IconArrowPause";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
+import { PanInfo, motion } from "framer-motion";
 
 // TODO: Add styles using cva to PlaybackCard
 export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ children }, ref) => {
@@ -21,6 +22,8 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
         duration,
         durationTimeString,
         formattedRemainingTime,
+        progressPercentage,
+        seekAudioTime,
     } = useAudioContext();
     const [audioTime, setAudioTime] = useState(0);
     const [audioDuration, setAudioDuration] = useState<string | undefined>("0:00");
@@ -38,6 +41,23 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
         },
         [currentTime]
     );
+    const clickPositionProgress = useCallback(
+        (event: MouseEvent<HTMLDivElement>) => {
+            const progressBarContainer = event.currentTarget.getBoundingClientRect();
+            const clickPositionX = event.clientX - progressBarContainer.left;
+            const seekTime = (clickPositionX - progressBarContainer.width) * duration;
+            seekAudioTime(seekTime);
+        },
+        [duration, seekAudioTime]
+    );
+
+    // const dragPositionProgress = useCallback((event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    //     const progressBar = event.currentTarget as HTMLDivElement;
+    //     const progressBarWidth = progressBar.clientWidth;
+    //     const newTime = (info.point.x - progressBar.getBoundingClientRect().left / progressBarWidth) * duration;
+    //     seekAudioTime(Math.min(Math.max(newTime, 0), duration));
+    // }, [duration, seekAudioTime])
+
     useEffect(() => {
         setAudioTime(currentTime);
         setAudioRemainingTime(formattedRemainingTime);
@@ -76,13 +96,25 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                             className="Area w-full h-full left-0 top-0 bottom-0 right-0 absolute bg-zinc-900 bg-opacity-10 rounded-[40.37px]
                         dark:bg-[rgba(241,245,249,0.1)]
                         "
+                            onClick={clickPositionProgress}
                         />
-                        <div
-                            className="Progress w-[339.96px] h-full left-0 top-0 absolute bg-zinc-900 bg-opacity-90 rounded-[40.37px]
+                        <motion.div
+                            className="Progress w-[2.750%] h-full left-0 top-0 absolute bg-zinc-900 bg-opacity-90 rounded-[40.37px]
                         h-full w-[68.6%] top-[0%] right-[31.4%] bottom-[0%] left-[0%] rounded-[40.37px]
                         dark:bg-gray-200
                         dark:absolute 
                         "
+                            style={{ width: `${(audioTime / duration) * 100}%` }}
+                            drag="x"
+                            dragConstraints={{ left: 0, right: 0 }}
+                            onDragEnd={(event, info) => {
+                                const progressBar = event.currentTarget as HTMLDivElement;
+                                const progressBarWidth = progressBar.clientWidth;
+                                const newTime =
+                                    (info.point.x - progressBar.getBoundingClientRect().left / progressBarWidth) * duration;
+                                seekAudioTime(Math.min(Math.max(newTime, 0), duration));
+                            }}
+                            dragMomentum={false}
                         />
                     </div>
                 </div>

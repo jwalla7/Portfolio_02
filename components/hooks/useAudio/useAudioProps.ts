@@ -11,4 +11,5 @@ export interface useAudioProps {
     duration: number;
     durationTimeString: string;
     formattedRemainingTime: string | undefined;
+    progressPercentage: number;
 }

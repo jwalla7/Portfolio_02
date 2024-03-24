@@ -309,7 +309,7 @@ export function useAudio(userId?: string): useAudioProps {
     const nextAudio = useCallback(() => {
         console.log("NEXT AUDIO");
         setAudioIsPlaying(false);
-        if (audioContextRef.current) {
+        if (audioContextRef.current && audioContextRef.current.state !== "closed") {
             audioContextRef.current.suspend();
             if (animationFrameId.current !== null) {
                 cancelAnimationFrame(animationFrameId.current);
@@ -338,9 +338,13 @@ export function useAudio(userId?: string): useAudioProps {
                 }
                 if (!audioRef.current) return;
                 audioRef.current.src = nextNode.streamLink;
-                if (audioContextRef.current) {
-                    audioContextRef.current.close();
+                if (audioContextRef.current && audioContextRef.current.state !== "closed") {
                     createAudioContext();
+                } else {
+                    if (audioContextRef.current) {
+                        audioContextRef.current.close();
+                        createAudioContext();
+                    }
                 }
                 audioCacheData.setCurrentNode(nextNode.id);
                 animationFrameId.current = requestAnimationFrame(audioPlaybackData);
@@ -441,13 +445,16 @@ export function useAudio(userId?: string): useAudioProps {
             setDuration(audioRef.current.duration || 0);
         }
     }, []);
-    const seekAudioTime = useCallback((time: number) => {
-        if (!audioRef.current) return;
-        audioRef.current.currentTime = time;
-        setCurrentTime(time);
-
-        return time;
-    }, []);
+    const seekAudioTime = useCallback(
+        (time: number) => {
+            if (!audioRef.current) return;
+            audioRef.current.currentTime = time;
+            setProgressPercentage((time / duration) * 100);
+            setCurrentTime(time);
+            return time;
+        },
+        [duration]
+    );
 
     // Format audio time
     const formatAudioTime = useCallback(
@@ -501,16 +508,23 @@ export function useAudio(userId?: string): useAudioProps {
         const onLoadMetadata = () => {
             setDuration(audio.duration);
         };
+        // Update progress percentage
+        const updateProgress = () => {
+            setProgressPercentage((audio.currentTime / audio.duration) * 100);
+        };
+        updateProgress();
         // Update current time periodically
         const getAudioTime = () => {
             updateAudioTime();
         };
         audio.addEventListener("loadedmetadata", onLoadMetadata);
         audio.addEventListener("timeupdate", getAudioTime);
+        audio.addEventListener("timeupdate", updateProgress);
 
         return () => {
             audio.removeEventListener("loadedmetadata", onLoadMetadata);
             audio.removeEventListener("timeupdate", getAudioTime);
+            audio.removeEventListener("timeupdate", updateProgress);
         };
     }, [updateAudioTime]);
 
@@ -548,5 +562,6 @@ export function useAudio(userId?: string): useAudioProps {
         duration,
         durationTimeString,
         formattedRemainingTime,
+        progressPercentage,
     };
 }

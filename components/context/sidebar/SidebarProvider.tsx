@@ -1,12 +1,13 @@
 "use client";
 
-import { FC, use, useCallback, useEffect, useMemo, useRef } from "react";
+import { FC, use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SidebarProviderProps } from "./sidebarProviderProps";
 import { SidebarContext } from "./SidebarContext";
 import { useLocalStorageContext } from "../storage/LocalStorageContext";
 
 export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
     const { isSidebarOpen } = useLocalStorageContext();
+    const [forceMount, setForceMount] = useState<boolean | undefined>(false);
 
     const newDisplayStateRef = useRef<HTMLDivElement | null>(null);
     const setDisplayStateRef = useCallback(
@@ -47,14 +48,20 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
         }
     }, [openSidebar, closeSidebar, isSidebarOpen]);
 
+    useEffect(() => {
+        setForceMount(isSidebarOpen);
+    }, [isSidebarOpen]);
+
     const values = useMemo(() => {
         return {
+            forceMount,
+            setForceMount,
             openSidebar,
             closeSidebar,
             newDisplayStateRef,
             setDisplayStateRef,
         };
-    }, [openSidebar, closeSidebar, newDisplayStateRef, setDisplayStateRef]);
+    }, [openSidebar, closeSidebar, newDisplayStateRef, setDisplayStateRef, forceMount, setForceMount]);
 
     return <SidebarContext.Provider value={values}>{children}</SidebarContext.Provider>;
 };

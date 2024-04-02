@@ -8,7 +8,7 @@ import { SidebarContext, useSidebarContext } from "@/components/context/sidebar/
 import { useLocalStorageContext } from "@/components/context/storage/LocalStorageContext";
 
 export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ children, overlayRef }, ref) => {
-    const { setDisplayStateRef, openSidebar, closeSidebar, newDisplayStateRef } = useSidebarContext();
+    const { setDisplayStateRef, openSidebar, closeSidebar, newDisplayStateRef, forceMount, setForceMount } = useSidebarContext();
     const { isSidebarOpen } = useLocalStorageContext();
 
     useEffect(() => {
@@ -28,7 +28,9 @@ export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ childre
     });
 
     return (
-        <SidebarContext.Provider value={{ openSidebar, closeSidebar, newDisplayStateRef, setDisplayStateRef }}>
+        <SidebarContext.Provider
+            value={{ openSidebar, closeSidebar, newDisplayStateRef, setDisplayStateRef, forceMount, setForceMount }}
+        >
             <NavigationMenuSub
                 className={cn(overlayNavStyles({ nav: "none" }), "animate-slideRightAndFade transition duration-150 ease-in")}
                 onMouseEnter={openSidebar}

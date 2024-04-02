@@ -5,4 +5,6 @@ export interface sidebarContextProps {
     closeSidebar: () => void;
     setDisplayStateRef: (ref: HTMLDivElement | null) => void;
     newDisplayStateRef: MutableRefObject<HTMLDivElement | null> | undefined;
+    forceMount: boolean | undefined;
+    setForceMount: (forceMount: boolean | undefined) => void;
 }

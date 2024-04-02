@@ -8,6 +8,8 @@ export const SidebarContext = createContext<sidebarContextProps>({
     closeSidebar: () => ({}),
     setDisplayStateRef: () => ({}),
     newDisplayStateRef: { current: null },
+    forceMount: false,
+    setForceMount: () => ({}),
 });
 
 export const useSidebarContext = () => useContext(SidebarContext);

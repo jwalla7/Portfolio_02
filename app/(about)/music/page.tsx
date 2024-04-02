@@ -8,11 +8,9 @@ import { SphereCamera } from "@/components/ui/three/cameras/SphereCamera/SphereC
 import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/PlaybackCard";
 import { AudioProvider } from "@/components/context/audio/AudioProvider";
 import { AudioVisualizerProvider } from "@/components/context/audio/AudioVisualizerProvider";
-import { useRef } from "react";
 
 export default function MusicPage() {
     console.log("AudioVisualizerProvier Context Types: ", AudioVisualizerProvider.contextTypes);
-    const overlayNavRef = useRef<HTMLDivElement | null>(null);
     return (
         <AudioVisualizerProvider>
             <AudioProvider>
@@ -30,7 +28,7 @@ export default function MusicPage() {
                         </Card>
                         <Card size="md" position="right" />
                     </CardGroup>
-                    <OverlayTrigger ref={overlayNavRef} />
+                    <OverlayTrigger />
                 </div>
             </AudioProvider>
         </AudioVisualizerProvider>

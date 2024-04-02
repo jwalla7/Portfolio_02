@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 export default function ResumePage() {
     const { isSidebarOpen } = useLocalStorageContext();
-    const { openSidebar, newDisplayStateRef } = useSidebarContext();
+    const { newDisplayStateRef } = useSidebarContext();
 
     useEffect(() => {
         if (isSidebarOpen) {
@@ -20,9 +20,7 @@ export default function ResumePage() {
     return (
         <div suppressHydrationWarning className="min-w-full min-h-screen h-screen overflow-hidden">
             <BackgroundImage imageLightThemeSrc="/images/SPIRLWL-lightmode.png" imageDarkThemeSrc="/images/SPIRLWL-darkmode.png" />
-            <OverlayTrigger
-            // ref={newDisplayStateRef}
-            />
+            <OverlayTrigger />
         </div>
     );
 }

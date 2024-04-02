@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useCallback, useEffect, useRef } from "react";
+import { forwardRef, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { OverlayTriggerProps } from "./overlayTriggerProps";
 import { overlayTriggerStyles } from "./overlayTriggerStyles";
@@ -9,7 +9,18 @@ import { OverlayRoot } from "../OverlayRoot/OverlayRoot";
 import { useSidebarContext } from "@/components/context/sidebar/SidebarContext";
 
 export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(({ className, children }, ref) => {
-    const { openSidebar, closeSidebar, setDisplayStateRef } = useSidebarContext();
+    const { setDisplayStateRef, forceMount, setForceMount } = useSidebarContext();
+
+    // onMouseLeave handler to undo forceMount
+    const handleMouseLeave = () => {
+        setForceMount(false);
+    };
+    let contentProps = {};
+    if (forceMount === true) {
+        contentProps = { forceMount: true };
+    } else {
+        contentProps = { forceMount: false };
+    }
     /**
      * displayStateRef
      *
@@ -26,13 +37,9 @@ export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(({
         <NavigationMenu.Root className="w-screen h-auto" delayDuration={0} orientation="vertical" tabIndex={-1}>
             <NavigationMenu.Item className="w-screen h-auto list-none" tabIndex={-1}>
                 <NavigationMenu.Trigger asChild tabIndex={0} className="outline-none h-auto">
-                    <div
-                        className={cn(overlayTriggerStyles({ triggerdiv: "inactive" }))}
-                        ref={newDisplayStateRef}
-                        onFocus={openSidebar}
-                    />
+                    <div className={cn(overlayTriggerStyles({ triggerdiv: "inactive" }))} ref={newDisplayStateRef} />
                 </NavigationMenu.Trigger>
-                <NavigationMenu.Content className={cn(className, "h-auto")}>
+                <NavigationMenu.Content className={cn(className, "h-auto")} onMouseLeave={handleMouseLeave} {...contentProps}>
                     <OverlayRoot overlayRef={newDisplayStateRef} ref={ref}>
                         {children}
                     </OverlayRoot>

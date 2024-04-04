@@ -5,7 +5,7 @@ import { localStorageProviderProps } from "./localStorageProviderProps";
 import { LocalStorageContext } from "./LocalStorageContext";
 
 export const LocalStorageProvider: FC<localStorageProviderProps> = ({ children }) => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean | undefined>(() => {
+    const [isLocalStorageSidebarOpen, setIsLocalStorageSidebarOpen] = useState<boolean | undefined>(() => {
         if (typeof window !== "undefined") {
             return localStorage.getItem("sidebar") === "open";
         }
@@ -29,7 +29,7 @@ export const LocalStorageProvider: FC<localStorageProviderProps> = ({ children }
     }, []);
 
     const toggleSidebarTracker = useCallback(() => {
-        setIsSidebarOpen((prevState) => !prevState);
+        setIsLocalStorageSidebarOpen((prevState) => !prevState);
     }, []);
 
     const safeLocalStorage = useCallback(
@@ -39,7 +39,7 @@ export const LocalStorageProvider: FC<localStorageProviderProps> = ({ children }
                     return getLocalStorageItem(key);
                 } else if (action === "set" && value !== undefined) {
                     const storageValue = value instanceof Function ? value() : setLocalStorageItem(key, value);
-                    setIsSidebarOpen(true);
+                    setIsLocalStorageSidebarOpen(true);
                     // toggleSidebarTracker();
                     return storageValue;
                 }
@@ -49,17 +49,16 @@ export const LocalStorageProvider: FC<localStorageProviderProps> = ({ children }
     );
 
     useEffect(() => {
-        safeLocalStorage("set", "sidebar", isSidebarOpen ? "open" : "closed");
-        // localStorage.setItem("sidebar", isSidebarOpen ? "open" : "closed");
-    }, [isSidebarOpen, safeLocalStorage]);
+        safeLocalStorage("set", "sidebar", isLocalStorageSidebarOpen ? "open" : "closed");
+    }, [isLocalStorageSidebarOpen, safeLocalStorage]);
 
     const values = useMemo(() => {
         return {
-            isSidebarOpen,
+            isLocalStorageSidebarOpen,
             toggleSidebarTracker,
-            setIsSidebarOpen,
+            setIsLocalStorageSidebarOpen,
         };
-    }, [isSidebarOpen, toggleSidebarTracker, setIsSidebarOpen]);
+    }, [isLocalStorageSidebarOpen, toggleSidebarTracker, setIsLocalStorageSidebarOpen]);
 
     return <LocalStorageContext.Provider value={values}>{children}</LocalStorageContext.Provider>;
 };

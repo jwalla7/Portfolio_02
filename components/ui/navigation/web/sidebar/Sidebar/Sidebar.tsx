@@ -31,14 +31,14 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ sidebarRef },
                 event.preventDefault();
                 event.stopPropagation();
             }
-            startTransition(() => {
-                if (sidebarRef?.current) {
-                    console.log("sidebarRef", sidebarRef.current.toggleSidebarTracker);
-                    sidebarRef.current.toggleSidebarTracker;
-                }
-            });
+            // startTransition(() => {
+            //     if (sidebarRef?.current) {
+            //         console.log("sidebarRef", sidebarRef.current.toggleSidebarTracker);
+            //         sidebarRef.current.toggleSidebarTracker;
+            //     }
+            // });
         },
-        [url, sidebarRef]
+        [url]
     );
     return (
         <div className={cn(sidebarStyles({ root: "active" }))}>

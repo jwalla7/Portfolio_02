@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useRef } from "react";
+import { forwardRef, use, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { OverlayTriggerProps } from "./overlayTriggerProps";
 import { overlayTriggerStyles } from "./overlayTriggerStyles";
@@ -28,10 +28,6 @@ export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(({
      */
     const newDisplayStateRef = useRef<HTMLDivElement | null>(null);
     setDisplayStateRef(newDisplayStateRef.current);
-    /**
-     * sidebarRef
-     */
-    // const sidebarRef = useSidebar();
 
     return (
         <NavigationMenu.Root className="w-screen h-auto" delayDuration={0} orientation="vertical" tabIndex={-1}>

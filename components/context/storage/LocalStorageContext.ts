@@ -3,11 +3,11 @@ import { localStorageContextProps } from "./localStorageContextProps";
 
 export const LocalStorageContext = createContext<localStorageContextProps>({
     divRef: undefined,
-    isSidebarOpen: false,
+    isLocalStorageSidebarOpen: false,
     toggleSidebarTracker: () => ({}),
     getLocalStorageItem: () => null,
     setLocalStorageItem: () => ({}),
-    setIsSidebarOpen: () => ({}),
+    setIsLocalStorageSidebarOpen: () => ({}),
 });
 
 export const useLocalStorageContext = () => {

@@ -9,22 +9,16 @@ import { useLocalStorageContext } from "@/components/context/storage/LocalStorag
 
 export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ children, overlayRef }, ref) => {
     const { setDisplayStateRef, openSidebar, closeSidebar, newDisplayStateRef, forceMount, setForceMount } = useSidebarContext();
-    const { isSidebarOpen } = useLocalStorageContext();
+    const { isLocalStorageSidebarOpen } = useLocalStorageContext();
 
     useEffect(() => {
         if (overlayRef) {
             setDisplayStateRef(overlayRef.current);
             console.log("OVERLAY_REF_CURRENT => ", newDisplayStateRef);
         }
-    });
-
-    useEffect(() => {
-        if (isSidebarOpen && newDisplayStateRef) {
-            if (newDisplayStateRef.current) {
-                openSidebar();
-                console.log("OVERLAY_REF && ISSIDEBAROPEN: ", newDisplayStateRef, isSidebarOpen);
-            }
-        }
+        // if (isLocalStorageSidebarOpen && forceMount === false) {
+        //         setForceMount(true);
+        // }
     });
 
     return (
@@ -37,7 +31,7 @@ export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ childre
                 onMouseLeave={closeSidebar}
                 ref={newDisplayStateRef}
             >
-                <Sidebar ref={newDisplayStateRef}>{children}</Sidebar>
+                <Sidebar sidebarRef={newDisplayStateRef}>{children}</Sidebar>
             </NavigationMenuSub>
         </SidebarContext.Provider>
     );

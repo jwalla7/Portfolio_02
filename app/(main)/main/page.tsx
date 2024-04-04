@@ -8,12 +8,12 @@ import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTr
 import { useEffect } from "react";
 
 export default function MainPage() {
-    const { isSidebarOpen } = useLocalStorageContext();
+    const { isLocalStorageSidebarOpen } = useLocalStorageContext();
     const { newDisplayStateRef } = useSidebarContext();
 
     useEffect(() => {
-        if (isSidebarOpen) {
-            console.log("IS_SIDEBAR_OPEN:", isSidebarOpen);
+        if (isLocalStorageSidebarOpen) {
+            console.log("IS_SIDEBAR_OPEN:", isLocalStorageSidebarOpen);
             console.log("SIDEBAR STATE ==> ", newDisplayStateRef?.current);
         }
     });

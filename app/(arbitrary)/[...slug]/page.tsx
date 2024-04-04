@@ -1,7 +1,7 @@
 // import { Metadata } from "next";
 // import { siteConfig } from "@/config/site";
-// import { allPages } from "contentlayer/.contentlayer/generated";
 import Custom404 from "@/app/not-found";
+import { allPages } from "@/.contentlayer/generated";
 
 interface PageProps {
     params: {
@@ -11,12 +11,12 @@ interface PageProps {
 
 async function getPageFromParams(params: any) {
     const slug = params?.slug?.join("/");
-    // const page = allPages.find((page: any) => page.slugAsParams === slug);
+    const page = allPages.find((page: any) => page.slugAsParams === slug);
 
-    // if (!page) {
-    // return null;
-    // }
-    // return page;
+    if (!page) {
+        return null;
+    }
+    return page;
 }
 
 export default async function PagePage({ params }: PageProps) {

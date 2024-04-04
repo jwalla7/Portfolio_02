@@ -1,12 +1,12 @@
 "use client";
 
-import { FC, use, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SidebarProviderProps } from "./sidebarProviderProps";
 import { SidebarContext } from "./SidebarContext";
 import { useLocalStorageContext } from "../storage/LocalStorageContext";
 
 export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
-    const { isSidebarOpen } = useLocalStorageContext();
+    const { isLocalStorageSidebarOpen } = useLocalStorageContext();
     const [forceMount, setForceMount] = useState<boolean | undefined>(false);
 
     const newDisplayStateRef = useRef<HTMLDivElement | null>(null);
@@ -26,7 +26,9 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
             ref.classList.add("flex");
             ref.setAttribute("data-state", "open");
             ref.setAttribute("aria-expanded", "true");
-            localStorage.setItem("sidebar", "open");
+            if (window.localStorage.getItem("sidebar") !== "open") {
+                localStorage.setItem("sidebar", "open");
+            }
         }
     }, []);
 
@@ -36,21 +38,25 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
             ref.classList.remove("flex");
             ref.classList.add("hidden");
             ref.removeAttribute("aria-expanded");
-            localStorage.setItem("sidebar", "closed");
+            if (window.localStorage.getItem("sidebar") !== "closed") {
+                localStorage.setItem("sidebar", "closed");
+            }
         }
     }, []);
 
     useEffect(() => {
-        if (isSidebarOpen) {
+        if (isLocalStorageSidebarOpen) {
             openSidebar();
         } else {
             closeSidebar();
         }
-    }, [openSidebar, closeSidebar, isSidebarOpen]);
+    }, [openSidebar, closeSidebar, isLocalStorageSidebarOpen]);
 
     useEffect(() => {
-        setForceMount(isSidebarOpen);
-    }, [isSidebarOpen]);
+        if (window.localStorage.getItem("sidebar") === "open" && !forceMount) {
+            setForceMount(isLocalStorageSidebarOpen);
+        }
+    }, [isLocalStorageSidebarOpen, forceMount]);
 
     const values = useMemo(() => {
         return {

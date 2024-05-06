@@ -70,7 +70,7 @@ export class LRUCache<T> {
         }
     }
 
-    private removeTail(): void {
+    public removeTail(): void {
         if (this.tail) {
             this.hash.delete(this.tail.id);
             if (this.head === this.tail) {

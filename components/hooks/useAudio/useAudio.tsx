@@ -32,6 +32,7 @@ export function useAudio(userId?: string): useAudioProps {
     const [progressPercentage, setProgressPercentage] = useState<number>(0);
     const [cacheUpdated, setCacheUpdated] = useState<boolean>(false);
     const animationFrameId = useRef<number | null>(null);
+    const [previousTrack, setPreviousTrack] = useState<LRUCacheProps | null>(null);
 
     const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
 
@@ -90,7 +91,9 @@ export function useAudio(userId?: string): useAudioProps {
                         console.log("AT CAPACITY NODE: ", atCapacityNode);
                         atCapacityNode = trackData.id;
                     }
-                    if (index === 0) {
+
+                    if (index === 2) {
+                        // start at the last track in the cache
                         setTrack(trackData.track);
                         setAudioStream(trackData.streamLink);
                         if (atCapacityNode) {
@@ -248,7 +251,9 @@ export function useAudio(userId?: string): useAudioProps {
                         if (audioContextRef.current) {
                             await audioContextRef.current.resume();
                         }
+                        setPreviousTrack(audioCacheData.getTailNode());
                         console.log("PLAYING STATE: ", audioContextRef.current?.state);
+                        console.log("PREVIOUS TRACK => ", previousTrack);
                     } catch (error) {
                         console.error("Error playing audio", error);
                         if (audioContextRef.current && audioContextRef.current.state === "suspended") {
@@ -258,6 +263,7 @@ export function useAudio(userId?: string): useAudioProps {
                     }
                 } else {
                     setAudioIsPlaying(isPlaying);
+                    setPreviousTrack(null);
                     audio.pause();
                     if (animationFrameId.current !== null) {
                         cancelAnimationFrame(animationFrameId.current);
@@ -268,6 +274,7 @@ export function useAudio(userId?: string): useAudioProps {
                     }
                     resetSphere();
                     console.log("PLAYING STATE: ", audioContextRef.current?.state);
+                    console.log("PREVIOUS TRACK NULL? => ", previousTrack);
                 }
             } catch (e) {
                 console.error("Error toggling audio", e);
@@ -277,7 +284,7 @@ export function useAudio(userId?: string): useAudioProps {
         return () => {
             audio.removeEventListener("ended", onAudioEnd);
         };
-    }, [audioStream, createAudioContext, resetSphere, audioPlaybackData]);
+    }, [audioStream, createAudioContext, resetSphere, audioPlaybackData, audioCacheData, previousTrack]);
 
     const autoplayAudio = useCallback(
         (currentNode: LRUCacheProps | null) => {
@@ -326,9 +333,6 @@ export function useAudio(userId?: string): useAudioProps {
 
             if (nextNode !== null && nextNode.id) {
                 console.log("NEXT AUDIO => NEXT NODE: ", nextNode.id);
-                // if (currentNode && audioCacheData.getPreviousNode(currentNodeKey) === currentNode) {
-                //     audioCacheData.moveToTail(currentNode.id);
-                // }
                 setTrack(nextNode.track);
                 setAudioStream(nextNode.streamLink);
                 console.log("NEXT AUDIO => NEXT TRACK: ", nextNode.id);

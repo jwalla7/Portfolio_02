@@ -9,12 +9,13 @@ import { useEffect } from "react";
 
 export default function MainPage() {
     const { isLocalStorageSidebarOpen } = useLocalStorageContext();
-    const { newDisplayStateRef } = useSidebarContext();
+    const { forceMount, setForceMount } = useSidebarContext();
 
     useEffect(() => {
-        if (isLocalStorageSidebarOpen) {
-            console.log("IS_SIDEBAR_OPEN:", isLocalStorageSidebarOpen);
-            console.log("SIDEBAR STATE ==> ", newDisplayStateRef?.current);
+        if (isLocalStorageSidebarOpen && !forceMount) {
+            console.log("FORCE_MOUNT before => ", forceMount);
+            // setForceMount(true);
+            console.log("FORCE_MOUNT after => ", forceMount);
         }
     });
     return (

@@ -8,9 +8,22 @@ import { SphereCamera } from "@/components/ui/three/cameras/SphereCamera/SphereC
 import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/PlaybackCard";
 import { AudioProvider } from "@/components/context/audio/AudioProvider";
 import { AudioVisualizerProvider } from "@/components/context/audio/AudioVisualizerProvider";
+import { useLocalStorageContext } from "@/components/context/storage/LocalStorageContext";
+import { useSidebarContext } from "@/components/context/sidebar/SidebarContext";
+import { useEffect } from "react";
 
 export default function MusicPage() {
     console.log("AudioVisualizerProvier Context Types: ", AudioVisualizerProvider.contextTypes);
+    const { isLocalStorageSidebarOpen } = useLocalStorageContext();
+    const { forceMount, setForceMount } = useSidebarContext();
+
+    useEffect(() => {
+        if (isLocalStorageSidebarOpen && !forceMount) {
+            console.log("FORCE_MOUNT before => ", forceMount);
+            // setForceMount(true);
+            console.log("FORCE_MOUNT after => ", forceMount);
+        }
+    });
     return (
         <AudioVisualizerProvider>
             <AudioProvider>

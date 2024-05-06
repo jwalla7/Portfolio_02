@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, use, useEffect, useRef } from "react";
+import { forwardRef, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { OverlayTriggerProps } from "./overlayTriggerProps";
 import { overlayTriggerStyles } from "./overlayTriggerStyles";
@@ -11,8 +11,7 @@ import { useSidebarContext } from "@/components/context/sidebar/SidebarContext";
 export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(({ className, children }, ref) => {
     const { setDisplayStateRef, forceMount, setForceMount } = useSidebarContext();
 
-    // onMouseLeave handler to undo forceMount
-    const handleMouseLeave = () => {
+    const navMouseLeave = () => {
         setForceMount(false);
     };
     let contentProps = {};
@@ -22,7 +21,7 @@ export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(({
         contentProps = { forceMount: false };
     }
     /**
-     * displayStateRef
+     * newDisplayStateRef
      *
      * States the display state of the overlay and its children using a boolean and mutable ref.
      */
@@ -35,7 +34,7 @@ export const OverlayTrigger = forwardRef<HTMLDivElement, OverlayTriggerProps>(({
                 <NavigationMenu.Trigger asChild tabIndex={0} className="outline-none h-auto">
                     <div className={cn(overlayTriggerStyles({ triggerdiv: "inactive" }))} ref={newDisplayStateRef} />
                 </NavigationMenu.Trigger>
-                <NavigationMenu.Content className={cn(className, "h-auto")} onMouseLeave={handleMouseLeave} {...contentProps}>
+                <NavigationMenu.Content className={cn(className, "h-auto")} onMouseLeave={navMouseLeave} {...contentProps}>
                     <OverlayRoot overlayRef={newDisplayStateRef} ref={ref}>
                         {children}
                     </OverlayRoot>

@@ -19,8 +19,7 @@ import { usePathname } from "next/dist/client/components/navigation";
 import { useThemeButtonData } from "@/components/hooks/useThemeButtonData/useThemeButtonData";
 import { ButtonWithLabelProps } from "@/components/ui/button/ButtonWithLabel/buttonWithLabelProps";
 
-export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ sidebarRef }, ref) => {
-    const [_, startTransition] = useTransition();
+export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>((_, ref) => {
     const navButtonData = useNavButtonData();
     const themeButtonData = useThemeButtonData();
     const url = usePathname();
@@ -31,12 +30,6 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ sidebarRef },
                 event.preventDefault();
                 event.stopPropagation();
             }
-            // startTransition(() => {
-            //     if (sidebarRef?.current) {
-            //         console.log("sidebarRef", sidebarRef.current.toggleSidebarTracker);
-            //         sidebarRef.current.toggleSidebarTracker;
-            //     }
-            // });
         },
         [url]
     );

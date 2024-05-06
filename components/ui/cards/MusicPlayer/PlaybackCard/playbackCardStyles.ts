@@ -5,6 +5,36 @@ export const playCardStyles = cva(
 `,
     {
         variants: {
+            playbackRoot: {
+                root: `data=[__playback-root__]
+                w-[42.648vw]
+                h-[77.847vh]
+                flex-col
+                justify-center
+                items-center
+                gap-[10.09px]
+                inline-flex
+                `,
+            },
+            playbackTop: {
+                root: `data-[__playback-top-root__]
+                `,
+                content: `data-[__playback-top-content__]
+                self-stretch
+                pt-[25px]
+                rounded-t-[42.40px]
+                flex-col
+                justify-center
+                items-center
+                gap-[5.05px]
+                flex
+                `,
+            },
+            playbackMid: {},
+            playbackBottom: {},
+            progressBar: {
+                root: ``,
+            },
             playButton: {
                 root: `data-[__playback-button-root__]
                 group

@@ -109,3 +109,9 @@ https: //tailwindcss.com/docs/customizing-colors#naming-your-colors
     @apply px-4;
   }
 }
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .chrome-three-backdrop-blur {
+    --tw-backdrop-blur: blur(21px);
+  }
+}

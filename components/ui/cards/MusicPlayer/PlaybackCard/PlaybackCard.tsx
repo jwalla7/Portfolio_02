@@ -180,9 +180,7 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                         >
                             <motion.div
                                 className="Progress w-[2.750%] group h-full left-0 top-0 absolute bg-zinc-900 bg-opacity-90 rounded-[40.37px]
-                        h-full w-[68.6%] top-[0%] right-[31.4%] bottom-[0%] left-[0%] rounded-[40.37px]
-                        dark:bg-gray-200
-                        dark:absolute 
+                        h-full w-[68.6%] top-[0%] right-[31.4%] bottom-[0%] left-[0%] rounded-[40.37px] dark:bg-gray-200 dark:absolute
                         "
                                 style={{ width: progressWidth + "%" }}
                             >

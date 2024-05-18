@@ -14,6 +14,8 @@ export const overlayStylesLayerRoot = cva(
     fixed
     top-0
     left-0
+    mb-0
+    pb-0
     `,
     {
         variants: {

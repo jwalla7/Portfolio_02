@@ -14,6 +14,17 @@ export const AudioContext = createContext<AudioContextProps>({
     durationTimeString: "",
     formattedRemainingTime: undefined,
     progressPercentage: 0,
+    audioCacheData: undefined,
+    currentArtwork: {
+        _150x150: "",
+        _480x480: "",
+        _1000x1000: "",
+    },
+    currentUserProfilePicture: {
+        _150x150: "",
+        _480x480: "",
+        _1000x1000: "",
+    },
 });
 
 export const useAudioContext = () => {

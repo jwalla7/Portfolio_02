@@ -7,7 +7,6 @@ import {
     TouchEvent,
     TouchEventHandler,
     MouseEventHandler,
-    PointerEvent,
     useRef,
 } from "react";
 import { PlaybackCardProps } from "./playbackCardProps";
@@ -21,7 +20,6 @@ import { playCardStyles } from "./playbackCardStyles";
 import { IconArrowPause } from "@/components/ui/icons/phosphor/IconArrowPause";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
 import { PanInfo, motion, useDragControls } from "framer-motion";
-import { set } from "zod";
 
 // TODO: Add styles using cva to PlaybackCard
 export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ children }, ref) => {
@@ -116,23 +114,6 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
     useEffect(() => {
         setProgressWidth((currentTime / duration) * 100);
     }, [currentTime, duration]);
-
-    // const clickPositionProgress = useCallback(
-    //     (event: MouseEvent<HTMLDivElement>) => {
-    //         const progressBarContainer = event.currentTarget.getBoundingClientRect();
-    //         const clickPositionX = event.clientX - progressBarContainer.left;
-    //         const seekTime = (clickPositionX / progressBarContainer.width) * duration;
-    //         seekAudioTime(seekTime);
-    //     },
-    //     [duration, seekAudioTime]
-    // );
-
-    // const dragPositionProgress = useCallback((event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    //     const progressBar = event.currentTarget as HTMLDivElement;
-    //     const progressBarWidth = progressBar.clientWidth;
-    //     const newTime = (info.point.x - progressBar.getBoundingClientRect().left / progressBarWidth) * duration;
-    //     seekAudioTime(Math.min(Math.max(newTime, 0), duration));
-    // }, [duration, seekAudioTime])
 
     useEffect(() => {
         setAudioTime(currentTime);

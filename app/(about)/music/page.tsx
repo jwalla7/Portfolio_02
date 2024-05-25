@@ -9,6 +9,7 @@ import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/Pla
 import { AudioProvider } from "@/components/context/audio/AudioProvider";
 import { AudioVisualizerProvider } from "@/components/context/audio/AudioVisualizerProvider";
 import { Canvas } from "@react-three/fiber";
+import { ArtistCard } from "@/components/ui/cards/MusicPlayer/ArtistCard/ArtistCard";
 
 export default function MusicPage() {
     return (
@@ -28,7 +29,9 @@ export default function MusicPage() {
                         <Card size="lg" position="center">
                             <PlaybackCard />
                         </Card>
-                        <Card size="md" position="right" />
+                        <Card size="md" position="right">
+                            <ArtistCard />
+                        </Card>
                     </CardGroup>
                     <OverlayTrigger />
                 </div>

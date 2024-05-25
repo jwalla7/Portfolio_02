@@ -57,8 +57,8 @@ export const playCardStyles = cva(
                 h-20
                 relative
                 rounded-[217.32px]
-                shadow-[1.1799999475479126px_-2px_34px_rgba(25,_25,_25,_0.21)_inset] w-full flex flex-row items-center justify-center
-                dark:shadow-[1.1799999475479126px_0px_34px_rgba(255,_255,_255,_0.55)_inset]
+                shadow-[inset_1.1799999475479126px_-2px_34px_rgba(25,25,25,0.21)] w-full flex flex-row items-center justify-center
+                dark:shadow-[inset_1.1799999475479126px_0px_34px_rgba(255,255,255,0.55)]
             `,
                 inner: `
                 data-[__playback-button-inner__]

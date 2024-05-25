@@ -12,7 +12,6 @@ import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 import { useAudioVisualizerContext } from "@/components/context/audio/AudioVisualizerContext";
-import { time } from "console";
 // import { d } from "@tanstack/react-query-devtools/build/legacy/devtools-0Hr18ibL";
 // import { useQuery } from "@tanstack/react-query";
 
@@ -33,6 +32,16 @@ export function useAudio(userId?: string): useAudioProps {
     const [cacheUpdated, setCacheUpdated] = useState<boolean>(false);
     const animationFrameId = useRef<number | null>(null);
     const [previousTrack, setPreviousTrack] = useState<LRUCacheProps | null>(null);
+    const [currentArtwork, setCurrentArtwork] = useState({
+        _150x150: "",
+        _480x480: "",
+        _1000x1000: "",
+    });
+    const [currentUserProfilePicture, setCurrentUserProfilePicture] = useState({
+        _150x150: "",
+        _480x480: "",
+        _1000x1000: "",
+    });
 
     const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
 
@@ -42,9 +51,6 @@ export function useAudio(userId?: string): useAudioProps {
     interface TrackData extends LRUCacheProps {
         id: string;
         metaData?: string;
-    }
-    interface NewTrack extends Track {
-        id: string;
     }
     // AUDIO TIME DATA FOR PLAYBACK CONTROL
     const audioPlaybackData = useCallback(() => {
@@ -73,6 +79,7 @@ export function useAudio(userId?: string): useAudioProps {
             if (!response.ok) throw new Error("Error fetching audio data");
 
             const cachedAudioData: TrackData[] = await response.json();
+            console.log("NEW INITIAL AUDIO DATA ==> : ", cachedAudioData);
             if (cachedAudioData.length > 0) {
                 hasFetchedInitialData.current = true;
             }
@@ -82,20 +89,19 @@ export function useAudio(userId?: string): useAudioProps {
                     if (trackData.id && index < audioCacheData.getCapacity()) {
                         audioCacheData.put(trackData.id, trackData);
                         atCapacityNode = trackData.id;
-                        console.log("NODE ADDED TO CACHE => : ", trackData.id);
                     } else {
                         console.error("Invalid attempt to add track data, exceeded capacity:", trackData);
                     }
                     if (index < audioCacheData.getCapacity()) {
-                        console.log("AT CAPACITY NODE => INDEX: ", index);
-                        console.log("AT CAPACITY NODE: ", atCapacityNode);
                         atCapacityNode = trackData.id;
                     }
-
                     if (index === 2) {
                         // start at the last track in the cache
                         setTrack(trackData.track);
                         setAudioStream(trackData.streamLink);
+                        setCurrentArtwork(trackData.artwork);
+                        setCurrentUserProfilePicture(trackData.user.profilePicture);
+                        audioCacheData.setCurrentNode(trackData.id);
                         if (atCapacityNode) {
                             audioCacheData.setCurrentNode(atCapacityNode);
                         }
@@ -109,7 +115,7 @@ export function useAudio(userId?: string): useAudioProps {
         } finally {
             setLoading(false);
         }
-        console.log("INITIAL CACHE => : ", audioCacheData);
+        // console.log("INITIAL CACHE => : ", audioCacheData);
     }, [userId, audioCacheData]);
 
     const fetchNewTrackData = useCallback(async () => {
@@ -128,6 +134,7 @@ export function useAudio(userId?: string): useAudioProps {
                     throw new Error("Error fetching audio data");
                 }
                 const newAudioData: TrackData[] = await response.json();
+                console.log("NEW AUDIO DATA ==> : ", newAudioData);
 
                 // Filter out tracks that are already in the cache to get only unique new tracks
                 const uniqueTracks = newAudioData.filter((uniqueTrack) => !audioCacheData.get(uniqueTrack.id));
@@ -144,6 +151,8 @@ export function useAudio(userId?: string): useAudioProps {
                     if (firstUniqueTrack) {
                         setTrack(firstUniqueTrack.track);
                         setAudioStream(firstUniqueTrack.streamLink);
+                        setCurrentArtwork(firstUniqueTrack.artwork);
+                        setCurrentUserProfilePicture(firstUniqueTrack.user.profilePicture);
                         audioCacheData.setCurrentNode(firstUniqueTrack.id);
                         animationFrameId.current = requestAnimationFrame(audioPlaybackData);
                         console.log(`Added ${uniqueTracks.length} new unique tracks.`);
@@ -155,6 +164,8 @@ export function useAudio(userId?: string): useAudioProps {
                     if (leastRecentlyUsedTrack) {
                         setTrack(leastRecentlyUsedTrack.track); // Access the track from the node's value
                         setAudioStream(leastRecentlyUsedTrack.streamLink); // Access the streamLink from the node's value
+                        setCurrentArtwork(leastRecentlyUsedTrack.artwork);
+                        setCurrentUserProfilePicture(leastRecentlyUsedTrack.user.profilePicture);
                         audioCacheData.setCurrentNode(leastRecentlyUsedTrack.id); // Ensure you use `key` here
                         animationFrameId.current = requestAnimationFrame(audioPlaybackData);
                         console.log("Using the least recently used track.");
@@ -169,7 +180,19 @@ export function useAudio(userId?: string): useAudioProps {
                 setLoading(false);
             }
         }
-    }, [userId, audioCacheData, animationFrameId, audioPlaybackData, setTrack, setAudioStream, setError, setLoading, resetSphere]);
+    }, [
+        userId,
+        audioCacheData,
+        animationFrameId,
+        audioPlaybackData,
+        setTrack,
+        setAudioStream,
+        setError,
+        setLoading,
+        resetSphere,
+        setCurrentArtwork,
+        setCurrentUserProfilePicture,
+    ]);
 
     // ANALYZE AUDIO FOR VISUALIZATION
     const createAudioContext = useCallback(() => {
@@ -286,42 +309,46 @@ export function useAudio(userId?: string): useAudioProps {
         };
     }, [audioStream, createAudioContext, resetSphere, audioPlaybackData, audioCacheData, previousTrack]);
 
-    const autoplayAudio = useCallback(
-        (currentNode: LRUCacheProps | null) => {
-            if (audioRef.current) {
-                if (audioIsPlaying) {
-                    audioRef.current.pause();
-                    audioContextRef.current?.suspend();
-                }
-                if (currentNode) {
-                    audioCacheData.moveToTail(currentNode.id);
-                }
-                console.log("PAUSED AUDIO REF NOW SRC = ", audioRef.current.src);
-                audioRef.current.src = "";
-                setAudioIsPlaying(false);
-            }
-            // Create or update the AudioContext
-            if (!audioContextRef.current || audioContextRef.current.state === "closed") {
-                createAudioContext();
-            }
-            console.log("CURRENT NODE: ", currentNode);
-            audioRef.current = new Audio(currentNode?.streamLink);
-            console.log("PAUSED AUDIO REF NOW SRC AFTER = ", audioRef.current.src);
-            toggleAudio();
-        },
-        [createAudioContext, toggleAudio, audioIsPlaying, audioCacheData]
-    );
+    // const autoplayAudio = useCallback(
+    //     (currentNode: LRUCacheProps | null) => {
+    //         if (audioRef.current) {
+    //             if (audioIsPlaying) {
+    //                 audioRef.current.pause();
+    //                 audioContextRef.current?.suspend();
+    //             }
+    //             if (currentNode) {
+    //                 audioCacheData.moveToTail(currentNode.id);
+    //             }
+    //             console.log("PAUSED AUDIO REF NOW SRC = ", audioRef.current.src);
+    //             audioRef.current.src = "";
+    //             setAudioIsPlaying(false);
+    //         }
+    //         // Create or update the AudioContext
+    //         if (!audioContextRef.current || audioContextRef.current.state === "closed") {
+    //             createAudioContext();
+    //         }
+    //         console.log("CURRENT NODE: ", currentNode);
+    //         audioRef.current = new Audio(currentNode?.streamLink);
+    //         console.log("PAUSED AUDIO REF NOW SRC AFTER = ", audioRef.current.src);
+    //         toggleAudio();
+    //     },
+    //     [createAudioContext, toggleAudio, audioIsPlaying, audioCacheData]
+    // );
 
     // NEXT AUDIO
     const nextAudio = useCallback(() => {
         console.log("NEXT AUDIO");
         setAudioIsPlaying(false);
+        const audio = audioRef.current;
+        if (!audio) return;
+
         if (audioContextRef.current && audioContextRef.current.state !== "closed") {
             audioContextRef.current.suspend();
             if (animationFrameId.current !== null) {
                 cancelAnimationFrame(animationFrameId.current);
             }
             resetSphere();
+            createAudioContext();
         }
         (async () => {
             const currentNode = audioCacheData.getCurrentNodeValue();
@@ -335,6 +362,8 @@ export function useAudio(userId?: string): useAudioProps {
                 console.log("NEXT AUDIO => NEXT NODE: ", nextNode.id);
                 setTrack(nextNode.track);
                 setAudioStream(nextNode.streamLink);
+                setCurrentArtwork(nextNode.artwork);
+                setCurrentUserProfilePicture(nextNode.user.profilePicture);
                 console.log("NEXT AUDIO => NEXT TRACK: ", nextNode.id);
                 console.log("NEXT AUDIO => NEXT CACHE: ", audioCacheData);
                 if (audioRef.current) {
@@ -365,6 +394,8 @@ export function useAudio(userId?: string): useAudioProps {
                         if (newTrack && newTrack.id) {
                             setTrack(newTrack.track);
                             setAudioStream(newTrack.streamLink);
+                            setCurrentArtwork(newTrack.artwork);
+                            setCurrentUserProfilePicture(newTrack.user.profilePicture);
                             console.log("NO NEXT AUDIO => FETCHED NEW TRACK: ", newTrack);
                             if (!audioRef.current) return;
                             audioRef.current.src = newTrack.streamLink;
@@ -408,6 +439,8 @@ export function useAudio(userId?: string): useAudioProps {
             // If there is a previous node, use it for playback
             setTrack(previousNode.track);
             setAudioStream(previousNode.streamLink);
+            setCurrentArtwork(previousNode.artwork);
+            setCurrentUserProfilePicture(previousNode.user.profilePicture);
             audioCacheData.setCurrentNode(previousNode.id); // Update the current node in the cache
 
             if (audioRef.current) {
@@ -426,6 +459,8 @@ export function useAudio(userId?: string): useAudioProps {
             if (lruTrack) {
                 setTrack(lruTrack.track);
                 setAudioStream(lruTrack.streamLink);
+                setCurrentArtwork(lruTrack.artwork);
+                setCurrentUserProfilePicture(lruTrack.user.profilePicture);
                 audioCacheData.setCurrentNode(lruTrack.id); // Ensure to update the current node to the LRU node
 
                 if (audioRef.current) {
@@ -441,7 +476,7 @@ export function useAudio(userId?: string): useAudioProps {
                 console.log("LRU track not found.");
             }
         }
-    }, [audioCacheData, setTrack, setAudioStream, createAudioContext, nextAudio]);
+    }, [audioCacheData, setTrack, setAudioStream, createAudioContext, nextAudio, setCurrentArtwork, setCurrentUserProfilePicture]);
 
     const updateAudioTime = useCallback(() => {
         if (audioRef.current) {
@@ -449,6 +484,9 @@ export function useAudio(userId?: string): useAudioProps {
             setDuration(audioRef.current.duration || 0);
         }
     }, []);
+
+    const stableUpdateAudioTime = useCallback(updateAudioTime, [updateAudioTime]);
+
     const seekAudioTime = useCallback(
         (time: number) => {
             if (!audioRef.current) return;
@@ -510,6 +548,7 @@ export function useAudio(userId?: string): useAudioProps {
         if (!audio) return;
         // Load metadata to get duration
         const onLoadMetadata = () => {
+            setCurrentTime(audio.currentTime);
             setDuration(audio.duration);
         };
         // Update progress percentage
@@ -519,7 +558,8 @@ export function useAudio(userId?: string): useAudioProps {
         updateProgress();
         // Update current time periodically
         const getAudioTime = () => {
-            updateAudioTime();
+            stableUpdateAudioTime();
+            // updateAudioTime();
         };
         audio.addEventListener("loadedmetadata", onLoadMetadata);
         audio.addEventListener("timeupdate", getAudioTime);
@@ -530,7 +570,7 @@ export function useAudio(userId?: string): useAudioProps {
             audio.removeEventListener("timeupdate", getAudioTime);
             audio.removeEventListener("timeupdate", updateProgress);
         };
-    }, [updateAudioTime]);
+    }, [updateAudioTime, stableUpdateAudioTime]);
 
     // Cleanup audio context
     useEffect(() => {
@@ -567,5 +607,8 @@ export function useAudio(userId?: string): useAudioProps {
         durationTimeString,
         formattedRemainingTime,
         progressPercentage,
+        currentArtwork,
+        currentUserProfilePicture,
+        audioCacheData,
     };
 }

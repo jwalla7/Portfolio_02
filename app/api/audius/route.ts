@@ -2,6 +2,9 @@ import { env } from "@/env.mjs"; // Adjust the import path as necessary
 import { sdk } from "@audius/sdk/src";
 import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
+import Cache from "node-cache";
+
+const myCache = new Cache({ stdTTL: 100, checkperiod: 120 }); // TTL in seconds
 
 const audiusSdk = sdk({
     appName: "PortfolioV2",
@@ -28,6 +31,12 @@ export const GET = async (req: NextRequest) => {
         const userId = searchParams.get("userId") as string;
 
         if (!userId) throw new Error("Missing required user ID");
+
+        // Attempt to fetch from cache first
+        const cachedData = myCache.get(userId);
+        if (cachedData) {
+            return new NextResponse(JSON.stringify(cachedData), { status: 200 });
+        }
 
         // Fetch all tracks by the user
         const { data: userTracks } = await audiusSdk.users.getTracksByUser({ id: userId });

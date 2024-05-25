@@ -16,6 +16,18 @@ export interface LRUCacheProps {
     id: string;
     track: Track;
     streamLink: string;
+    artwork: {
+        _150x150: string;
+        _480x480: string;
+        _1000x1000: string;
+    };
+    user: {
+        profilePicture: {
+            _150x150: string;
+            _480x480: string;
+            _1000x1000: string;
+        };
+    };
 }
 export class LRUCache<T> {
     private capacity: number;

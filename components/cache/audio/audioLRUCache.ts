@@ -27,7 +27,9 @@ export interface LRUCacheProps {
             _480x480: string;
             _1000x1000: string;
         };
+        name: string;
     };
+    title: string;
 }
 export class LRUCache<T> {
     private capacity: number;

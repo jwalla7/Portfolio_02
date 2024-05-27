@@ -4,7 +4,7 @@ import { useAudio } from "@/components/hooks/useAudio/useAudio";
 import { AudioContext } from "./AudioContext";
 
 export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
-    const [_userId, setUserId] = useState<string>("oW3lyY7");
+    const [_userId] = useState<string>("oW3lyY7");
     const {
         analyser,
         audioIsPlaying,

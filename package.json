@@ -22,7 +22,6 @@
     },
     "dependencies": {
         "@audius/sdk": "^3.0.43",
-        "@next/swc-darwin-arm64": "^13.4.9",
         "@phosphor-icons/react": "^2.0.15",
         "@radix-ui/colors": "^0.1.9",
         "@radix-ui/react-dropdown-menu": "^2.0.6",
@@ -98,6 +97,14 @@
         "tailwindcss": "3.3.2",
         "tailwindcss-animate": "^1.0.7",
         "typescript": "^5.0.4"
+    },
+    "optionalDependencies": {
+        "@next/swc-darwin-arm64": "^13.4.9",
+        "@next/swc-darwin-x64": "^13.4.9",
+        "@next/swc-linux-x64-gnu": "^13.4.9",
+        "@next/swc-linux-x64-musl": "^13.4.9",
+        "@next/swc-win32-x64-msvc": "^13.4.9",
+        "@next/swc-win32-arm64-msvc": "^13.4.9"
     },
     "lint-staged": {
         "*.{js,mjs,ts,tsx}": "eslint",

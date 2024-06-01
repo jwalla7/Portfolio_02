@@ -30,6 +30,8 @@ export interface LRUCacheProps {
         name: string;
     };
     title: string;
+    duration: number;
+    formattedDuration: string;
 }
 export class LRUCache<T> {
     private capacity: number;

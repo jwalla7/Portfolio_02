@@ -17,10 +17,15 @@ export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
         seekAudioTime,
         durationTimeString,
         formattedRemainingTime,
+        formattedDurationById,
         progressPercentage,
         audioCacheData,
+        cacheUpdated,
         currentArtwork,
         currentUserProfilePicture,
+        debouncedSetCacheUpdated,
+        setTrack,
+        setCurrentArtwork,
     } = useAudio(_userId);
 
     const values = useMemo(() => {
@@ -36,10 +41,15 @@ export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
             seekAudioTime,
             durationTimeString,
             formattedRemainingTime,
+            formattedDurationById,
             progressPercentage,
             audioCacheData,
+            cacheUpdated,
             currentArtwork,
             currentUserProfilePicture,
+            debouncedSetCacheUpdated,
+            setTrack,
+            setCurrentArtwork,
         };
     }, [
         audioStream,
@@ -53,10 +63,15 @@ export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
         seekAudioTime,
         durationTimeString,
         formattedRemainingTime,
+        formattedDurationById,
         progressPercentage,
         audioCacheData,
+        cacheUpdated,
         currentArtwork,
         currentUserProfilePicture,
+        debouncedSetCacheUpdated,
+        setTrack,
+        setCurrentArtwork,
     ]);
 
     return <AudioContext.Provider value={values}>{children}</AudioContext.Provider>;

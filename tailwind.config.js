@@ -121,6 +121,7 @@ module.exports = {
                 slideDownAndFade: "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
                 slideLeftAndFade: "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
                 shineBottomRightAndFade: "shine 1s",
+                skeletonPulse: "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },

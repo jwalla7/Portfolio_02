@@ -12,8 +12,8 @@ import localFont from "next/font/local";
 // Inter regular
 export const inter = Inter({
     subsets: ["latin"],
-    variable: "--font-inter-regular",
-    weight: "400",
+    variable: "--font-inter",
+    weight: ["400", "500", "900"],
 });
 
 // Roboto family

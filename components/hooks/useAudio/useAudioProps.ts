@@ -1,4 +1,6 @@
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
+import { Track } from "@audius/sdk/dist/api/Track";
+import { Dispatch, SetStateAction } from "react";
 
 export interface useAudioProps {
     analyser: Type_Audio["analyser"];
@@ -10,11 +12,22 @@ export interface useAudioProps {
     toggleAudio: Type_Audio["toggleAudio"];
     seekAudioTime: Type_Audio["seekAudioTime"];
     audioCacheData?: LRUCache<LRUCacheProps | null> | undefined;
+    cacheUpdated: boolean;
+    debouncedSetCacheUpdated: () => void;
     currentTime: number;
     duration: number;
     durationTimeString: string;
     formattedRemainingTime: string | undefined;
+    formattedDurationById: (id: string) => void;
     progressPercentage: number;
+    setTrack: Dispatch<SetStateAction<Track | Track[] | null>>;
+    setCurrentArtwork: Dispatch<
+        SetStateAction<{
+            _150x150: string;
+            _480x480: string;
+            _1000x1000: string;
+        }>
+    >;
     currentArtwork: {
         _150x150: string;
         _480x480: string;

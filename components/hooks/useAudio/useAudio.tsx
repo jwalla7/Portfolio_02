@@ -12,6 +12,8 @@ import { Track } from "@audius/sdk/dist/api/Track";
 import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 import { useAudioVisualizerContext } from "@/components/context/audio/AudioVisualizerContext";
+import debounce from "lodash/debounce";
+import { set } from "lodash";
 // import { d } from "@tanstack/react-query-devtools/build/legacy/devtools-0Hr18ibL";
 // import { useQuery } from "@tanstack/react-query";
 
@@ -29,7 +31,6 @@ export function useAudio(userId?: string): useAudioProps {
     const [duration, setDuration] = useState(0);
     const [durationTimeString, setDurationTimeString] = useState<string>("0:00");
     const [progressPercentage, setProgressPercentage] = useState<number>(0);
-    const [cacheUpdated, setCacheUpdated] = useState<boolean>(false);
     const animationFrameId = useRef<number | null>(null);
     const [previousTrack, setPreviousTrack] = useState<LRUCacheProps | null>(null);
     const [currentArtwork, setCurrentArtwork] = useState({
@@ -42,6 +43,11 @@ export function useAudio(userId?: string): useAudioProps {
         _480x480: "",
         _1000x1000: "",
     });
+    const [cacheUpdated, setCacheUpdated] = useState<boolean>(false);
+    const debouncedSetCacheUpdated = useMemo(
+        () => debounce(() => setCacheUpdated((prev) => !prev), 300), // Debounce by 300ms
+        []
+    );
 
     const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
 
@@ -107,7 +113,7 @@ export function useAudio(userId?: string): useAudioProps {
                         }
                     }
                 });
-                setCacheUpdated((prevState) => !prevState);
+                debouncedSetCacheUpdated();
                 console.log("INITIAL CURRENT NODE => : ", audioCacheData.getCurrentNodeValue());
             }
         } catch (err: any) {
@@ -116,7 +122,7 @@ export function useAudio(userId?: string): useAudioProps {
             setLoading(false);
         }
         // console.log("INITIAL CACHE => : ", audioCacheData);
-    }, [userId, audioCacheData]);
+    }, [userId, audioCacheData, debouncedSetCacheUpdated]);
 
     const fetchNewTrackData = useCallback(async () => {
         if (!userId) return null;
@@ -154,9 +160,11 @@ export function useAudio(userId?: string): useAudioProps {
                         setCurrentArtwork(firstUniqueTrack.artwork);
                         setCurrentUserProfilePicture(firstUniqueTrack.user.profilePicture);
                         audioCacheData.setCurrentNode(firstUniqueTrack.id);
+                        debouncedSetCacheUpdated();
                         animationFrameId.current = requestAnimationFrame(audioPlaybackData);
                         console.log(`Added ${uniqueTracks.length} new unique tracks.`);
                     }
+                    debouncedSetCacheUpdated();
                     resetSphere();
                 } else {
                     // Use the least recently used track if no unique tracks are found
@@ -168,6 +176,7 @@ export function useAudio(userId?: string): useAudioProps {
                         setCurrentUserProfilePicture(leastRecentlyUsedTrack.user.profilePicture);
                         audioCacheData.setCurrentNode(leastRecentlyUsedTrack.id); // Ensure you use `key` here
                         animationFrameId.current = requestAnimationFrame(audioPlaybackData);
+                        debouncedSetCacheUpdated();
                         console.log("Using the least recently used track.");
                     } else {
                         console.log("No tracks available to set as current.");
@@ -192,6 +201,7 @@ export function useAudio(userId?: string): useAudioProps {
         resetSphere,
         setCurrentArtwork,
         setCurrentUserProfilePicture,
+        debouncedSetCacheUpdated,
     ]);
 
     // ANALYZE AUDIO FOR VISUALIZATION
@@ -516,6 +526,21 @@ export function useAudio(userId?: string): useAudioProps {
         return formatAudioTime(duration - currentTime);
     }, [currentTime, duration, formatAudioTime]);
 
+    const formattedDurationById = useCallback(
+        (trackId: string) => {
+            const trackData = audioCacheData.get(trackId);
+            if (trackData && trackData.duration) {
+                const minutes = Math.floor(trackData.duration / 60);
+                const seconds = Math.floor(trackData.duration % 60);
+                const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+                return `${minutes}:${formattedSeconds}`;
+            } else {
+                return "0:00";
+            }
+        },
+        [audioCacheData]
+    );
+
     // Fetch initial audio data
     useEffect(() => {
         if (!userId) return;
@@ -606,9 +631,14 @@ export function useAudio(userId?: string): useAudioProps {
         duration,
         durationTimeString,
         formattedRemainingTime,
+        formattedDurationById,
         progressPercentage,
         currentArtwork,
         currentUserProfilePicture,
         audioCacheData,
+        cacheUpdated,
+        debouncedSetCacheUpdated,
+        setTrack,
+        setCurrentArtwork,
     };
 }

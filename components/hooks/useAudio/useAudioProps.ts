@@ -20,6 +20,7 @@ export interface useAudioProps {
     formattedRemainingTime: string | undefined;
     formattedDurationById: (id: string) => void;
     progressPercentage: number;
+    setAudioStream: Dispatch<SetStateAction<string | undefined>>;
     setTrack: Dispatch<SetStateAction<Track | Track[] | null>>;
     setCurrentArtwork: Dispatch<
         SetStateAction<{

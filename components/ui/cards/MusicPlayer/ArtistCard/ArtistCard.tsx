@@ -14,11 +14,15 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
         cacheUpdated,
         debouncedSetCacheUpdated,
         setTrack,
+        setAudioStream,
         setCurrentArtwork,
         formattedDurationById,
     } = useAudioContext();
 
     const [tracks, setTracks] = useState<LRUCacheProps[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingTracksDisplayed, setLoadingTracksDisplayed] = useState<number>(0);
+    const [loadingTrackIndex, setLoadingTrackIndex] = useState<number>(3);
 
     const handleTrackClick = useCallback(
         (trackId: string | undefined) => {
@@ -28,21 +32,26 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
             const trackData = audioCacheData?.get(trackId);
 
             if (trackData) {
-                audioCacheData.setCurrentNode(trackId);
+                console.log("Track data found: ", trackData);
+                audioCacheData.setCurrentNode(trackData.id);
                 setTrack(trackData.track);
+                setAudioStream(trackData.streamLink);
                 setCurrentArtwork(trackData.artwork ?? "");
             }
 
             debouncedSetCacheUpdated();
         },
-        [audioCacheData, debouncedSetCacheUpdated, setTrack, setCurrentArtwork]
+        [audioCacheData, debouncedSetCacheUpdated, setTrack, setCurrentArtwork, setAudioStream]
     );
 
     useEffect(() => {
         if (!audioCacheData) return;
+        console.log("CURRENT NODE FROM ARTIST: ", audioCacheData.getCurrentNodeValue());
+        setLoading(true);
         const allTracks = audioCacheData
             .getAllKeys()
             .map((key) => {
+                setLoading(true);
                 const track = audioCacheData.get(key);
                 if (track) {
                     return {
@@ -55,8 +64,20 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
             })
             .filter((track) => track !== null);
         setTracks(allTracks as any);
-    }, [audioCacheData, cacheUpdated, formattedDurationById]); // Dependency on cacheUpdated to trigger re-render
-
+        const loadingDelay = setTimeout(() => {
+            const interval = setInterval(() => {
+                if (loadingTracksDisplayed < allTracks.length) {
+                    setLoadingTrackIndex((prev) => prev - 1);
+                    setLoading(false);
+                    setLoadingTracksDisplayed((prev) => prev + 1);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 175);
+            return () => clearInterval(interval);
+        }, 1500);
+        return () => clearTimeout(loadingDelay);
+    }, [audioCacheData, cacheUpdated, formattedDurationById]);
     return (
         <>
             <div className="Artist Card relative w-full h-full">
@@ -73,7 +94,7 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
                                 className="relative w-[100%] min-h-[189px] rounded-t-[40.42px] chrome-three-backdrop-blur opacity-[.89] bg-transparent border-transparent outline-none p-0 m-0 top-0 left-0"
                             />
                         ) : (
-                            <div className="relative w-[100%] min-h-[189px] rounded-t-[40.42px] backdrop-blur-[135px] bg-slate-400/30 animate-pulse"></div>
+                            <div className="relative w-[100%] min-h-[189px] rounded-t-[40.42px] backdrop-blur-[135px] bg-slate-300/60 animate-pulse"></div>
                         )}
                     </div>
                     <div className="Artwork_Blur_Layer w-[100%] h-[100%] absolute top-0 left-0 rounded-t-[42.20px] p-[.5px] m-[-1px] outline-none border-none z-10"></div>
@@ -92,7 +113,7 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
                                 className=" Profile_Picture w-[100%] h-[100%] rounded-[50%] absolute top-0 left-0 outline-none border-none ring-[5px] ring-white"
                             />
                         ) : (
-                            <div className="w-[100%] h-[100%] rounded-[50%] absolute top-0 left-0 backdrop-blur-[135px] bg-slate-300 animate-pulse"></div>
+                            <div className="w-[100%] h-[100%] rounded-[50%] absolute top-0 left-0 backdrop-blur-[135px] bg-slate-300/30 animate-pulse"></div>
                         )}
                         <div className="Profile_Picture-Overlay w-[100%] h-[100%] min-w-[145.38px] min-h-[145.38px] bg-[rgba(191,191,191,0.05)]/[.34] absolute rounded-[50%] ring-0 outline-none border-none"></div>
                     </div>
@@ -101,46 +122,75 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
 
                 <div className="Playlist_Root relative flex grow flex-col w-full min-h-[300px] pt-[100px] z-30">
                     <div className="Playlist_Tracks relative flex flex-col pt-[100px] px-[21px] pb-[12px]">
-                        {/* {mapTracks()} */}
-                        {[...tracks].reverse().map((track, index) => (
-                            <div
-                                key={track ? track.id : index}
-                                onClick={() => handleTrackClick(track?.id)}
-                                className="Track flex flex-row bg-[rgba(266,266,266,.1)] px-[13px] py-[14px] border-[1px] border-solid border-zinc-900/20 border-b-0 border-l-0 border-r-0 h-[89px] hover:bg-white/20 rounded-r-[3px] rounded-bl-[3px] text-[14px] items-center gap-2 justify-between pr-[55px] overflow-hidden backdrop-blur-[135px]"
-                            >
-                                <div className="Track_Artwork">
-                                    {track?.artwork ? (
-                                        <Image
-                                            src={track.artwork._480x480}
-                                            alt="Track Artwork"
-                                            width={100}
-                                            height={100}
-                                            className="h-full rounded-[6px] w-[89px]"
-                                        />
-                                    ) : (
-                                        <div className="h-full w-[89px] animate-pulse bg-slate-500"></div>
-                                    )}
-                                </div>
-                                <div className="Track_Name flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
-                                    <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>Title</span>
-                                    <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
-                                        {track?.title || "Unknown Track Title"}
-                                    </span>
-                                </div>
-                                <div className="Track_Artist flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
-                                    <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>Name</span>
-                                    <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
-                                        {track?.user.name || "Unknown Artist Name"}
-                                    </span>
-                                </div>
-                                <div className="Track_Artist flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
-                                    <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>Time</span>
-                                    <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
-                                        {track.formattedDuration}
-                                    </span>
-                                </div>
+                        {loading ? (
+                            <div className="Loading Track UI">
+                                {Array.from(
+                                    { length: 3 },
+                                    (_, index) =>
+                                        index < loadingTrackIndex && (
+                                            <div
+                                                key={index}
+                                                className="flex flex-row bg-[rgba(266,266,266,.1)] px-[13px] py-[14px] border-[1px] border-solid border-zinc-900/20 border-b-0 border-l-0 border-r-0 h-[89px] hover:bg-white/20 rounded-r-[3px] rounded-bl-[3px] text-[14px] items-center gap-8 justify-between pr-[55px] overflow-hidden backdrop-blur-[135px]"
+                                            >
+                                                <div className="h-full min-w-[89px] animate-pulse bg-slate-300/60 rounded-[6px]" />
+                                                <div className="min-h-[45px] w-full flex flex-col gap-3 items-start">
+                                                    <div className="h-[20px] w-[100%] animate-pulse bg-slate-300/30 rounded-sm" />
+                                                    <div className="h-[20px] w-[89%] animate-pulse bg-slate-300/30 rounded-sm" />
+                                                </div>
+                                            </div>
+                                        )
+                                )}
                             </div>
-                        ))}
+                        ) : (
+                            [...tracks].reverse().map(
+                                (track, index) =>
+                                    index < loadingTracksDisplayed && (
+                                        <div
+                                            key={track ? track.id : index}
+                                            onClick={() => handleTrackClick(track?.id)}
+                                            className="Track flex flex-row bg-[rgba(266,266,266,.1)] px-[13px] py-[14px] border-[1px] border-solid border-zinc-900/20 border-b-0 border-l-0 border-r-0 h-[89px] hover:bg-white/20 rounded-r-[3px] rounded-bl-[3px] text-[14px] items-center gap-2 justify-between pr-[55px] overflow-hidden backdrop-blur-[135px]"
+                                        >
+                                            <div className="Track_Artwork">
+                                                {track?.artwork ? (
+                                                    <Image
+                                                        src={track.artwork._480x480}
+                                                        alt="Track Artwork"
+                                                        width={100}
+                                                        height={100}
+                                                        className="h-full rounded-[6px] w-[89px]"
+                                                    />
+                                                ) : (
+                                                    <div className="h-full w-[89px] animate-pulse bg-slate-500"></div>
+                                                )}
+                                            </div>
+                                            <div className="Track_Name flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
+                                                <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>
+                                                    Title
+                                                </span>
+                                                <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
+                                                    {track?.title || "Unknown Track Title"}
+                                                </span>
+                                            </div>
+                                            <div className="Track_Artist flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
+                                                <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>
+                                                    Name
+                                                </span>
+                                                <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
+                                                    {track?.user.name || "Unknown Artist Name"}
+                                                </span>
+                                            </div>
+                                            <div className="Track_Artist flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
+                                                <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>
+                                                    Time
+                                                </span>
+                                                <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
+                                                    {track.formattedDuration}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    )
+                            )
+                        )}
                     </div>
                 </div>
             </div>

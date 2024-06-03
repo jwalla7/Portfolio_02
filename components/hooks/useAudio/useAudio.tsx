@@ -639,6 +639,7 @@ export function useAudio(userId?: string): useAudioProps {
         cacheUpdated,
         debouncedSetCacheUpdated,
         setTrack,
+        setAudioStream,
         setCurrentArtwork,
     };
 }

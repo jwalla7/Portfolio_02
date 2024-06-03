@@ -19,6 +19,7 @@ export const AudioContext = createContext<AudioContextProps>({
     audioCacheData: undefined,
     cacheUpdated: false,
     setTrack: () => ({}),
+    setAudioStream: () => ({}),
     setCurrentArtwork: () => ({}),
     currentArtwork: {
         _150x150: "",

@@ -25,6 +25,7 @@ export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
         currentUserProfilePicture,
         debouncedSetCacheUpdated,
         setTrack,
+        setAudioStream,
         setCurrentArtwork,
     } = useAudio(_userId);
 
@@ -49,6 +50,7 @@ export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
             currentUserProfilePicture,
             debouncedSetCacheUpdated,
             setTrack,
+            setAudioStream,
             setCurrentArtwork,
         };
     }, [
@@ -71,6 +73,7 @@ export const AudioProvider: FC<AudioProviderProps> = ({ children }) => {
         currentUserProfilePicture,
         debouncedSetCacheUpdated,
         setTrack,
+        setAudioStream,
         setCurrentArtwork,
     ]);
 

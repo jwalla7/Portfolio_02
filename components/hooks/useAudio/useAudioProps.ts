@@ -1,11 +1,12 @@
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 import { Track } from "@audius/sdk/dist/api/Track";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 export interface useAudioProps {
     analyser: Type_Audio["analyser"];
     audioIsPlaying?: Type_Audio["audioIsPlaying"];
     audioStream: Type_Audio["audioStream"];
+    audioContextRef: MutableRefObject<AudioContext | null>;
     error?: Type_Audio["error"];
     nextAudio?: Type_Audio["nextAudio"];
     previousAudio?: Type_Audio["previousAudio"];

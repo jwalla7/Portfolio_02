@@ -3,7 +3,8 @@ import { AudioVisualizerContextProps } from "./audioVisualizerContextProps";
 
 export const AudioVisualizerContext = createContext<AudioVisualizerContextProps>({
     analyser: null,
-    resetSphere: () => ({}),
+    resetToggle: false,
+    setResetToggle: () => ({}),
 });
 
 export const useAudioVisualizerContext = () => {

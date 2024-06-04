@@ -22,8 +22,8 @@ export default function MusicPage() {
                         </Canvas>
                     </div>
                     <BackgroundImage
-                        imageLightThemeSrc="/images/CNTRS-lightmode.png"
-                        imageDarkThemeSrc="/images/CNTRS-darkmode.png"
+                        imageLightThemeSrc="/images/HILLS-lightmode.jpg"
+                        imageDarkThemeSrc="/images/HILLS-darkmode.jpg"
                     />
                     <CardGroup>
                         <Card size="lg" position="center">

@@ -17,6 +17,7 @@ export const AudioContext = createContext<AudioContextProps>({
     formattedDurationById: () => ({}),
     progressPercentage: 0,
     audioCacheData: undefined,
+    audioContextRef: { current: null },
     cacheUpdated: false,
     setTrack: () => ({}),
     setAudioStream: () => ({}),

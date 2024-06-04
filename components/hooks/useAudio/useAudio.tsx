@@ -49,9 +49,9 @@ export function useAudio(userId?: string): useAudioProps {
         []
     );
 
-    const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
+    const { setResetToggle, resetToggle } = useAudioVisualizerContext();
 
-    const { resetSphere } = useAudioVisualizerContext();
+    const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
 
     const audioCacheData = useMemo(() => new LRUCache<LRUCacheProps | null>(3), []);
     interface TrackData extends LRUCacheProps {
@@ -165,7 +165,7 @@ export function useAudio(userId?: string): useAudioProps {
                         console.log(`Added ${uniqueTracks.length} new unique tracks.`);
                     }
                     debouncedSetCacheUpdated();
-                    resetSphere();
+                    setResetToggle(true);
                 } else {
                     // Use the least recently used track if no unique tracks are found
                     const leastRecentlyUsedTrack = audioCacheData.getTailNode();
@@ -198,7 +198,7 @@ export function useAudio(userId?: string): useAudioProps {
         setAudioStream,
         setError,
         setLoading,
-        resetSphere,
+        resetToggle,
         setCurrentArtwork,
         setCurrentUserProfilePicture,
         debouncedSetCacheUpdated,
@@ -254,7 +254,7 @@ export function useAudio(userId?: string): useAudioProps {
             if (audioContextRef.current) {
                 await audioContextRef.current.suspend();
             }
-            resetSphere();
+            setResetToggle(true);
             if (animationFrameId.current !== null) {
                 cancelAnimationFrame(animationFrameId.current);
                 animationFrameId.current = null;
@@ -267,14 +267,14 @@ export function useAudio(userId?: string): useAudioProps {
                 if (audioStream && audio.src !== audioStream) {
                     audio.src = audioStream;
                     if (!audioContextRef.current || audioContextRef.current.state === "closed") {
-                        resetSphere();
+                        setResetToggle(true);
                         createAudioContext();
                     }
                 }
                 const isPlaying = audio.paused || audio.ended;
                 if (isPlaying) {
                     if (!audioContextRef.current || audioContextRef.current.state === "closed") {
-                        resetSphere();
+                        setResetToggle(true);
                         createAudioContext();
                     }
                     setAudioIsPlaying(isPlaying);
@@ -285,8 +285,8 @@ export function useAudio(userId?: string): useAudioProps {
                             await audioContextRef.current.resume();
                         }
                         setPreviousTrack(audioCacheData.getTailNode());
-                        console.log("PLAYING STATE: ", audioContextRef.current?.state);
-                        console.log("PREVIOUS TRACK => ", previousTrack);
+                        // console.log("PLAYING STATE: ", audioContextRef.current?.state);
+                        // console.log("PREVIOUS TRACK => ", previousTrack);
                     } catch (error) {
                         console.error("Error playing audio", error);
                         if (audioContextRef.current && audioContextRef.current.state === "suspended") {
@@ -305,9 +305,9 @@ export function useAudio(userId?: string): useAudioProps {
                     if (audioContextRef.current) {
                         await audioContextRef.current.suspend();
                     }
-                    resetSphere();
-                    console.log("PLAYING STATE: ", audioContextRef.current?.state);
-                    console.log("PREVIOUS TRACK NULL? => ", previousTrack);
+                    setResetToggle(true);
+                    // console.log("PLAYING STATE: ", audioContextRef.current?.state);
+                    // console.log("PREVIOUS TRACK NULL? => ", previousTrack);
                 }
             } catch (e) {
                 console.error("Error toggling audio", e);
@@ -317,7 +317,7 @@ export function useAudio(userId?: string): useAudioProps {
         return () => {
             audio.removeEventListener("ended", onAudioEnd);
         };
-    }, [audioStream, createAudioContext, resetSphere, audioPlaybackData, audioCacheData, previousTrack]);
+    }, [audioStream, createAudioContext, audioPlaybackData, audioCacheData, previousTrack, setResetToggle]);
 
     // const autoplayAudio = useCallback(
     //     (currentNode: LRUCacheProps | null) => {
@@ -347,7 +347,7 @@ export function useAudio(userId?: string): useAudioProps {
 
     // NEXT AUDIO
     const nextAudio = useCallback(() => {
-        console.log("NEXT AUDIO");
+        // console.log("NEXT AUDIO");
         setAudioIsPlaying(false);
         const audio = audioRef.current;
         if (!audio) return;
@@ -357,25 +357,25 @@ export function useAudio(userId?: string): useAudioProps {
             if (animationFrameId.current !== null) {
                 cancelAnimationFrame(animationFrameId.current);
             }
-            resetSphere();
+            setResetToggle(true);
             createAudioContext();
         }
         (async () => {
             const currentNode = audioCacheData.getCurrentNodeValue();
-            console.log("NEXT AUDIO => CURRENT NODE: ", currentNode);
-            console.log("NEXT AUDIO => CURRENT CACHE: ", audioCacheData);
+            // console.log("NEXT AUDIO => CURRENT NODE: ", currentNode);
+            // console.log("NEXT AUDIO => CURRENT CACHE: ", audioCacheData);
 
             const currentNodeKey = String(currentNode?.id);
             const nextNode = audioCacheData.getNextNode(currentNodeKey);
 
             if (nextNode !== null && nextNode.id) {
-                console.log("NEXT AUDIO => NEXT NODE: ", nextNode.id);
+                // console.log("NEXT AUDIO => NEXT NODE: ", nextNode.id);
                 setTrack(nextNode.track);
                 setAudioStream(nextNode.streamLink);
                 setCurrentArtwork(nextNode.artwork);
                 setCurrentUserProfilePicture(nextNode.user.profilePicture);
-                console.log("NEXT AUDIO => NEXT TRACK: ", nextNode.id);
-                console.log("NEXT AUDIO => NEXT CACHE: ", audioCacheData);
+                // console.log("NEXT AUDIO => NEXT TRACK: ", nextNode.id);
+                // console.log("NEXT AUDIO => NEXT CACHE: ", audioCacheData);
                 if (audioRef.current) {
                     audioRef.current.src = nextNode.streamLink;
                 }
@@ -428,8 +428,8 @@ export function useAudio(userId?: string): useAudioProps {
         // hasFetchedInitialData,
         // autoplayAudio,
         createAudioContext,
-        resetSphere,
         audioPlaybackData,
+        setResetToggle,
     ]);
     // PREVIOUS AUDIO
     const previousAudio = useCallback(() => {
@@ -447,6 +447,7 @@ export function useAudio(userId?: string): useAudioProps {
         const previousNode = audioCacheData.getPreviousNode(currentNode.id);
         if (previousNode) {
             // If there is a previous node, use it for playback
+            setResetToggle(true);
             setTrack(previousNode.track);
             setAudioStream(previousNode.streamLink);
             setCurrentArtwork(previousNode.artwork);
@@ -467,6 +468,7 @@ export function useAudio(userId?: string): useAudioProps {
             console.log("NO PREVIOUS TRACK => : Attempting to play the LRU track.");
             const lruTrack = audioCacheData.getTailNode();
             if (lruTrack) {
+                setResetToggle(true);
                 setTrack(lruTrack.track);
                 setAudioStream(lruTrack.streamLink);
                 setCurrentArtwork(lruTrack.artwork);
@@ -486,7 +488,16 @@ export function useAudio(userId?: string): useAudioProps {
                 console.log("LRU track not found.");
             }
         }
-    }, [audioCacheData, setTrack, setAudioStream, createAudioContext, nextAudio, setCurrentArtwork, setCurrentUserProfilePicture]);
+    }, [
+        audioCacheData,
+        setTrack,
+        setAudioStream,
+        createAudioContext,
+        nextAudio,
+        setCurrentArtwork,
+        setCurrentUserProfilePicture,
+        setResetToggle,
+    ]);
 
     const updateAudioTime = useCallback(() => {
         if (audioRef.current) {
@@ -551,9 +562,9 @@ export function useAudio(userId?: string): useAudioProps {
     useEffect(() => {
         if (!audioRef || !audioStream || !audioContextRef) return;
         if (cacheUpdated) {
-            resetSphere();
+            setResetToggle(true);
         }
-    }, [audioRef, audioStream, fetchNewTrackData, resetSphere, cacheUpdated]);
+    }, [audioRef, audioStream, fetchNewTrackData, resetToggle, cacheUpdated, setResetToggle]);
 
     // Update audio
     useEffect(() => {
@@ -636,6 +647,7 @@ export function useAudio(userId?: string): useAudioProps {
         currentArtwork,
         currentUserProfilePicture,
         audioCacheData,
+        audioContextRef,
         cacheUpdated,
         debouncedSetCacheUpdated,
         setTrack,

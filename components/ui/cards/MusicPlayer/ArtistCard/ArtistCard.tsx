@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect, useState } from "react";
+import { forwardRef, use, useCallback, useEffect, useState } from "react";
 import { ArtistCardProps } from "./artistCardProps";
 import Image from "next/image";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
@@ -28,20 +28,23 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
         (trackId: string | undefined) => {
             if (!trackId || !audioCacheData) return;
 
-            console.log("Track ID: ", trackId);
             const trackData = audioCacheData?.get(trackId);
 
             if (trackData) {
-                console.log("Track data found: ", trackData);
                 audioCacheData.setCurrentNode(trackData.id);
                 setTrack(trackData.track);
                 setAudioStream(trackData.streamLink);
                 setCurrentArtwork(trackData.artwork ?? "");
             }
-
-            debouncedSetCacheUpdated();
+            // debouncedSetCacheUpdated();
         },
-        [audioCacheData, debouncedSetCacheUpdated, setTrack, setCurrentArtwork, setAudioStream]
+        [
+            audioCacheData,
+            // debouncedSetCacheUpdated,
+            setTrack,
+            setCurrentArtwork,
+            setAudioStream,
+        ]
     );
 
     useEffect(() => {
@@ -63,6 +66,7 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
                 }
             })
             .filter((track) => track !== null);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setTracks(allTracks as any);
         const loadingDelay = setTimeout(() => {
             const interval = setInterval(() => {
@@ -77,7 +81,9 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
             return () => clearInterval(interval);
         }, 1500);
         return () => clearTimeout(loadingDelay);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [audioCacheData, cacheUpdated, formattedDurationById]);
+
     return (
         <>
             <div className="Artist Card relative w-full h-full">

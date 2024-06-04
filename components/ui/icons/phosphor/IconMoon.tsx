@@ -38,7 +38,7 @@ export const IconMoon = memo<
      * Creates custom values for className attribute
      */
     const variants = cn(
-        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
+        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] min-w-[33.7833px] relative",
         {
             "rotate-0": iconDirection === "0_rotation",
             "rotate-45": iconDirection === "45_rotation",

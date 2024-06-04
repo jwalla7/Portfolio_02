@@ -30,7 +30,7 @@ export const IconCircleHalf = memo<IconCircleHalfProps & { setMotion: boolean }>
     /**
      * Creates custom values for className
      */
-    const variants = cn("block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative", className);
+    const variants = cn("block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative min-w-[33.7833px]", className);
     /**
      * Establishes which variation of `IconCircleHalf` to render
      */

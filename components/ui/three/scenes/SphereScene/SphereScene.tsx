@@ -14,16 +14,10 @@ export const SphereScene = (): ReactElement => {
     const sphereRef = useRef<THREE.Mesh | null>(null);
     const { analyser, audioIsPlaying } = useAudioContext();
     const { theme, resolvedTheme } = useTheme();
-    const [resetFlag, setResetFlag] = useState(false);
-
-    // const set = useThree((sphereRef) => sphereRef.set);
-    const resetSphere = () => {
-        setResetFlag((flag) => !flag);
-        // set({ scene: new THREE.Scene() });
-    };
+    const [resetToggle, setResetToggle] = useState<boolean>(false);
 
     useFrame(() => {
-        if (analyser && sphereRef.current && !resetFlag) {
+        if (analyser && sphereRef.current) {
             const frequencyData = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(frequencyData);
 
@@ -49,20 +43,6 @@ export const SphereScene = (): ReactElement => {
     });
 
     useEffect(() => {
-        if (sphereRef.current) {
-            // sphereRef.current.visible = false
-            // set({ scene: })
-            // console.log("RESET => resetSphere set", sphereRef.current)
-            sphereRef.current.rotation.x = 0;
-            sphereRef.current.rotation.y = 0;
-            sphereRef.current.rotation.z = 0;
-            console.log("RESET => resetSphere x", sphereRef.current.rotation.x);
-            console.log("RESET => resetSphere y", sphereRef.current.rotation.y);
-            console.log("RESET => resetSphere z", sphereRef.current.rotation.x);
-        }
-    }, [audioIsPlaying, analyser, setResetFlag, resetFlag]);
-
-    useEffect(() => {
         if (analyser) {
             const icosahedronGeometry = new THREE.IcosahedronGeometry(10, 4);
             const lambertMaterial = new THREE.MeshLambertMaterial({
@@ -86,7 +66,7 @@ export const SphereScene = (): ReactElement => {
         }
     }, [audioIsPlaying, analyser]);
     return (
-        <AudioVisualizerContext.Provider value={{ analyser, resetSphere }}>
+        <AudioVisualizerContext.Provider value={{ analyser, resetToggle, setResetToggle }}>
             <>
                 <ambientLight intensity={0.5} color={theme === "light" || resolvedTheme === "light" ? 0x0000ff : 0xffcbf4} />
                 <spotLight

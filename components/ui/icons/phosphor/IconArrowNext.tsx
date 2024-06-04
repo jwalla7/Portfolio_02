@@ -26,7 +26,7 @@ export const IconArrowNext = memo<
      * Create className attribute values
      */
     const variants = cn(
-        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative",
+        "block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] min-w-[33.7833px] min-h-[63.6667px] relative",
         {
             "rotate-0": iconDirection === "0_rotation",
             "rotate-90": iconDirection === "90_rotation",

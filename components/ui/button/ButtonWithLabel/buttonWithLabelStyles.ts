@@ -19,8 +19,6 @@ export const btnWithLblButtonStyles = cva(
             },
             button: {
                 default: `
-                4xl:px-[10%]
-                px-[4%]
                 4xl:w-[calc(3.9121265377855887vw-5.89%)]
                 backdrop-blur-[12.4px]
                 border-0
@@ -32,6 +30,7 @@ export const btnWithLblButtonStyles = cva(
                 relative
                 rounded-[12.4px]
                 shrink-0
+                min-w-[59.2833px]
                 `,
                 active: `
                 group-hover:bg-[#E6E6E6]
@@ -49,7 +48,10 @@ export const btnWithLblButtonStyles = cva(
             },
             iconDiv: {
                 default: `
+                flex
                 items-center
+                justify-center
+                min-w-[33.7833px]
                 `,
                 // place-items-center
                 // justify-center

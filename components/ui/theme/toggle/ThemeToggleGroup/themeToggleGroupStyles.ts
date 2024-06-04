@@ -24,6 +24,8 @@ export const themeToggleGroupStyles = cva(
                 grow-0
                 shrink-0
                 w-[3.89vw]
+                min-w-[67.2167px]
+                min-h-[110.05px]
                 gap-x-[.428vw]
                 gap-y-[2.764vh]
                 `,
@@ -84,7 +86,7 @@ export const themeToggleGroupStyles = cva(
             icondiv: {
                 default: `
                 data-[theme_icon_div_default]
-                box-border flex justify-center items-center grow-0 shrink-0 w-[3.532vw] h-[6.3vh] relative gap-x-[0.688vw] gap-y-[1.226vh] p-x-[.476vw] p-y-[.849vh] rounded-[11.2px]
+                box-border flex justify-center items-center grow-0 shrink-0 w-[3.532vw] h-[6.3vh] relative gap-x-[0.688vw] gap-y-[1.226vh] p-x-[.476vw] p-y-[.849vh] rounded-[11.2px] min-w-[67.2167px] min-h-[60.3167px]
                 `,
             },
             iconsvg: {

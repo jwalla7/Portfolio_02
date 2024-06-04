@@ -26,7 +26,7 @@ export const IconRocket = memo<
     /**
      * Creates custom values for className attribute
      */
-    const variants = cn("block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] relative", className);
+    const variants = cn("block grow-0 shrink-0 w-[1.956vw] h-[3.489vh] min-w-[33.7833px] min-h-[63.6667px] relative", className);
     /**
      * Establishes which variation of `IconRocket` to render
      */

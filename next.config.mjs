@@ -1,5 +1,9 @@
-import { withContentlayer } from "next-contentlayer";
 import "./env.mjs"; // Validate schema on build https://env.t3.gg/docs/nextjs
+import createMDX from "@next/mdx";
+import remarkGfm from "remark-gfm";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -45,4 +49,12 @@ const nextConfig = {
     },
 };
 
-export default withContentlayer(nextConfig);
+const withMDX = createMDX({
+    extension: /\.mdx?$/,
+    options: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [rehypeAutolinkHeadings, rehypePrettyCode, rehypeSlug],
+    },
+});
+
+export default withMDX(nextConfig);

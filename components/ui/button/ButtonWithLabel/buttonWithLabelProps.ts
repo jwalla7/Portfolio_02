@@ -47,4 +47,5 @@ export interface ButtonWithLabelProps
     link?: React.ForwardRefExoticComponent<NavigationMenuProps & React.RefAttributes<HTMLElement>>;
     /** temporary any, need to look into InternalLinkProps */
     route?: any | LinkProps | Url | undefined;
+    enableMouseMove: boolean;
 }

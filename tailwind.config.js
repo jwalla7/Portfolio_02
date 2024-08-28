@@ -13,7 +13,7 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 module.exports = {
     mode: "jit",
     darkMode: ["class"],
-    content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./components/ui/**/*.{ts,tsx}", "./content/**/*.{md,mdx}"],
+    content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./components/ui/**/*.{ts,tsx}", "./content/**/*.{md,mdx}", "./mdx-components.tsx"],
 
     /**
      * The `theme` section is where you define color, palette, type scale,
@@ -114,8 +114,13 @@ module.exports = {
                     "0%, 100%": { "background-position": "0% 50%" },
                     "50%": { "background-position": "100% 50%" },
                 },
+                reversePulse: {
+                    "0%, 100%": { "opacity": "0" },
+                    "50%": { "opacity": "1" },
+                },
             },
             animation: {
+                reversePulse: "reversePulse 60s cubic-bezier(0.4, 0, 0.6, 1) infinite",
                 slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
                 slideRightAndFade: "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
                 slideDownAndFade: "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",

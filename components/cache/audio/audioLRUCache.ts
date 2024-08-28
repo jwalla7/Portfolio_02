@@ -98,30 +98,30 @@ export class LRUCache<T> {
         }
     }
 
-    private removeNodeByKey(id: string): void {
-        const node = this.hash.get(id);
-        if (!node) {
-            return;
-        }
+    // private removeNodeByKey(id: string): void {
+    //     const node = this.hash.get(id);
+    //     if (!node) {
+    //         return;
+    //     }
 
-        // Remove node from the doubly linked list
-        if (node.prev) {
-            node.prev.next = node.next;
-        } else {
-            // Node is the head
-            this.head = node.next;
-        }
+    //     // Remove node from the doubly linked list
+    //     if (node.prev) {
+    //         node.prev.next = node.next;
+    //     } else {
+    //         // Node is the head
+    //         this.head = node.next;
+    //     }
 
-        if (node.next) {
-            node.next.prev = node.prev;
-        } else {
-            // Node is the tail
-            this.tail = node.prev;
-        }
+    //     if (node.next) {
+    //         node.next.prev = node.prev;
+    //     } else {
+    //         // Node is the tail
+    //         this.tail = node.prev;
+    //     }
 
-        // Remove node from the hash map
-        this.hash.delete(id);
-    }
+    //     // Remove node from the hash map
+    //     this.hash.delete(id);
+    // }
 
     private moveToHead(node: TrackNode<T>): void {
         if (node === this.head) return;
@@ -143,16 +143,16 @@ export class LRUCache<T> {
         this.head = node;
     }
 
-    private addToTail(node: TrackNode<T>): void {
-        if (!this.tail) {
-            this.head = node;
-            this.tail = node;
-        } else {
-            this.tail.next = node;
-            node.prev = this.tail;
-            this.tail = node;
-        }
-    }
+    // private addToTail(node: TrackNode<T>): void {
+    //     if (!this.tail) {
+    //         this.head = node;
+    //         this.tail = node;
+    //     } else {
+    //         this.tail.next = node;
+    //         node.prev = this.tail;
+    //         this.tail = node;
+    //     }
+    // }
 
     moveToTail(id: string): void {
         const node = this.hash.get(id);

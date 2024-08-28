@@ -62,12 +62,12 @@ export function useNavButtonData() {
                 <IconHouse
                     fillOpacity={100}
                     active={url === "/main"}
-                    className={url === "/main" ? "text-black dark:text-black" : "text-white"}
-                />
+                    className={url === "/main" ? "text-black dark:text-black" : "text-white"} />
             ),
             route: "/main",
             buttonRef: homeButtonRef,
             traceChildren: false,
+            enableMouseMove: false
         });
         /**
          * Resume Navigation Button Data
@@ -84,12 +84,12 @@ export function useNavButtonData() {
                 <IconFile
                     className={url === "/resume" ? "text-black dark:text-black" : "text-white"}
                     active={url === "/resume"}
-                    fillOpacity={100}
-                />
+                    fillOpacity={100} />
             ),
             route: "/resume",
             buttonRef: resumeButtonRef,
             traceChildren: false,
+            enableMouseMove: false
         });
         /**
          * Music Navigation Button Data
@@ -106,12 +106,12 @@ export function useNavButtonData() {
                 <IconEqualizer
                     className={url === "/music" ? "text-black dark:text-black" : "text-white"}
                     active={url === "/music"}
-                    fillOpacity={100}
-                />
+                    fillOpacity={100} />
             ),
             route: "/music",
             buttonRef: musicButtonRef,
             traceChildren: false,
+            enableMouseMove: false
         });
         /**
          * Email Navigation Button Data
@@ -128,12 +128,12 @@ export function useNavButtonData() {
                 <IconEnvelopSimple
                     className={url === "/contact" ? "text-black dark:text-black" : "text-white"}
                     active={url === "/contact"}
-                    fillOpacity={100}
-                />
+                    fillOpacity={100} />
             ),
             route: "/contact",
             buttonRef: emailButtonRef,
             traceChildren: false,
+            enableMouseMove: false
         });
         /**
          * Daily Quotes Navigation Button Data
@@ -150,12 +150,12 @@ export function useNavButtonData() {
                 <IconQuotes
                     className={url === "/messages" ? "text-black dark:text-black" : "text-white"}
                     active={url === "/messages"}
-                    fillOpacity={100}
-                />
+                    fillOpacity={100} />
             ),
             route: "/messages",
             buttonRef: dailyQuotesButtonRef,
             traceChildren: false,
+            enableMouseMove: false
         });
         return navMap;
     }, [url]);

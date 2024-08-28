@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/components/ui/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { robotoRegular } from "@/design/fontDefaults";
 import { StrictMode } from "react";
-// import { audiusTest } from "./api/audius/route";
+
 // import { QueryClient } from "@tanstack/react-query";
 // import { QueryProvider } from "@/components/queries/QueryProvider";
 import { LocalStorageProvider } from "@/components/context/storage/LocalStorageProvider";

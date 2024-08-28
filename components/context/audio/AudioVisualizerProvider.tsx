@@ -1,7 +1,6 @@
 import { FC, useMemo } from "react";
 import { useAudioVisualizerContext, AudioVisualizerContext } from "./AudioVisualizerContext";
 import { AudioVisualizerProviderProps } from "./audioVisualizerProviderProps";
-import { set } from "lodash";
 
 export const AudioVisualizerProvider: FC<AudioVisualizerProviderProps> = ({ children }) => {
     const { analyser, resetToggle, setResetToggle } = useAudioVisualizerContext();

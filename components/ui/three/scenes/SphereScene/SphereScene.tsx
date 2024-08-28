@@ -7,7 +7,6 @@ import { useTheme } from "next-themes";
 // import THREE, { Group, Mesh} from "three";
 import * as THREE from "three";
 import { Icosahedron } from "@react-three/drei";
-import { gradientMaterial } from "../../renderers";
 
 export const SphereScene = (): ReactElement => {
     const groupRef = useRef<THREE.Group>(null);
@@ -49,7 +48,6 @@ export const SphereScene = (): ReactElement => {
                 color: 0xfafafa,
                 wireframe: false,
             });
-            const shaderMaterial = gradientMaterial();
 
             const shape = new THREE.Mesh(
                 icosahedronGeometry,

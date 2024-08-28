@@ -1,5 +1,5 @@
 import { env } from "@/env.mjs"; // Adjust the import path as necessary
-import { sdk } from "@audius/sdk/src";
+import { sdk } from "@audius/sdk";
 import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import Cache from "node-cache";
@@ -44,6 +44,7 @@ export const GET = async (req: NextRequest) => {
 
         // Fetch each track's data and streaming link
         const tracksWithLinks = await Promise.all(userTracks.map((track) => getTrackWithStreamLink(track.id)));
+        myCache.set(userId, tracksWithLinks);
         return new NextResponse(JSON.stringify(tracksWithLinks), { status: 200 });
     } catch (error) {
         if (error instanceof z.ZodError) {

@@ -11,8 +11,10 @@
 import { useEffect } from "react";
 import { useMouseMoveProps } from "./useMouseMoveProps";
 
-export function useMouseMove({ buttonRef, attributeRef, childrenRef, traceChildren }: useMouseMoveProps) {
+export function useMouseMove({ buttonRef, attributeRef, childrenRef, traceChildren, enableMouseMove = true }: useMouseMoveProps) {
     useEffect(() => {
+        if (!enableMouseMove) return;
+
         const ref = buttonRef?.current || attributeRef?.current || childrenRef?.current;
         const traceMouseMove = (mouseEvent: MouseEvent) => {
             if (ref) {
@@ -42,6 +44,7 @@ export function useMouseMove({ buttonRef, attributeRef, childrenRef, traceChildr
                 if (!traceChildren && ref instanceof HTMLElement) {
                     ref.style.setProperty("--x-mouse", `${x}px`);
                     ref.style.setProperty("--y-mouse", `${y}px`);
+                    console.log("x: ", x, "y: ", y)
                 }
                 /**
                  *  Type Guard for children HTMLElement nodes
@@ -51,6 +54,7 @@ export function useMouseMove({ buttonRef, attributeRef, childrenRef, traceChildr
                         if (child instanceof HTMLElement) {
                             child.style.setProperty("--x-mouse", `${x}px`);
                             child.style.setProperty("--y-mouse", `${y}px`);
+                            console.log("x: ", x, "y: ", y)
                         }
                     });
                 }
@@ -60,5 +64,5 @@ export function useMouseMove({ buttonRef, attributeRef, childrenRef, traceChildr
         return () => {
             ref?.removeEventListener("mousemove", traceMouseMove);
         };
-    });
+    }, [buttonRef, attributeRef, childrenRef, traceChildren, enableMouseMove]);
 }

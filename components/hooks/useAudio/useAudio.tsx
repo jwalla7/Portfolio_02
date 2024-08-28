@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @description
  * Provides an easy way to control audio playback.
@@ -13,12 +15,12 @@ import { useAudioProps } from "./useAudioProps";
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 import { useAudioVisualizerContext } from "@/components/context/audio/AudioVisualizerContext";
 import debounce from "lodash/debounce";
-import { set } from "lodash";
+import useSWR from "swr";
 // import { d } from "@tanstack/react-query-devtools/build/legacy/devtools-0Hr18ibL";
 // import { useQuery } from "@tanstack/react-query";
 
 export function useAudio(userId?: string): useAudioProps {
-    const [_track, setTrack] = useState<Track | Track[] | null>(null);
+    const [track, setTrack] = useState<Track | Track[] | null>(null);
     const [audioStream, setAudioStream] = useState<string | undefined>(undefined);
     const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
     const [audioIsPlaying, setAudioIsPlaying] = useState<boolean>(false);
@@ -33,6 +35,10 @@ export function useAudio(userId?: string): useAudioProps {
     const [progressPercentage, setProgressPercentage] = useState<number>(0);
     const animationFrameId = useRef<number | null>(null);
     const [previousTrack, setPreviousTrack] = useState<LRUCacheProps | null>(null);
+    track;
+    loading;
+    error;
+    previousTrack;
     const [currentArtwork, setCurrentArtwork] = useState({
         _150x150: "",
         _480x480: "",
@@ -48,7 +54,6 @@ export function useAudio(userId?: string): useAudioProps {
         () => debounce(() => setCacheUpdated((prev) => !prev), 300), // Debounce by 300ms
         []
     );
-
     const { setResetToggle, resetToggle } = useAudioVisualizerContext();
 
     const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
@@ -69,29 +74,53 @@ export function useAudio(userId?: string): useAudioProps {
         }
     }, []);
 
+    const fetcher = async (url: string) => {
+        const response = await fetch(url
+            ,
+            {
+                cache: "force-cache",
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            }
+        );
+        if (!response.ok) throw new Error("Error fetching audio data");
+        return response.json();
+    };
+
+    const { data: cachedAudioData } = useSWR<TrackData[]>(userId ? `/api/audius?userId=${userId}&stream=true` : null, fetcher, {
+        revalidateOnFocus: false,
+    });
+    const existingNodeKeys = audioCacheData.getAllKeys();
+    const { data: newAudioData } = useSWR<TrackData[]>(userId ? `/api/audius?userId=${userId}&excludeIds=${existingNodeKeys.join(",")}&stream=true` : null, fetcher, {
+        revalidateOnFocus: false,
+    });
     // FETCH AUDIO DATA
     const fetchInitialAudioData = useCallback(async () => {
         setLoading(true);
         setError(null);
 
         try {
-            const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                },
-            });
-            if (!response.ok) throw new Error("Error fetching audio data");
+            // const response = await fetch(`/api/audius?userId=${userId}&stream=true`, {
+            //     cache: "force-cache",
+            //     method: "GET",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         "Access-Control-Allow-Origin": "*",
+            //     },
+            // });
+            // if (!response.ok) throw new Error("Error fetching audio data");
 
-            const cachedAudioData: TrackData[] = await response.json();
+            // const cachedAudioData: TrackData[] = await response.json();
             console.log("NEW INITIAL AUDIO DATA ==> : ", cachedAudioData);
-            if (cachedAudioData.length > 0) {
+            if (cachedAudioData && cachedAudioData.length > 0) {
                 hasFetchedInitialData.current = true;
             }
             if (Array.isArray(cachedAudioData) && cachedAudioData.length > 0) {
                 cachedAudioData.forEach((trackData, index) => {
-                    let atCapacityNode = null;
+                    let atCapacityNode = '';
                     if (trackData.id && index < audioCacheData.getCapacity()) {
                         audioCacheData.put(trackData.id, trackData);
                         atCapacityNode = trackData.id;
@@ -122,30 +151,30 @@ export function useAudio(userId?: string): useAudioProps {
             setLoading(false);
         }
         // console.log("INITIAL CACHE => : ", audioCacheData);
-    }, [userId, audioCacheData, debouncedSetCacheUpdated]);
+    }, [audioCacheData, debouncedSetCacheUpdated, cachedAudioData]);
 
     const fetchNewTrackData = useCallback(async () => {
         if (!userId) return null;
         if (hasFetchedInitialData) {
-            const existingNodeKeys = audioCacheData.getAllKeys();
+            // const existingNodeKeys = audioCacheData.getAllKeys();
             try {
-                const response = await fetch(`/api/audius?userId=${userId}&excludeIds=${existingNodeKeys.join(",")}&stream=true`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*",
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error("Error fetching audio data");
-                }
-                const newAudioData: TrackData[] = await response.json();
+                // const response = await fetch(`/api/audius?userId=${userId}&excludeIds=${existingNodeKeys.join(",")}&stream=true`, {
+                //     method: "GET",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "Access-Control-Allow-Origin": "*",
+                //     },
+                // });
+                // if (!response.ok) {
+                //     throw new Error("Error fetching audio data");
+                // }
+                // const newAudioData: TrackData[] = await response.json();
                 console.log("NEW AUDIO DATA ==> : ", newAudioData);
 
                 // Filter out tracks that are already in the cache to get only unique new tracks
-                const uniqueTracks = newAudioData.filter((uniqueTrack) => !audioCacheData.get(uniqueTrack.id));
+                const uniqueTracks = newAudioData?.filter((uniqueTrack) => !audioCacheData.get(uniqueTrack.id));
 
-                if (uniqueTracks.length > 0) {
+                if (uniqueTracks && uniqueTracks.length > 0) {
                     // Process each unique track
                     uniqueTracks.forEach((track) => {
                         audioCacheData.put(track.id, track);
@@ -198,10 +227,11 @@ export function useAudio(userId?: string): useAudioProps {
         setAudioStream,
         setError,
         setLoading,
-        resetToggle,
         setCurrentArtwork,
         setCurrentUserProfilePicture,
         debouncedSetCacheUpdated,
+        newAudioData,
+        setResetToggle,
     ]);
 
     // ANALYZE AUDIO FOR VISUALIZATION
@@ -317,7 +347,7 @@ export function useAudio(userId?: string): useAudioProps {
         return () => {
             audio.removeEventListener("ended", onAudioEnd);
         };
-    }, [audioStream, createAudioContext, audioPlaybackData, audioCacheData, previousTrack, setResetToggle]);
+    }, [audioStream, createAudioContext, audioPlaybackData, audioCacheData, setResetToggle]);
 
     // const autoplayAudio = useCallback(
     //     (currentNode: LRUCacheProps | null) => {

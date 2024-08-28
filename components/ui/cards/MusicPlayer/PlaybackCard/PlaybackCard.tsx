@@ -19,10 +19,10 @@ import { IconArrowPrevious } from "@/components/ui/icons/phosphor/IconArrowPrevi
 import { playCardStyles } from "./playbackCardStyles";
 import { IconArrowPause } from "@/components/ui/icons/phosphor/IconArrowPause";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
-import { PanInfo, motion, useDragControls } from "framer-motion";
+import { PanInfo, motion } from "framer-motion";
 
 // TODO: Add styles using cva to PlaybackCard
-export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ children }, ref) => {
+export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(() => {
     const {
         toggleAudio,
         nextAudio,
@@ -30,17 +30,16 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
         audioIsPlaying,
         currentTime,
         duration,
-        durationTimeString,
         formattedRemainingTime,
-        progressPercentage,
         seekAudioTime,
     } = useAudioContext();
     const [audioTime, setAudioTime] = useState(0);
-    const [audioDuration, setAudioDuration] = useState<string | undefined>("0:00");
+    // const [audioDuration, setAudioDuration] = useState<string | undefined>("0:00");
     const [audioRemainingTime, setAudioRemainingTime] = useState<string | undefined>(undefined);
     const [progressWidth, setProgressWidth] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
-
+    audioTime;
+    isDragging;
     const progressBarRef = useRef<HTMLDivElement>(null);
 
     interface EventWithClientX {
@@ -80,7 +79,8 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
 
     const handleDrag = useCallback(
         (event: any, info: PanInfo) => {
-            const target = event.target as HTMLElement;
+            event;
+            // const target = event.target as HTMLElement;
             // const progressBar = target.closest('.progress_bar_container') as HTMLDivElement;
             const progressBar = progressBarRef.current;
             if (!progressBar) return;
@@ -153,7 +153,7 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                     </div>
                     <div className="progress_bar_container w-[35.298vw] h-[16.15px] relative">
                         <motion.div
-                            className="progress_bar_area w-full h-full left-0 top-0 bottom-0 right-0 absolute bg-zinc-900 bg-opacity-10 rounded-[40.37px]
+                            className="progress_bar_area w-full h-full left-0 top-0 bottom-0 right-0 absolute bg-zinc-900 bg-opacity-10 rounded-[40.37px] overflow-hidden
                         dark:bg-[rgba(241,245,249,0.1)]
                         "
                             onClick={handleClick}
@@ -167,7 +167,7 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(({ chi
                             >
                                 <motion.div
                                     className={cn(
-                                        "progress_bar_button absolute w-[16.15px] right-0 h-full rounded-full ring-1 ring-white hover:cursor-grab backdrop-blur-xl bg-zinc-900/70 opacity-0 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100"
+                                        "progress_bar_button absolute w-[16.15px] right-0 h-full rounded-full ring-1 ring-white dark:ring-zinc-700 hover:cursor-grab backdrop-blur-xl bg-zinc-900/70 opacity-0 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100"
                                     )}
                                     drag="x"
                                     dragConstraints={{ left: 0, right: progressBarRef ? progressWidth - 30 : 0 }}

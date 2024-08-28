@@ -1,70 +1,72 @@
 {
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module",
-    "project": [
-      "./tsconfig.json",
-      "./tsconfig.node.json"
-    ],
-    "tsconfigRootDir": "__dirname",
-  },
-  "compilerOptions": {
-    /* Project */
-    "incremental": true,
-    /* Language and Environment */
-    "target": "ESNext",
-    "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-    ],
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    /* JavaScript Support */
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    /* Emit Rules */
-    "noEmit": true,
-    /* Modules */
-    "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "contentlayer/generated": [
-        "./.contentlayer/generated"
-      ]
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": [
+            "./tsconfig.json",
+            "./tsconfig.node.json"
+        ],
+        "tsconfigRootDir": "__dirname",
     },
-    "module": "esnext",
-    "moduleResolution": "node",
-    "baseUrl": ".",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    /* Type Checking */
-    "strict": true,
-    "strictNullChecks": true,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "noImplicitOverride": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "exactOptionalPropertyTypes": true
-  },
-  "include": [
-    "next-env.d.ts",
-    "next.config.mjs",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".contentlayer/generated"
-  ],
-  "exclude": [
-    "**/node_modules",
-    "**/dist",
-    "**/builds"
-  ]
+    "compilerOptions": {
+        /* Project */
+        "incremental": true,
+        /* Language and Environment */
+        "target": "ESNext",
+        "jsx": "preserve",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext",
+        ],
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        /* JavaScript Support */
+        "allowJs": true,
+        "forceConsistentCasingInFileNames": true,
+        /* Emit Rules */
+        "noEmit": true,
+        /* Modules */
+        "paths": {
+            "@/*": [
+                "./*"
+            ],
+            "contentlayer/generated": [
+                "./.contentlayer/generated"
+            ]
+        },
+        "module": "esnext",
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        /* Type Checking */
+        "strict": true,
+        "noImplicitAny": false,
+        "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "noImplicitOverride": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "exactOptionalPropertyTypes": true
+    },
+    "include": [
+        "next-env.d.ts",
+        "next.config.mjs",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts",
+        ".contentlayer/generated"
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/dist",
+        "**/builds"
+    ]
 }

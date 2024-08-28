@@ -20,6 +20,8 @@ export const btnWithLblButtonStyles = cva(
             button: {
                 default: `
                 4xl:w-[calc(3.9121265377855887vw-5.89%)]
+                4xl:max-w-[64px]
+                4xl:max-h-[64px]
                 backdrop-blur-[12.4px]
                 border-0
                 grow-0
@@ -31,6 +33,8 @@ export const btnWithLblButtonStyles = cva(
                 rounded-[12.4px]
                 shrink-0
                 min-w-[59.2833px]
+                max-w-[64px]
+                max-h-[64px]
                 `,
                 active: `
                 group-hover:bg-[#E6E6E6]

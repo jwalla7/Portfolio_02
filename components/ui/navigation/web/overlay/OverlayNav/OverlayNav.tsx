@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef, useEffect } from "react";
 import { OverlayNavProps } from "./overlayNavProps";
 import { overlayNavStyles } from "./overlayNavStyles";
 import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
@@ -6,7 +6,7 @@ import { Sidebar } from "../../sidebar/Sidebar/Sidebar";
 import { cn } from "@/lib/utils";
 import { SidebarContext, useSidebarContext } from "@/components/context/sidebar/SidebarContext";
 
-export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ children, overlayRef }, ref) => {
+export const OverlayNav = forwardRef<HTMLDivElement, OverlayNavProps>(({ children, overlayRef }) => {
     const { setDisplayStateRef, openSidebar, closeSidebar, newDisplayStateRef, forceMount, setForceMount } = useSidebarContext();
 
     useEffect(() => {

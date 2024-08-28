@@ -1,4 +1,4 @@
-import { forwardRef, use, useCallback, useEffect, useState } from "react";
+import { forwardRef, useCallback, useEffect, useState } from "react";
 import { ArtistCardProps } from "./artistCardProps";
 import Image from "next/image";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
@@ -6,13 +6,12 @@ import { inter } from "@/design/fontDefaults";
 import { cn } from "@/lib/utils";
 import { LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 
-export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ children }, ref) => {
+export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(() => {
     const {
         currentArtwork,
         currentUserProfilePicture,
         audioCacheData,
         cacheUpdated,
-        debouncedSetCacheUpdated,
         setTrack,
         setAudioStream,
         setCurrentArtwork,
@@ -36,11 +35,9 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
                 setAudioStream(trackData.streamLink);
                 setCurrentArtwork(trackData.artwork ?? "");
             }
-            // debouncedSetCacheUpdated();
         },
         [
             audioCacheData,
-            // debouncedSetCacheUpdated,
             setTrack,
             setCurrentArtwork,
             setAudioStream,
@@ -121,7 +118,7 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(({ childre
                         ) : (
                             <div className="w-[100%] h-[100%] rounded-[50%] absolute top-0 left-0 backdrop-blur-[135px] bg-slate-300/30 animate-pulse"></div>
                         )}
-                        <div className="Profile_Picture-Overlay w-[100%] h-[100%] min-w-[145.38px] min-h-[145.38px] bg-[rgba(191,191,191,0.05)]/[.34] absolute rounded-[50%] ring-0 outline-none border-none"></div>
+                        <div className="Profile_Picture-Overlay w-[100%] h-[100%] min-w-[145.38px] min-h-[145.38px] bg-slate-300/10 absolute rounded-[50%] ring-0 outline-none border-none"></div>
                     </div>
                 </div>
                 <div className="Artist_Overlay w-full h-full z-30 bg-transparent absolute top-0 rounded-[40.42px] shadow-[inset_0_1.18px_21px_0_rgba(250,250,250,.34)] dark:shadow-[inset_0_1.18px_21px_0_rgba(250,250,250,.34)]"></div>

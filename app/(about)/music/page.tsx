@@ -1,5 +1,6 @@
 "use client";
 
+
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import { CardGroup } from "@/components/ui/cards/CardGroup/CardGroup";
@@ -21,10 +22,8 @@ export default function MusicPage() {
                             <SphereCamera />
                         </Canvas>
                     </div>
-                    <BackgroundImage
-                        imageLightThemeSrc="/images/HILLS-lightmode.jpg"
-                        imageDarkThemeSrc="/images/HILLS-darkmode.jpg"
-                    />
+                    <BackgroundImage imageLightThemeSrc={"/images/CNTRSTOP-lightmode.png"} imageDarkThemeSrc={"/images/CNTRSTOP-darkmode.png"} className="animate-reversePulse absolute top-0 left-0" />
+                    <BackgroundImage imageLightThemeSrc="/images/CNTRS-lightmode.png" imageDarkThemeSrc="/images/CNTRS-darkmode.png" className="z-20" />
                     <CardGroup>
                         <Card size="lg" position="center">
                             <PlaybackCard />

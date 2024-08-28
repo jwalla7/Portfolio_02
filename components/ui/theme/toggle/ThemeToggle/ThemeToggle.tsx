@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef, useTransition } from "react";
+import React from "react";
 
 import { useTheme } from "next-themes";
 import { IconMoon } from "../../../icons/phosphor/IconMoon";
@@ -12,7 +12,7 @@ export const ThemeToggle = React.forwardRef<HTMLButtonElement, ThemeToggleProps>
     /** useTheme provides current theme data  */
     const { theme, setTheme } = useTheme();
     const [_, startTransition] = React.useTransition();
-
+    _;
     return (
         <Button
             className="w-25 h-25"

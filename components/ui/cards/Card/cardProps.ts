@@ -1,5 +1,5 @@
 import { Type_CardPosition, Type_CardSize } from "@/types/card";
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 
 export interface CardProps {
     children?: ReactElement;

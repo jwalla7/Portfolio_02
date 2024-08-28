@@ -27,7 +27,7 @@ export const env = createEnv({
         POSTGRES_DATABASE: z.string().min(1),
     },
     client: {
-        NEXT_PUBLIC_URL: z.string().min(1),
+        // NEXT_PUBLIC_URL: z.string().min(1),
     },
     runtimeEnv: {
         AUDIUS_API_KEY: process.env.AUDIUS_API_KEY,

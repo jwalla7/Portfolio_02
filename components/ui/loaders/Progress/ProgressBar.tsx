@@ -1,17 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Progress from "@radix-ui/react-progress";
 
 export const ProgressBar = () => {
-    const [_progress, setProgress] = useState(0);
+    const [_progress] = useState(0);
     // const loadingTime = 10000;
     // const updateProgress = 10;
-    setProgress;
-
-    useEffect(() => {
-        console.log("progress useEffect");
-    }, []);
 
     return (
         <Progress.Root

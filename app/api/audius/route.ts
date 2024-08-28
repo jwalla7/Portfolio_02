@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { env } from "@/env.mjs"; // Adjust the import path as necessary
 import { sdk } from "@audius/sdk";
 import { z } from "zod";

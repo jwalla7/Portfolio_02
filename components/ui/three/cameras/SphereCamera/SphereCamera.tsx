@@ -5,6 +5,7 @@ import { useAudioVisualizerContext } from "@/components/context/audio/AudioVisua
 
 export const SphereCamera = (): ReactElement => {
     const { resetToggle, setResetToggle } = useAudioVisualizerContext();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const orbitControlsRef = useRef(null) as any;
 
     useEffect(() => {

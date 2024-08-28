@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 import React, { useEffect, useState, useTransition } from "react";
 
 import { ThemeToggleDropdownProps } from "./themeToggleDropdownProps";
@@ -24,6 +26,7 @@ export const ThemeToggleDropdown = React.forwardRef<HTMLButtonElement, ThemeTogg
     const { theme, setTheme } = useTheme();
     const [mounted, setMount] = useState<boolean>(false);
     const [_, startTransition] = useTransition();
+    _;
     /**
      * Executes once after initial render,
      * checks accessibility of theme and establishes theme to `system`.

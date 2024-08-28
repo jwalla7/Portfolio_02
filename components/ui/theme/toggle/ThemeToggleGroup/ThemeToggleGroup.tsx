@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 import { forwardRef, useTransition } from "react";
 import { useTheme } from "next-themes";
 import { ThemeToggleGroupProps } from "./themeToggleGroupProps";
@@ -19,6 +21,7 @@ export const ThemeToggleGroup = forwardRef<HTMLButtonElement, ThemeToggleGroupPr
          * useTransition
          */
         const [_, startTransition] = useTransition();
+        _;
         /**
          * currentTheme
          *
@@ -47,8 +50,8 @@ export const ThemeToggleGroup = forwardRef<HTMLButtonElement, ThemeToggleGroupPr
                         !active && targetTheme === "system"
                             ? setTheme("system")
                             : !active && targetTheme === "dark"
-                            ? setTheme("dark")
-                            : setTheme("light");
+                                ? setTheme("dark")
+                                : setTheme("light");
                     });
                 }}
                 {...props}

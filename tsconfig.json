@@ -46,7 +46,7 @@
         "isolatedModules": true,
         /* Type Checking */
         "strict": true,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noUnusedParameters": true,
         "strictNullChecks": true,
         "skipDefaultLibCheck": true,

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /**
  * @description
  * A shape that inherits the rootDiv, labelDiv, text, and button types from Type_ButtonWithLabel.
@@ -14,28 +16,28 @@ import { ButtonHTMLAttributes, MutableRefObject, ReactElement, ReactNode } from 
 
 export interface ButtonWithLabelProps
     extends ButtonHTMLAttributes<HTMLButtonElement>,
-        useMouseMoveProps,
+    useMouseMoveProps,
+    /**
+     * Omit
+     *
+     * Omits the keys of the buttonDiv, button, labelDiv, labelText, iconDiv, and background types from
+     *
+     * the Type_ButtonWithLabel type declaration.
+     */
+    Omit<Type_ButtonWithLabel, "buttonDiv" | "button" | "labelDiv" | "labelText" | "iconDiv" | "background">,
+    /**
+     * Required
+     *
+     * Makes all properties required in the Pick type declaration.
+     */
+    Required<
         /**
-         * Omit
+         * Pick
          *
-         * Omits the keys of the buttonDiv, button, labelDiv, labelText, iconDiv, and background types from
-         *
-         * the Type_ButtonWithLabel type declaration.
+         * Enables inheritance from the Type_ButtonWithLabel type declaration.
          */
-        Omit<Type_ButtonWithLabel, "buttonDiv" | "button" | "labelDiv" | "labelText" | "iconDiv" | "background">,
-        /**
-         * Required
-         *
-         * Makes all properties required in the Pick type declaration.
-         */
-        Required<
-            /**
-             * Pick
-             *
-             * Enables inheritance from the Type_ButtonWithLabel type declaration.
-             */
-            Pick<Type_ButtonWithLabel, "buttonDiv" | "button" | "labelDiv" | "labelText" | "iconDiv" | "background">
-        > {
+        Pick<Type_ButtonWithLabel, "buttonDiv" | "button" | "labelDiv" | "labelText" | "iconDiv" | "background">
+    > {
     active?: boolean;
     asChild?: boolean;
     buttoneventsref?: MutableRefObject<HTMLButtonElement | null> | undefined;

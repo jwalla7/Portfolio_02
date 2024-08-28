@@ -25,10 +25,9 @@ export const env = createEnv({
         POSTGRES_HOST: z.string().min(1),
         POSTGRES_PASSWORD: z.string().min(1),
         POSTGRES_DATABASE: z.string().min(1),
-
     },
     client: {
-        // NEXT_PUBLIC_URL: z.string().min(1),
+        NEXT_PUBLIC_URL: z.string().min(1),
     },
     runtimeEnv: {
         AUDIUS_API_KEY: process.env.AUDIUS_API_KEY,
@@ -51,7 +50,7 @@ export const env = createEnv({
         POSTGRES_USER: process.env.POSTGRES_USER,
         POSTGRES_HOST: process.env.POSTGRES_HOST,
         POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
-        POSTGRES_DATABASE: process.env.POSTGRES_DATABASE
+        POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
 
         // SMTP_FROM: process.env.SMTP_FROM,
         // POSTMARK_API_TOKEN: process.env.POSTMARK_API_TOKEN,

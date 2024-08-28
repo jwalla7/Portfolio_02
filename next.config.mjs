@@ -5,10 +5,12 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 
-/** @type {import('next').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
     reactStrictMode: true,
-    pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+    pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
     images: {
         remotePatterns: [
             {
@@ -20,10 +22,6 @@ const nextConfig = {
     webpack: (config, { isServer }) => {
         if (!isServer) {
             config.resolve.extensions.push(".wasm");
-            // config.resolve.alias = {
-            //     ...config.resolve.alias,
-            //     '@certusone/wormhole-sdk': require.resolve('@certusone/wormhole-sdk'), // Adjust the alias as needed
-            // };
         }
         config.infrastructureLogging = {
             level: "error",

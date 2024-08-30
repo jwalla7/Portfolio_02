@@ -3,9 +3,6 @@ import { ThemeProvider } from "@/components/ui/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { robotoRegular } from "@/design/fontDefaults";
 import { StrictMode } from "react";
-
-// import { QueryClient } from "@tanstack/react-query";
-// import { QueryProvider } from "@/components/queries/QueryProvider";
 import { LocalStorageProvider } from "@/components/context/storage/LocalStorageProvider";
 import { SidebarProvider } from "@/components/context/sidebar/SidebarProvider";
 
@@ -33,7 +30,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         "min-w-full min-h-screen m-0 antialiased overflow-x-hidden overscroll-y-none"
                     )}
                 >
-                    {/* <QueryProvider> */}
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="system"
@@ -50,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <SidebarProvider>{children}</SidebarProvider>
                         </LocalStorageProvider>
                     </ThemeProvider>
-                    {/* </QueryProvider> */}
                 </body>
             </html>
         </StrictMode>

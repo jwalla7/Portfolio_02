@@ -10,6 +10,15 @@ import rehypeSlug from "rehype-slug";
  */
 const nextConfig = {
     reactStrictMode: true,
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/main',
+                permanent: true,
+            },
+        ]
+    },
     pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
     images: {
         remotePatterns: [

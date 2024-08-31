@@ -23,7 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          */
         <StrictMode>
             <html lang="en" suppressHydrationWarning={true}>
-                <head />
+                <head>
+                    <link rel="icon" href="./jwalla.png" />
+                </head>
                 <body
                     className={cn(
                         robotoRegular.className,

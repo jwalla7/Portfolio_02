@@ -9,6 +9,9 @@ import rehypeSlug from "rehype-slug";
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+    compiler: {
+        removeConsole: true,
+    },
     reactStrictMode: true,
     async redirects() {
         return [

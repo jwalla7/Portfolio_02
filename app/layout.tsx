@@ -2,7 +2,6 @@ import "../design/input.css";
 import { ThemeProvider } from "@/components/ui/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { robotoRegular } from "@/design/fontDefaults";
-import { StrictMode } from "react";
 import { LocalStorageProvider } from "@/components/context/storage/LocalStorageProvider";
 import { SidebarProvider } from "@/components/context/sidebar/SidebarProvider";
 
@@ -21,35 +20,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          *
          * https://legacy.reactjs.org/docs/dom-elements/html
          */
-        <StrictMode>
-            <html lang="en" suppressHydrationWarning={true}>
-                <head>
-                    <link rel="icon" href="./jwalla.png" />
-                </head>
-                <body
-                    className={cn(
-                        robotoRegular.className,
-                        "min-w-full min-h-screen m-0 antialiased overflow-x-hidden overscroll-y-none"
-                    )}
+        <html lang="en" suppressHydrationWarning={true}>
+            <body
+                className={cn(
+                    robotoRegular.className,
+                    "min-w-full min-h-screen m-0 antialiased overflow-x-hidden overscroll-y-none"
+                )}
+            >
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    /**
+                     * `enableSystem` enables system preference and developer tools `toggle theme` simulation for the layout
+                     *
+                     * when on `system` theme.
+                     *
+                     * https://github.com/pacocoursey/next-themes
+                     */
+                    enableSystem={true}
                 >
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="system"
-                        /**
-                         * `enableSystem` enables system preference and developer tools `toggle theme` simulation for the layout
-                         *
-                         * when on `system` theme.
-                         *
-                         * https://github.com/pacocoursey/next-themes
-                         */
-                        enableSystem={true}
-                    >
-                        <LocalStorageProvider>
-                            <SidebarProvider>{children}</SidebarProvider>
-                        </LocalStorageProvider>
-                    </ThemeProvider>
-                </body>
-            </html>
-        </StrictMode>
+                    <LocalStorageProvider>
+                        <SidebarProvider>{children}</SidebarProvider>
+                    </LocalStorageProvider>
+                </ThemeProvider>
+            </body>
+        </html>
     );
 }

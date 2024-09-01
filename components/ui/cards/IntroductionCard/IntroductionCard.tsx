@@ -1,7 +1,7 @@
-import { forwardRef } from "react"
+import { FC } from "react"
 import { IntroductionCardProps } from "./introductionCardProps"
 
-export const IntroductionCard = forwardRef<HTMLDivElement, IntroductionCardProps>(({ children }) => {
+export const IntroductionCard: FC<IntroductionCardProps> = (({ children }) => {
     return (
         <div className="flex items-center justify-center relative w-screen h-full ">
             <div className="max-w-[1200px] w-[1200px] max-h-[710px] h-[632.5px] mt-[89px] ring-1 ring-[hsla(0,0%,100%,.12)] rounded-[10px] relative">
@@ -16,5 +16,3 @@ export const IntroductionCard = forwardRef<HTMLDivElement, IntroductionCardProps
         </div>
     )
 })
-
-IntroductionCard.displayName = "IntroductionCard"

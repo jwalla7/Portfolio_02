@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { ArtistCardProps } from "./artistCardProps";
 import Image from "next/image";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
@@ -6,7 +6,7 @@ import { inter } from "@/design/fontDefaults";
 import { cn } from "@/lib/utils";
 import { LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 
-export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(() => {
+export const ArtistCard: FC<ArtistCardProps> = (() => {
     const {
         currentArtwork,
         currentUserProfilePicture,
@@ -200,5 +200,3 @@ export const ArtistCard = forwardRef<HTMLDivElement, ArtistCardProps>(() => {
         </>
     );
 });
-
-ArtistCard.displayName = "ArtistCard";

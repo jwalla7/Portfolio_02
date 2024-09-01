@@ -3,7 +3,6 @@
 
 import {
     MouseEvent,
-    forwardRef,
     useCallback,
     useEffect,
     useState,
@@ -15,7 +14,6 @@ import {
 import { PlaybackCardProps } from "./playbackCardProps";
 import { IconArrowPlay } from "@/components/ui/icons/phosphor/IconArrowPlay";
 import { cn } from "@/lib/utils";
-// import { motion } from "framer-motion";
 import { robotoRegular } from "@/design/fontDefaults";
 import { IconArrowNext } from "@/components/ui/icons/phosphor/IconArrowNext";
 import { IconArrowPrevious } from "@/components/ui/icons/phosphor/IconArrowPrevious";
@@ -23,9 +21,10 @@ import { playCardStyles } from "./playbackCardStyles";
 import { IconArrowPause } from "@/components/ui/icons/phosphor/IconArrowPause";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
 import { PanInfo, motion } from "framer-motion";
+import { FC } from "react";
 
 // TODO: Add styles using cva to PlaybackCard
-export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(() => {
+export const PlaybackCard: FC<PlaybackCardProps> = (() => {
     const {
         toggleAudio,
         nextAudio,
@@ -227,5 +226,3 @@ export const PlaybackCard = forwardRef<HTMLDivElement, PlaybackCardProps>(() => 
         </div>
     );
 });
-
-PlaybackCard.displayName = "PlaybackCard";

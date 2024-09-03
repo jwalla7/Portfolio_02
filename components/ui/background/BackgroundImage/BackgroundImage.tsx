@@ -81,7 +81,7 @@ export const BackgroundImage = ({ imageLightThemeSrc, imageDarkThemeSrc, enableM
                          * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images#fill-container
                          */
                         fill
-                        sizes="100vw"
+                        sizes="(max-width: 1440px) 1440px, 100vw"
                         /**
                          * style
                          *
@@ -92,7 +92,7 @@ export const BackgroundImage = ({ imageLightThemeSrc, imageDarkThemeSrc, enableM
                             position: "absolute",
                             zIndex: -1,
                         }}
-                        className={enableMouseMove ? "hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]" : className}
+                    // className={enableMouseMove ? "hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]" : className}
                     />
                 </div>
             ) : (
@@ -103,7 +103,7 @@ export const BackgroundImage = ({ imageLightThemeSrc, imageDarkThemeSrc, enableM
                         src={imageDarkThemeSrc}
                         quality={100}
                         fill
-                        sizes="100vw"
+                        sizes="(max-width: 1440px) 1440px, 100vw"
                         style={{
                             objectFit: "fill",
                             position: "absolute",

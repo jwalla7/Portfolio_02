@@ -40,7 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     enableSystem={true}
                 >
                     <LocalStorageProvider>
-                        <SidebarProvider>{children}</SidebarProvider>
+                        <SidebarProvider>
+                            {children}
+                        </SidebarProvider>
                     </LocalStorageProvider>
                 </ThemeProvider>
             </body>

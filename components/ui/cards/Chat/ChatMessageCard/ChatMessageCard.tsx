@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { ChatMessageCardProps } from "./chatMessageCardProps";
+import { UserMessage } from "../ChatMessage/UserMessage";
 
 export const ChatMessageCard: FC<ChatMessageCardProps> = () => {
     return (
@@ -18,94 +19,8 @@ export const ChatMessageCard: FC<ChatMessageCardProps> = () => {
                 <p className="flex-grow-0 flex-shrink-0 text-sm text-center text-white/[0.64] mt-0">304 Posts</p>
             </div>
             <div className="flex flex-col justify-start items-center self-stretch flex-grow gap-6 pt-[100px] pl-[100px] pr-[100px] overflow-auto scrollbar-none top-0 relative">
-                <div
-                    className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[555px] overflow-hidden gap-2.5 p-2.5"
-                >
-                    <div
-                        className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative gap-4 p-[17px] rounded-md border border-gray-200"
-                        style={{ filter: "drop-shadow(0px 4px 4px rgba(174,174,174,0.25))" }}
-                    >
-                        <div className="flex-grow-0 flex-shrink-0 w-10 h-10 rounded-md bg-[#d9d9d9]"></div>
-                        <div
-                            className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1"
-                        >
-                            <div
-                                className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-2"
-                            >
-                                <p className="flex-grow-0 flex-shrink-0 text-sm font-semibold text-left text-slate-900">
-                                    Username
-                                </p>
-                                <p className="flex-grow-0 flex-shrink-0 text-xs text-left text-slate-500">San Jose, CA</p>
-                                <p className="flex-grow-0 flex-shrink-0 text-xs text-left text-slate-500">12h</p>
-                            </div>
-                            <p
-                                className="self-stretch flex-grow-0 flex-shrink-0 w-[393px] text-sm text-left text-slate-900"
-                            >
-                                The React Framework - created and maintained by @vercel
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative gap-4 p-[17px] rounded-md border border-gray-200"
-                        style={{ filter: "drop-shadow(0px 4px 4px rgba(174,174,174,0.25))" }}
-                    >
-                        <div className="flex-grow-0 flex-shrink-0 w-10 h-10 rounded-md bg-[#d9d9d9]"></div>
-                        <div
-                            className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1"
-                        >
-                            <div
-                                className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-2"
-                            >
-                                <p className="flex-grow-0 flex-shrink-0 text-sm font-semibold text-left text-slate-900">
-                                    Username
-                                </p>
-                                <p className="flex-grow-0 flex-shrink-0 text-xs text-left text-slate-500">San Jose, CA</p>
-                                <p className="flex-grow-0 flex-shrink-0 text-xs text-left text-slate-500">12h</p>
-                            </div>
-                            <p className="flex-grow-0 flex-shrink-0 w-[434px] text-sm text-left text-slate-900">
-                                The React Framework - created and maintained by @vercelThe React Framework - created
-                                and maintained by @vercel The React Framework - created and maintained by @vercelThe
-                                React Framework - created and maintained by @vercel The React Framework - created and
-                                maintained by @vercel The React Framework - created and maintained by @vercel The
-                                React Framework - created and maintained by @vercel
-                            </p>
-                            <p className="flex-grow-0 flex-shrink-0 w-[434px] text-sm text-left text-slate-900">
-                                The React Framework - created and maintained by @vercelThe React Framework - created
-                                and maintained by @vercel The React Framework - created and maintained by @vercelThe
-                                React Framework - created and maintained by @vercel The React Framework - created and
-                                maintained by @vercel The React Framework - created and maintained by @vercel The
-                                React Framework - created and maintained by @vercel
-                            </p>
-                            <p className="flex-grow-0 flex-shrink-0 w-[434px] text-sm text-left text-slate-900">
-                                The React Framework - created and maintained by @vercelThe React Framework - created
-                                and maintained by @vercel The React Framework - created and maintained by @vercelThe
-                                React Framework - created and maintained by @vercel The React Framework - created and
-                                maintained by @vercel The React Framework - created and maintained by @vercel The
-                                React Framework - created and maintained by @vercel
-                            </p>
-                            <p className="flex-grow-0 flex-shrink-0 w-[434px] text-sm text-left text-slate-900">
-                                The React Framework - created and maintained by @vercelThe React Framework - created
-                                and maintained by @vercel The React Framework - created and maintained by @vercelThe
-                                React Framework - created and maintained by @vercel The React Framework - created and
-                                maintained by @vercel The React Framework - created and maintained by @vercel The
-                                React Framework - created and maintained by @vercel
-                            </p>
-                            <p className="flex-grow-0 flex-shrink-0 w-[434px] text-sm text-left text-slate-900">
-                                The React Framework - created and maintained by @vercelThe React Framework - created
-                                and maintained by @vercel The React Framework - created and maintained by @vercelThe
-                                React Framework - created and maintained by @vercel The React Framework - created and
-                                maintained by @vercel The React Framework - created and maintained by @vercel The
-                                React Framework - created and maintained by @vercel
-                            </p>
-                            <p className="flex-grow-0 flex-shrink-0 w-[434px] text-sm text-left text-slate-900">
-                                The React Framework - created and maintained by @vercelThe React Framework - created
-                                and maintained by @vercel The React Framework - created and maintained by @vercelThe
-                                React Framework - created and maintained by @vercel The React Framework - created and
-                                maintained by @vercel The React Framework - created and maintained by @vercel The
-                                React Framework - created and maintained by @vercel
-                            </p>
-                        </div>
-                    </div>
+                <div className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[555px] overflow-hidden gap-2.5 p-2.5">
+                    <UserMessage />
                 </div>
             </div>
             <div className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-[18px] pt-0 pr-0 pb-[1.5rem] pl-0">

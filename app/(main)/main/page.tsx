@@ -4,15 +4,33 @@ import { BackgroundImage } from "@/components/ui/background/BackgroundImage/Back
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import Main from '../../content/main.mdx';
 import { useViewport } from "@/components/hooks/useViewport/useViewport";
+import { useEffect } from "react";
 
 export default function MainPage() {
     const { innerWidth } = useViewport();
+    useEffect(() => {
+        if (innerWidth < 1440) {
+            <div className="relative min-w-full min-h-screen h-screen overflow-hidden bg-white">
+                <div className="flex flex-grow flex-shrink flex-col">
+                    <span className="text-black">Still working</span>
+                    <br />
+                    <span className="text-black">Please view on a larger screen 😁</span>
+                    <br />
+                    <span className="text-black">Required browser width 1440px, current width: {innerWidth}px</span>
+                </div>
+            </div>
+        }
+    }, [innerWidth]);
 
     if (innerWidth < 1440) {
         return (
             <div className="relative min-w-full min-h-screen h-screen overflow-hidden bg-white">
-                <div className="flex flex-grow flex-shrink">
-                    <h1 className="text-black">Still working, please view on a larger screen 😁 Min screen width 1440px, current width {innerWidth}</h1>
+                <div className="flex flex-grow flex-shrink flex-col">
+                    <span className="text-black">Still working</span>
+                    <br />
+                    <span className="text-black">Please view on a larger screen 😁</span>
+                    <br />
+                    <span className="text-black">Required browser width 1440px, current width: {innerWidth}px</span>
                 </div>
             </div>
         );

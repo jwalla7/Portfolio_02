@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { ChatProfileUserProps } from "./chatProfileUserProps";
 import Image from "next/image";
-import { IconEnvelopSimple } from "@/components/ui/icons/phosphor/IconEnvelopeSimple";
 
 export const ChatProfileUser: FC<ChatProfileUserProps> = () => {
     return (

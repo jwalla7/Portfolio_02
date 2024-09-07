@@ -5,7 +5,7 @@
  * This component creates a vertical navigation bar with nested nav and theme buttons.
  */
 
-import { forwardRef, useCallback } from "react";
+import { forwardRef, use, useCallback } from "react";
 import { ButtonWithLabel } from "@/components/ui/button/ButtonWithLabel/ButtonWithLabel";
 import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
 import { SidebarProps } from "./sidebarProps";
@@ -33,6 +33,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>((_, ref) => {
         },
         [url]
     );
+
     return (
         <div className={cn(sidebarStyles({ root: "active" }))}>
             <div className={cn(sidebarStyles({ nav: "active" }))} ref={ref}>

@@ -16,7 +16,7 @@ export default function MusicPage() {
     return (
         <AudioVisualizerProvider>
             <AudioProvider>
-                <div className="relative min-w-full min-h-screen h-screen overflow-hidden">
+                <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
                     <div className="absolute mt-[10%] ml-[29%] w-[calc(34vw)] h-[calc(55vh)] bg-transparent">
                         <Canvas camera={{ fov: 65, position: [10, 0, 10], zoom: -0.9 }}>
                             <SphereCamera />

@@ -5,7 +5,7 @@
  * This component creates a vertical navigation bar with nested nav and theme buttons.
  */
 
-import { forwardRef, use, useCallback } from "react";
+import { forwardRef, useCallback } from "react";
 import { ButtonWithLabel } from "@/components/ui/button/ButtonWithLabel/ButtonWithLabel";
 import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
 import { SidebarProps } from "./sidebarProps";

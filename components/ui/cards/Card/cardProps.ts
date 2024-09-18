@@ -5,4 +5,5 @@ export interface CardProps {
     children?: ReactElement;
     size: Type_CardSize;
     position: Type_CardPosition;
+    className?: string;
 }

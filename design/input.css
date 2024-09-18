@@ -124,4 +124,8 @@ https: //tailwindcss.com/docs/customizing-colors#naming-your-colors
   .chrome-three-backdrop-blur {
     --tw-backdrop-blur: blur(21px);
   }
+
+  .chrome-three-backdrop-blur-sm {
+    --tw-backdrop-blur: blur(5px);
+  }
 }

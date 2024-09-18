@@ -9,8 +9,32 @@
 
 import { fontFamily } from "tailwindcss/defaultTheme";
 
+export const screens = {
+    // Assuming browser default is 16px
+    // sm min 0px max 640px
+    sm: { max: "40em" },
+    // md 640px
+    md: "40em",
+    // lg 828 px
+    lg: "51.75em",
+    // xl 1080px
+    xl: "67.5em",
+    // 2xl 1200px
+    "2xl": "75em",
+    // 3xl 1440
+    "3xl": "90em",
+    // 4xl 1708
+    "4xl": "106.75em",
+    // 5xl 1920
+    "5xl": "120em",
+    // 6xl 2048
+    "6xl": "128em",
+    // 7xl 3840
+    "7xl": "240em",
+};
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const tailwindConfig = {
     mode: "jit",
     darkMode: ["class"],
     content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./components/ui/**/*.{ts,tsx}", "./content/**/*.{md,mdx}", "./mdx-components.tsx"],
@@ -131,29 +155,7 @@ module.exports = {
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
         },
-        screens: {
-            // Assuming browser default is 16px
-            // sm min 0px max 640px
-            sm: { max: "40em" },
-            // md 640px
-            md: "40em",
-            // lg 828 px
-            lg: "51.75em",
-            // xl 1080px
-            xl: "67.5em",
-            // 2xl 1200px
-            "2xl": "75em",
-            // 3xl 1440
-            "3xl": "90em",
-            // 4xl 1708
-            "4xl": "106.75em",
-            // 5xl 1920
-            "5xl": "120em",
-            // 6xl 2048
-            "6xl": "128em",
-            // 7xl 3840
-            "7xl": "240em",
-        },
+        screens,
     },
     corePlugins: {
         preflight: false,
@@ -161,3 +163,5 @@ module.exports = {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), require("@kamona/tailwindcss-perspective")],
 };
+
+export default tailwindConfig;

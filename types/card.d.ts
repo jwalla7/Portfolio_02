@@ -18,4 +18,4 @@ declare type Type_Card = VariantProps<typeof cardStyles>;
 
 declare type Type_CardSize = "sm" | "md" | "lg";
 
-declare type Type_CardPosition = "left" | "center" | "right";
+declare type Type_CardPosition = "left" | "center" | "center_sm" | "right";

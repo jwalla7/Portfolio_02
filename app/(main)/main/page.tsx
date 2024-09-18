@@ -3,14 +3,14 @@
 import { BackgroundImage } from "@/components/ui/background/BackgroundImage/BackgroundImage";
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import Main from '../../content/main.mdx';
-import { useViewport } from "@/components/hooks/useViewport/useViewport";
+import { useMediaQuery } from "@/components/hooks/useMediaQuery/useMediaQuery";
 
 export default function MainPage() {
-    const { innerWidth } = useViewport();
+    const isWeb2xl = useMediaQuery('2xl');
     return (
         <>
             {
-                innerWidth < 1440 ? (
+                isWeb2xl ? (
                     <div className="relative min-w-full min-h-screen h-screen overflow-hidden bg-white" >
                         <div className="flex flex-grow flex-shrink flex-col">
                             <span className="text-black">Still working</span>

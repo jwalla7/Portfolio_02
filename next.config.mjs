@@ -10,7 +10,7 @@ import rehypeSlug from "rehype-slug";
  */
 const nextConfig = {
     compiler: {
-        removeConsole: true,
+        removeConsole: false,
     },
     reactStrictMode: true,
     async redirects() {

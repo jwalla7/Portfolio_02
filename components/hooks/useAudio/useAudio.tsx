@@ -85,7 +85,7 @@ export function useAudio(userId?: string): useAudioProps {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                 },
             }
         );

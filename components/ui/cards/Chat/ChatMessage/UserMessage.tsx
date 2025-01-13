@@ -12,7 +12,7 @@ export const UserMessage: FC<UserMessageProps> = () => {
                 <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-2">
                     <p className="flex-grow-0 flex-shrink-0 text-sm font-semibold text-left text-slate-900">Username</p>
                     <p className="flex-grow-0 flex-shrink-0 text-xs text-left text-slate-500">Dallas, TX</p>
-                    <p className="flex-grow-0 flex-shrink-0 text-xs text-left text-slate-500">12h</p>
+                    <p className="flex-grow-0 flex-shrink-0 text-xs text-left text-slate-500">1h</p>
                 </div>
                 <p className="self-stretch flex-grow-0 flex-shrink-0 w-[393px] text-sm text-left text-slate-900">Message</p>
             </div>

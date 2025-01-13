@@ -55,7 +55,7 @@ export function useAudio(userId?: string): useAudioProps {
     const [cacheUpdated, setCacheUpdated] = useState<boolean>(false);
     const debouncedSetCacheUpdated = useMemo(
         () => debounce(() => setCacheUpdated((prev) => !prev), 300), // Debounce by 300ms
-        []
+        [],
     );
     const { setResetToggle, resetToggle } = useAudioVisualizerContext();
 
@@ -78,17 +78,14 @@ export function useAudio(userId?: string): useAudioProps {
     }, []);
 
     const fetcher = async (url: string) => {
-        const response = await fetch(url
-            ,
-            {
-                cache: "force-cache",
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                },
-            }
-        );
+        const response = await fetch(url, {
+            cache: "force-cache",
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                // "Access-Control-Allow-Origin": "*",
+            },
+        });
         if (!response.ok) throw new Error("Error fetching audio data");
         return response.json();
     };
@@ -97,9 +94,13 @@ export function useAudio(userId?: string): useAudioProps {
         revalidateOnFocus: false,
     });
     const existingNodeKeys = audioCacheData.getAllKeys();
-    const { data: newAudioData } = useSWR<TrackData[]>(userId ? `/api/audius?userId=${userId}&excludeIds=${existingNodeKeys.join(",")}&stream=true` : null, fetcher, {
-        revalidateOnFocus: false,
-    });
+    const { data: newAudioData } = useSWR<TrackData[]>(
+        userId ? `/api/audius?userId=${userId}&excludeIds=${existingNodeKeys.join(",")}&stream=true` : null,
+        fetcher,
+        {
+            revalidateOnFocus: false,
+        },
+    );
     // FETCH AUDIO DATA
     const fetchInitialAudioData = useCallback(async () => {
         setLoading(true);
@@ -123,7 +124,7 @@ export function useAudio(userId?: string): useAudioProps {
             }
             if (Array.isArray(cachedAudioData) && cachedAudioData.length > 0) {
                 cachedAudioData.forEach((trackData, index) => {
-                    let atCapacityNode = '';
+                    let atCapacityNode = "";
                     if (trackData.id && index < audioCacheData.getCapacity()) {
                         audioCacheData.put(trackData.id, trackData);
                         atCapacityNode = trackData.id;
@@ -244,7 +245,7 @@ export function useAudio(userId?: string): useAudioProps {
         try {
             // Create AudioContext if it doesn't exist
             if (!audioContextRef.current || audioContextRef.current.state === "closed") {
-                const AudioContextClass = AudioContext || (window as any).webkitAudioContext;
+                const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
                 audioContextRef.current = new AudioContextClass();
             }
 
@@ -549,7 +550,7 @@ export function useAudio(userId?: string): useAudioProps {
             setCurrentTime(time);
             return time;
         },
-        [duration]
+        [duration],
     );
 
     // Format audio time
@@ -563,7 +564,7 @@ export function useAudio(userId?: string): useAudioProps {
 
             return durationTimeString;
         },
-        [durationTimeString]
+        [durationTimeString],
     );
 
     const formattedRemainingTime = useMemo(() => {
@@ -582,7 +583,7 @@ export function useAudio(userId?: string): useAudioProps {
                 return "0:00";
             }
         },
-        [audioCacheData]
+        [audioCacheData],
     );
 
     // Fetch initial audio data

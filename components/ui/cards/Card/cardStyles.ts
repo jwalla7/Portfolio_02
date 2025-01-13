@@ -24,10 +24,8 @@ export const cardStyles = cva(
                 `,
                 center_sm: `
                 data-[__card-center-sm__]
-                self-stretch
                 py-[38.42px]
                 justify-center
-                items-start
                 gap-[13.25px]
                 flex
                 `,
@@ -59,5 +57,5 @@ export const cardStyles = cva(
                 `,
             },
         },
-    }
+    },
 );

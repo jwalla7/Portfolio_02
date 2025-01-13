@@ -83,7 +83,6 @@ export function useAudio(userId?: string): useAudioProps {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                // "Access-Control-Allow-Origin": "*",
             },
         });
         if (!response.ok) throw new Error("Error fetching audio data");

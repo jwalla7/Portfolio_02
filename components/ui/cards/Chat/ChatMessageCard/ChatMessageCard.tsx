@@ -3,6 +3,7 @@
 import { FC } from "react";
 import { ChatMessageCardProps } from "./chatMessageCardProps";
 import { UserMessage } from "../ChatMessage/UserMessage";
+// import { signIn } from "next-auth/react";
 
 export const ChatMessageCard: FC<ChatMessageCardProps> = () => {
     return (

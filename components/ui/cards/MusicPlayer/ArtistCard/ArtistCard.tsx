@@ -11,6 +11,16 @@ type TrackListItem = LRUCacheProps & { formattedDuration: string };
 
 const EMPTY_IMAGE_SET = { _150x150: "", _480x480: "", _1000x1000: "" };
 
+type ImageSet = typeof EMPTY_IMAGE_SET;
+
+const normalizeImageSet = (img: Partial<ImageSet> | null | undefined): ImageSet => {
+    return {
+        _150x150: img?._150x150 ?? "",
+        _480x480: img?._480x480 ?? "",
+        _1000x1000: img?._1000x1000 ?? "",
+    };
+};
+
 export const ArtistCard: FC<ArtistCardProps> = () => {
     const {
         currentArtwork,
@@ -45,7 +55,7 @@ export const ArtistCard: FC<ArtistCardProps> = () => {
                 setTrack(trackData);
                 console.log("[ArtistCard] Calling setAudioStream with:", trackData?.streamLink);
                 setAudioStream(trackData.streamLink);
-                setCurrentArtwork(trackData.artwork ?? EMPTY_IMAGE_SET);
+                setCurrentArtwork(normalizeImageSet(trackData.artwork));
             } else {
                 console.log("[ArtistCard] handleTrackClick: no trackData found for id:", trackId);
             }
@@ -164,7 +174,7 @@ export const ArtistCard: FC<ArtistCardProps> = () => {
                                             className="Track flex flex-row bg-[rgba(266,266,266,.1)] px-[13px] py-[14px] border-[1px] border-solid border-zinc-900/20 border-b-0 border-l-0 border-r-0 h-[89px] hover:bg-white/20 rounded-r-[3px] rounded-bl-[3px] rounded-tl-[3px] text-[14px] items-center gap-2 justify-between pr-[55px] overflow-hidden backdrop-blur-[135px] first:rounded-t-[6px] last:rounded-b-[6px]"
                                         >
                                             <div className="Track_Artwork">
-                                                {track?.artwork ? (
+                                                {track?.artwork?._480x480 ? (
                                                     <Image
                                                         src={track.artwork._480x480}
                                                         alt="Track Artwork"
@@ -278,7 +288,7 @@ export const ArtistCard: FC<ArtistCardProps> = () => {
                                                 className="Track flex flex-row bg-[rgba(266,266,266,.1)] px-[13px] py-[14px] border-[1px] border-solid border-zinc-900/20 border-b-0 border-l-0 border-r-0 h-[89px] hover:bg-white/20 rounded-r-[3px] rounded-bl-[3px] text-[14px] items-center gap-2 justify-between pr-[55px] overflow-hidden backdrop-blur-[135px]"
                                             >
                                                 <div className="Track_Artwork">
-                                                    {track?.artwork ? (
+                                                    {track?.artwork?._480x480 ? (
                                                         <Image
                                                             src={track.artwork._480x480}
                                                             alt="Track Artwork"

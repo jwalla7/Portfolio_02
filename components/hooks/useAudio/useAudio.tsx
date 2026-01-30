@@ -22,6 +22,26 @@ import useSWR from "swr";
 // import { d } from "@tanstack/react-query-devtools/build/legacy/devtools-0Hr18ibL";
 // import { useQuery } from "@tanstack/react-query";
 
+type ImageSet = {
+    _150x150: string;
+    _480x480: string;
+    _1000x1000: string;
+};
+
+const EMPTY_IMAGE_SET: ImageSet = {
+    _150x150: "",
+    _480x480: "",
+    _1000x1000: "",
+};
+
+const normalizeImageSet = (img: Partial<ImageSet> | null | undefined): ImageSet => {
+    return {
+        _150x150: img?._150x150 ?? "",
+        _480x480: img?._480x480 ?? "",
+        _1000x1000: img?._1000x1000 ?? "",
+    };
+};
+
 export function useAudio(userId?: string): useAudioProps {
     const [track, setTrack] = useState<Track | Track[] | null>(null);
     const [audioStream, setAudioStream] = useState<string | undefined>(undefined);
@@ -42,16 +62,8 @@ export function useAudio(userId?: string): useAudioProps {
     loading;
     error;
     previousTrack;
-    const [currentArtwork, setCurrentArtwork] = useState({
-        _150x150: "",
-        _480x480: "",
-        _1000x1000: "",
-    });
-    const [currentUserProfilePicture, setCurrentUserProfilePicture] = useState({
-        _150x150: "",
-        _480x480: "",
-        _1000x1000: "",
-    });
+    const [currentArtwork, setCurrentArtwork] = useState<ImageSet>(() => ({ ...EMPTY_IMAGE_SET }));
+    const [currentUserProfilePicture, setCurrentUserProfilePicture] = useState<ImageSet>(() => ({ ...EMPTY_IMAGE_SET }));
     const [cacheUpdated, setCacheUpdated] = useState<boolean>(false);
     const debouncedSetCacheUpdated = useMemo(
         () => debounce(() => setCacheUpdated((prev) => !prev), 300), // Debounce by 300ms
@@ -170,8 +182,8 @@ export function useAudio(userId?: string): useAudioProps {
                     );
                     setTrack(initialTrack);
                     setAudioStream(initialTrack.streamLink);
-                    setCurrentArtwork(initialTrack.artwork ?? { _150x150: "", _480x480: "", _1000x1000: "" });
-                    setCurrentUserProfilePicture(initialTrack.user?.profilePicture ?? { _150x150: "", _480x480: "", _1000x1000: "" });
+                    setCurrentArtwork(normalizeImageSet(initialTrack.artwork));
+                    setCurrentUserProfilePicture(normalizeImageSet(initialTrack.user?.profilePicture));
                     audioCacheData.setCurrentNode(initialTrack.id);
                 } else {
                     console.warn("[useAudio] fetchInitialAudioData - No valid tracks returned from API.");
@@ -223,10 +235,8 @@ export function useAudio(userId?: string): useAudioProps {
                     if (firstUniqueTrack) {
                         setTrack(firstUniqueTrack);
                         setAudioStream(firstUniqueTrack.streamLink);
-                        setCurrentArtwork(firstUniqueTrack.artwork ?? { _150x150: "", _480x480: "", _1000x1000: "" });
-                        setCurrentUserProfilePicture(
-                            firstUniqueTrack.user?.profilePicture ?? { _150x150: "", _480x480: "", _1000x1000: "" },
-                        );
+                        setCurrentArtwork(normalizeImageSet(firstUniqueTrack.artwork));
+                        setCurrentUserProfilePicture(normalizeImageSet(firstUniqueTrack.user?.profilePicture));
                         audioCacheData.setCurrentNode(firstUniqueTrack.id);
                         debouncedSetCacheUpdated();
                         animationFrameId.current = requestAnimationFrame(audioPlaybackData);
@@ -240,10 +250,8 @@ export function useAudio(userId?: string): useAudioProps {
                     if (leastRecentlyUsedTrack) {
                         setTrack(leastRecentlyUsedTrack);
                         setAudioStream(leastRecentlyUsedTrack.streamLink); // Access the streamLink from the node's value
-                        setCurrentArtwork(leastRecentlyUsedTrack.artwork ?? { _150x150: "", _480x480: "", _1000x1000: "" });
-                        setCurrentUserProfilePicture(
-                            leastRecentlyUsedTrack.user?.profilePicture ?? { _150x150: "", _480x480: "", _1000x1000: "" },
-                        );
+                        setCurrentArtwork(normalizeImageSet(leastRecentlyUsedTrack.artwork));
+                        setCurrentUserProfilePicture(normalizeImageSet(leastRecentlyUsedTrack.user?.profilePicture));
                         audioCacheData.setCurrentNode(leastRecentlyUsedTrack.id); // Ensure you use `key` here
                         animationFrameId.current = requestAnimationFrame(audioPlaybackData);
                         debouncedSetCacheUpdated();
@@ -483,8 +491,8 @@ export function useAudio(userId?: string): useAudioProps {
                 // console.log("NEXT AUDIO => NEXT NODE: ", nextNode.id);
                 setTrack(nextNode);
                 setAudioStream(nextNode.streamLink);
-                setCurrentArtwork(nextNode.artwork ?? { _150x150: "", _480x480: "", _1000x1000: "" });
-                setCurrentUserProfilePicture(nextNode.user?.profilePicture ?? { _150x150: "", _480x480: "", _1000x1000: "" });
+                setCurrentArtwork(normalizeImageSet(nextNode.artwork));
+                setCurrentUserProfilePicture(normalizeImageSet(nextNode.user?.profilePicture));
                 // console.log("NEXT AUDIO => NEXT TRACK: ", nextNode.id);
                 // console.log("NEXT AUDIO => NEXT CACHE: ", audioCacheData);
                 if (audioRef.current) {
@@ -541,8 +549,8 @@ export function useAudio(userId?: string): useAudioProps {
             setResetToggle(true);
             setTrack(previousNode);
             setAudioStream(previousNode.streamLink);
-            setCurrentArtwork(previousNode.artwork ?? { _150x150: "", _480x480: "", _1000x1000: "" });
-            setCurrentUserProfilePicture(previousNode.user?.profilePicture ?? { _150x150: "", _480x480: "", _1000x1000: "" });
+            setCurrentArtwork(normalizeImageSet(previousNode.artwork));
+            setCurrentUserProfilePicture(normalizeImageSet(previousNode.user?.profilePicture));
             audioCacheData.setCurrentNode(previousNode.id); // Update the current node in the cache
 
             if (audioRef.current) {
@@ -562,8 +570,8 @@ export function useAudio(userId?: string): useAudioProps {
                 setResetToggle(true);
                 setTrack(lruTrack);
                 setAudioStream(lruTrack.streamLink);
-                setCurrentArtwork(lruTrack.artwork ?? { _150x150: "", _480x480: "", _1000x1000: "" });
-                setCurrentUserProfilePicture(lruTrack.user?.profilePicture ?? { _150x150: "", _480x480: "", _1000x1000: "" });
+                setCurrentArtwork(normalizeImageSet(lruTrack.artwork));
+                setCurrentUserProfilePicture(normalizeImageSet(lruTrack.user?.profilePicture));
                 audioCacheData.setCurrentNode(lruTrack.id); // Ensure to update the current node to the LRU node
 
                 if (audioRef.current) {

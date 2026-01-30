@@ -4,27 +4,32 @@ import { z } from "zod";
 // Create schema, all env variables from .env files need to be included to avoid errors.
 export const env = createEnv({
     server: {
-        AUDIUS_API_KEY: z.string().min(1),
-        AUDIUS_SECRET: z.string().min(1),
+        // Optional: only required if you hit the Audius routes/features.
+        AUDIUS_API_KEY: z.string().min(1).optional(),
+        AUDIUS_SECRET: z.string().min(1).optional(),
 
         NEXTAUTH_URL: z.string().url().optional(),
-        NEXTAUTH_SECRET: z.string().min(1),
+        // Optional: only required if you enable Auth.js/NextAuth in the deployed env.
+        NEXTAUTH_SECRET: z.string().min(1).optional(),
 
-        GITHUB_CLIENT_ID: z.string().min(1),
-        GITHUB_CLIENT_SECRET: z.string().min(1),
+        // Optional: only required if you enable the GitHub provider.
+        GITHUB_CLIENT_ID: z.string().min(1).optional(),
+        GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
 
-        GOOGLE_CLIENT_ID: z.string().min(1),
-        GOOGLE_CLIENT_SECRET: z.string().min(1),
+        // Optional: only required if you enable the Google provider.
+        GOOGLE_CLIENT_ID: z.string().min(1).optional(),
+        GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
 
-        // DATABASE_URL: z.string().min(1),
-        POSTGRES_URL: z.string().min(1),
-        POSTGRES_PRISMA_URL: z.string().min(1),
-        POSTGRES_URL_NO_SSL: z.string().min(1),
-        POSTGRES_URL_NON_POOLING: z.string().min(1),
-        POSTGRES_USER: z.string().min(1),
-        POSTGRES_HOST: z.string().min(1),
-        POSTGRES_PASSWORD: z.string().min(1),
-        POSTGRES_DATABASE: z.string().min(1),
+        // Optional: only required if you use Prisma/DB-backed features in that environment.
+        DATABASE_URL: z.string().min(1).optional(),
+        POSTGRES_URL: z.string().min(1).optional(),
+        POSTGRES_PRISMA_URL: z.string().min(1).optional(),
+        POSTGRES_URL_NO_SSL: z.string().min(1).optional(),
+        POSTGRES_URL_NON_POOLING: z.string().min(1).optional(),
+        POSTGRES_USER: z.string().min(1).optional(),
+        POSTGRES_HOST: z.string().min(1).optional(),
+        POSTGRES_PASSWORD: z.string().min(1).optional(),
+        POSTGRES_DATABASE: z.string().min(1).optional(),
     },
     client: {
         // NEXT_PUBLIC_URL: z.string().min(1),
@@ -42,7 +47,7 @@ export const env = createEnv({
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 
-        // DATABASE_URL: process.env.DATABASE_URL,
+        DATABASE_URL: process.env.DATABASE_URL,
         POSTGRES_URL: process.env.POSTGRES_URL,
         POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
         POSTGRES_URL_NO_SSL: process.env.POSTGRES_URL_NO_SSL,

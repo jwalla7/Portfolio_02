@@ -3,18 +3,34 @@ import { sdk } from "@audius/sdk";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
-    try {
-        // Check environment variables
-        const hasApiKey = !!env.AUDIUS_API_KEY;
-        const hasSecret = !!env.AUDIUS_SECRET;
+    const apiKey = env.AUDIUS_API_KEY;
+    const apiSecret = env.AUDIUS_SECRET;
 
+    // Check environment variables
+    const hasApiKey = !!apiKey;
+    const hasSecret = !!apiSecret;
+
+    try {
         console.log("Environment check:", { hasApiKey, hasSecret });
+
+        if (!apiKey || !apiSecret) {
+            return NextResponse.json(
+                {
+                    status: "error",
+                    envCheck: { hasApiKey, hasSecret },
+                    sdkInitialized: false,
+                    testCallSuccess: false,
+                    error: "Missing Audius API credentials (AUDIUS_API_KEY/AUDIUS_SECRET).",
+                },
+                { status: 500 },
+            );
+        }
 
         // Try to initialize SDK
         const audiusSdk = sdk({
             appName: "PortfolioV2",
-            apiKey: env.AUDIUS_API_KEY,
-            apiSecret: env.AUDIUS_SECRET,
+            apiKey,
+            apiSecret,
         });
 
         // Try a simple API call

@@ -12,19 +12,20 @@ const myCache = new Cache({ stdTTL: 100, checkperiod: 120 }); // TTL in seconds
 let audiusSdk: AudiusSdk | null = null;
 let sdkInitializationError: Error | null = null;
 
+const AUDIUS_API_KEY = env.AUDIUS_API_KEY;
+const AUDIUS_SECRET = env.AUDIUS_SECRET;
+
 // Check if environment variables are set
-if (!env.AUDIUS_API_KEY || !env.AUDIUS_SECRET) {
+if (!AUDIUS_API_KEY || !AUDIUS_SECRET) {
     console.error("CRITICAL: Missing Audius API credentials in environment variables.");
     sdkInitializationError = new Error("CRITICAL: Missing Audius API credentials.");
-}
-
-if (!sdkInitializationError) {
+} else {
     // Only attempt to initialize if keys are present
     try {
         audiusSdk = sdk({
             appName: "PortfolioV2",
-            apiKey: env.AUDIUS_API_KEY,
-            apiSecret: env.AUDIUS_SECRET,
+            apiKey: AUDIUS_API_KEY,
+            apiSecret: AUDIUS_SECRET,
         });
         console.log("Audius SDK initialized successfully.");
     } catch (e: any) {

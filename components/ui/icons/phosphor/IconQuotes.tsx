@@ -12,16 +12,13 @@ interface IconQuotes extends React.ComponentProps<"svg"> {
     active: boolean;
 }
 
-export const IconQuotes = memo<IconQuotes>(function IconQuotes(
-    /**
-     * Accessibility to className attribute
-     */
-    { className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { active, fill = active ? cn("text-black dark:text-black") : "currentColor", fillOpacity, ...props }: IconQuotes
-) {
+export const IconQuotes = memo<IconQuotes>(function IconQuotes({
+    active,
+    className,
+    fill = active ? "#000" : "currentColor",
+    fillOpacity,
+    ...props
+}: IconQuotes) {
     /**
      * Creates custom values for className attribute
      */
@@ -34,7 +31,7 @@ export const IconQuotes = memo<IconQuotes>(function IconQuotes(
             data-prefix="fab"
             data-icon="phosphorIcon-quotes"
             viewBox="0 0 256 256"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

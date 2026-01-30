@@ -6,27 +6,21 @@
  */
 interface IconSunProps extends React.ComponentProps<"svg"> {
     active: boolean;
+    setMotion: boolean;
 }
 
 import { memo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export const IconSun = memo<IconSunProps & { setMotion: boolean }>(function IconSun(
-    /**
-     * Accessibility to customized attributes setMotion, className, and to other SVG props
-     */
-    { setMotion, className },
-    /**
-     * Accessibility to other SVG props
-     */
-    {
-        active,
-        fill = active ? cn("text-neutral-50/[0.34] dark:text-neutral-50/[0.34] hover:text-white") : "currentColor",
-        fillOpacity,
-        ...props
-    }: IconSunProps
-) {
+export const IconSun = memo<IconSunProps>(function IconSun({
+    active,
+    setMotion,
+    className,
+    fill = "currentColor",
+    fillOpacity,
+    ...props
+}: IconSunProps) {
     /**
      * Creates custom values for className attribute
      */
@@ -44,7 +38,7 @@ export const IconSun = memo<IconSunProps & { setMotion: boolean }>(function Icon
                 data-icon="phosphorIcon-sun"
                 viewBox="0 0 256 256"
                 preserveAspectRatio="xMidYMid meet"
-                className={cn(variants, props.className)}
+                className={variants}
             >
                 <motion.path
                     /**
@@ -83,7 +77,7 @@ export const IconSun = memo<IconSunProps & { setMotion: boolean }>(function Icon
                 data-icon="phosphorIcon-sun"
                 viewBox="0 0 256 256"
                 preserveAspectRatio="xMidYMid meet"
-                className={cn(variants, props.className)}
+                className={variants}
                 {...props}
             >
                 <path

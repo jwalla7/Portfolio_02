@@ -7,22 +7,13 @@
 
 import { cn } from "@/lib/utils";
 import { IconDirection } from "@/types/icon";
-import { SVGProps, memo } from "react";
+import { memo } from "react";
 
 export const IconSpinnerGap = memo<
     React.ComponentProps<"svg"> & {
-        iconDirection: IconDirection;
+        iconDirection?: IconDirection;
     }
->(function IconSpinnerGap(
-    /**
-     * Sets default `iconDirection`value and enables accessibility to className attribute
-     */
-    { iconDirection = "0_rotation", className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
-) {
+>(function IconSpinnerGap({ iconDirection = "0_rotation", className, fill = "currentColor", fillOpacity, ...props }) {
     /**
      * Creates className attribute values
      */
@@ -34,7 +25,7 @@ export const IconSpinnerGap = memo<
             "rotate-180": iconDirection === "180_rotation",
             "-rotate-90": iconDirection === "-90_rotation",
         },
-        className
+        className,
     );
     return (
         <svg
@@ -44,7 +35,7 @@ export const IconSpinnerGap = memo<
             data-prefix="fab"
             data-icon="phosphorIcon-spinnerGap"
             viewBox="0 0 256 256"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

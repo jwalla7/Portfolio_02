@@ -4,14 +4,17 @@ import { BackgroundImage } from "@/components/ui/background/BackgroundImage/Back
 import { OverlayTrigger } from "@/components/ui/navigation/web/overlay/OverlayTrigger/OverlayTrigger";
 import { CardGroup } from "@/components/ui/cards/CardGroup/CardGroup";
 import { Card } from "@/components/ui/cards/Card/Card";
-import { SphereCamera } from "@/components/ui/three/cameras/SphereCamera/SphereCamera";
 import { PlaybackCard } from "@/components/ui/cards/MusicPlayer/PlaybackCard/PlaybackCard";
 import { AudioProvider } from "@/components/context/audio/AudioProvider";
 import { AudioVisualizerProvider } from "@/components/context/audio/AudioVisualizerProvider";
-import { Canvas } from "@react-three/fiber";
 import { ArtistCard } from "@/components/ui/cards/MusicPlayer/ArtistCard/ArtistCard";
 import { useMediaQuery } from "@/components/hooks/useMediaQuery/useMediaQuery";
 import { Navbar } from "@/components/ui/navigation/web-mobile/navbar/Navbar";
+import dynamic from "next/dynamic";
+
+const MusicSphereCanvas = dynamic(() => import("@/components/ui/three/canvas/MusicSphereCanvas").then((m) => m.MusicSphereCanvas), {
+    ssr: false,
+});
 
 export default function MusicPage() {
     const isMobileSM = useMediaQuery("sm");
@@ -23,9 +26,7 @@ export default function MusicPage() {
                 {isMobileSM ? (
                     <div suppressHydrationWarning className="relative min-w-full min-h-screen w-full h-screen overflow-hidden">
                         <div className="absolute mt-[10%] h-[calc(55vh)] bg-transparent w-full">
-                            <Canvas camera={{ fov: 75, position: [10, 0, 10], zoom: 1 }}>
-                                <SphereCamera />
-                            </Canvas>
+                            <MusicSphereCanvas camera={{ fov: 75, position: [10, 0, 10], zoom: 1 }} />
                         </div>
                         <BackgroundImage
                             imageLightThemeSrc={"/images/CNTRSTOP-lightmode.png"}
@@ -66,9 +67,7 @@ export default function MusicPage() {
                 ) : (
                     <div suppressHydrationWarning className="relative min-w-full min-h-screen h-screen overflow-hidden">
                         <div className="absolute mt-[10%] ml-[29%] w-[calc(34vw)] h-[calc(55vh)] bg-transparent">
-                            <Canvas camera={{ fov: 65, position: [10, 0, 10], zoom: -0.9 }}>
-                                <SphereCamera />
-                            </Canvas>
+                            <MusicSphereCanvas camera={{ fov: 65, position: [10, 0, 10], zoom: -0.9 }} />
                         </div>
                         <BackgroundImage
                             imageLightThemeSrc={"/images/CNTRSTOP-lightmode.png"}

@@ -4,22 +4,20 @@
  *
  * @see https://react.dev/reference/react/memo
  */
-interface IconEnvelopSimple extends React.ComponentProps<"svg"> {
-    active: boolean;
-}
 import { cn } from "@/lib/utils";
 import { memo } from "react";
 
-export const IconEnvelopSimple = memo<IconEnvelopSimple>(function IconEnvelopSimple(
-    /**
-     * Accessibility to custom attribute values
-     */
-    { className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { active, fill = active ? cn("text-black dark:text-black") : "currentColor", fillOpacity, ...props }: IconEnvelopSimple
-) {
+interface IconEnvelopSimple extends React.ComponentProps<"svg"> {
+    active: boolean;
+}
+
+export const IconEnvelopSimple = memo<IconEnvelopSimple>(function IconEnvelopSimple({
+    active,
+    className,
+    fill = active ? "#000" : "currentColor",
+    fillOpacity,
+    ...props
+}: IconEnvelopSimple) {
     /**
      * Creates custom values for className attribute
      */
@@ -32,7 +30,7 @@ export const IconEnvelopSimple = memo<IconEnvelopSimple>(function IconEnvelopSim
             data-prefix="fab"
             data-icon="phosphorIcon-envelopeSimple"
             viewBox="0 0 256 256"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

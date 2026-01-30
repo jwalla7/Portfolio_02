@@ -37,7 +37,13 @@ export const screens = {
 const tailwindConfig = {
     mode: "jit",
     darkMode: ["class"],
-    content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./components/ui/**/*.{ts,tsx}", "./content/**/*.{md,mdx}", "./mdx-components.tsx"],
+    content: [
+        "./app/**/*.{ts,tsx}",
+        "./components/**/*.{ts,tsx}",
+        "./components/ui/**/*.{ts,tsx}",
+        "./content/**/*.{md,mdx}",
+        "./mdx-components.tsx",
+    ],
 
     /**
      * The `theme` section is where you define color, palette, type scale,
@@ -139,8 +145,8 @@ const tailwindConfig = {
                     "50%": { "background-position": "100% 50%" },
                 },
                 reversePulse: {
-                    "0%, 100%": { "opacity": "0" },
-                    "50%": { "opacity": "1" },
+                    "0%, 100%": { opacity: "0" },
+                    "50%": { opacity: "1" },
                 },
             },
             animation: {
@@ -160,7 +166,6 @@ const tailwindConfig = {
     corePlugins: {
         preflight: false,
     },
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), require("@kamona/tailwindcss-perspective")],
 };
 

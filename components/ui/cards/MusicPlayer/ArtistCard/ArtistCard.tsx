@@ -107,30 +107,45 @@ export const ArtistCard: FC<ArtistCardProps> = () => {
         setLoadingTracksDisplayed(0); // Reset counter for how many tracks are shown.
         setLoadingTrackIndex(3); // Reset counter for skeleton items.
 
-        const startAnimationDelay = setTimeout(() => {
-            const animationInterval = setInterval(() => {
-                setLoadingTracksDisplayed((currentDisplayed) => {
-                    const nextDisplayed = currentDisplayed + 1;
-                    console.log("ArtistCard Animation Interval: setLoadingTracksDisplayed, nextDisplayed:", nextDisplayed);
-                    if (nextDisplayed <= allTracksMemoized.length) {
-                        // As soon as the first track (or subsequent ones) are to be displayed,
-                        // set loading to false to hide the main skeleton and show the animated list.
-                        setLoading(false);
-                        setLoadingTrackIndex((prevIndex) => Math.max(0, prevIndex - 1));
-                        return nextDisplayed;
-                    } else {
-                        clearInterval(animationInterval);
-                        setLoading(false); // Ensure loading is false when animation is complete.
-                        return currentDisplayed;
-                    }
-                });
+        // IMPORTANT: Always clean up BOTH timeout + interval.
+        // In React Strict Mode, effects can mount/unmount twice in dev; leaking an interval
+        // commonly causes "Can't perform a React state update on an unmounted component".
+        let cancelled = false;
+        let displayedCount = 0;
+        let animationInterval: ReturnType<typeof setInterval> | null = null;
+
+        const startAnimationDelay: ReturnType<typeof setTimeout> = setTimeout(() => {
+            if (cancelled) return;
+
+            animationInterval = setInterval(() => {
+                if (cancelled) return;
+
+                displayedCount = Math.min(displayedCount + 1, allTracksMemoized.length);
+                console.log("ArtistCard Animation Interval: displayedCount:", displayedCount);
+                setLoadingTracksDisplayed(displayedCount);
+
+                // Hide the skeleton once we start showing tracks.
+                if (displayedCount === 1) {
+                    setLoading(false);
+                }
+
+                // Stop when we've shown everything.
+                if (displayedCount >= allTracksMemoized.length && animationInterval) {
+                    clearInterval(animationInterval);
+                    animationInterval = null;
+                    setLoading(false);
+                }
             }, 175);
-            // Cleanup for the interval when the timeout callback itself is cleaned up or re-run.
-            return () => clearInterval(animationInterval);
         }, 1500); // Initial delay before the animation starts.
 
-        // Cleanup for the timeout.
-        return () => clearTimeout(startAnimationDelay);
+        return () => {
+            cancelled = true;
+            clearTimeout(startAnimationDelay);
+            if (animationInterval) {
+                clearInterval(animationInterval);
+                animationInterval = null;
+            }
+        };
 
         // The dependencies for this effect are allTracksMemoized and cacheUpdated.
         // The original eslint-disable might need adjustment or the underlying issues fixed.

@@ -1,8 +1,5 @@
 "use client";
 
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * @description
  * Provides an easy way to control audio playback.
@@ -42,26 +39,33 @@ const normalizeImageSet = (img: Partial<ImageSet> | null | undefined): ImageSet 
     };
 };
 
+type WebkitWindow = Window & { webkitAudioContext?: typeof AudioContext };
+
+const getErrorMessage = (err: unknown): string => {
+    if (err instanceof Error) return err.message;
+    if (typeof err === "string") return err;
+    try {
+        return JSON.stringify(err);
+    } catch {
+        return "Unknown error";
+    }
+};
+
 export function useAudio(userId?: string): useAudioProps {
-    const [track, setTrack] = useState<Track | Track[] | null>(null);
+    const [, setTrack] = useState<Track | Track[] | null>(null);
     const [audioStream, setAudioStream] = useState<string | undefined>(undefined);
     const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
     const [audioIsPlaying, setAudioIsPlaying] = useState<boolean>(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const audioContextRef = useRef<AudioContext | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const hasFetchedInitialData = useRef<boolean>(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [durationTimeString, setDurationTimeString] = useState<string>("0:00");
     const [progressPercentage, setProgressPercentage] = useState<number>(0);
     const animationFrameId = useRef<number | null>(null);
-    const [previousTrack, setPreviousTrack] = useState<LRUCacheProps | null>(null);
-    track;
-    loading;
-    error;
-    previousTrack;
+    const [, setPreviousTrack] = useState<LRUCacheProps | null>(null);
     const [currentArtwork, setCurrentArtwork] = useState<ImageSet>(() => ({ ...EMPTY_IMAGE_SET }));
     const [currentUserProfilePicture, setCurrentUserProfilePicture] = useState<ImageSet>(() => ({ ...EMPTY_IMAGE_SET }));
     const [cacheUpdated, setCacheUpdated] = useState<boolean>(false);
@@ -69,7 +73,7 @@ export function useAudio(userId?: string): useAudioProps {
         () => debounce(() => setCacheUpdated((prev) => !prev), 300), // Debounce by 300ms
         [],
     );
-    const { setResetToggle, resetToggle } = useAudioVisualizerContext();
+    const { setResetToggle } = useAudioVisualizerContext();
 
     const mediaElementSourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
 
@@ -82,7 +86,8 @@ export function useAudio(userId?: string): useAudioProps {
         if (audioRef.current) {
             setCurrentTime(audioRef.current.currentTime);
             setDuration(audioRef.current.duration || 0);
-            const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100 || 0;
+            const dur = audioRef.current.duration || 0;
+            const progress = dur > 0 ? (audioRef.current.currentTime / dur) * 100 : 0;
             setProgressPercentage(progress);
             animationFrameId.current = requestAnimationFrame(audioPlaybackData);
         }
@@ -191,8 +196,8 @@ export function useAudio(userId?: string): useAudioProps {
                 debouncedSetCacheUpdated();
                 console.log("INITIAL CURRENT NODE => : ", audioCacheData.getCurrentNodeValue());
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError(getErrorMessage(err));
         } finally {
             setLoading(false);
         }
@@ -260,9 +265,9 @@ export function useAudio(userId?: string): useAudioProps {
                         console.log("No tracks available to set as current.");
                     }
                 }
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Fetching new track data failed:", err);
-                setError(err.message);
+                setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
             }
@@ -291,7 +296,10 @@ export function useAudio(userId?: string): useAudioProps {
         try {
             // Create AudioContext if it doesn't exist (or was closed).
             if (!audioContextRef.current || audioContextRef.current.state === "closed") {
-                const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+                const AudioContextClass = window.AudioContext ?? (window as WebkitWindow).webkitAudioContext;
+                if (!AudioContextClass) {
+                    throw new Error("Web Audio API is not supported in this browser.");
+                }
                 audioContextRef.current = new AudioContextClass();
             }
 
@@ -340,22 +348,6 @@ export function useAudio(userId?: string): useAudioProps {
             console.error("[toggleAudio] audioRef.current is null!");
             return;
         }
-
-        const onAudioEnd = async () => {
-            console.log("[toggleAudio] onAudioEnd triggered");
-            setAudioIsPlaying(false);
-            if (audioContextRef.current) {
-                console.log("[toggleAudio] onAudioEnd suspending context. Current state:", audioContextRef.current.state);
-                await audioContextRef.current.suspend();
-                console.log("[toggleAudio] onAudioEnd context suspended. New state:", audioContextRef.current.state);
-            }
-            setResetToggle(true);
-            if (animationFrameId.current !== null) {
-                cancelAnimationFrame(animationFrameId.current);
-                animationFrameId.current = null;
-            }
-        };
-        audio.addEventListener("ended", onAudioEnd);
 
         (async () => {
             try {
@@ -431,11 +423,6 @@ export function useAudio(userId?: string): useAudioProps {
                 console.error("[toggleAudio] General error in async block:", e);
             }
         })();
-
-        return () => {
-            console.log("[toggleAudio] Cleaning up 'ended' event listener for src:", audio.src);
-            audio.removeEventListener("ended", onAudioEnd);
-        };
     }, [audioStream, createAudioContext, audioPlaybackData, audioCacheData, setResetToggle]);
 
     // const autoplayAudio = useCallback(
@@ -605,36 +592,30 @@ export function useAudio(userId?: string): useAudioProps {
         }
     }, []);
 
-    const stableUpdateAudioTime = useCallback(updateAudioTime, [updateAudioTime]);
-
     const seekAudioTime = useCallback(
         (time: number) => {
             if (!audioRef.current) return;
             audioRef.current.currentTime = time;
-            setProgressPercentage((time / duration) * 100);
+            setProgressPercentage(duration > 0 ? (time / duration) * 100 : 0);
             setCurrentTime(time);
             return time;
         },
         [duration],
     );
 
-    // Format audio time
-    const formatAudioTime = useCallback(
-        (time: number) => {
-            if (!time) return;
-            const minutes = Math.floor(time / 60);
-            const seconds = Math.floor(time % 60);
-            const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-            setDurationTimeString(`${minutes}:${formattedSeconds}`);
+    const formatTime = useCallback((timeSeconds: number): string => {
+        const safe = Number.isFinite(timeSeconds) && timeSeconds > 0 ? timeSeconds : 0;
+        const minutes = Math.floor(safe / 60);
+        const seconds = Math.floor(safe % 60);
+        const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+        return `${minutes}:${formattedSeconds}`;
+    }, []);
 
-            return durationTimeString;
-        },
-        [durationTimeString],
-    );
+    const durationTimeString = useMemo(() => formatTime(duration), [duration, formatTime]);
 
     const formattedRemainingTime = useMemo(() => {
-        return formatAudioTime(duration - currentTime);
-    }, [currentTime, duration, formatAudioTime]);
+        return formatTime(Math.max(0, duration - currentTime));
+    }, [currentTime, duration, formatTime]);
 
     const formattedDurationById = useCallback(
         (trackId: string) => {
@@ -657,25 +638,58 @@ export function useAudio(userId?: string): useAudioProps {
         fetchInitialAudioData();
     }, [userId, fetchInitialAudioData]);
 
-    // Fetch new track data
+    // Signal the visualizer to reset when the cache changes.
     useEffect(() => {
-        if (!audioRef || !audioStream || !audioContextRef) return;
         if (cacheUpdated) {
             setResetToggle(true);
         }
-    }, [audioRef, audioStream, fetchNewTrackData, resetToggle, cacheUpdated, setResetToggle]);
+    }, [cacheUpdated, setResetToggle]);
 
     // Update audio
     useEffect(() => {
         if (!audioStream) return;
-        audioRef.current = new Audio(audioStream);
-        audioRef.current.crossOrigin = "anonymous";
-        if (audioStream && audioRef.current) {
-            audioRef.current.src = audioStream;
-            updateAudioTime();
+        // Stop any in-flight RAF loop from the previous element.
+        if (animationFrameId.current !== null) {
+            cancelAnimationFrame(animationFrameId.current);
+            animationFrameId.current = null;
         }
-        console.log("NEW AUDIO STREAM: ", audioStream);
-    }, [audioStream, updateAudioTime]);
+
+        const audio = new Audio(audioStream);
+        audio.crossOrigin = "anonymous";
+        audioRef.current = audio;
+
+        // Keep UI state consistent when the source changes.
+        setAudioIsPlaying(false);
+
+        const onAudioEnd = async () => {
+            setAudioIsPlaying(false);
+            try {
+                if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+                    await audioContextRef.current.suspend();
+                }
+            } catch (e) {
+                console.error("[useAudio] Failed to suspend AudioContext on ended:", e);
+            }
+            setResetToggle(true);
+            if (animationFrameId.current !== null) {
+                cancelAnimationFrame(animationFrameId.current);
+                animationFrameId.current = null;
+            }
+        };
+
+        audio.addEventListener("ended", onAudioEnd);
+        updateAudioTime();
+
+        return () => {
+            audio.removeEventListener("ended", onAudioEnd);
+            try {
+                audio.pause();
+            } catch {
+                // ignore
+            }
+            audio.src = "";
+        };
+    }, [audioStream, updateAudioTime, setResetToggle]);
 
     // Update audio time
     useEffect(() => {
@@ -684,17 +698,17 @@ export function useAudio(userId?: string): useAudioProps {
         // Load metadata to get duration
         const onLoadMetadata = () => {
             setCurrentTime(audio.currentTime);
-            setDuration(audio.duration);
+            setDuration(audio.duration || 0);
         };
         // Update progress percentage
         const updateProgress = () => {
-            setProgressPercentage((audio.currentTime / audio.duration) * 100);
+            const dur = audio.duration || 0;
+            setProgressPercentage(dur > 0 ? (audio.currentTime / dur) * 100 : 0);
         };
         updateProgress();
         // Update current time periodically
         const getAudioTime = () => {
-            stableUpdateAudioTime();
-            // updateAudioTime();
+            updateAudioTime();
         };
         audio.addEventListener("loadedmetadata", onLoadMetadata);
         audio.addEventListener("timeupdate", getAudioTime);
@@ -705,7 +719,7 @@ export function useAudio(userId?: string): useAudioProps {
             audio.removeEventListener("timeupdate", getAudioTime);
             audio.removeEventListener("timeupdate", updateProgress);
         };
-    }, [updateAudioTime, stableUpdateAudioTime]);
+    }, [audioStream, updateAudioTime]);
 
     // Cleanup audio context
     useEffect(() => {
@@ -714,15 +728,6 @@ export function useAudio(userId?: string): useAudioProps {
             if (mediaElementSourceNodeRef.current) {
                 mediaElementSourceNodeRef.current.disconnect();
             }
-            if (audioContextRef.current) {
-                audioContextRef.current.close();
-            }
-        };
-    }, []);
-
-    // Cleanup
-    useEffect(() => {
-        return () => {
             if (audioContextRef.current) {
                 audioContextRef.current.close();
             }
@@ -747,6 +752,7 @@ export function useAudio(userId?: string): useAudioProps {
         currentUserProfilePicture,
         audioCacheData,
         audioContextRef,
+        error,
         cacheUpdated,
         debouncedSetCacheUpdated,
         setTrack,

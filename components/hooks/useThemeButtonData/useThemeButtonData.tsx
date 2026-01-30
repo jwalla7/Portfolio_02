@@ -20,7 +20,7 @@ import { themeToggleGroupStyles } from "@/components/ui/theme/toggle/ThemeToggle
 import { v4 as uuidv4 } from "uuid";
 
 export function useThemeButtonData() {
-    const themeButtonRef = useRef(null);
+    const themeButtonRef = useRef<HTMLButtonElement | null>(null);
     const { theme, resolvedTheme } = useTheme();
     const currentTheme = theme ?? resolvedTheme;
 
@@ -48,8 +48,8 @@ export function useThemeButtonData() {
                             : cn(
                                   themeToggleGroupStyles({
                                       iconsvg: "inactive",
-                                  })
-                              )
+                                  }),
+                              ),
                     )}
                 />
             ),
@@ -78,8 +78,8 @@ export function useThemeButtonData() {
                             : cn(
                                   themeToggleGroupStyles({
                                       iconsvg: "inactive",
-                                  })
-                              )
+                                  }),
+                              ),
                     )}
                 />
             ),
@@ -109,8 +109,8 @@ export function useThemeButtonData() {
                             : cn(
                                   themeToggleGroupStyles({
                                       iconsvg: "inactive",
-                                  })
-                              )
+                                  }),
+                              ),
                     )}
                 />
             ),

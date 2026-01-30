@@ -1,4 +1,4 @@
-import { Track } from "@audius/sdk/dist/api/Track";
+import { Track } from "@audius/sdk/dist/sdk/api/generated/default/models/Track";
 
 class TrackNode<T> {
     id: string;
@@ -12,27 +12,13 @@ class TrackNode<T> {
     }
 }
 
-export interface LRUCacheProps {
-    id: string;
-    track: Track;
-    streamLink: string;
-    artwork: {
-        _150x150: string;
-        _480x480: string;
-        _1000x1000: string;
-    };
-    user: {
-        profilePicture: {
-            _150x150: string;
-            _480x480: string;
-            _1000x1000: string;
-        };
-        name: string;
-    };
-    title: string;
-    duration: number;
-    formattedDuration: string;
-}
+/**
+ * What we cache for playback: the Audius Track object plus a resolved stream URL.
+ *
+ * NOTE: This intentionally matches the `/api/audius?stream=true` response shape
+ * so we can cache the API payload directly without re-wrapping it.
+ */
+export type LRUCacheProps = Track & { id: string; streamLink: string };
 export class LRUCache<T> {
     private capacity: number;
     private hash: Map<string, TrackNode<T>>;
@@ -70,6 +56,18 @@ export class LRUCache<T> {
             return node.value;
         }
         return null;
+    }
+
+    /**
+     * Non-mutating read (does NOT update recency order and does NOT update currentNode).
+     * Use this for rendering, formatting, and existence checks.
+     */
+    peek(id: string): T | null {
+        return this.hash.get(id)?.value ?? null;
+    }
+
+    has(id: string): boolean {
+        return this.hash.has(id);
     }
 
     public getCapacity(): number {
@@ -176,6 +174,20 @@ export class LRUCache<T> {
 
     getAllKeys(): string[] {
         return Array.from(this.hash.keys());
+    }
+
+    /**
+     * Keys ordered by current LRU recency (head -> tail).
+     * Prefer this over getAllKeys() when you want stable playback/list ordering.
+     */
+    getAllKeysByRecency(): string[] {
+        const keys: string[] = [];
+        let node = this.head;
+        while (node) {
+            keys.push(node.id);
+            node = node.next;
+        }
+        return keys;
     }
 
     getCurrentNodeValue(): T | null {

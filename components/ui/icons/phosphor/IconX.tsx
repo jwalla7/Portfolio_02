@@ -6,18 +6,14 @@
  */
 
 import { cn } from "@/lib/utils";
-import { SVGProps, memo } from "react";
+import { memo } from "react";
 
-export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX(
-    /**
-     * Accessibility to className attribute
-     */
-    { className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
-) {
+export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX({
+    className,
+    fill = "currentColor",
+    fillOpacity,
+    ...props
+}) {
     /**
      * Creates custom values for className attribute
      */
@@ -30,7 +26,7 @@ export const IconX = memo<React.JSX.IntrinsicElements["svg"]>(function IconX(
             data-prefix="fab"
             data-icon="phosphorIcon-X"
             viewBox="0 0 256 256"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

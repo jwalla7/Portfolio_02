@@ -12,28 +12,19 @@ import { cn } from "@/lib/utils";
 
 interface IconMoonProps extends React.ComponentProps<"svg"> {
     active: boolean;
+    setMotion: boolean;
+    iconDirection?: IconDirection;
 }
 
-export const IconMoon = memo<
-    IconMoonProps & {
-        setMotion: boolean;
-        iconDirection: IconDirection;
-    }
->(function IconMoon(
-    /**
-     *  Accessibility to attributes iconDirection, setMotion, and className
-     */
-    { iconDirection = "0_rotation", setMotion, className },
-    /**
-     * Accessibility to other SVG props
-     */
-    {
-        active,
-        fill = active ? cn("text-neutral-50/[0.34] dark:text-neutral-50/[0.34] hover:text-white") : "currentColor",
-        fillOpacity,
-        ...props
-    }: IconMoonProps
-) {
+export const IconMoon = memo<IconMoonProps>(function IconMoon({
+    active,
+    setMotion,
+    iconDirection = "0_rotation",
+    className,
+    fill = "currentColor",
+    fillOpacity,
+    ...props
+}: IconMoonProps) {
     /**
      * Creates custom values for className attribute
      */
@@ -47,7 +38,7 @@ export const IconMoon = memo<
             "-rotate-45": iconDirection === "-45_rotation",
             "-rotate-90": iconDirection === "-90_rotation",
         },
-        className
+        className,
     );
     /**
      *  Establishes which variation of `IconMoon` to render.
@@ -62,7 +53,7 @@ export const IconMoon = memo<
                 data-icon="phosphorIcon-moon"
                 viewBox="0 0 256 256"
                 preserveAspectRatio="xMidYMid meet"
-                className={cn(variants, props.className)}
+                className={variants}
             >
                 <motion.path
                     /**
@@ -100,7 +91,7 @@ export const IconMoon = memo<
                 data-prefix="fab"
                 data-icon="phosphorIcon-moon"
                 viewBox="0 0 256 256"
-                className={cn(variants, props.className)}
+                className={variants}
                 {...props}
             >
                 <path

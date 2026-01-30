@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { ArtistCardProps } from "./artistCardProps";
 import Image from "next/image";
 import { useAudioContext } from "@/components/context/audio/AudioContext";
@@ -7,7 +7,21 @@ import { cn } from "@/lib/utils";
 import { LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
 import { useMediaQuery } from "@/components/hooks/useMediaQuery/useMediaQuery";
 
-export const ArtistCard: FC<ArtistCardProps> = (() => {
+type TrackListItem = LRUCacheProps & { formattedDuration: string };
+
+const EMPTY_IMAGE_SET = { _150x150: "", _480x480: "", _1000x1000: "" };
+
+type ImageSet = typeof EMPTY_IMAGE_SET;
+
+const normalizeImageSet = (img: Partial<ImageSet> | null | undefined): ImageSet => {
+    return {
+        _150x150: img?._150x150 ?? "",
+        _480x480: img?._480x480 ?? "",
+        _1000x1000: img?._1000x1000 ?? "",
+    };
+};
+
+export const ArtistCard: FC<ArtistCardProps> = () => {
     const {
         currentArtwork,
         currentUserProfilePicture,
@@ -19,7 +33,7 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
         formattedDurationById,
     } = useAudioContext();
 
-    const [tracks, setTracks] = useState<LRUCacheProps[]>([]);
+    const [tracks, setTracks] = useState<TrackListItem[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingTracksDisplayed, setLoadingTracksDisplayed] = useState<number>(0);
     const [loadingTrackIndex, setLoadingTrackIndex] = useState<number>(3);
@@ -27,61 +41,119 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
 
     const handleTrackClick = useCallback(
         (trackId: string | undefined) => {
-            if (!trackId || !audioCacheData) return;
+            console.log("[ArtistCard] handleTrackClick called with trackId:", trackId);
+            if (!trackId || !audioCacheData) {
+                console.log("[ArtistCard] handleTrackClick returning early: no trackId or audioCacheData");
+                return;
+            }
 
             const trackData = audioCacheData?.get(trackId);
+            console.log("[ArtistCard] trackData found:", trackData);
 
             if (trackData) {
                 audioCacheData.setCurrentNode(trackData.id);
-                setTrack(trackData.track);
+                setTrack(trackData);
+                console.log("[ArtistCard] Calling setAudioStream with:", trackData?.streamLink);
                 setAudioStream(trackData.streamLink);
-                setCurrentArtwork(trackData.artwork ?? "");
+                setCurrentArtwork(normalizeImageSet(trackData.artwork));
+            } else {
+                console.log("[ArtistCard] handleTrackClick: no trackData found for id:", trackId);
             }
         },
-        [
-            audioCacheData,
-            setTrack,
-            setCurrentArtwork,
-            setAudioStream,
-        ]
+        [audioCacheData, setTrack, setCurrentArtwork, setAudioStream],
     );
 
-    useEffect(() => {
-        if (!audioCacheData) return;
-        console.log("CURRENT NODE FROM ARTIST: ", audioCacheData.getCurrentNodeValue());
-        setLoading(true);
-        const allTracks = audioCacheData
+    // Memoize the calculation of all tracks
+    const allTracksMemoized = useMemo<TrackListItem[]>(() => {
+        if (!audioCacheData) {
+            return [];
+        }
+        console.log("Recomputing allTracksMemoized due to audioCacheData or formattedDurationById change.");
+        return audioCacheData
             .getAllKeys()
-            .map((key) => {
-                setLoading(true);
-                const track = audioCacheData.get(key);
-                if (track) {
-                    return {
-                        ...track,
-                        formattedDuration: formattedDurationById(key),
-                    };
-                } else {
+            .map((key): TrackListItem | null => {
+                const track = audioCacheData.peek(key);
+                if (!track) {
                     return null;
                 }
+                return {
+                    ...track,
+                    formattedDuration: formattedDurationById(key),
+                };
             })
-            .filter((track) => track !== null);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setTracks(allTracks as any);
-        const loadingDelay = setTimeout(() => {
-            const interval = setInterval(() => {
-                if (loadingTracksDisplayed < allTracks.length) {
-                    setLoadingTrackIndex((prev) => prev - 1);
+            .filter(Boolean) as TrackListItem[];
+    }, [audioCacheData, formattedDurationById, cacheUpdated]);
+
+    useEffect(() => {
+        console.log("ArtistCard useEffect: allTracksMemoized:", allTracksMemoized);
+        console.log("ArtistCard useEffect: cacheUpdated:", cacheUpdated);
+
+        // This effect manages the display of tracks and the loading animation sequence.
+        // It depends on the memoized track list and cacheUpdated signal.
+
+        // Update the internal `tracks` state.
+        setTracks(allTracksMemoized);
+
+        console.log("ArtistCard useEffect: allTracksMemoized.length === 0 is", allTracksMemoized.length === 0);
+        if (allTracksMemoized.length === 0) {
+            setLoading(true); // If no tracks, ensure loading state is true (or handle empty state)
+            setLoadingTracksDisplayed(0);
+            setLoadingTrackIndex(3); // Reset skeleton display counter
+            return; // Exit if no tracks to animate
+        }
+
+        // Start/reset the loading animation sequence for the tracks
+        setLoading(true); // Set loading to true to show skeleton before animation starts.
+        setLoadingTracksDisplayed(0); // Reset counter for how many tracks are shown.
+        setLoadingTrackIndex(3); // Reset counter for skeleton items.
+
+        // IMPORTANT: Always clean up BOTH timeout + interval.
+        // In React Strict Mode, effects can mount/unmount twice in dev; leaking an interval
+        // commonly causes "Can't perform a React state update on an unmounted component".
+        let cancelled = false;
+        let displayedCount = 0;
+        let animationInterval: ReturnType<typeof setInterval> | null = null;
+
+        const startAnimationDelay: ReturnType<typeof setTimeout> = setTimeout(() => {
+            if (cancelled) return;
+
+            animationInterval = setInterval(() => {
+                if (cancelled) return;
+
+                displayedCount = Math.min(displayedCount + 1, allTracksMemoized.length);
+                console.log("ArtistCard Animation Interval: displayedCount:", displayedCount);
+                setLoadingTracksDisplayed(displayedCount);
+
+                // Hide the skeleton once we start showing tracks.
+                if (displayedCount === 1) {
                     setLoading(false);
-                    setLoadingTracksDisplayed((prev) => prev + 1);
-                } else {
-                    clearInterval(interval);
+                }
+
+                // Stop when we've shown everything.
+                if (displayedCount >= allTracksMemoized.length && animationInterval) {
+                    clearInterval(animationInterval);
+                    animationInterval = null;
+                    setLoading(false);
                 }
             }, 175);
-            return () => clearInterval(interval);
-        }, 1500);
-        return () => clearTimeout(loadingDelay);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [audioCacheData, cacheUpdated, formattedDurationById]);
+        }, 1500); // Initial delay before the animation starts.
+
+        return () => {
+            cancelled = true;
+            clearTimeout(startAnimationDelay);
+            if (animationInterval) {
+                clearInterval(animationInterval);
+                animationInterval = null;
+            }
+        };
+
+        // The dependencies for this effect are allTracksMemoized and cacheUpdated.
+        // The original eslint-disable might need adjustment or the underlying issues fixed.
+        // TODO: Re-evaluate exhaustive-deps for this useEffect. If `allTracksMemoized` correctly captures
+        // data changes from `audioCacheData` and `formattedDurationById`, and `cacheUpdated` is an
+        // independent trigger, these dependencies should be correct.
+        // The previous TODO about formattedDurationById is now handled by its inclusion in allTracksMemoized's deps.
+    }, [allTracksMemoized, cacheUpdated]);
 
     return (
         <>
@@ -104,11 +176,11 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                                     <div className="h-[20px] w-[89%] animate-pulse bg-slate-300/30 rounded-sm" />
                                                 </div>
                                             </div>
-                                        )
+                                        ),
                                 )}
                             </div>
                         ) : (
-                            [...tracks].reverse().map(
+                            tracks.map(
                                 (track, index) =>
                                     index < loadingTracksDisplayed && (
                                         <div
@@ -117,7 +189,7 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                             className="Track flex flex-row bg-[rgba(266,266,266,.1)] px-[13px] py-[14px] border-[1px] border-solid border-zinc-900/20 border-b-0 border-l-0 border-r-0 h-[89px] hover:bg-white/20 rounded-r-[3px] rounded-bl-[3px] rounded-tl-[3px] text-[14px] items-center gap-2 justify-between pr-[55px] overflow-hidden backdrop-blur-[135px] first:rounded-t-[6px] last:rounded-b-[6px]"
                                         >
                                             <div className="Track_Artwork">
-                                                {track?.artwork ? (
+                                                {track?.artwork?._480x480 ? (
                                                     <Image
                                                         src={track.artwork._480x480}
                                                         alt="Track Artwork"
@@ -142,7 +214,7 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                                     Name
                                                 </span>
                                                 <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
-                                                    {track?.user.name || "Unknown Artist Name"}
+                                                    {track?.user?.name || "Unknown Artist Name"}
                                                 </span>
                                             </div>
                                             <div className="Track_Artist flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
@@ -154,7 +226,7 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                                 </span>
                                             </div>
                                         </div>
-                                    )
+                                    ),
                             )
                         )}
                     </div>
@@ -176,9 +248,9 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                             ) : (
                                 <div className="relative w-[100%] min-h-[189px] rounded-t-[40.42px] backdrop-blur-[135px] bg-slate-300/60 animate-pulse"></div>
                             )}
-                        </div >
+                        </div>
                         <div className="Artwork_Blur_Layer w-[100%] h-[100%] absolute top-0 left-0 rounded-t-[42.20px] p-[.5px] m-[-1px] outline-none border-none z-10"></div>
-                    </div >
+                    </div>
 
                     <div className="Profile_Picture-Root w-[100%] h-auto flex justify-center items-center absolute top-[7rem] left-0 bg-transparent z-40">
                         <div className="Profile_Picture-Layer-1 relative min-w-[145.38px] min-h-[145.38px] rounded-[50%] bg-white shadow-md">
@@ -218,11 +290,11 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                                         <div className="h-[20px] w-[89%] animate-pulse bg-slate-300/30 rounded-sm" />
                                                     </div>
                                                 </div>
-                                            )
+                                            ),
                                     )}
                                 </div>
                             ) : (
-                                [...tracks].reverse().map(
+                                tracks.map(
                                     (track, index) =>
                                         index < loadingTracksDisplayed && (
                                             <div
@@ -231,7 +303,7 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                                 className="Track flex flex-row bg-[rgba(266,266,266,.1)] px-[13px] py-[14px] border-[1px] border-solid border-zinc-900/20 border-b-0 border-l-0 border-r-0 h-[89px] hover:bg-white/20 rounded-r-[3px] rounded-bl-[3px] text-[14px] items-center gap-2 justify-between pr-[55px] overflow-hidden backdrop-blur-[135px]"
                                             >
                                                 <div className="Track_Artwork">
-                                                    {track?.artwork ? (
+                                                    {track?.artwork?._480x480 ? (
                                                         <Image
                                                             src={track.artwork._480x480}
                                                             alt="Track Artwork"
@@ -244,7 +316,9 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                                     )}
                                                 </div>
                                                 <div className="Track_Name flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
-                                                    <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>
+                                                    <span
+                                                        className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}
+                                                    >
                                                         Title
                                                     </span>
                                                     <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
@@ -252,15 +326,19 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                                     </span>
                                                 </div>
                                                 <div className="Track_Artist flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
-                                                    <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>
+                                                    <span
+                                                        className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}
+                                                    >
                                                         Name
                                                     </span>
                                                     <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
-                                                        {track?.user.name || "Unknown Artist Name"}
+                                                        {track?.user?.name || "Unknown Artist Name"}
                                                     </span>
                                                 </div>
                                                 <div className="Track_Artist flex flex-col gap-3 min-h-[45px] min-w-[44px] items-start">
-                                                    <span className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}>
+                                                    <span
+                                                        className={cn(inter.className, "text-[#EBEBF5]/60 font-medium text-[14px]")}
+                                                    >
                                                         Time
                                                     </span>
                                                     <span className={cn(inter.className, "font-medium text-[12px] text-white")}>
@@ -268,13 +346,13 @@ export const ArtistCard: FC<ArtistCardProps> = (() => {
                                                     </span>
                                                 </div>
                                             </div>
-                                        )
+                                        ),
                                 )
                             )}
                         </div>
                     </div>
-                </div >)
-            }
+                </div>
+            )}
         </>
     );
-});
+};

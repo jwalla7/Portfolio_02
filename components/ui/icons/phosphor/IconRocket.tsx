@@ -5,7 +5,7 @@
  * @see https://react.dev/reference/react/memo
  */
 
-import { SVGProps, memo } from "react";
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -13,16 +13,7 @@ export const IconRocket = memo<
     React.JSX.IntrinsicElements["svg"] & {
         setMotion: boolean;
     }
->(function IconRocket(
-    /**
-     * Accessibility to customized attributes setMotion, className, and to other SVG props
-     */
-    { setMotion, className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
-) {
+>(function IconRocket({ setMotion, className, fill = "currentColor", fillOpacity, ...props }) {
     /**
      * Creates custom values for className attribute
      */
@@ -40,7 +31,7 @@ export const IconRocket = memo<
                 data-icon="phosphorIcon-rocket"
                 viewBox="0 0 256 256"
                 preserveAspectRatio="xMidYMid meet"
-                className={cn(variants, props.className)}
+                className={variants}
             >
                 <motion.path
                     /**
@@ -81,7 +72,7 @@ export const IconRocket = memo<
                 data-icon="phosphorIcon-rocket"
                 viewBox="0 0 256 256"
                 preserveAspectRatio="xMidYMid meet"
-                className={cn(variants, props.className)}
+                className={variants}
                 {...props}
             >
                 <path

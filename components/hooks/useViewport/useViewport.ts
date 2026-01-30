@@ -4,8 +4,8 @@ import { useLayoutEffect, useState } from "react";
 
 export const useViewport = () => {
     const [viewport, setViewport] = useState({
-        innerHeight: null || 0,
-        innerWidth: null || 0,
+        innerHeight: 0,
+        innerWidth: 0,
     });
 
     /**

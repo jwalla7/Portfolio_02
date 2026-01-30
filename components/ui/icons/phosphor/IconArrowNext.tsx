@@ -4,24 +4,15 @@
  * @see https://react.dev/reference/react/memo
  */
 
-import { SVGProps, memo } from "react";
+import { memo } from "react";
 import { IconDirection } from "@/types/icon";
 import { cn } from "@/lib/utils";
 
 export const IconArrowNext = memo<
     React.ComponentProps<"svg"> & {
-        iconDirection: IconDirection;
+        iconDirection?: IconDirection;
     }
->(function IconArrowNext(
-    /**
-     * Set default value for iconDirection
-     */
-    { iconDirection = "0_rotation", className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
-) {
+>(function IconArrowNext({ iconDirection = "0_rotation", className, fill = "currentColor", fillOpacity, ...props }) {
     /**
      * Create className attribute values
      */
@@ -33,7 +24,7 @@ export const IconArrowNext = memo<
             "rotate-180": iconDirection === "180_rotation",
             "-rotate-90": iconDirection === "-90_rotation",
         },
-        className
+        className,
     );
 
     return (
@@ -44,7 +35,7 @@ export const IconArrowNext = memo<
             data-prefix="fab"
             data-icon="phosphorIcon-arrowNext"
             viewBox="0 0 256 256"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

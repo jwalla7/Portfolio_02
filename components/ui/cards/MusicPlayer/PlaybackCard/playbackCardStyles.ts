@@ -6,7 +6,7 @@ export const playCardStyles = cva(
     {
         variants: {
             playbackRoot: {
-                root: `data=[__playback-root__]
+                root: `data-[__playback-root__]
                 w-[42.648vw]
                 h-[77.847vh]
                 flex-col
@@ -86,5 +86,5 @@ export const playCardStyles = cva(
             `,
             },
         },
-    }
+    },
 );

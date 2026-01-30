@@ -17,19 +17,24 @@ import Custom404 from "@/app/not-found";
 import { useMouseMove } from "@/components/hooks/useMouseMove/useMouseMove";
 import { useMediaQuery } from "@/components/hooks/useMediaQuery/useMediaQuery";
 
-export const BackgroundImage = ({ imageLightThemeSrc, imageDarkThemeSrc, enableMouseMove = false, traceChildren = false, className }: BackgroundImageProps) => {
+export const BackgroundImage = ({
+    imageLightThemeSrc,
+    imageDarkThemeSrc,
+    enableMouseMove = false,
+    traceChildren = false,
+    className,
+}: BackgroundImageProps) => {
     const { theme, resolvedTheme } = useTheme();
     const [_resolvedImage, setResolvedImage] = useState(false);
     const imageRef = useRef<HTMLDivElement>(null);
-    useMouseMove({ attributeRef: imageRef, traceChildren: traceChildren, enableMouseMove: enableMouseMove })
-    const isMobileSM = useMediaQuery('sm');
+    useMouseMove({ attributeRef: imageRef, traceChildren: traceChildren, enableMouseMove: enableMouseMove });
+    const isMobileSM = useMediaQuery("sm");
 
     useEffect(() => {
         if (resolvedTheme === "light" || resolvedTheme === "dark") {
             setResolvedImage(true);
         }
     }, [resolvedTheme]);
-
 
     if (!_resolvedImage) return <Suspense fallback={<Custom404 />} />;
     /**
@@ -47,7 +52,7 @@ export const BackgroundImage = ({ imageLightThemeSrc, imageDarkThemeSrc, enableM
                  *
                  * @see https://nextjs.org/docs/app/building-your-application/optimizing/images#usage
                  */
-                <div ref={imageRef}>
+                <div ref={imageRef} className="absolute w-full h-full">
                     <Image
                         /**
                          * alt
@@ -62,7 +67,7 @@ export const BackgroundImage = ({ imageLightThemeSrc, imageDarkThemeSrc, enableM
                          *
                          * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images
                          */
-                        priority
+                        priority={true}
                         /**
                          * src
                          *
@@ -90,40 +95,48 @@ export const BackgroundImage = ({ imageLightThemeSrc, imageDarkThemeSrc, enableM
                          * @see https://nextjs.org/docs/pages/building-your-application/optimizing/images#style
                          */
                         style={
-                            isMobileSM ? {
-                                objectFit: "cover",
-                                position: "absolute",
-                                zIndex: -1,
-                            } : {
-                                objectFit: "fill",
-                                position: "absolute",
-                                zIndex: -1,
-                            }
+                            isMobileSM
+                                ? {
+                                      objectFit: "cover",
+                                      position: "absolute",
+                                      zIndex: -1,
+                                  }
+                                : {
+                                      objectFit: "fill",
+                                      position: "absolute",
+                                      zIndex: -1,
+                                  }
                         }
-                    // className={enableMouseMove ? "hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]" : className}
+                        // className={enableMouseMove ? "hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]" : className}
                     />
                 </div>
             ) : (
                 <div ref={imageRef}>
                     <Image
                         alt="background image of galaxy during the night"
-                        priority
+                        priority={true}
                         src={imageDarkThemeSrc}
                         quality={100}
                         fill
                         sizes="(max-width: 1440px) 1440px, (max-width: 430px) 430px, 100vw"
                         style={
-                            isMobileSM ? {
-                                objectFit: "cover",
-                                position: "absolute",
-                                zIndex: -1,
-                            } : {
-                                objectFit: "fill",
-                                position: "absolute",
-                                zIndex: -1,
-                            }
+                            isMobileSM
+                                ? {
+                                      objectFit: "cover",
+                                      position: "absolute",
+                                      zIndex: -1,
+                                  }
+                                : {
+                                      objectFit: "fill",
+                                      position: "absolute",
+                                      zIndex: -1,
+                                  }
                         }
-                        className={enableMouseMove ? "hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]" : className}
+                        className={
+                            enableMouseMove
+                                ? "hover:bg-[radial-gradient(5vw_circle_at_var(--x-mouse)_var(--y-mouse),_var(--tw-gradient-stops))] from-[rgba(242,242,242,.13)]"
+                                : className
+                        }
                     />
                 </div>
             )}

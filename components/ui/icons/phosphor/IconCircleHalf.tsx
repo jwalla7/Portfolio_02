@@ -11,22 +11,16 @@ import { cn } from "@/lib/utils";
 
 interface IconCircleHalfProps extends React.ComponentProps<"svg"> {
     active: boolean;
+    setMotion: boolean;
 }
-export const IconCircleHalf = memo<IconCircleHalfProps & { setMotion: boolean }>(function IconCircleHalf(
-    /**
-     * Accessibility to customized attributes setMotion, and className
-     */
-    { className, setMotion },
-    /**
-     * Accessibility to other SVG props
-     */
-    {
-        active,
-        fill = active ? cn("text-neutral-50/[0.34] dark:text-neutral-50/[0.34] hover:text-white") : "currentColor",
-        fillOpacity,
-        ...props
-    }: IconCircleHalfProps
-) {
+export const IconCircleHalf = memo<IconCircleHalfProps>(function IconCircleHalf({
+    active,
+    setMotion,
+    className,
+    fill = "currentColor",
+    fillOpacity,
+    ...props
+}: IconCircleHalfProps) {
     /**
      * Creates custom values for className
      */
@@ -44,7 +38,7 @@ export const IconCircleHalf = memo<IconCircleHalfProps & { setMotion: boolean }>
                 data-icon="phosphorIcon-circle-half"
                 viewBox="0 0 256 256"
                 preserveAspectRatio="xMidYMid meet"
-                className={cn(variants, props.className)}
+                className={variants}
             >
                 <motion.path
                     /**
@@ -80,7 +74,7 @@ export const IconCircleHalf = memo<IconCircleHalfProps & { setMotion: boolean }>
                 data-prefix="fab"
                 data-icon="phosphorIcon-circle-half"
                 viewBox="0 0 256 256"
-                className={cn(variants, props.className)}
+                className={variants}
                 {...props}
             >
                 <path

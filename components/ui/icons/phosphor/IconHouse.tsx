@@ -12,16 +12,13 @@ interface IconHouseProps extends React.ComponentProps<"svg"> {
     active: boolean;
 }
 
-export const IconHouse = memo<IconHouseProps>(function IconHouse(
-    /**
-     * Accessibility to custom attribute values
-     */
-    { className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { active, fill = active ? cn("text-black dark:text-black") : "currentColor", fillOpacity, ...props }: IconHouseProps
-) {
+export const IconHouse = memo<IconHouseProps>(function IconHouse({
+    active,
+    className,
+    fill = active ? "#000" : "currentColor",
+    fillOpacity,
+    ...props
+}: IconHouseProps) {
     /**
      * Creates custom values for className attribute
      */
@@ -34,7 +31,7 @@ export const IconHouse = memo<IconHouseProps>(function IconHouse(
             data-prefix="fab"
             data-icon="phosphorIcon-house"
             viewBox="0 0 256 256"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

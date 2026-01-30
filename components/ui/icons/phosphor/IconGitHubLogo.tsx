@@ -6,18 +6,14 @@
  */
 
 import { cn } from "@/lib/utils";
-import { SVGProps, memo } from "react";
+import { memo } from "react";
 
-export const IconGitHubLogo = memo<React.ComponentProps<"svg">>(function IconGitHubLogo(
-    /**
-     * Accessibility to custom attribute values
-     */
-    { className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
-) {
+export const IconGitHubLogo = memo<React.ComponentProps<"svg">>(function IconGitHubLogo({
+    className,
+    fill = "currentColor",
+    fillOpacity,
+    ...props
+}) {
     /**
      * Creates custom values for className attribute
      */
@@ -31,7 +27,7 @@ export const IconGitHubLogo = memo<React.ComponentProps<"svg">>(function IconGit
             data-icon="phosphorIcon-github"
             role="img"
             viewBox="0 0 496 512"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

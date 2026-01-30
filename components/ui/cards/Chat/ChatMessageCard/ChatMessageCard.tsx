@@ -1,6 +1,9 @@
+"use client";
+
 import { FC } from "react";
 import { ChatMessageCardProps } from "./chatMessageCardProps";
 import { UserMessage } from "../ChatMessage/UserMessage";
+// import { signIn } from "next-auth/react";
 
 export const ChatMessageCard: FC<ChatMessageCardProps> = () => {
     return (
@@ -8,25 +11,20 @@ export const ChatMessageCard: FC<ChatMessageCardProps> = () => {
             className="flex flex-col justify-end items-center gap-6 pl-5 pr-[30px] pt-0 pb-0 rounded-bl-3xl rounded-br-3xl bg-white/[0.04] backdrop-blur-[100px] relative h-full"
             style={{ boxShadow: "0px 8px 6px 0 rgba(0, 0, 0, 0.05)" }}
         >
-            <div
-                className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[754px] gap-[3px] absolute top-[49px] left-0 pl-[24px]"
-            >
-                <div
-                    className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative gap-8"
-                >
+            <div className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[754px] gap-[3px] absolute top-[49px] left-0 pl-[24px]">
+                <div className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative gap-8">
                     <p className="flex-grow-0 flex-shrink-0 text-2xl font-bold text-center text-white mb-0">Posts</p>
                 </div>
                 <p className="flex-grow-0 flex-shrink-0 text-sm text-center text-white/[0.64] mt-0">304 Posts</p>
             </div>
             <div className="flex flex-col justify-start items-center self-stretch flex-grow gap-6 pt-[100px] pl-[100px] pr-[100px] overflow-auto scrollbar-none top-0 relative">
                 <div className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[555px] overflow-hidden gap-2.5 p-2.5">
+                    {/* <button onClick={() => signIn('github')}>Sign in here</button> */}
                     <UserMessage />
                 </div>
             </div>
             <div className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 gap-[18px] pt-0 pr-0 pb-[1.5rem] pl-0">
-                <div
-                    className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[555px] h-9 pl-2 pr-2.5 rounded-[10px] bg-black/[0.14]"
-                >
+                <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[555px] h-9 pl-2 pr-2.5 rounded-[10px] bg-black/[0.14]">
                     <div className="flex justify-start items-center flex-grow flex-shrink-0 relative gap-1">
                         <svg
                             width="17"
@@ -44,16 +42,17 @@ export const ChatMessageCard: FC<ChatMessageCardProps> = () => {
                             ></path>
                         </svg>
                         <div className="flex justify-start items-center flex-grow flex-shrink-0 relative gap-1.5">
-                            <input className="flex-grow flex-shrink-0 text-sm text-left text-white/[0.74] border-0 bg-transparent w-[100%] justify-self-start focus:ring-offset-0 focus:ring-0 focus:outline-none"
+                            <input
+                                className="flex-grow flex-shrink-0 text-sm text-left text-white/[0.74] border-0 bg-transparent w-[100%] justify-self-start focus:ring-offset-0 focus:ring-0 focus:outline-none"
                                 autoCorrect="on"
                                 spellCheck="true"
                                 type="text"
-                                placeholder="Post a message">
-                            </input>
+                                placeholder="Post a message"
+                            ></input>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

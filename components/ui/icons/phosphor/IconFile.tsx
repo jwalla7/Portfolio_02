@@ -12,16 +12,13 @@ interface IconFileProps extends React.ComponentProps<"svg"> {
     active: boolean;
 }
 
-export const IconFile = memo<IconFileProps>(function IconFile(
-    /**
-     * Accessibility to custom attribute values
-     */
-    { className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { active, fill = active ? cn("text-black dark:text-black") : "currentColor", fillOpacity, ...props }: IconFileProps
-) {
+export const IconFile = memo<IconFileProps>(function IconFile({
+    active,
+    className,
+    fill = active ? "#000" : "currentColor",
+    fillOpacity,
+    ...props
+}: IconFileProps) {
     /**
      * Creates custom values for className attribute
      */
@@ -34,7 +31,7 @@ export const IconFile = memo<IconFileProps>(function IconFile(
             data-prefix="fab"
             data-icon="phosphorIcon-file"
             viewBox="0 0 256 256"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

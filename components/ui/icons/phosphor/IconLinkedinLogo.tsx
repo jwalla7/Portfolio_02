@@ -6,18 +6,14 @@
  */
 
 import { cn } from "@/lib/utils";
-import { SVGProps, memo } from "react";
+import { memo } from "react";
 
-export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(function IconLinkedinLogo(
-    /**
-     * Accessibility to className attribute
-     */
-    { className },
-    /**
-     * Accessibility to other SVG props
-     */
-    { fill = "currentColor", fillOpacity, ...props }: SVGProps<SVGSVGElement>
-) {
+export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(function IconLinkedinLogo({
+    className,
+    fill = "currentColor",
+    fillOpacity,
+    ...props
+}) {
     /**
      * Creates custom values for className attribute
      */
@@ -30,7 +26,7 @@ export const IconLinkedinLogo = memo<React.ComponentProps<"svg">>(function IconL
             data-prefix="fab"
             data-icon="phosphorIcon-linkedinLogo"
             viewBox="0 0 256 256"
-            className={cn(variants, props.className)}
+            className={variants}
             {...props}
         >
             <path

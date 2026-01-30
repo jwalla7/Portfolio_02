@@ -1,5 +1,5 @@
 import { LRUCache, LRUCacheProps } from "@/components/cache/audio/audioLRUCache";
-import { Track } from "@audius/sdk/dist/api/Track";
+import { Track } from "@audius/sdk/dist/sdk/api/generated/default/models/Track";
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 export interface useAudioProps {
@@ -12,14 +12,14 @@ export interface useAudioProps {
     previousAudio?: Type_Audio["previousAudio"];
     toggleAudio: Type_Audio["toggleAudio"];
     seekAudioTime: Type_Audio["seekAudioTime"];
-    audioCacheData?: LRUCache<LRUCacheProps | null> | undefined;
+    audioCacheData?: LRUCache<LRUCacheProps> | undefined;
     cacheUpdated: boolean;
     debouncedSetCacheUpdated: () => void;
     currentTime: number;
     duration: number;
     durationTimeString: string;
     formattedRemainingTime: string | undefined;
-    formattedDurationById: (id: string) => void;
+    formattedDurationById: (id: string) => string;
     progressPercentage: number;
     setAudioStream: Dispatch<SetStateAction<string | undefined>>;
     setTrack: Dispatch<SetStateAction<Track | Track[] | null>>;
